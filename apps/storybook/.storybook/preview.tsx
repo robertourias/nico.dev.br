@@ -31,7 +31,7 @@ const withTheme: Decorator = (Story, context) => {
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-6">
+    <div className="bg-background text-foreground p-6">
       <Story />
     </div>
   );

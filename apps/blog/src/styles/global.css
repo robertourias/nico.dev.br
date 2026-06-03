@@ -1,48 +1,85 @@
 @import "tailwindcss";
+@import "@nico.dev/ui/tokens.css";
 
-@theme {
-  /* Cores */
-  --color-bg: #0a0a0f;
-  --color-bg-card: #111118;
-  --color-text-heading: #f0efe8;
-  --color-text-body: #888898;
-  --color-text-highlight: #e8c547;
-  --color-text-emphasis-purple: #7b61ff;
-  --color-border: #ffffff14;
+/* Garante geração das classes Tailwind usadas internamente pelos componentes de packages/ui */
+@source "../../../../packages/ui/src/**/*.tsx";
 
-  /* Fontes */
+/* ─── Blog palette — canonical vars ─────────────────────────────────────── */
+/* Override packages/ui defaults with blog's aesthetic */
+
+:root {
+  /* light mode (creme quente) */
+  --background: #f2ede4;
+  --foreground: #1c1824;
+  --surface: #e8e2d8;
+  --muted-foreground: #5c5670;
+  --border: rgba(28, 24, 36, 0.08);
+  --primary: #5c3fc4;
+  --primary-foreground: #ffffff;
+  --accent: #e4ddd4;
+  --accent-foreground: #1c1824;
+  --ring: #5c3fc4;
+  --font-sans: 'Instrument Sans', sans-serif;
+
+  /* blog-specific — no canonical equivalent */
+  --text-highlight: #9a7a1a;
+}
+
+.dark {
+  --background: #0a0a0f;
+  --foreground: #f0efe8;
+  --surface: #111118;
+  --muted-foreground: #888898;
+  --border: rgba(255, 255, 255, 0.08);
+  --primary: #7b61ff;
+  --primary-foreground: #ffffff;
+  --accent: #1a1a24;
+  --accent-foreground: #f0efe8;
+  --ring: #7b61ff;
+
+  --text-highlight: #e8c547;
+}
+
+/* ─── Blog-specific Tailwind tokens ─────────────────────────────────────── */
+/* Extends the canonical @theme inline from tokens.css */
+
+@theme inline {
+  /* highlight color → generates text-text-highlight, bg-text-highlight, etc. */
+  --color-text-highlight: var(--text-highlight);
+
+  /* backward-compat: old class names used in existing React components */
+  --color-bg: var(--background);
+  --color-bg-card: var(--surface);
+  --color-text-body: var(--muted-foreground);
+  --color-text-heading: var(--foreground);
+  --color-text-emphasis-purple: var(--primary);
+
+  /* blog-specific design tokens */
   --font-heading: 'Fraunces', serif;
   --font-body: 'Instrument Sans', sans-serif;
-
-  /* Radius */
   --radius-card: 16px;
 }
 
-/* Reset base */
+/* ─── Backward-compat CSS vars for .astro inline styles ─────────────────── */
+/* .astro pages use style="color: var(--color-text-body)" etc. — keep working */
+
+:root {
+  --color-bg: var(--background);
+  --color-bg-card: var(--surface);
+  --color-text-heading: var(--foreground);
+  --color-text-body: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-text-highlight: var(--text-highlight);
+  --color-text-emphasis-purple: var(--primary);
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-html {
-  color-scheme: dark;
-}
-
-html.light {
-  color-scheme: light;
-
-  /* Creme quente — não branco puro */
-  --color-bg: #f2ede4;
-  --color-bg-card: #e8e2d8;
-  --color-text-heading: #1c1824;
-  --color-text-body: #5c5670;
-  --color-text-highlight: #9a7a1a;
-  --color-text-emphasis-purple: #5c3fc4;
-  --color-border: #1c182414;
-}
-
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text-body);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }

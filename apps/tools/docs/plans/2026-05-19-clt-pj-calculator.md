@@ -37,7 +37,7 @@ Adicionar `@nico.dev/ui` como dependência workspace e migrar os tokens CSS para
 - [ ] `@nico.dev/ui: "workspace:*"` adicionado em `apps/tools/package.json > dependencies`
 - [ ] `apps/tools/globals.css` substituído por um que importa `@nico.dev/ui/globals.css` via `@import "@nico.dev/ui/globals.css"` (ou por equivalente inline com os mesmos tokens)
 - [ ] `@source` adicionado no globals.css para escanear `packages/ui/src/**/*.tsx` (necessário com Tailwind v4 que não segue symlinks de workspace — testar e ajustar o path relativo conforme estrutura)
-- [ ] `apps/tools/src/app/page.tsx` atualizado: classes `text-[var(--color-*)]` substituídas por tokens Tailwind do Pencil (`text-primary`, `text-foreground`, `text-muted-foreground`, `bg-surface`, `border-border`, etc.)
+- [ ] `apps/tools/src/app/page.tsx` atualizado: classes `text-[var(--color-X)]` (onde X é um token como primary, foreground) substituídas por tokens Tailwind do Pencil (`text-primary`, `text-foreground`, `text-muted-foreground`, `bg-surface`, `border-border`, etc.)
 - [ ] Home page renderiza sem erros visuais com os novos tokens
 - [ ] `pnpm dev --filter @nico.dev/tools` sobe sem erros de CSS
 

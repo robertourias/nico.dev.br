@@ -36,7 +36,7 @@ export function BlogHome({ posts, categories, featuredPosts }: BlogHomeProps) {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen max-w-3xl mx-auto">
       <CategorySidebar
         categories={categories}
         featuredPosts={featuredPosts}

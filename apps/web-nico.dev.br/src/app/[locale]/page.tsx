@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server"
-import Navbar from "../components/Navbar"
+import { SiteHeader } from "../components/SiteHeader"
 import Hero from "../components/Hero"
 import About from "../components/About"
 import Skills from "../components/Skills"
@@ -17,7 +17,7 @@ export default async function Home({
 
   return (
     <main>
-      <Navbar />
+      <SiteHeader />
       <Hero />
       <About />
       <Skills />

@@ -1,5 +1,17 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NEXT_PUBLIC_PORTFOLIO_URL",
+    "NEXT_PUBLIC_PORTFOLIO_LABEL",
+    "NEXT_PUBLIC_CHALLENGES_URL",
+    "NEXT_PUBLIC_CHALLENGES_LABEL",
+    "NEXT_PUBLIC_BLOG_URL",
+    "NEXT_PUBLIC_BLOG_LABEL",
+    "NEXT_PUBLIC_TOOLS_URL",
+    "NEXT_PUBLIC_TOOLS_LABEL",
+    "NEXT_PUBLIC_METRONOME_URL",
+    "NEXT_PUBLIC_METRONOME_LABEL"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

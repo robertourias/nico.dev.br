@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/Header.astro';
+import { BlogHeader } from '@/components/BlogHeader';
 import { PostSidebar } from '@/components/PostSidebar';
 import { readingTime } from '@/utils/readingTime';
 import { CATEGORY_LABELS } from '@/types/post';
@@ -55,7 +55,7 @@ const categoryLabel = CATEGORY_LABELS[category] ?? category;
 ---
 
 <BaseLayout {title} {description}>
-  <Header />
+  <BlogHeader client:load />
   <PostSidebar client:load {categories} {featuredPosts} />
 
   <div class="max-w-[70ch] mx-auto px-6 py-12 lg:py-16">

@@ -16,7 +16,7 @@ export const projects: Project[] = [
       "Aplicativo web completo para músicos e entusiastas de música, com funcionalidades de metrônomo e gerenciamento de batidas.",
     category: "Utilitários",
     image: "/projects/metronomo.png",
-    demoUrl: "https://metronomo.nico.dev.br/",
+    demoUrl: process.env.NEXT_PUBLIC_METRONOME_URL ?? "https://metronomo.nico.dev.br/",
     repoUrl: "https://github.com/robertourias/nico.dev.br/tree/main/apps/metronome",
   },
   {

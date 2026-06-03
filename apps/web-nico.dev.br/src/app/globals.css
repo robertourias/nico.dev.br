@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Garante geração das classes Tailwind usadas internamente pelos componentes de packages/ui */
+@source "../../../../packages/ui/src/**/*.tsx";
+
 :root {
   /* Light Theme - Default */
   --surface: #f8f5ff;
@@ -28,6 +31,14 @@
   --outline-variant: #a9a9d7;
 
   --background: #f8f5ff;
+
+  /* Canonical aliases — used by @nico.dev/ui Header components */
+  --foreground: var(--on-surface);
+  --muted-foreground: var(--on-surface-variant);
+  --border: var(--outline-variant);
+  --accent: var(--surface-container);
+  --accent-foreground: var(--on-surface);
+  --ring: var(--primary);
 }
 
 :root.dark {
@@ -57,6 +68,14 @@
   --outline-variant: #3b494c;
 
   --background: #0b1326;
+
+  /* Canonical aliases — used by @nico.dev/ui Header components */
+  --foreground: var(--on-surface);
+  --muted-foreground: var(--on-surface-variant);
+  --border: var(--outline-variant);
+  --accent: var(--surface-container);
+  --accent-foreground: var(--on-surface);
+  --ring: var(--primary);
 }
 
 @theme inline {
@@ -85,6 +104,14 @@
 
   --color-outline: var(--outline);
   --color-outline-variant: var(--outline-variant);
+
+  /* Canonical color utilities — used by @nico.dev/ui Header components */
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
 }
 
 html {

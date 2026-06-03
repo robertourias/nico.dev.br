@@ -1,119 +1,46 @@
 /* Design tokens — source of truth: docs/nico.dev.br.pen (Pencil)
    Import this file in apps AFTER @import "tailwindcss". */
 
-/* ─── Light ──────────────────────────────────────────────────────── */
+/* ─── Tailwind Theme (light defaults) ───────────────────────────── */
 
-:root {
-  --background: #F8F9FF;
-  --foreground: #252742;
+@theme {
+  --color-background: #F8F9FF;
+  --color-foreground: #252742;
 
-  --surface: #FFFFFF;
-  --surface-raised: #EDEDF8;
-  --surface-overlay: #E4E6F8;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #EDEDF8;
+  --color-surface-overlay: #E4E6F8;
 
-  --primary: #5546E8;
-  --primary-foreground: #FFFFFF;
-  --primary-hover: #4032D6;
+  --color-primary: #5546E8;
+  --color-primary-foreground: #FFFFFF;
+  --color-primary-hover: #4032D6;
 
-  --secondary: #8B5CF6;
-  --secondary-foreground: #FFFFFF;
+  --color-secondary: #8B5CF6;
+  --color-secondary-foreground: #FFFFFF;
 
-  --muted: #EDEDF8;
-  --muted-foreground: #5A5C82;
+  --color-muted: #EDEDF8;
+  --color-muted-foreground: #5A5C82;
 
-  --accent: #EBE9FF;
-  --accent-foreground: #4032D6;
+  --color-accent: #EBE9FF;
+  --color-accent-foreground: #4032D6;
 
-  --destructive: #CF2E2E;
-  --destructive-foreground: #FFFFFF;
+  --color-destructive: #CF2E2E;
+  --color-destructive-foreground: #FFFFFF;
 
-  --success: #0F7A41;
-  --success-foreground: #FFFFFF;
+  --color-success: #0F7A41;
+  --color-success-foreground: #FFFFFF;
 
-  --warning: #C96D00;
-  --warning-foreground: #FFFFFF;
+  --color-warning: #C96D00;
+  --color-warning-foreground: #FFFFFF;
 
-  --border: #DDE0F5;
-  --input: #DDE0F5;
-  --ring: #5546E8;
+  --color-border: #DDE0F5;
+  --color-input: #DDE0F5;
+  --color-ring: #5546E8;
 
-  --badge-destructive-bg: #FFE4E4;
-  --badge-success-bg: #DCFCE7;
-  --badge-warning-bg: #FEF3C7;
-}
+  --color-badge-destructive-bg: #FFE4E4;
+  --color-badge-success-bg: #DCFCE7;
+  --color-badge-warning-bg: #FEF3C7;
 
-/* ─── Dark ───────────────────────────────────────────────────────── */
-
-.dark {
-  --background: #12131F;
-  --foreground: #E6E7F4;
-
-  --surface: #191A2C;
-  --surface-raised: #21233A;
-  --surface-overlay: #2C2F52;
-
-  --primary: #6B5CF8;
-  --primary-foreground: #FFFFFF;
-  --primary-hover: #8073FF;
-
-  --secondary: #BF81FF;
-  --secondary-foreground: #12131F;
-
-  --muted: #191A2C;
-  --muted-foreground: #8A8CB0;
-
-  --accent: #1D2040;
-  --accent-foreground: #A89BFF;
-
-  --destructive: #FF4444;
-  --destructive-foreground: #FFFFFF;
-
-  --success: #1ED97A;
-  --success-foreground: #12131F;
-
-  --warning: #FFAA20;
-  --warning-foreground: #12131F;
-
-  --border: #262850;
-  --input: #262850;
-  --ring: #6B5CF8;
-
-  --badge-destructive-bg: #2D1215;
-  --badge-success-bg: #0E2418;
-  --badge-warning-bg: #261A00;
-}
-
-/* ─── Tailwind Theme Bridge ──────────────────────────────────────── */
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-surface: var(--surface);
-  --color-surface-raised: var(--surface-raised);
-  --color-surface-overlay: var(--surface-overlay);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary-hover: var(--primary-hover);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-success: var(--success);
-  --color-success-foreground: var(--success-foreground);
-  --color-warning: var(--warning);
-  --color-warning-foreground: var(--warning-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-badge-destructive-bg: var(--badge-destructive-bg);
-  --color-badge-success-bg: var(--badge-success-bg);
-  --color-badge-warning-bg: var(--badge-warning-bg);
-
-  /* Absolute values to avoid circular var() references */
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
@@ -122,6 +49,47 @@
 
   --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ─── Dark Mode Overrides ────────────────────────────────────────── */
+
+.dark {
+  --color-background: #12131F;
+  --color-foreground: #E6E7F4;
+
+  --color-surface: #191A2C;
+  --color-surface-raised: #21233A;
+  --color-surface-overlay: #2C2F52;
+
+  --color-primary: #6B5CF8;
+  --color-primary-foreground: #FFFFFF;
+  --color-primary-hover: #8073FF;
+
+  --color-secondary: #BF81FF;
+  --color-secondary-foreground: #12131F;
+
+  --color-muted: #191A2C;
+  --color-muted-foreground: #8A8CB0;
+
+  --color-accent: #1D2040;
+  --color-accent-foreground: #A89BFF;
+
+  --color-destructive: #FF4444;
+  --color-destructive-foreground: #FFFFFF;
+
+  --color-success: #1ED97A;
+  --color-success-foreground: #12131F;
+
+  --color-warning: #FFAA20;
+  --color-warning-foreground: #12131F;
+
+  --color-border: #262850;
+  --color-input: #262850;
+  --color-ring: #6B5CF8;
+
+  --color-badge-destructive-bg: #2D1215;
+  --color-badge-success-bg: #0E2418;
+  --color-badge-warning-bg: #261A00;
 }
 
 /* ─── Base Styles ────────────────────────────────────────────────── */
@@ -135,8 +103,8 @@ html {
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
   font-family: var(--font-sans);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -144,5 +112,5 @@ body {
 *,
 *::before,
 *::after {
-  border-color: var(--border);
+  border-color: var(--color-border);
 }

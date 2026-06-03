@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import { SiteHeader } from "@/components/site-header"
 import "./globals.css"
 
 const inter = Inter({
@@ -28,6 +29,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} min-h-full flex flex-col antialiased`}>
+        <SiteHeader />
         {children}
       </body>
     </html>

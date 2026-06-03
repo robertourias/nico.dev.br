@@ -1,18 +1,41 @@
-import Link from "next/link"
-import { ThemeToggle } from "./theme-toggle"
+"use client";
+
+import { Header, ThemeToggle, NavLink } from "@nico.dev/ui";
+
+const SITES = {
+  portfolio: {
+    url: process.env.NEXT_PUBLIC_PORTFOLIO_URL ?? 'https://nico.dev.br',
+    label: process.env.NEXT_PUBLIC_PORTFOLIO_LABEL ?? 'Portfólio',
+  },
+  challenges: {
+    url: process.env.NEXT_PUBLIC_CHALLENGES_URL ?? 'https://challenges.nico.dev.br',
+    label: process.env.NEXT_PUBLIC_CHALLENGES_LABEL ?? 'Challenges',
+  },
+  blog: {
+    url: process.env.NEXT_PUBLIC_BLOG_URL ?? 'https://blog.nico.dev.br',
+    label: process.env.NEXT_PUBLIC_BLOG_LABEL ?? 'Blog',
+  },
+};
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-        <Link
-          href="/"
-          className="text-sm font-semibold text-foreground transition-colors hover:text-primary"
-        >
-          tools.nico.dev
-        </Link>
+    <Header>
+      <Header.Menu>
+        <NavLink href={SITES.portfolio.url} external>{SITES.portfolio.label}</NavLink>
+        <NavLink href={SITES.challenges.url} external>{SITES.challenges.label}</NavLink>
+      </Header.Menu>
+
+      <Header.Logo href="/" label="Tools" />
+
+      <Header.Nav>
+        <NavLink href={SITES.portfolio.url} external>{SITES.portfolio.label}</NavLink>
+        <NavLink href={SITES.challenges.url} external>{SITES.challenges.label}</NavLink>
+        <NavLink href={SITES.blog.url} external>{SITES.blog.label}</NavLink>
+      </Header.Nav>
+
+      <Header.Actions>
         <ThemeToggle />
-      </div>
-    </header>
-  )
+      </Header.Actions>
+    </Header>
+  );
 }

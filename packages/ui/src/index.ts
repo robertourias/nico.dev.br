@@ -20,6 +20,9 @@ export * from "./components/item-card";
 // Components — Navigation
 export * from "./components/tabs";
 export * from "./components/toggle-filter";
+export * from "./components/nav-link";
+export * from "./components/header";
+export * from "./components/theme-toggle";
 
 // Components — Identity
 export * from "./components/avatar";

@@ -16,11 +16,11 @@ export default async function HomePage() {
   }
 
   return (
-    <main className="flex-1 px-6 py-12 max-w-5xl mx-auto w-full">
+    <main className="flex-1 px-6 py-12 max-w-5xl mx-auto w-full pt-26">
       <header className="mb-12">
         <p className="text-sm font-medium text-primary mb-2">challenges.nico.dev</p>
         <h1 className="text-4xl font-bold text-foreground mb-3">Desafios Técnicos</h1>
-        <p className="text-lg text-muted-foreground max-w-xl">
+        <p className="text-lg text-muted-foreground max-w-2xl">
           Testes técnicos reais entregues em processos seletivos. Código-fonte e deploy
           disponíveis para cada desafio.
         </p>
