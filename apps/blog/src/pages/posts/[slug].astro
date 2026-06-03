@@ -1,0 +1,266 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import { PostSidebar } from '@/components/PostSidebar';
+import { readingTime } from '@/utils/readingTime';
+import { CATEGORY_LABELS } from '@/types/post';
+import { ArrowLeft } from 'lucide-react';
+
+export async function getStaticPaths() {
+  const allEntries = await getCollection('posts', ({ data }) => data.status === 'published');
+
+  const categoryNames = Object.keys(CATEGORY_LABELS) as Array<keyof typeof CATEGORY_LABELS>;
+
+  return allEntries.map((post) => {
+    const categories = categoryNames
+      .map((name) => ({
+        name,
+        label: CATEGORY_LABELS[name],
+        count: allEntries.filter((e) => e.data.category === name).length,
+      }))
+      .filter((c) => c.count > 0);
+
+    const featuredPosts = allEntries
+      .filter((e) => e.data.featured)
+      .map((e) => ({ title: e.data.title, slug: e.data.slug }));
+
+    return {
+      params: { slug: post.data.slug },
+      props: { post, categories, featuredPosts },
+    };
+  });
+}
+
+const { post, categories, featuredPosts } = Astro.props;
+const { Content } = await render(post);
+
+const {
+  title,
+  description,
+  date,
+  category,
+  tags,
+  coverImage,
+} = post.data;
+
+const formattedDate = date.toLocaleDateString('pt-BR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+
+const readTime = readingTime(post.body ?? '');
+const categoryLabel = CATEGORY_LABELS[category] ?? category;
+---
+
+<BaseLayout {title} {description}>
+  <Header />
+  <PostSidebar client:load {categories} {featuredPosts} />
+
+  <div class="max-w-[70ch] mx-auto px-6 py-12 lg:py-16">
+    <!-- Voltar -->
+    <a
+      href="/"
+      class="inline-flex items-center gap-1.5 text-sm mb-8 transition-colors"
+      style="color: var(--color-text-body);"
+    >
+      <ArrowLeft size={14} />
+      Todos os posts
+    </a>
+
+    <!-- Cabeçalho do post -->
+    <header class="mb-8">
+      <!-- Categoria + tempo de leitura -->
+      <div class="flex items-center gap-3 mb-4">
+        <span
+          class="text-xs font-medium uppercase tracking-wide"
+          style="color: var(--color-text-highlight);"
+        >
+          {categoryLabel}
+        </span>
+        <span class="text-xs" style="color: var(--color-text-body);">
+          {readTime} min de leitura
+        </span>
+      </div>
+
+      <!-- Título -->
+      <h1
+        class="font-heading text-4xl font-semibold leading-tight mb-5"
+        style="color: var(--color-text-heading);"
+      >
+        {title}
+      </h1>
+
+      <!-- Descrição -->
+      <p
+        class="text-lg leading-relaxed mb-6"
+        style="color: var(--color-text-body);"
+      >
+        {description}
+      </p>
+
+      <!-- Data + tags -->
+      <div class="flex flex-wrap items-center gap-2">
+        <time
+          class="text-xs"
+          style="color: var(--color-text-body);"
+          datetime={date.toISOString()}
+        >
+          {formattedDate}
+        </time>
+
+        {tags.length > 0 && (
+          <>
+            <span style="color: var(--color-border);">·</span>
+            {tags.map((tag) => (
+              <span
+                class="text-xs px-2 py-0.5 rounded-full border"
+                style="color: var(--color-text-body); border-color: var(--color-border);"
+              >
+                #{tag}
+              </span>
+            ))}
+          </>
+        )}
+      </div>
+    </header>
+
+    <!-- Separador -->
+    <hr style="border-color: var(--color-border);" class="mb-8" />
+
+    <!-- Cover image -->
+    {coverImage && (
+      <figure class="mb-10 -mx-6 lg:mx-0">
+        <img
+          src={coverImage}
+          alt={`Imagem de capa: ${title}`}
+          class="w-full object-cover rounded-card"
+          style="aspect-ratio: 16/9; border: 1px solid var(--color-border);"
+          loading="eager"
+        />
+      </figure>
+    )}
+
+    <!-- Conteúdo do post -->
+    <article class="post-content">
+      <Content />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .post-content :global(h2) {
+    font-family: var(--font-heading);
+    color: var(--color-text-heading);
+    font-size: 1.625rem;
+    font-weight: 600;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1.25;
+  }
+
+  .post-content :global(h3) {
+    font-family: var(--font-heading);
+    color: var(--color-text-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 2.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .post-content :global(p) {
+    color: var(--color-text-body);
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    color: var(--color-text-body);
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.0625rem;
+    line-height: 1.85;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .post-content :global(code) {
+    font-size: 0.875em;
+    padding: 0.18em 0.45em;
+    border-radius: 4px;
+    background-color: var(--color-bg-card);
+    color: var(--color-text-highlight);
+    border: 1px solid var(--color-border);
+  }
+
+  .post-content :global(pre) {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin-bottom: 1.75rem;
+  }
+
+  .post-content :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-text-heading);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .post-content :global(blockquote) {
+    border-left: 3px solid var(--color-text-highlight);
+    padding: 0.25rem 1.25rem;
+    margin: 2rem 0;
+    color: var(--color-text-body);
+    font-style: italic;
+    font-size: 1.0625rem;
+  }
+
+  .post-content :global(a) {
+    color: var(--color-text-highlight);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+
+  .post-content :global(strong) {
+    color: var(--color-text-heading);
+    font-weight: 600;
+  }
+
+  .post-content :global(hr) {
+    border-color: var(--color-border);
+    margin: 2.5rem 0;
+  }
+
+  .post-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-body);
+  }
+
+  .post-content :global(th),
+  .post-content :global(td) {
+    padding: 0.5rem 12px;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .post-content :global(th) {
+    color: var(--color-text-heading);
+    font-weight: 600;
+    background-color: var(--color-bg-card);
+  }
+</style>

@@ -27,13 +27,23 @@ Site pessoal e portfólio profissional de Roberto Nicoletti. Organizado como um 
 | Feature | Description | Status |
 |---------|-------------|--------|
 | Portfólio de projetos | Galeria de trabalhos e projetos com descrição, tecnologias e links | Live |
-| Blog | Artigos técnicos autorais | Planejado |
+| Blog | Artigos técnicos autorais em tech, IA, organização e qualidade de vida — blog.nico.dev.br | Planejado |
 | Currículo | Página de CV com experiência, habilidades e histórico profissional | Em andamento |
 | Formulário de contato | Canal direto de contato para oportunidades e colaborações | Em andamento |
 | Subprojetos no monorepo | Aplicações independentes com deploy em subdomínios (ex: projeto.nico.dev) | Planejado |
 | tools.nico.dev | Coleção de ferramentas web para devs (clima, debugger IA, OCR, busca semântica, mercado financeiro, CLT vs PJ…) | Em andamento |
 | challenges.nico.dev | Portfólio visual de desafios técnicos por empresa — cards com preview, descrição, link de deploy e repositório. Dados carregados automaticamente do GitHub via API. | Planejado |
 | metronome.nico.dev | Metrônomo online com marcação de tempo audiovisual para músicos — controle de BPM, beats, timer, stress no primeiro tempo e subdivisões | Planejado |
+
+## Subproject: Blog (blog.nico.dev.br)
+
+> Contexto completo em `apps/blog/docs/context/product.md`
+
+- **Tagline:** Blog com posts da área tech, IA, organização e qualidade de vida
+- **Framework:** Astro (build estático)
+- **Estágio:** MVP
+
+---
 
 ## Subproject: Metronome (metronome.nico.dev)
 

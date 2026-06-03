@@ -10,7 +10,8 @@
     "skills": "Habilidades",
     "projects": "Proyectos",
     "contact": "Contacto",
-    "resume": "Currículum"
+    "resume": "Currículum",
+    "blog": "Blog"
   },
   "hero": {
     "imageAlt": "Foto de Roberto Nicoletti, desarrollador Fullstack",

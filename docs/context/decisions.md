@@ -124,3 +124,9 @@ module/
 - MSW para mock de rede — sem mocks manuais de fetch
 - Playwright para E2E
 - Cobertura mínima: componentes 70%, hooks e utils 90%, fluxos P0 (E2E) 100%
+
+---
+
+## Blog (blog.nico.dev.br)
+
+> Decisões completas em `apps/blog/docs/context/decisions.md`

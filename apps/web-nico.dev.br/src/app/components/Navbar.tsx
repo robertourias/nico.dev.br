@@ -30,6 +30,7 @@ export default function Navbar() {
     { href: "#projects", label: t("projects") },
     { href: "#contact", label: t("contact") },
     { href: `/${locale}/curriculo`, label: t("resume") },
+    { href: "https://blog.nico.dev.br/", label: t("blog"), external: true },
   ];
 
   // Âncoras fora da home precisam voltar para /{locale}/#section
@@ -70,6 +71,7 @@ export default function Navbar() {
               href={getHref(link.href)}
               onClick={(e) => handleNavClick(e, link.href)}
               className="text-on-surface-variant hover:text-on-surface transition-colors text-sm"
+              {...(link.external && { target: "_blank", rel: "noopener noreferrer" })}
             >
               {link.label}
             </a>
@@ -124,6 +126,7 @@ export default function Navbar() {
               className="block py-3 text-on-surface-variant hover:text-on-surface transition-colors"
               onClick={(e) => handleNavClick(e, link.href)}
               role="menuitem"
+              {...(link.external && { target: "_blank", rel: "noopener noreferrer" })}
             >
               {link.label}
             </a>
