@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "../lib/utils";
 
@@ -115,12 +116,13 @@ function HeaderMenu({
         <Menu size={18} />
       </button>
 
-      {/* Drawer + backdrop — fixed, fora do fluxo do header */}
-      {open && (
+      {/* Drawer + backdrop — renderizados via portal em document.body para
+          escapar do stacking context criado por backdrop-filter no header */}
+      {open && createPortal(
         <>
           {/* Backdrop */}
           <div
-            className="lg:hidden fixed inset-0 z-[998] bg-[rgba(0,0,0,0.4)]"
+            className="fixed inset-0 z-[998] bg-[rgba(0,0,0,0.4)]"
             aria-hidden="true"
             onClick={() => setOpen(false)}
           />
@@ -131,7 +133,7 @@ function HeaderMenu({
             aria-modal="true"
             aria-label="Menu de navegação"
             className={cn(
-              "lg:hidden fixed top-0 bottom-0 z-[999] w-64",
+              "fixed top-0 bottom-0 z-[999] w-64",
               "bg-background flex flex-col",
               side === "right"
                 ? "right-0 border-l border-border"
@@ -165,7 +167,8 @@ function HeaderMenu({
               {children}
             </nav>
           </div>
-        </>
+        </>,
+        document.body
       )}
     </>
   );
