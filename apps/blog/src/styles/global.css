@@ -83,3 +83,120 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
+
+/* ─── Post prose styles ──────────────────────────────────────────────────── */
+/* Usado em [slug].astro e ImmersivePostLayout.astro via classe .post-content */
+
+.post-content h2 {
+  font-family: var(--font-heading);
+  color: var(--color-text-heading);
+  font-size: 1.625rem;
+  font-weight: 600;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+.post-content h3 {
+  font-family: var(--font-heading);
+  color: var(--color-text-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.post-content p {
+  color: var(--color-text-body);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+}
+
+.post-content ul,
+.post-content ol {
+  color: var(--color-text-body);
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+
+.post-content li {
+  margin-bottom: 0.4rem;
+}
+
+.post-content code {
+  font-size: 0.875em;
+  padding: 0.18em 0.45em;
+  border-radius: 4px;
+  background-color: var(--color-bg-card);
+  color: var(--color-text-highlight);
+  border: 1px solid var(--color-border);
+}
+
+.post-content pre {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.75rem;
+}
+
+.post-content pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-text-heading);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.post-content blockquote {
+  border-left: 3px solid var(--color-text-highlight);
+  padding: 0.25rem 1.25rem;
+  margin: 2rem 0;
+  color: var(--color-text-body);
+  font-style: italic;
+  font-size: 1.0625rem;
+}
+
+.post-content a {
+  color: var(--color-text-highlight);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.post-content strong {
+  color: var(--color-text-heading);
+  font-weight: 600;
+}
+
+.post-content hr {
+  border-color: var(--color-border);
+  margin: 2.5rem 0;
+}
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-body);
+}
+
+.post-content th,
+.post-content td {
+  padding: 0.5rem 12px;
+  border: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.post-content th {
+  color: var(--color-text-heading);
+  font-weight: 600;
+  background-color: var(--color-bg-card);
+}

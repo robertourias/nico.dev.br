@@ -1,0 +1,30 @@
+---
+interface Props {
+  type?: 'info' | 'tip' | 'warning' | 'note';
+}
+
+const { type = 'info' } = Astro.props;
+
+const config = {
+  info:    { color: 'var(--primary)',              icon: 'ℹ',  label: 'Info' },
+  tip:     { color: 'var(--color-text-highlight)', icon: '💡', label: 'Dica' },
+  warning: { color: '#c96d00',                     icon: '⚠',  label: 'Atenção' },
+  note:    { color: 'var(--color-text-body)',       icon: '📝', label: 'Nota' },
+} as const;
+
+const { color, icon, label } = config[type];
+---
+
+<aside
+  class="my-6 rounded-lg p-4 pl-5"
+  style={`border-left: 3px solid ${color}; background-color: var(--color-bg-card);`}
+  role="note"
+  aria-label={label}
+>
+  <div class="flex items-start gap-3">
+    <span aria-hidden="true" class="text-lg leading-none mt-0.5 shrink-0">{icon}</span>
+    <div class="post-content min-w-0" style="font-size: 0.9375rem;">
+      <slot />
+    </div>
+  </div>
+</aside>

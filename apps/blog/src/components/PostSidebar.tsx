@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CategorySidebar } from '@/components/CategorySidebar';
+import { SITES } from '@/config';
 
 interface Category {
   name: string;
@@ -12,12 +13,18 @@ interface FeaturedPost {
   slug: string;
 }
 
+interface TagEntry {
+  tag: string;
+  count: number;
+}
+
 interface PostSidebarProps {
   categories: Category[];
   featuredPosts: FeaturedPost[];
+  allTags: TagEntry[];
 }
 
-export function PostSidebar({ categories, featuredPosts }: PostSidebarProps) {
+export function PostSidebar({ categories, featuredPosts, allTags }: PostSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -26,21 +33,35 @@ export function PostSidebar({ categories, featuredPosts }: PostSidebarProps) {
     return () => window.removeEventListener('toggle-sidebar', handler);
   }, []);
 
-  // Na página do post, selecionar categoria navega para a home
+  // Na página do post, seleção navega para a home com filtro aplicado
   function handleCategorySelect(category: string | null) {
     setIsOpen(false);
     window.location.href = category ? `/?categoria=${category}` : '/';
   }
 
+  function handleTagSelect(tag: string | null) {
+    setIsOpen(false);
+    window.location.href = tag ? `/?tag=${tag}` : '/';
+  }
+
+  const navLinks = [
+    { href: SITES.portfolio.url, label: SITES.portfolio.label },
+    { href: SITES.tools.url, label: SITES.tools.label },
+  ];
+
   return (
     <CategorySidebar
       categories={categories}
       featuredPosts={featuredPosts}
+      allTags={allTags}
       selectedCategory={null}
+      selectedTag={null}
       onCategorySelect={handleCategorySelect}
+      onTagSelect={handleTagSelect}
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
       drawerOnly
+      navLinks={navLinks}
     />
   );
 }

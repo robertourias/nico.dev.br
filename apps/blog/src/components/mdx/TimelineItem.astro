@@ -1,0 +1,34 @@
+---
+interface Props {
+  date: string;
+  title: string;
+}
+
+const { date, title } = Astro.props;
+---
+
+<div class="mb-8 relative">
+  <!-- Dot na linha vertical -->
+  <div
+    class="absolute rounded-full border-2"
+    style="width: 14px; height: 14px; left: -32px; top: 4px; background-color: var(--background); border-color: var(--primary);"
+  />
+
+  <span
+    class="text-xs font-mono block mb-1"
+    style="color: var(--color-text-highlight);"
+  >
+    {date}
+  </span>
+
+  <h3
+    class="font-heading font-semibold mb-2"
+    style="font-size: 1.125rem; color: var(--color-text-heading); margin-top: 0;"
+  >
+    {title}
+  </h3>
+
+  <div style="color: var(--color-text-body);">
+    <slot />
+  </div>
+</div>

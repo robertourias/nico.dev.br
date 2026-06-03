@@ -1,0 +1,112 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { BlogHeader } from '@/components/BlogHeader';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  category: string;
+  tags: string[];
+  heroImage?: string;
+  readTime: number;
+  categoryLabel: string;
+}
+
+const { title, description, date, category, tags, heroImage, readTime, categoryLabel } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('pt-BR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout {title} {description}>
+  <BlogHeader client:load />
+
+  <!-- Hero fullbleed -->
+  <div class="relative w-full overflow-hidden" style="height: clamp(50vh, 60vh, 70vh);">
+    {heroImage ? (
+      <img
+        src={heroImage}
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+      />
+    ) : (
+      <div class="absolute inset-0" style="background-color: var(--surface);" />
+    )}
+
+    <!-- Gradient overlay -->
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.25) 55%, transparent 100%);"
+    />
+
+    <!-- Texto sobre o hero -->
+    <div class="absolute bottom-0 left-0 right-0 px-6 pb-10">
+      <div class="max-w-[75ch] mx-auto">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-xs font-medium uppercase tracking-widest" style="color: rgba(255,255,255,0.75);">
+            {categoryLabel}
+          </span>
+          <span class="text-xs" style="color: rgba(255,255,255,0.55);">{readTime} min de leitura</span>
+          <span class="text-xs" style="color: rgba(255,255,255,0.45);">{formattedDate}</span>
+        </div>
+        <h1
+          class="font-heading font-semibold leading-tight"
+          style="font-size: clamp(2rem, 5vw, 3.75rem); color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,0.4);"
+        >
+          {title}
+        </h1>
+        <p class="mt-4 leading-relaxed" style="font-size: 1.125rem; color: rgba(255,255,255,0.8);">
+          {description}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo do post -->
+  <div class="max-w-[75ch] mx-auto px-6 py-12 lg:py-16">
+    <article class="post-content immersive-content">
+      <slot />
+    </article>
+
+    <!-- Footer -->
+    <footer class="mt-12 pt-8 border-t" style="border-color: var(--color-border);">
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-6">
+          {tags.map((tag) => (
+            <span
+              class="text-xs px-2 py-0.5 rounded-full border"
+              style="color: var(--color-text-body); border-color: var(--color-border);"
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+      <a
+        href="/"
+        class="inline-flex items-center gap-1.5 text-sm transition-colors"
+        style="color: var(--color-text-body);"
+      >
+        ← Todos os posts
+      </a>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Imersivo: corpo levemente maior */
+  .immersive-content p {
+    font-size: 1.125rem;
+  }
+
+  .immersive-content ul,
+  .immersive-content ol {
+    font-size: 1.125rem;
+  }
+</style>
