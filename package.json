@@ -13,5 +13,11 @@
   },
   "devDependencies": {
     "turbo": "latest"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss": ">=8.5.10",
+      "next>postcss": ">=8.5.10"
+    }
   }
 }
