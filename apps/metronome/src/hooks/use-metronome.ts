@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createClick } from "@/lib/audio-engine";
 import { getSubdivisionPattern, type SubdivisionId } from "@/lib/subdivisions";
+import { useWakeLock } from "./use-wake-lock";
 
 interface ScheduledNote {
   beat: number;
@@ -56,6 +57,8 @@ export function useMetronome(): MetronomeState & MetronomeActions {
   const nextNoteTimeRef = useRef(0);
   const currentBeatRef = useRef(0);
   const notesInQueue = useRef<ScheduledNote[]>([]);
+
+  useWakeLock(isPlaying);
 
   // ── Schedule one beat click + its subdivisions ───────────────────────────
   const scheduleNote = useCallback((beat: number, time: number) => {
