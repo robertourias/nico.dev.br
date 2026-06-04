@@ -10,6 +10,16 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 14,
+    title: "Tools — Ferramentas úteis",
+    description:
+      "Coleção de utilidades web para o dia a dia: calculadora de juros compostos, comparador CLT vs PJ e muito mais.",
+    category: "Utilitários",
+    image: "/projects/tools.png",
+    demoUrl: "https://tools.nico.dev.br/",
+    repoUrl: "https://github.com/robertourias/nico.dev.br/tree/main/apps/tools",
+  },
+  {
     id: 13,
     title: "Metrônomo",
     description:
