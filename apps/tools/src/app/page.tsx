@@ -66,11 +66,12 @@ const utilidades: Tool[] = [
 
 const ferramentasParaDevs: Tool[] = [
   {
-    slug: "code-debugger",
-    name: "Debugger de Código com IA",
-    description: "Analise e corrija bugs no seu código com ajuda do Claude.",
+    slug: "debug-code",
+    name: "Debug Code",
+    description: "Cole seu código e receba versão corrigida com apontamento de erros. Powered by Gemini.",
     icon: "🐛",
-    status: "coming-soon",
+    status: "active",
+    href: "/debug-code",
   },
   {
     slug: "text-analyzer",
@@ -136,6 +137,7 @@ function ToolGrid({ tools }: { tools: Tool[] }) {
               media={media}
               title={tool.name}
               description={tool.description}
+              className="bg-muted"
             />
             <div className="absolute top-3 right-3">
               <span className="text-xs font-medium px-2 py-1 rounded-full bg-muted text-muted-foreground">
