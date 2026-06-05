@@ -40,11 +40,10 @@ export class TimerWorkerManager {
 
   private initializeWorker(): void {
     try {
-      // Use relative path from src to public/workers
-      const workerUrl = new URL('../../public/workers/timer.worker.ts', import.meta.url);
-      this.worker = new Worker(workerUrl, {
-        type: 'module',
-      });
+      // Web Worker from public directory (public/workers/timer.worker.js)
+      // Use absolute path from site root
+      const worker = new Worker('/workers/timer.worker.js');
+      this.worker = worker;
 
       this.worker.onmessage = (event: MessageEvent<WorkerResponse>): void => {
         this.handleWorkerMessage(event.data);
