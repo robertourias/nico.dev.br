@@ -28,6 +28,14 @@ const utilidades: Tool[] = [
     href: "/clt-pj",
   },
   {
+    slug: "conversor-moedas",
+    name: "Conversor de Moedas",
+    description: "Converta moedas e criptomoedas em tempo real. Gráfico de 12 meses e cotações atualizadas.",
+    icon: "💱",
+    status: "active",
+    href: "/conversor-moedas",
+  },
+  {
     slug: "weather",
     name: "Dashboard de Clima",
     description: "Previsão do tempo por localidade com dados atualizados em tempo real.",
