@@ -12,6 +12,14 @@ type Tool = {
 
 const utilidades: Tool[] = [
   {
+    slug: "pomodoro",
+    name: "Pomodoro Timer",
+    description: "Gerencie ciclos de trabalho focado com timer customizável, rastreamento de tarefas e histórico de produtividade.",
+    icon: "🍅",
+    status: "active",
+    href: "/pomodoro",
+  },
+  {
     slug: "juros-compostos",
     name: "Juros Compostos",
     description: "Simule rendimento de investimentos com capital fixo ou aportes mensais. Gráfico e tabela detalhada.",
