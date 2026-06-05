@@ -3,15 +3,15 @@
 > Memória de trabalho persistente. Atualizado pelo `/checkpoint`, lido pelo `/retomar`.
 > Não edite manualmente durante uma sessão ativa — use `/checkpoint` antes de fechar.
 
-**Última atualização:** 2026-06-04
-**Resumo da última sessão:** Migração do debug-code para @google/genai com UI pt-BR e tratamento de quota; Wake Lock API no metrônomo para manter tela acesa durante treino ativo.
+**Última atualização:** 2026-06-05
+**Resumo da última sessão:** Nova ferramenta Mercado Financeiro (`/mercado`) com cotações de ações B3, FIIs, índices e cripto via Yahoo Finance + CoinGecko; ajustes visuais na listagem de ferramentas (altura dos cards, links em nova guia, remoção de itens obsoletos).
 
 ---
 
 ## Feature em andamento
 
-**Spec ativo:** `docs/specs/2026-06-04-wake-lock.md` (Status: approved — implementação concluída)
-**Plano ativo:** `docs/plans/2026-06-04-wake-lock.md`
+**Spec ativo:** `apps/tools/docs/specs/2026-06-05-mercado-financeiro.md` (Status: approved — implementação concluída)
+**Plano ativo:** `apps/tools/docs/plans/2026-06-05-mercado-financeiro.md`
 
 ---
 
@@ -19,46 +19,50 @@
 
 ### ✅ Concluídas
 
-**apps/tools — debug-code:**
-- Migração `@google/generative-ai` → `@google/genai@2.8.0` (novo SDK Google)
-- Split de erros: `GEMINI_API_ERROR` (502) vs `QUOTA_EXCEEDED` (429) — detecta 429/RESOURCE_EXHAUSTED
-- Mensagens de erro em pt-BR na UI
-- Badges de tipo de erro traduzidos (SyntaxError → "Erro de Sintaxe" etc.)
-- Prompt instrui IA a responder `message` e `fix` em pt-BR
-- Modelo: `gemini-2.5-flash-lite`
+**apps/tools — listagem (home):**
+- Removidos cards "Buscador Semântico" e "Classificador de Conteúdo" da listagem
+- `ItemCard` com `min-h-[3.75rem]` na descrição — altura padronizada para 3 linhas
+- Links ativos abrem em nova guia (`target="_blank" rel="noopener noreferrer"`)
 
-**apps/tools — página inicial:**
-- Cards "Em breve" com `bg-muted` para aparecerem mais escuros que cards ativos
-
-**apps/metronome — Wake Lock (spec 2026-06-04):**
-- TASK-01: `src/hooks/use-wake-lock.ts` — hook reutilizável com guard de concorrência (`isAcquiringRef`), reativação em `visibilitychange`, graceful fallback para browsers sem suporte, Strict Mode compatível
-- TASK-02: `useWakeLock(isPlaying)` em `use-metronome.ts` — interface pública inalterada
+**apps/tools — Mercado Financeiro (`/mercado`):**
+- Spec + plano gerados e aprovados
+- `src/lib/mercado/types.ts` — tipos compartilhados (`AssetQuote`, `HistoricalPoint`, etc.)
+- `src/lib/mercado/curated-assets.ts` — 13 ativos (B3 `.SA`, índices `^`, cripto)
+- `src/lib/mercado/yahoo-finance.ts` — cotações e histórico via Yahoo Finance com crumb auth
+- `src/lib/mercado/coingecko.ts` — cotações e histórico via CoinGecko (sem chave)
+- `src/app/mercado/page.tsx` — Server Component, `revalidate: 300`
+- `src/app/mercado/_actions/fetch-history.ts` — Server Action para histórico on-demand
+- `src/app/mercado/_components/asset-card.tsx` — card com preço BRL + variação colorida
+- `src/app/mercado/_components/asset-chart.tsx` — modal com gráfico recharts 30 dias
+- `src/app/mercado/_components/asset-grid.tsx` — busca client-side + grade agrupada por categoria
+- Card "Mercado Financeiro" na home ativado com `href: "/mercado"`
 
 ### 🔄 Em progresso
-- (nenhum — todas as tasks concluídas e commitadas)
+- (nenhum — todas as tasks concluídas)
 
 ### ⏭ Próximos passos
-1. Deploy do blog no Vercel (`blog.nico.dev.br`) e testar visual em produção
+1. Testar autenticação Yahoo Finance (crumb) em produção — verificar se `fc.yahoo.com` responde corretamente no Vercel
 2. Gerar nova GEMINI_API_KEY válida e atualizar `apps/tools/.env.local` (chave atual sem quota free tier)
-3. Implementar compartilhamento social (botões Share na página do post do blog)
-4. Implementar scroll suave para âncoras no `SiteHeader.tsx` do `web-nico.dev.br`
-5. Lighthouse audit no post imersivo (meta: ≥ 90 Performance)
+3. Deploy do blog no Vercel (`blog.nico.dev.br`) e testar visual em produção
+4. Implementar compartilhamento social (botões Share na página do post do blog)
+5. Lighthouse audit no post imersivo do blog (meta: ≥ 90 Performance)
 
 ---
 
 ## Decisões desta sessão
 
-- `@google/genai` usa API diferente: `GoogleGenAI` + `ai.models.generateContent({ model, contents })` + `response.text` (property, não método)
-- Erros da Gemini API agora split em dois códigos: `QUOTA_EXCEEDED` para 429/RESOURCE_EXHAUSTED, `GEMINI_API_ERROR` para demais falhas
-- `useWakeLock` aceita `isActive: boolean` — desacoplado de `isPlaying`, reutilizável em outros contextos
-- `isAcquiringRef` serializa chamadas assíncronas para evitar race condition em toggle rápido
-- Wake Lock integrado internamente em `useMetronome` sem exposição na interface pública
+- Yahoo Finance requer crumb auth server-side: fluxo `fc.yahoo.com` → `/v1/test/getcrumb` → requests com cookie+crumb
+- brapi.dev descartado: codificação `%5E` do `^BVSP` causava 400, e free tier problemático
+- Fonte escolhida: Yahoo Finance (B3 com `.SA` suffix) + CoinGecko (cripto) — ambos gratuitos sem cadastro
+- `recharts` já disponível em `apps/tools` — reutilizado para gráfico histórico
+- Modal de histórico implementado via overlay CSS puro (sem Radix Dialog, não disponível em `@nico.dev/ui`)
+- `brapi.ts` mantido como arquivo morto no repo — pode ser deletado manualmente
 
 ---
 
 ## Bloqueadores / Perguntas abertas
 
+- Crumb Yahoo Finance precisa de validação em ambiente de produção (IP de servidor pode ser bloqueado)
 - Chave GEMINI_API_KEY atual (`AQ.Ab8...`) tem `limit: 0` em todos os modelos free tier — precisa nova chave do AI Studio
 - Deploy do blog não configurado no Vercel ainda
-- Scroll suave para âncoras no `web-nico.dev.br` ainda pendente
-- `NEXT_PUBLIC_METRONOME_URL` adicionada às envs mas metrônomo não tem URL de produção definida ainda
+- `brapi.ts` em `apps/tools/src/lib/mercado/` — arquivo morto, remover
