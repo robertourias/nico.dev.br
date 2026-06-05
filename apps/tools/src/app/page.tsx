@@ -77,6 +77,14 @@ const ferramentasParaDevs: Tool[] = [
     status: "active",
     href: "/analisador-texto",
   },
+  {
+    slug: "gerador-paleta",
+    name: "Gerador de Paleta de Cores",
+    description: "Gere paletas harmônicas com IA. Escolha cor base, tipo de harmonia e quantidade. Exporte em CSS, SCSS, JSON ou Tailwind.",
+    icon: "🎨",
+    status: "active",
+    href: "/gerador-paleta",
+  },
 ]
 
 export default function HomePage() {
