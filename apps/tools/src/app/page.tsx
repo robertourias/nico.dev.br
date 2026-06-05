@@ -43,11 +43,12 @@ const utilidades: Tool[] = [
     status: "coming-soon",
   },
   {
-    slug: "document-reader",
+    slug: "leitor-documentos",
     name: "Leitor de Documentos",
-    description: "Extraia e interprete informações de documentos com OCR e IA.",
+    description: "Extraia resumo, tipo e pontos-chave de PDFs, imagens e textos. Faça perguntas livres sobre o conteúdo com IA.",
     icon: "📄",
-    status: "coming-soon",
+    status: "active",
+    href: "/leitor-documentos",
   },
   {
     slug: "semantic-search",
