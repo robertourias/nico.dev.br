@@ -53,9 +53,10 @@ const utilidades: Tool[] = [
   {
     slug: "market",
     name: "Mercado Financeiro",
-    description: "Cotações, variações e informações sobre ativos do mercado.",
+    description: "Cotações, variações e histórico de ações B3, FIIs, índices e criptomoedas.",
     icon: "💹",
-    status: "coming-soon",
+    status: "active",
+    href: "/mercado",
   },
 ]
 
