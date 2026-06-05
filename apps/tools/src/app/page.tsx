@@ -51,24 +51,10 @@ const utilidades: Tool[] = [
     href: "/leitor-documentos",
   },
   {
-    slug: "semantic-search",
-    name: "Buscador Semântico",
-    description: "Busca por significado, não apenas por palavras-chave.",
-    icon: "🔍",
-    status: "coming-soon",
-  },
-  {
     slug: "market",
     name: "Mercado Financeiro",
     description: "Cotações, variações e informações sobre ativos do mercado.",
     icon: "💹",
-    status: "coming-soon",
-  },
-  {
-    slug: "content-classifier",
-    name: "Classificador de Conteúdo",
-    description: "Categorize e organize conteúdo automaticamente com IA.",
-    icon: "🏷️",
     status: "coming-soon",
   },
 ]

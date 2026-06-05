@@ -33,7 +33,7 @@ export function ItemCard({ media, title, description, links, className }: ItemCa
         <h3 className="font-semibold text-foreground text-sm leading-snug">{title}</h3>
 
         {description && (
-          <p className="text-sm text-muted-foreground line-clamp-3">{description}</p>
+          <p className="text-sm text-muted-foreground line-clamp-3 min-h-[3.75rem]">{description}</p>
         )}
 
         {links && links.length > 0 && (
