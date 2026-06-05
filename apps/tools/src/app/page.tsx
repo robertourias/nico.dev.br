@@ -30,7 +30,7 @@ const utilidades: Tool[] = [
   {
     slug: "conversor-moedas",
     name: "Conversor de Moedas",
-    description: "Converta moedas e criptomoedas em tempo real. Gráfico de 12 meses e cotações atualizadas.",
+    description: "Converta entre moedas fiat e criptomoedas. Histórico de até 5 anos, cotações em BRL e USD e variação 24h.",
     icon: "💱",
     status: "active",
     href: "/conversor-moedas",
@@ -82,11 +82,12 @@ const ferramentasParaDevs: Tool[] = [
     href: "/debug-code",
   },
   {
-    slug: "text-analyzer",
+    slug: "analisador-texto",
     name: "Analisador de Texto",
-    description: "Sentimento, entidades, resumo e insights sobre qualquer texto.",
-    icon: "📊",
-    status: "coming-soon",
+    description: "Sentimento, entidades, resumo, insights e versão humanizada de qualquer texto. Powered by Gemini.",
+    icon: "🧠",
+    status: "active",
+    href: "/analisador-texto",
   },
 ]
 

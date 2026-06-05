@@ -10,7 +10,7 @@ import { fetchCoinGeckoMarketRates } from '@/lib/coingecko'
 export const metadata: Metadata = {
   title: 'Conversor de Moedas | tools.nico.dev',
   description:
-    'Converta moedas e criptomoedas em tempo real. Gráfico histórico de 12 meses e cotações atualizadas em BRL.',
+    'Converta entre moedas fiat e criptomoedas. Histórico de até 5 anos, cotações em BRL e USD e variação 24h',
 }
 
 export default async function CurrencyConverterPage() {
