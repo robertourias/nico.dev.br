@@ -87,7 +87,7 @@ export function AssetChart({ asset, onClose }: AssetChartProps) {
                 width={80}
               />
               <Tooltip
-                formatter={(value: number) => [BRL.format(value), "Preço"]}
+                formatter={(value) => [typeof value === "number" ? BRL.format(value) : String(value), "Preço"]}
                 contentStyle={{
                   borderRadius: "8px",
                   border: "1px solid #e5e7eb",
