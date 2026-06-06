@@ -10,11 +10,11 @@ export function TimerDisplay({ secondsRemaining, phase, isRunning }: TimerDispla
   const getPhaseColor = () => {
     switch (phase) {
       case 'work':
-        return 'bg-blue-500 dark:bg-blue-600';
+        return 'bg-primary';
       case 'shortBreak':
-        return 'bg-green-500 dark:bg-green-600';
+        return 'bg-emerald-600 dark:bg-emerald-700';
       case 'longBreak':
-        return 'bg-purple-500 dark:bg-purple-600';
+        return 'bg-violet-600 dark:bg-violet-700';
     }
   };
 

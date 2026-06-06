@@ -70,13 +70,23 @@ function pauseTimer() {
   state.isPaused = true;
   state.elapsedSeconds = calculateElapsed();
   state.pausedTime = Date.now();
+
+  if (intervalId !== null) {
+    clearInterval(intervalId);
+    intervalId = null;
+  }
 }
 
 function resumeTimer() {
   if (!state.isRunning || !state.isPaused) return;
 
   state.isPaused = false;
-  state.startTime = Date.now() - state.elapsedSeconds * 1000;
+  state.startTime = Date.now();
+
+  if (intervalId === null) {
+    intervalId = setInterval(tick, 100);
+    tick();
+  }
 }
 
 function stopTimer() {

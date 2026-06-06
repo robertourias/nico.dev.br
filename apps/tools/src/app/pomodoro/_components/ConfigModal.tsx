@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ITimerConfig } from '@/domain/pomodoro';
 import { X } from 'lucide-react';
+import { Button } from '@nico.dev/ui';
 
 interface ConfigModalProps {
   config: ITimerConfig;
@@ -71,7 +72,7 @@ export function ConfigModal({ config, isOpen, onSave, onCancel }: ConfigModalPro
               type="number"
               value={formData.workDuration}
               onChange={(e) => handleChange('workDuration', parseInt(e.target.value) || 0)}
-              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               min="1"
             />
             {errors.workDuration && <p className="text-xs text-red-500 mt-1">{errors.workDuration}</p>}
@@ -86,7 +87,7 @@ export function ConfigModal({ config, isOpen, onSave, onCancel }: ConfigModalPro
               type="number"
               value={formData.shortBreakDuration}
               onChange={(e) => handleChange('shortBreakDuration', parseInt(e.target.value) || 0)}
-              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               min="1"
             />
             {errors.shortBreakDuration && (
@@ -103,7 +104,7 @@ export function ConfigModal({ config, isOpen, onSave, onCancel }: ConfigModalPro
               type="number"
               value={formData.longBreakInterval}
               onChange={(e) => handleChange('longBreakInterval', parseInt(e.target.value) || 0)}
-              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               min="1"
             />
             {errors.longBreakInterval && (
@@ -120,7 +121,7 @@ export function ConfigModal({ config, isOpen, onSave, onCancel }: ConfigModalPro
               type="number"
               value={formData.longBreakDuration}
               onChange={(e) => handleChange('longBreakDuration', parseInt(e.target.value) || 0)}
-              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               min="1"
             />
             {errors.longBreakDuration && (
@@ -131,18 +132,12 @@ export function ConfigModal({ config, isOpen, onSave, onCancel }: ConfigModalPro
 
         {/* Buttons */}
         <div className="flex gap-3">
-          <button
-            onClick={onCancel}
-            className="flex-1 px-4 py-2 border border-border rounded-lg text-foreground hover:bg-accent transition-colors"
-          >
+          <Button onClick={onCancel} variant="outline" className="flex-1">
             Cancelar
-          </button>
-          <button
-            onClick={handleSave}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
+          </Button>
+          <Button onClick={handleSave} className="flex-1">
             Salvar
-          </button>
+          </Button>
         </div>
       </div>
     </div>

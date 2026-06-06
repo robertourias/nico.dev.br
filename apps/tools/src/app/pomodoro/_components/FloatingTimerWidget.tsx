@@ -22,11 +22,11 @@ export function FloatingTimerWidget({
   const getPhaseColor = () => {
     switch (phase) {
       case 'work':
-        return 'bg-blue-500';
+        return 'bg-primary';
       case 'shortBreak':
-        return 'bg-green-500';
+        return 'bg-emerald-600';
       case 'longBreak':
-        return 'bg-purple-500';
+        return 'bg-violet-600';
     }
   };
 

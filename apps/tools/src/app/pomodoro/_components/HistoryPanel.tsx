@@ -7,51 +7,56 @@ interface HistoryPanelProps {
   totalStats: {
     totalTasks: number;
     totalCycles: number;
-    totalTimeMinutes: number;
-    averageCyclesPerTask: number;
-    averageTimePerTask: number;
+    totalElapsedSeconds: number;
+    averageTimePerTaskMinutes: number;
   };
+}
+
+function formatElapsed(seconds: number): string {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  if (h > 0) {
+    return `${h}h ${String(m).padStart(2, '0')}m ${String(s).padStart(2, '0')}s`;
+  }
+  return `${m}m ${String(s).padStart(2, '0')}s`;
 }
 
 export function HistoryPanel({ records, totalStats }: HistoryPanelProps) {
   return (
-    <div className="flex flex-col gap-4 h-full">
+    <div className="flex flex-col gap-4">
       <h3 className="text-lg font-semibold text-foreground">Histórico & Estatísticas</h3>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 gap-2">
-        <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-950">
+      <div className="flex flex-col gap-2">
+        <div className="p-3 rounded-lg bg-surface-raised text-center">
           <p className="text-xs text-muted-foreground">Total de Tarefas</p>
-          <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalStats.totalTasks}</p>
+          <p className="text-2xl font-bold text-foreground">{totalStats.totalTasks}</p>
         </div>
-        <div className="p-3 rounded-lg bg-green-50 dark:bg-green-950">
+        <div className="p-3 rounded-lg bg-surface-raised text-center">
           <p className="text-xs text-muted-foreground">Total de Ciclos</p>
-          <p className="text-2xl font-bold text-green-600 dark:text-green-400">{totalStats.totalCycles}</p>
+          <p className="text-2xl font-bold text-foreground">{totalStats.totalCycles}</p>
         </div>
-        <div className="p-3 rounded-lg bg-purple-50 dark:bg-purple-950">
+        <div className="p-3 rounded-lg bg-surface-raised text-center">
           <p className="text-xs text-muted-foreground">Tempo Total</p>
-          <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-            {Math.floor(totalStats.totalTimeMinutes / 60)}h {totalStats.totalTimeMinutes % 60}m
+          <p className="text-lg font-bold text-foreground tabular-nums">
+            {formatElapsed(totalStats.totalElapsedSeconds)}
           </p>
         </div>
-        <div className="p-3 rounded-lg bg-orange-50 dark:bg-orange-950">
+        <div className="p-3 rounded-lg bg-surface-raised text-center">
           <p className="text-xs text-muted-foreground">Média por Tarefa</p>
-          <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-            {totalStats.averageTimePerTask}m
+          <p className="text-2xl font-bold text-foreground">
+            {totalStats.averageTimePerTaskMinutes}m
           </p>
         </div>
       </div>
 
       {/* Records Table */}
-      {records.length === 0 ? (
-        <div className="flex-1 flex items-center justify-center text-center">
-          <p className="text-sm text-muted-foreground">Nenhuma tarefa concluída ainda</p>
-        </div>
-      ) : (
-        <div className="flex-1 overflow-y-auto border rounded-lg">
+      {records.length > 0 && (
+        <div className="border border-border rounded-lg">
           <table className="w-full text-sm">
-            <thead className="sticky top-0 bg-accent">
-              <tr className="border-b">
+            <thead className="bg-accent">
+              <tr className="border-b border-border">
                 <th className="px-3 py-2 text-left font-semibold">Tarefa</th>
                 <th className="px-3 py-2 text-center font-semibold">Ciclos</th>
                 <th className="px-3 py-2 text-right font-semibold">Tempo</th>
@@ -59,7 +64,7 @@ export function HistoryPanel({ records, totalStats }: HistoryPanelProps) {
             </thead>
             <tbody>
               {records.map((record) => (
-                <tr key={`${record.taskId}-${record.completedAt}`} className="border-b hover:bg-muted">
+                <tr key={`${record.taskId}-${record.completedAt}`} className="border-b border-border hover:bg-muted">
                   <td className="px-3 py-2 text-foreground">
                     <div>
                       <p className="font-medium truncate">{record.taskTitle}</p>

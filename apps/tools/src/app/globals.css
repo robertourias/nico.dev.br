@@ -1,1 +1,24 @@
 @import "@nico.dev/ui/globals.css";
+
+/* Override: paleta menos vibrante, escopo apps/tools */
+@theme {
+  --color-primary: #5E69D8;
+  --color-primary-hover: #4D58C4;
+  --color-secondary: #7878C0;
+  --color-accent: #ECEDFA;
+  --color-accent-foreground: #4D58C4;
+  --color-border: #DFE2F0;
+  --color-input: #DFE2F0;
+  --color-ring: #5E69D8;
+  --color-muted: #ECEDFA;
+  --color-surface-raised: #ECEDFA;
+}
+
+.dark {
+  --color-primary: #6B77D4;
+  --color-primary-hover: #7C88DC;
+  --color-secondary: #8E92C4;
+  --color-border: #282E48;
+  --color-input: #282E48;
+  --color-ring: #6B77D4;
+}

@@ -19,13 +19,12 @@ export interface UsePomodoroSessionReturn {
 
 export function usePomodoroSession(config: Timer | null): UsePomodoroSessionReturn {
   const [session, setSession] = useState<IPomodoroSession | null>(null);
-  const [formattedTime, setFormattedTime] = useState('00:00');
   const [workerManager, setWorkerManager] = useState<TimerWorkerManager | null>(null);
 
   const adapter = new LocalStorageAdapter();
   const storage = new PomodoroStorage(adapter);
 
-  // Initialize worker and load session
+  // Initialize worker and restore session from storage
   useEffect(() => {
     const manager = new TimerWorkerManager();
     setWorkerManager(manager);
@@ -33,6 +32,10 @@ export function usePomodoroSession(config: Timer | null): UsePomodoroSessionRetu
     const savedSession = storage.loadSession();
     if (savedSession) {
       setSession(savedSession);
+      // If session was running when saved, restart worker from saved remaining time
+      if (!savedSession.paused) {
+        manager.start(savedSession.secondsRemaining);
+      }
     }
 
     return () => {
@@ -40,44 +43,38 @@ export function usePomodoroSession(config: Timer | null): UsePomodoroSessionRetu
     };
   }, []);
 
-  // Setup worker listener
+  // Register worker listener.
+  // Deps: only workerManager and config — NOT session — to avoid re-registering on every tick.
+  // Session is accessed via setSession(prev => ...) functional updates.
   useEffect(() => {
-    if (!workerManager || !session) return;
+    if (!workerManager) return;
 
     const listener = {
       onTick: (remaining: number) => {
-        setFormattedTime(formatSeconds(remaining));
-
-        const updated: IPomodoroSession = {
-          ...session,
-          secondsRemaining: remaining,
-        };
-
-        setSession(updated);
-        storage.saveSession(updated);
+        setSession(prev => {
+          if (!prev) return prev;
+          const updated = { ...prev, secondsRemaining: remaining };
+          storage.saveSession(updated);
+          return updated;
+        });
       },
 
       onComplete: () => {
         if (!config) return;
-
-        // Get current phase to determine next one
-        const phase = config.getPhase(session.cycleCount);
-        const nextPhase = config.getNextPhase(session.cycleCount);
-
-        const updated: IPomodoroSession = {
-          ...session,
-          cycleCount: session.cycleCount + 1,
-          currentPhase: nextPhase.type,
-          secondsRemaining: nextPhase.durationSeconds,
-          startedAt: Date.now(),
-          paused: false,
-        };
-
-        setSession(updated);
-        storage.saveSession(updated);
-
-        // Auto-start next phase
-        workerManager.start(nextPhase.durationSeconds);
+        setSession(prev => {
+          if (!prev) return prev;
+          const nextPhase = config.getNextPhase(prev.cycleCount);
+          const updated: IPomodoroSession = {
+            ...prev,
+            cycleCount: prev.cycleCount + 1,
+            currentPhase: nextPhase.type,
+            secondsRemaining: nextPhase.durationSeconds,
+            startedAt: Date.now(),
+            paused: true,
+          };
+          storage.saveSession(updated);
+          return updated;
+        });
       },
     };
 
@@ -86,7 +83,7 @@ export function usePomodoroSession(config: Timer | null): UsePomodoroSessionRetu
     return () => {
       workerManager.removeListener(listener);
     };
-  }, [workerManager, session, config]);
+  }, [workerManager, config]);
 
   const startCycle = useCallback(
     (taskId: string | null) => {
@@ -104,40 +101,30 @@ export function usePomodoroSession(config: Timer | null): UsePomodoroSessionRetu
 
       setSession(newSession);
       storage.saveSession(newSession);
-
       workerManager.start(phase.durationSeconds);
-      setFormattedTime(formatSeconds(phase.durationSeconds));
     },
     [config, workerManager]
   );
 
   const pause = useCallback(() => {
     if (!session || !workerManager) return;
-
-    setSession({
-      ...session,
-      paused: true,
-    });
-
     workerManager.pause();
+    setSession(prev => prev ? { ...prev, paused: true } : prev);
   }, [session, workerManager]);
 
+  // resume() always starts the worker from session.secondsRemaining — the persisted
+  // remaining time. This works for normal pause/resume, page-reload restore, and
+  // phase-transition (after onComplete, secondsRemaining = nextPhase.durationSeconds).
   const resume = useCallback(() => {
     if (!session || !workerManager) return;
-
-    setSession({
-      ...session,
-      paused: false,
-    });
-
-    workerManager.resume();
+    workerManager.start(session.secondsRemaining);
+    setSession(prev => prev ? { ...prev, paused: false } : prev);
   }, [session, workerManager]);
 
   const skipToNextPhase = useCallback(() => {
     if (!config || !session || !workerManager) return;
 
     const nextPhase = config.getNextPhase(session.cycleCount);
-
     const updated: IPomodoroSession = {
       ...session,
       cycleCount: session.cycleCount + 1,
@@ -149,24 +136,20 @@ export function usePomodoroSession(config: Timer | null): UsePomodoroSessionRetu
 
     setSession(updated);
     storage.saveSession(updated);
-
     workerManager.stop();
     workerManager.start(nextPhase.durationSeconds);
   }, [config, session, workerManager]);
 
   const stopSession = useCallback(() => {
     if (!workerManager) return;
-
     workerManager.stop();
     setSession(null);
     storage.clearSession();
-    setFormattedTime('00:00');
   }, [workerManager]);
 
   const completeTask = useCallback(
-    (actualCycles: number) => {
+    (_actualCycles: number) => {
       // Task completion is handled by the parent component
-      // This is mainly for recording in history
     },
     []
   );
@@ -174,7 +157,7 @@ export function usePomodoroSession(config: Timer | null): UsePomodoroSessionRetu
   return {
     session,
     isRunning: session ? !session.paused : false,
-    formattedTime,
+    formattedTime: session ? formatSeconds(session.secondsRemaining) : '00:00',
     startCycle,
     pause,
     resume,

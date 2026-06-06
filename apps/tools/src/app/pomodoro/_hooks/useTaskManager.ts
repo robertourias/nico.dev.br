@@ -11,6 +11,7 @@ export interface UseTaskManagerReturn {
   updateTask: (taskId: string, updates: Partial<ITask>) => void;
   deleteTask: (taskId: string) => void;
   completeTask: (taskId: string) => void;
+  clearCompletedTasks: () => void;
   getTaskById: (taskId: string) => Task | undefined;
 }
 
@@ -103,6 +104,19 @@ export function useTaskManager(): UseTaskManagerReturn {
     [tasks, updateTask]
   );
 
+  const clearCompletedTasks = useCallback(() => {
+    try {
+      setTasks((prev) => {
+        const updated = prev.filter((task) => task.status !== 'completed');
+        storage.saveTasks(updated);
+        return updated;
+      });
+    } catch (error) {
+      console.error('Failed to clear completed tasks:', error);
+      throw error;
+    }
+  }, []);
+
   const getTaskById = useCallback(
     (taskId: string) => {
       return tasks.find((t) => t.id === taskId);
@@ -117,6 +131,7 @@ export function useTaskManager(): UseTaskManagerReturn {
     updateTask,
     deleteTask,
     completeTask,
+    clearCompletedTasks,
     getTaskById,
   };
 }

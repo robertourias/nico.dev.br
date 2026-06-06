@@ -114,8 +114,8 @@ export class PomodoroStorage {
   // History
   addHistoryRecord(record: ICompletedTaskRecord): void {
     const history = this.loadHistory();
-    history.addRecord(record);
-    this.adapter.save(STORAGE_KEYS.HISTORY, history.getRecords().map((r) => ({ ...r })));
+    const newHistory = history.addRecord(record);
+    this.adapter.save(STORAGE_KEYS.HISTORY, newHistory.getRecords().map((r) => ({ ...r })));
   }
 
   loadHistory(): History {
