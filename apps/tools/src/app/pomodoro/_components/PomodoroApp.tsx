@@ -11,7 +11,7 @@ import {
   ConfigModal,
   FloatingTimerWidget,
 } from './index';
-import { Play, Pause, SkipForward, Settings } from 'lucide-react';
+import { Play, Pause, SkipForward, Square, Settings, ChevronDown } from 'lucide-react';
 import { Button } from '@nico.dev/ui';
 import { playNotificationSound } from '../_utils/playNotificationSound';
 import { sendPhaseNotification, requestNotificationPermission } from '../_utils/browserNotification';
@@ -24,6 +24,8 @@ export function PomodoroApp() {
   const [showAddTaskModal, setShowAddTaskModal] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [showFloatingWidget, setShowFloatingWidget] = useState(false);
+  const [tasksOpen, setTasksOpen] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(false);
   const [lastPhase, setLastPhase] = useState<string | null>(null);
 
   const timer = useMemo(() => config ? new Timer({
@@ -115,26 +117,21 @@ export function PomodoroApp() {
 
   return (
     <div className="w-full min-h-screen flex flex-col bg-background text-foreground">
-      {/* Header */}
-      <div className="border-b border-border py-4 shrink-0">
-        <div className="max-w-2xl mx-auto px-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Pomodoro Timer</h1>
-          <button
-            onClick={() => setShowConfigModal(true)}
-            className="p-2 hover:bg-accent rounded-lg transition-colors"
-            title="Configurações"
-          >
-            <Settings className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
+      {/* Fixed config button */}
+      <button
+        onClick={() => setShowConfigModal(true)}
+        className="fixed top-20 right-4 z-40 p-2 bg-accent hover:bg-accent/80 rounded-lg shadow-md transition-colors"
+        title="Configurações"
+      >
+        <Settings className="w-5 h-5" />
+      </button>
 
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-2xl mx-auto px-4 py-6 flex flex-col gap-6">
 
           {/* Timer Area */}
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-1">
             {session && config ? (
               <>
                 <PhaseIndicator
@@ -147,21 +144,21 @@ export function PomodoroApp() {
                   phase={session.currentPhase}
                   isRunning={isRunning}
                 />
-                <div className="flex gap-3">
+                <div className="flex gap-3 items-center">
                   {!isRunning ? (
-                    <Button onClick={resume} size="lg">
-                      <Play className="w-4 h-4" /> Retomar
+                    <Button onClick={resume} size="lg" title="Retomar">
+                      <Play className="w-4 h-4" /> <span className="hidden sm:inline">Retomar</span>
                     </Button>
                   ) : (
-                    <Button onClick={pause} variant="outline" size="lg">
-                      <Pause className="w-4 h-4" /> Pausar
+                    <Button onClick={pause} variant="outline" size="lg" title="Pausar">
+                      <Pause className="w-4 h-4" /> <span className="hidden sm:inline">Pausar</span>
                     </Button>
                   )}
-                  <Button onClick={skipToNextPhase} variant="outline" size="lg">
-                    <SkipForward className="w-4 h-4" /> Pular
+                  <Button onClick={skipToNextPhase} variant="outline" size="lg" title="Pular">
+                    <SkipForward className="w-4 h-4" /> <span className="hidden sm:inline">Pular</span>
                   </Button>
-                  <Button onClick={stopSession} variant="destructive" size="lg">
-                    Parar
+                  <Button onClick={stopSession} variant="destructive" size="lg" title="Parar">
+                    <Square className="w-4 h-4" /> <span className="hidden sm:inline">Parar</span>
                   </Button>
                 </div>
               </>
@@ -171,40 +168,66 @@ export function PomodoroApp() {
                   00:00
                 </div>
                 <p className="text-muted-foreground mb-6">Selecione uma tarefa para começar</p>
-                <Button onClick={() => handleStartCycle(null)} size="lg">
-                  <Play className="w-4 h-4" /> Iniciar
+                <Button onClick={() => handleStartCycle(null)} size="lg" title="Iniciar">
+                  <Play className="w-4 h-4" /> <span className="hidden sm:inline">Iniciar</span>
                 </Button>
               </div>
             )}
           </div>
 
           {/* Task List */}
-          <div className="bg-accent rounded-lg p-4">
-            <TaskList
-              tasks={tasks}
-              activeTaskId={session?.taskId}
-              onSelectTask={(taskId) => {
-                if (!session) handleStartCycle(taskId);
-              }}
-              onDeleteTask={handleDeleteTask}
-              onCompleteTask={handleCompleteTask}
-              onUpdateCycles={handleUpdateCycles}
-              onAddTask={() => setShowAddTaskModal(true)}
-              onClearCompleted={clearCompletedTasks}
-            />
+          <div className="bg-accent rounded-lg overflow-hidden">
+            <button
+              onClick={() => setTasksOpen((open) => !open)}
+              className="w-full flex items-center justify-between p-4 text-left"
+              aria-expanded={tasksOpen}
+            >
+              <h3 className="text-lg font-semibold text-foreground">Tarefas</h3>
+              <ChevronDown className={`w-5 h-5 transition-transform ${tasksOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {tasksOpen && (
+              <div className="px-4 pb-4">
+                <TaskList
+                  tasks={tasks}
+                  activeTaskId={session?.taskId}
+                  onSelectTask={(taskId) => {
+                    if (!session) handleStartCycle(taskId);
+                  }}
+                  onDeleteTask={handleDeleteTask}
+                  onCompleteTask={handleCompleteTask}
+                  onUpdateCycles={handleUpdateCycles}
+                  onAddTask={() => setShowAddTaskModal(true)}
+                  onClearCompleted={clearCompletedTasks}
+                  hideTitle
+                />
+              </div>
+            )}
           </div>
 
           {/* History */}
-          <div className="bg-accent rounded-lg p-4">
-            <HistoryPanel
-              records={records}
-              totalStats={{
-                totalTasks: totalTasksCompleted,
-                totalCycles: liveStats.totalCycles,
-                totalElapsedSeconds: liveStats.totalElapsedSeconds,
-                averageTimePerTaskMinutes,
-              }}
-            />
+          <div className="bg-accent rounded-lg overflow-hidden">
+            <button
+              onClick={() => setHistoryOpen((open) => !open)}
+              className="w-full flex items-center justify-between p-4 text-left"
+              aria-expanded={historyOpen}
+            >
+              <h3 className="text-lg font-semibold text-foreground">Histórico & Estatísticas</h3>
+              <ChevronDown className={`w-5 h-5 transition-transform ${historyOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {historyOpen && (
+              <div className="px-4 pb-4">
+                <HistoryPanel
+                  records={records}
+                  totalStats={{
+                    totalTasks: totalTasksCompleted,
+                    totalCycles: liveStats.totalCycles,
+                    totalElapsedSeconds: liveStats.totalElapsedSeconds,
+                    averageTimePerTaskMinutes,
+                  }}
+                  hideTitle
+                />
+              </div>
+            )}
           </div>
 
         </div>

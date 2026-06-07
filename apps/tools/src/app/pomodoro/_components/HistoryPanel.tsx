@@ -10,6 +10,7 @@ interface HistoryPanelProps {
     totalElapsedSeconds: number;
     averageTimePerTaskMinutes: number;
   };
+  hideTitle?: boolean;
 }
 
 function formatElapsed(seconds: number): string {
@@ -22,10 +23,10 @@ function formatElapsed(seconds: number): string {
   return `${m}m ${String(s).padStart(2, '0')}s`;
 }
 
-export function HistoryPanel({ records, totalStats }: HistoryPanelProps) {
+export function HistoryPanel({ records, totalStats, hideTitle }: HistoryPanelProps) {
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-lg font-semibold text-foreground">Histórico & Estatísticas</h3>
+      {!hideTitle && <h3 className="text-lg font-semibold text-foreground">Histórico & Estatísticas</h3>}
 
       {/* Stats Cards */}
       <div className="flex flex-col gap-2">

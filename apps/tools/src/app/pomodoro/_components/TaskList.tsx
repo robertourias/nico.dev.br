@@ -12,6 +12,7 @@ interface TaskListProps {
   onUpdateCycles: (taskId: string, delta: number) => void;
   onAddTask?: () => void;
   onClearCompleted?: () => void;
+  hideTitle?: boolean;
 }
 
 export function TaskList({
@@ -23,6 +24,7 @@ export function TaskList({
   onUpdateCycles,
   onAddTask,
   onClearCompleted,
+  hideTitle,
 }: TaskListProps) {
   const pendingTasks = tasks.filter((t) => t.status === 'pending');
   const completedTasks = tasks.filter((t) => t.status === 'completed');
@@ -30,7 +32,7 @@ export function TaskList({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-foreground">Tarefas</h3>
+        {!hideTitle && <h3 className="text-lg font-semibold text-foreground">Tarefas</h3>}
         {onAddTask && (
           <button
             onClick={onAddTask}
