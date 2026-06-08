@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useWakeLock } from "@nico.dev/ui";
 import { createClick } from "@/lib/audio-engine";
 import { getSubdivisionPattern, type SubdivisionId } from "@/lib/subdivisions";
-import { useWakeLock } from "./use-wake-lock";
 
 interface ScheduledNote {
   beat: number;

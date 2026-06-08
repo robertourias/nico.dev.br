@@ -12,7 +12,7 @@ import {
   FloatingTimerWidget,
 } from './index';
 import { Play, Pause, SkipForward, Square, Settings, ChevronDown } from 'lucide-react';
-import { Button } from '@nico.dev/ui';
+import { Button, useWakeLock } from '@nico.dev/ui';
 import { playNotificationSound } from '../_utils/playNotificationSound';
 import { sendPhaseNotification, requestNotificationPermission } from '../_utils/browserNotification';
 
@@ -39,6 +39,8 @@ export function PomodoroApp() {
     usePomodoroSession(timer);
 
   const liveStats = useLiveStats(isRunning, session?.cycleCount, session?.currentPhase);
+
+  useWakeLock(isRunning);
 
   // Phase change: sound + browser notification
   useEffect(() => {

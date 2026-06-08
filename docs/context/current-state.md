@@ -3,15 +3,15 @@
 > Memória de trabalho persistente. Atualizado pelo `/checkpoint`, lido pelo `/retomar`.
 > Não edite manualmente durante uma sessão ativa — use `/checkpoint` antes de fechar.
 
-**Última atualização:** 2026-06-05
-**Resumo da última sessão:** Nova ferramenta Mercado Financeiro (`/mercado`) com cotações de ações B3, FIIs, índices e cripto via Yahoo Finance + CoinGecko; ajustes visuais na listagem de ferramentas (altura dos cards, links em nova guia, remoção de itens obsoletos).
+**Última atualização:** 2026-06-07
+**Resumo da última sessão:** Ajustes visuais na página `/pomodoro`: layout do timer compactado, controles viram accordions recolhidos por padrão, botão de configurações fixo no canto superior direito, controles em modo ícone-only no mobile.
 
 ---
 
 ## Feature em andamento
 
-**Spec ativo:** `apps/tools/docs/specs/2026-06-05-mercado-financeiro.md` (Status: approved — implementação concluída)
-**Plano ativo:** `apps/tools/docs/plans/2026-06-05-mercado-financeiro.md`
+**Spec ativo:** (nenhum — ajustes visuais pontuais, sem spec formal)
+**Plano ativo:** (nenhum)
 
 ---
 
@@ -19,23 +19,15 @@
 
 ### ✅ Concluídas
 
-**apps/tools — listagem (home):**
-- Removidos cards "Buscador Semântico" e "Classificador de Conteúdo" da listagem
-- `ItemCard` com `min-h-[3.75rem]` na descrição — altura padronizada para 3 linhas
-- Links ativos abrem em nova guia (`target="_blank" rel="noopener noreferrer"`)
-
-**apps/tools — Mercado Financeiro (`/mercado`):**
-- Spec + plano gerados e aprovados
-- `src/lib/mercado/types.ts` — tipos compartilhados (`AssetQuote`, `HistoricalPoint`, etc.)
-- `src/lib/mercado/curated-assets.ts` — 13 ativos (B3 `.SA`, índices `^`, cripto)
-- `src/lib/mercado/yahoo-finance.ts` — cotações e histórico via Yahoo Finance com crumb auth
-- `src/lib/mercado/coingecko.ts` — cotações e histórico via CoinGecko (sem chave)
-- `src/app/mercado/page.tsx` — Server Component, `revalidate: 300`
-- `src/app/mercado/_actions/fetch-history.ts` — Server Action para histórico on-demand
-- `src/app/mercado/_components/asset-card.tsx` — card com preço BRL + variação colorida
-- `src/app/mercado/_components/asset-chart.tsx` — modal com gráfico recharts 30 dias
-- `src/app/mercado/_components/asset-grid.tsx` — busca client-side + grade agrupada por categoria
-- Card "Mercado Financeiro" na home ativado com `href: "/mercado"`
+**apps/tools — Pomodoro (`/pomodoro`) — ajustes visuais:**
+- Removido header com título "Pomodoro Timer"; botão de configurações saiu do header
+- Botão de configurações agora fixo (`fixed top-20 right-4`) como ícone no canto superior direito
+- Contador (`TimerDisplay`) reduzido (`w-64→w-36`, fonte `text-6xl→text-4xl`), legenda de fase removida (`getPhaseLabel` deletado)
+- Espaçamento entre indicador de fase e contador reduzido (`gap-4→gap-1`)
+- Botões de controle (Retomar/Pausar/Pular/Parar/Iniciar): no mobile mostram apenas ícone (`<span className="hidden sm:inline">label</span>`); "Parar" trocou texto por ícone `Square` (lucide-react)
+- Seções "Tarefas" e "Histórico & Estatísticas" viram accordions recolhidos por padrão (`tasksOpen`/`historyOpen` state + `ChevronDown` rotativo)
+- `TaskList` e `HistoryPanel` ganharam prop `hideTitle` para evitar título duplicado dentro do accordion
+- Commit: `b557443 refactor(tools/pomodoro): collapse panels into accordions, trim timer UI`
 
 ### 🔄 Em progresso
 - (nenhum — todas as tasks concluídas)
@@ -51,12 +43,9 @@
 
 ## Decisões desta sessão
 
-- Yahoo Finance requer crumb auth server-side: fluxo `fc.yahoo.com` → `/v1/test/getcrumb` → requests com cookie+crumb
-- brapi.dev descartado: codificação `%5E` do `^BVSP` causava 400, e free tier problemático
-- Fonte escolhida: Yahoo Finance (B3 com `.SA` suffix) + CoinGecko (cripto) — ambos gratuitos sem cadastro
-- `recharts` já disponível em `apps/tools` — reutilizado para gráfico histórico
-- Modal de histórico implementado via overlay CSS puro (sem Radix Dialog, não disponível em `@nico.dev/ui`)
-- `brapi.ts` mantido como arquivo morto no repo — pode ser deletado manualmente
+- Accordion implementado via state local (`useState` + render condicional) em vez de componente de UI compartilhado — escopo pequeno, não justifica nova abstração em `@nico.dev/ui`
+- Título das seções movido para o header do accordion; `hideTitle` evita duplicação sem quebrar API existente dos componentes (prop opcional, default `false`)
+- Botão de configurações centralizado num único local fixo (top-right) em vez de duplicado por estado de sessão — simplifica e evita inconsistência visual
 
 ---
 

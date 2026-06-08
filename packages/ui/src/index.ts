@@ -35,6 +35,9 @@ export * from "./components/heatmap";
 // Components — State
 export * from "./components/skeleton";
 
+// Hooks
+export * from "./hooks/use-wake-lock";
+
 // Utilities
 export * from "./lib/utils";
 
