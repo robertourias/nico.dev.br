@@ -10,7 +10,6 @@ interface TaskListProps {
   onDeleteTask: (taskId: string) => void;
   onCompleteTask: (taskId: string) => void;
   onUpdateCycles: (taskId: string, delta: number) => void;
-  onAddTask?: () => void;
   onClearCompleted?: () => void;
   hideTitle?: boolean;
 }
@@ -22,7 +21,6 @@ export function TaskList({
   onDeleteTask,
   onCompleteTask,
   onUpdateCycles,
-  onAddTask,
   onClearCompleted,
   hideTitle,
 }: TaskListProps) {
@@ -31,18 +29,11 @@ export function TaskList({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        {!hideTitle && <h3 className="text-lg font-semibold text-foreground">Tarefas</h3>}
-        {onAddTask && (
-          <button
-            onClick={onAddTask}
-            className="p-1.5 hover:bg-muted rounded-lg transition-colors"
-            title="Nova tarefa"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
-        )}
-      </div>
+      {!hideTitle && (
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-foreground">Tarefas</h3>
+        </div>
+      )}
 
       {/* Pending Tasks */}
       <div>

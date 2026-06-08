@@ -44,6 +44,14 @@ const utilidades: Tool[] = [
     href: "/conversor-moedas",
   },
   {
+    slug: "metronome",
+    name: "Metrônomo",
+    description: "Metrônomo online audiovisual para músicos. Controle de BPM, beats, subdivisões e acento no primeiro tempo.",
+    icon: "🎵",
+    status: "active",
+    href: "https://metronomo.nico.dev.br",
+  },
+  {
     slug: "weather",
     name: "Dashboard de Clima",
     description: "Previsão do tempo por localidade com dados atualizados em tempo real.",

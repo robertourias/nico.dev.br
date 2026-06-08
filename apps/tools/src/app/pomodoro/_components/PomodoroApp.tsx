@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { Timer } from '@/domain/pomodoro';
-import { useTimerConfig, usePomodoroSession, useTaskManager, useHistory, useLiveStats } from '../_hooks';
+import { useTimerConfig, usePomodoroSession, useTaskManager, useHistory, useLiveStats, usePictureInPicture } from '../_hooks';
 import {
   TimerDisplay,
   PhaseIndicator,
@@ -10,8 +11,9 @@ import {
   HistoryPanel,
   ConfigModal,
   FloatingTimerWidget,
+  PictureInPictureContent,
 } from './index';
-import { Play, Pause, SkipForward, Square, Settings, ChevronDown } from 'lucide-react';
+import { Play, Pause, SkipForward, Square, Settings, ChevronDown, Plus, PictureInPicture2 } from 'lucide-react';
 import { Button, useWakeLock } from '@nico.dev/ui';
 import { playNotificationSound } from '../_utils/playNotificationSound';
 import { sendPhaseNotification, requestNotificationPermission } from '../_utils/browserNotification';
@@ -41,6 +43,8 @@ export function PomodoroApp() {
   const liveStats = useLiveStats(isRunning, session?.cycleCount, session?.currentPhase);
 
   useWakeLock(isRunning);
+
+  const { isSupported: isPipSupported, isOpen: isPipOpen, pipWindow, toggle: togglePip } = usePictureInPicture();
 
   // Phase change: sound + browser notification
   useEffect(() => {
@@ -122,11 +126,48 @@ export function PomodoroApp() {
       {/* Fixed config button */}
       <button
         onClick={() => setShowConfigModal(true)}
-        className="fixed top-20 right-4 z-40 p-2 bg-accent hover:bg-accent/80 rounded-lg shadow-md transition-colors"
+        className="fixed top-20 right-4 z-40 p-2 bg-accent hover:bg-accent/80 rounded-lg shadow-md transition-colors cursor-pointer"
         title="Configurações"
       >
         <Settings className="w-5 h-5" />
       </button>
+
+      {/* Fixed new task button */}
+      <button
+        onClick={() => setShowAddTaskModal(true)}
+        className="fixed top-32 right-4 z-40 p-2 bg-accent hover:bg-accent/80 rounded-lg shadow-md transition-colors  cursor-pointer"
+        title="Nova tarefa"
+      >
+        <Plus className="w-5 h-5" />
+      </button>
+
+      {/* Fixed picture-in-picture button */}
+      {isPipSupported && session && (
+        <button
+          onClick={() => togglePip()}
+          className={`fixed top-44 right-4 z-40 p-2 rounded-lg shadow-md transition-colors cursor-pointer ${
+            isPipOpen ? 'bg-primary text-primary-foreground hover:bg-primary/80' : 'bg-accent hover:bg-accent/80'
+          }`}
+          title={isPipOpen ? 'Fechar janela flutuante' : 'Abrir em janela flutuante'}
+        >
+          <PictureInPicture2 className="w-5 h-5" />
+        </button>
+      )}
+
+      {/* Picture-in-picture portal */}
+      {isPipOpen && pipWindow && session && config && createPortal(
+        <PictureInPictureContent
+          secondsRemaining={session.secondsRemaining}
+          phase={session.currentPhase}
+          cycleCount={session.cycleCount}
+          longBreakInterval={config.longBreakInterval}
+          isRunning={isRunning}
+          onPause={pause}
+          onResume={resume}
+          onSkip={skipToNextPhase}
+        />,
+        pipWindow.document.body
+      )}
 
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
@@ -198,7 +239,6 @@ export function PomodoroApp() {
                   onDeleteTask={handleDeleteTask}
                   onCompleteTask={handleCompleteTask}
                   onUpdateCycles={handleUpdateCycles}
-                  onAddTask={() => setShowAddTaskModal(true)}
                   onClearCompleted={clearCompletedTasks}
                   hideTitle
                 />
