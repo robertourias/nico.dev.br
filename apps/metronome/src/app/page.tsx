@@ -19,7 +19,7 @@ export default function MetronomePage() {
   const tempoName = getTempoName(metronome.bpm);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start px-4 py-10">
+    <main className="flex min-h-screen flex-col items-center px-4 py-10 justify-center">
       <div className="w-full max-w-md flex flex-col items-center gap-7">
         {/* BPM display — clique para editar */}
         <BpmDisplay
