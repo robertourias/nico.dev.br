@@ -28,7 +28,7 @@ export function BeatIndicators({
               key={i}
               className={[
                 "rounded-full transition-colors",
-                isFirst ? "w-9 h-9" : "w-7 h-7",
+                isFirst ? "w-11 h-11" : "w-9 h-9",
                 isActive
                   ? "bg-primary"
                   : "bg-muted",

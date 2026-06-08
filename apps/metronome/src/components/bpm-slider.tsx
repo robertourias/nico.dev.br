@@ -42,11 +42,11 @@ export function BpmSlider({ bpm, onChange }: BpmSliderProps) {
   );
 
   return (
-    <div className="flex items-center gap-3 w-full">
+    <div className="flex items-center gap-3 w-full absolute top-24">
       {/* Minus button */}
       <button
         aria-label="Diminuir BPM"
-        className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
+        className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-colors cursor-pointer"
         onMouseDown={() => { handleStep(-1); startHold(-1); }}
         onMouseUp={stopHold}
         onMouseLeave={stopHold}
@@ -86,7 +86,7 @@ export function BpmSlider({ bpm, onChange }: BpmSliderProps) {
       {/* Plus button */}
       <button
         aria-label="Aumentar BPM"
-        className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
+        className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-colors cursor-pointer"
         onMouseDown={() => { handleStep(1); startHold(1); }}
         onMouseUp={stopHold}
         onMouseLeave={stopHold}

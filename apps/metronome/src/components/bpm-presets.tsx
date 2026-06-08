@@ -5,7 +5,7 @@ interface BpmPresetsProps {
   onChange: (bpm: number) => void;
 }
 
-const PRESETS = [70, 80, 90, 100, 110, 120] as const;
+export const PRESETS = [70, 80, 90, 100, 110, 120] as const;
 
 export function BpmPresets({ bpm, onChange }: BpmPresetsProps) {
   return (
@@ -19,7 +19,7 @@ export function BpmPresets({ bpm, onChange }: BpmPresetsProps) {
             aria-pressed={active}
             aria-label={`${preset} BPM`}
             className={[
-              "h-7 px-2.5 rounded-full text-xs font-medium transition-colors hover:cursor-pointer",
+              "h-9 px-3.5 rounded-full text-sm font-medium transition-colors hover:cursor-pointer",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
               active
                 ? "bg-primary text-primary-foreground"

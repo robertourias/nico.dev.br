@@ -1,6 +1,6 @@
 "use client";
 
-import { Checkbox, Input, Label } from "@nico.dev/ui";
+import { Input, Label, Switch } from "@nico.dev/ui";
 import { useEffect, useState } from "react";
 
 interface TimerControlProps {
@@ -42,7 +42,6 @@ export function TimerControl({
 }: TimerControlProps) {
   const [draft, setDraft] = useState(formatTime(totalSeconds));
 
-  // Sync controlled input when a preset is selected externally
   useEffect(() => {
     setDraft(formatTime(totalSeconds));
   }, [totalSeconds]);
@@ -57,48 +56,50 @@ export function TimerControl({
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Checkbox
-            id="timer"
-            checked={enabled}
-            onCheckedChange={(v) => onEnabledChange(v === true)}
-          />
           <Label htmlFor="timer" className="cursor-pointer select-none">
             Timer
           </Label>
         </div>
 
-        {enabled && (
-          <div className="text-sm tabular-nums font-medium">
-            {isPlaying ? (
-              <span
-                className={
-                  remainingSeconds <= 10 ? "text-destructive" : "text-foreground"
-                }
-              >
-                {formatTime(remainingSeconds)}
-              </span>
-            ) : (
-              <Input
-                className="w-20 h-7 text-center text-sm px-2"
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                onBlur={commitDraft}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") (e.target as HTMLInputElement).blur();
-                }}
-                aria-label="Duração do timer"
-              />
-            )}
-          </div>
-        )}
+        <div className="flex items-center gap-3">
+          {enabled && (
+            <div className="text-sm tabular-nums font-medium">
+              {isPlaying ? (
+                <span
+                  className={
+                    remainingSeconds <= 10 ? "text-destructive" : "text-foreground"
+                  }
+                >
+                  {formatTime(remainingSeconds)}
+                </span>
+              ) : (
+                <Input
+                  className="w-20 h-7 text-center text-sm px-2"
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  onBlur={commitDraft}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                  }}
+                  aria-label="Duração do timer"
+                />
+              )}
+            </div>
+          )}
+          <Switch
+            id="timer"
+            checked={enabled}
+            onCheckedChange={(v) => onEnabledChange(v === true)}
+          />
+        </div>
       </div>
 
       {enabled && !isPlaying && (
         <div
-          className="flex items-center gap-2"
+          className="grid grid-cols-5 gap-2"
           role="group"
           aria-label="Durações rápidas"
         >
@@ -111,7 +112,7 @@ export function TimerControl({
                 aria-pressed={active}
                 aria-label={`${label} minutos`}
                 className={[
-                  "h-7 px-2.5 rounded-full text-xs font-medium transition-colors cursor-pointer",
+                  "h-10 rounded-lg text-xs font-medium transition-colors cursor-pointer",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
                   active
                     ? "bg-primary text-primary-foreground"

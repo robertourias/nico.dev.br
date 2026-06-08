@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useWakeLock } from "@nico.dev/ui";
 import { createClick } from "@/lib/audio-engine";
 import { getSubdivisionPattern, type SubdivisionId } from "@/lib/subdivisions";
+import { type SoundId } from "@/lib/sounds";
 
 interface ScheduledNote {
   beat: number;
@@ -15,6 +16,7 @@ export interface MetronomeState {
   currentBeat: number;
   stressFirstBeat: boolean;
   subdivision: SubdivisionId;
+  sound: SoundId;
   timerEnabled: boolean;
   timerSeconds: number;
   timerRemaining: number;
@@ -26,6 +28,8 @@ export interface MetronomeActions {
   toggle: () => void;
   setStressFirstBeat: (v: boolean) => void;
   setSubdivision: (id: SubdivisionId) => void;
+  setSound: (id: SoundId) => void;
+  previewSound: (id: SoundId) => void;
   setTimerEnabled: (v: boolean) => void;
   setTimerSeconds: (s: number) => void;
 }
@@ -38,6 +42,7 @@ export function useMetronome(): MetronomeState & MetronomeActions {
   const [currentBeat, setCurrentBeat] = useState(0);
   const [stressFirstBeat, setStressFirstBeatState] = useState(true);
   const [subdivision, setSubdivisionState] = useState<SubdivisionId>("none");
+  const [sound, setSoundState] = useState<SoundId>("click");
   const [timerEnabled, setTimerEnabledState] = useState(false);
   const [timerSeconds, setTimerSecondsState] = useState(60);
   const [timerRemaining, setTimerRemaining] = useState(60);
@@ -47,6 +52,7 @@ export function useMetronome(): MetronomeState & MetronomeActions {
   const beatsRef = useRef(4);
   const stressFirstBeatRef = useRef(true);
   const subdivisionRef = useRef<SubdivisionId>("none");
+  const soundRef = useRef<SoundId>("click");
   const timerSecondsRef = useRef(60);
   const isPlayingRef = useRef(false);
 
@@ -66,12 +72,12 @@ export function useMetronome(): MetronomeState & MetronomeActions {
     if (!ctx) return;
 
     const accented = beat === 0 && stressFirstBeatRef.current;
-    createClick(ctx, accented ? 900 : 600, accented ? 0.015 : 0.01, time);
+    createClick(ctx, accented ? 900 : 600, accented ? 0.015 : 0.01, time, soundRef.current);
 
     const pattern = getSubdivisionPattern(subdivisionRef.current);
-    const spb = 60.0 / bpmRef.current; // seconds per beat
+    const spb = 60.0 / bpmRef.current;
     for (const offset of pattern.offsets.slice(1)) {
-      createClick(ctx, 400, 0.008, time + offset * spb);
+      createClick(ctx, 400, 0.008, time + offset * spb, soundRef.current);
     }
 
     notesInQueue.current.push({ beat, time });
@@ -82,7 +88,7 @@ export function useMetronome(): MetronomeState & MetronomeActions {
     const ctx = audioCtxRef.current;
     if (!ctx) return;
 
-    const lookahead = 0.1; // seconds
+    const lookahead = 0.1;
     const spb = 60.0 / bpmRef.current;
 
     while (nextNoteTimeRef.current < ctx.currentTime + lookahead) {
@@ -129,11 +135,9 @@ export function useMetronome(): MetronomeState & MetronomeActions {
       return;
     }
 
-    // Lazy AudioContext creation — must happen in user gesture handler
     if (!audioCtxRef.current) {
       audioCtxRef.current = new AudioContext();
     }
-    // iOS Safari requires explicit resume after user gesture
     void audioCtxRef.current.resume().then(() => {
       const ctx = audioCtxRef.current!;
       nextNoteTimeRef.current = ctx.currentTime;
@@ -147,6 +151,17 @@ export function useMetronome(): MetronomeState & MetronomeActions {
       rafRef.current = requestAnimationFrame(draw);
     });
   }, [stopEngine, scheduler, draw]);
+
+  // ── Preview a sound (single click, no scheduling) ────────────────────────
+  const previewSound = useCallback((id: SoundId) => {
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new AudioContext();
+    }
+    void audioCtxRef.current.resume().then(() => {
+      const ctx = audioCtxRef.current!;
+      createClick(ctx, 900, 0.015, ctx.currentTime, id);
+    });
+  }, []);
 
   // ── Timer countdown ──────────────────────────────────────────────────────
   useEffect(() => {
@@ -174,7 +189,7 @@ export function useMetronome(): MetronomeState & MetronomeActions {
     };
   }, []);
 
-  // ── Public setters (update both state and ref immediately) ───────────────
+  // ── Public setters ───────────────────────────────────────────────────────
   const setBpm = useCallback((value: number) => {
     const v = Math.max(20, Math.min(300, Math.round(value)));
     bpmRef.current = v;
@@ -198,6 +213,11 @@ export function useMetronome(): MetronomeState & MetronomeActions {
     setSubdivisionState(id);
   }, []);
 
+  const setSound = useCallback((id: SoundId) => {
+    soundRef.current = id;
+    setSoundState(id);
+  }, []);
+
   const setTimerEnabled = useCallback((v: boolean) => {
     setTimerEnabledState(v);
   }, []);
@@ -215,6 +235,7 @@ export function useMetronome(): MetronomeState & MetronomeActions {
     currentBeat,
     stressFirstBeat,
     subdivision,
+    sound,
     timerEnabled,
     timerSeconds,
     timerRemaining,
@@ -223,6 +244,8 @@ export function useMetronome(): MetronomeState & MetronomeActions {
     toggle,
     setStressFirstBeat,
     setSubdivision,
+    setSound,
+    previewSound,
     setTimerEnabled,
     setTimerSeconds,
   };
