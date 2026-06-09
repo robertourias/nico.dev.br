@@ -78,7 +78,10 @@
   },
   "footer": {
     "ariaLabel": "Footer links",
-    "rights": "© {year} Roberto Nicoletti"
+    "rights": "© {year} Roberto Nicoletti",
+    "sectionNav": "Navigation",
+    "sectionTools": "Tools",
+    "sectionSocial": "Social"
   },
   "chat": {
     "ariaOpen": "Open chat — Talk with Roberto",

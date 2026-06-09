@@ -78,7 +78,10 @@
   },
   "footer": {
     "ariaLabel": "Links do rodapé",
-    "rights": "© {year} Roberto Nicoletti"
+    "rights": "© {year} Roberto Nicoletti",
+    "sectionNav": "Navegação",
+    "sectionTools": "Ferramentas",
+    "sectionSocial": "Redes Sociais"
   },
   "chat": {
     "ariaOpen": "Abrir chat — Fale com o Roberto",
