@@ -29,7 +29,7 @@ export default function MetronomePage() {
       {/* Fixed PiP button — desktop only */}
       {pip.isSupported && (
         <button
-          onClick={() => pip.toggle()}
+          onClick={() => pip.toggle({ height: metronome.timerEnabled ? 385 : 330 })}
           title={pip.isOpen ? "Fechar janela flutuante" : "Abrir em janela flutuante"}
           className={[
             "fixed top-4 right-4 z-40 hidden md:flex items-center justify-center",
