@@ -1,0 +1,27 @@
+/*
+ * Tema próprio desta campanha. Esta landing tem identidade visual independente
+ * do restante do app "criativo" — por isso as variáveis são sobrescritas aqui,
+ * escopadas à classe `.theme-newsletter-premium`, em vez de tocar em
+ * `globals.css` (que afeta o app inteiro) ou em `:root`.
+ *
+ * Estética "premium": fundo escuro fixo, sem alternância light/dark — por
+ * isso este arquivo não define um bloco `.dark` e a página não exibe
+ * ThemeToggle.
+ */
+
+.theme-newsletter-premium {
+  --color-background: #0b0b0f;
+  --color-foreground: #f5f4f7;
+  --color-surface: #15151c;
+  --color-border: #27272f;
+  --color-muted-foreground: #9a98a8;
+
+  --color-primary: #7c5cff;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #22d3ee;
+  --color-secondary-foreground: #0b0b0f;
+
+  --color-accent: #1f1f2b;
+  --color-accent-foreground: #c7c5ff;
+}

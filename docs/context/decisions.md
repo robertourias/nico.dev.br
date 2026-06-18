@@ -130,3 +130,13 @@ module/
 ## Blog (blog.nico.dev.br)
 
 > Decisões completas em `apps/blog/docs/context/decisions.md`
+
+---
+
+## Criativo (criativo.nico.dev.br)
+
+- App dedicado a landing pages de campanhas e estruturas de portfólio, com tema e componentes independentes por página.
+- Cada landing define seu próprio `theme.css`, escopado por classe wrapper (nunca `:root` nem `globals.css` do app) — permite identidades visuais distintas por campanha.
+- Landing pages renderizam fora do route group `(site)`, sem header/footer/nav do app — foco total em conversão.
+- Captura de e-mail em mutações usa Server Actions com Zod; primeira landing (`/landing-newsletter-premium`) usa mock em memória, sem ESP real ainda.
+- Spec completa: `docs/specs/2026-06-17-app-criativo.md`

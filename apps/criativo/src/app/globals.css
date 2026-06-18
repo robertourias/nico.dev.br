@@ -1,0 +1,28 @@
+@import "@nico.dev/ui/globals.css";
+
+/* Override: identidade "criativo" — paleta quente (laranja/rosa), distinta do
+   indigo usado em tools.nico.dev. Escopo: shell do app (header, footer, grid
+   da home). Cada landing page de campanha define seu próprio tema em
+   src/app/<slug>/theme.css, escopado a uma classe — não herda nem sobrescreve
+   este arquivo global. */
+@theme {
+  --color-primary: #F2540B;
+  --color-primary-hover: #D9450A;
+  --color-secondary: #E0399B;
+  --color-accent: #FDEAE0;
+  --color-accent-foreground: #D9450A;
+  --color-border: #F0E0D8;
+  --color-input: #F0E0D8;
+  --color-ring: #F2540B;
+  --color-muted: #FDEAE0;
+  --color-surface-raised: #FDEAE0;
+}
+
+.dark {
+  --color-primary: #FF7A3D;
+  --color-primary-hover: #FF8F5C;
+  --color-secondary: #F25CB0;
+  --color-border: #3A2A24;
+  --color-input: #3A2A24;
+  --color-ring: #FF7A3D;
+}

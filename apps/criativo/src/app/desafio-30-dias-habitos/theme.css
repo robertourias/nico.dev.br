@@ -1,0 +1,80 @@
+/*
+ * Tema próprio desta campanha — independente do restante do app "criativo" e
+ * do tema da landing "newsletter-premium". Escopado à classe
+ * `.theme-habitos30`, nunca em `:root` ou `globals.css`.
+ *
+ * Estética "transformação e crescimento": branco predominante, azul escuro
+ * para texto/headings, verde para ações e progresso. Fixo (sem `.dark`) —
+ * esta página não exibe ThemeToggle.
+ */
+
+.theme-habitos30 {
+  --color-background: #ffffff;
+  --color-foreground: #0b2545;
+
+  --color-surface: #f6f9f8;
+  --color-surface-raised: #eaf3ee;
+  --color-surface-overlay: #e1eee6;
+
+  --color-primary: #15803d;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #166534;
+
+  --color-secondary: #0b2545;
+  --color-secondary-foreground: #ffffff;
+
+  --color-muted: #f1f5f4;
+  --color-muted-foreground: #51647a;
+
+  --color-accent: #e7f5ec;
+  --color-accent-foreground: #166534;
+
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+
+  --color-success: #16a34a;
+  --color-success-foreground: #ffffff;
+
+  --color-warning: #d97706;
+  --color-warning-foreground: #ffffff;
+
+  --color-border: #dce7e1;
+  --color-input: #cbd9d2;
+  --color-ring: #15803d;
+
+  --color-badge-destructive-bg: #fee2e2;
+  --color-badge-success-bg: #dcfce7;
+  --color-badge-warning-bg: #fef3c7;
+}
+
+/* Micro animações de entrada — discretas, sem dependência de JS/observer. */
+.theme-habitos30 .cv-fade-up {
+  animation: habitos30FadeUp 0.7s ease-out both;
+}
+
+.theme-habitos30 .cv-fade-up-delay-1 {
+  animation: habitos30FadeUp 0.7s ease-out 0.1s both;
+}
+
+.theme-habitos30 .cv-fade-up-delay-2 {
+  animation: habitos30FadeUp 0.7s ease-out 0.2s both;
+}
+
+@keyframes habitos30FadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-habitos30 .cv-fade-up,
+  .theme-habitos30 .cv-fade-up-delay-1,
+  .theme-habitos30 .cv-fade-up-delay-2 {
+    animation: none;
+  }
+}
