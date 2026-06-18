@@ -1,4 +1,5 @@
 import { ChallengeForm } from "./ChallengeForm"
+import { ParticipantCounter } from "./ParticipantCounter"
 
 // `id="inscricao"` é o destino do CTA fixo mobile (StickyMobileCta) e de
 // qualquer outro link de "pular para o cadastro" — fica aqui, não no Hero,
@@ -19,8 +20,12 @@ export function FinalCta() {
           Junte-se a centenas de pessoas construindo hábitos melhores todos os dias.
         </p>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-4">
           <ChallengeForm submitLabel="Participar Gratuitamente" />
+        </div>
+
+        <div className="flex justify-center">
+          <ParticipantCounter />
         </div>
       </div>
     </section>

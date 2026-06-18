@@ -1,5 +1,6 @@
 import { CalendarCheck } from "lucide-react"
 import { ChallengeForm } from "./ChallengeForm"
+import { ParticipantCounter } from "./ParticipantCounter"
 
 // Pré-visualização estática dos 30 dias — reforça visualmente a promessa
 // "transforme sua rotina em 30 dias" sem depender de dados reais de progresso
@@ -54,8 +55,12 @@ export function Hero() {
             sua produtividade, disciplina, saúde e bem-estar.
           </p>
 
-          <div className="flex justify-center lg:justify-start">
+          <div className="flex justify-center lg:justify-start mb-4">
             <ChallengeForm submitLabel="Começar Meu Desafio" />
+          </div>
+
+          <div className="flex justify-center lg:justify-start">
+            <ParticipantCounter />
           </div>
         </div>
 

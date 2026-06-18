@@ -140,3 +140,6 @@ module/
 - Landing pages renderizam fora do route group `(site)`, sem header/footer/nav do app — foco total em conversão.
 - Captura de e-mail em mutações usa Server Actions com Zod; primeira landing (`/landing-newsletter-premium`) usa mock em memória, sem ESP real ainda.
 - Spec completa: `docs/specs/2026-06-17-app-criativo.md`
+- Segunda landing (`/desafio-30-dias-habitos`): mesmo padrão de mock + tema escopado (`theme-habitos30`, fixo em modo claro). Captura nome + e-mail + consentimento LGPD.
+- Conteúdo fictício (depoimentos, contador de participantes) só é usado quando explicitamente solicitado pelo usuário — atribuição sempre genérica, nunca nomes/fotos inventados, para não fabricar identidades reais.
+- Spec completa: `docs/specs/2026-06-17-landing-desafio-30-dias-habitos.md`

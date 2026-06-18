@@ -1,0 +1,201 @@
+/*
+ * Identidade visual exclusiva desta landing de pré-venda — por exigência do
+ * briefing, esta página NÃO usa os componentes nem os tokens semânticos do
+ * design system padrão do projeto (@nico.dev/ui, --color-primary etc.).
+ * Todas as variáveis abaixo usam o prefixo `--apice-*` e são consumidas via
+ * utilitários arbitrários do Tailwind (ex: bg-[var(--apice-bg)]) ou classes
+ * próprias definidas aqui. Escopo: classe `.theme-apice`, nunca `:root`.
+ *
+ * Paleta: fundo quase-preto premium, gradiente roxo → azul elétrico como
+ * identidade primária, verde neon como acento de escassez/urgência.
+ */
+
+.theme-apice {
+  --apice-bg: #0a0a0a;
+  --apice-bg-raised: #121214;
+  --apice-bg-overlay: #18181b;
+  --apice-surface-glass: rgba(255, 255, 255, 0.04);
+  --apice-border-glass: rgba(255, 255, 255, 0.08);
+
+  --apice-fg: #f7f7fb;
+  --apice-fg-muted: #a3a3b0;
+  --apice-fg-faint: #6f6f7d;
+
+  --apice-purple: #8b5cf6;
+  --apice-blue: #3b82f6;
+  --apice-violet: #c084fc;
+  --apice-neon: #39ff8c;
+  --apice-neon-foreground: #03130a;
+  --apice-amber: #fbbf24;
+  --apice-rose: #fb7185;
+
+  --apice-gradient-primary: linear-gradient(115deg, var(--apice-purple), var(--apice-blue));
+  --apice-gradient-text: linear-gradient(110deg, #c084fc 0%, #8b5cf6 35%, #3b82f6 70%, #38bdf8 100%);
+
+  color-scheme: dark;
+  background: var(--apice-bg);
+  color: var(--apice-fg);
+}
+
+/* ---------- Texto em gradiente animado (headline) ---------- */
+.apice-gradient-text {
+  background-image: var(--apice-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: apiceGradientShift 6s ease-in-out infinite;
+}
+
+/* Palavra com efeito "glass/transparency": contorno translúcido, leve brilho,
+   sem preenchimento sólido — para alternar com o gradiente na headline. */
+.apice-glass-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(247, 247, 251, 0.55);
+  text-shadow: 0 0 24px rgba(139, 92, 246, 0.35);
+}
+
+@keyframes apiceGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Glassmorphism leve ---------- */
+.apice-glass {
+  background: var(--apice-surface-glass);
+  border: 1px solid var(--apice-border-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ---------- Glow ---------- */
+.apice-glow {
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.25), 0 20px 60px -15px rgba(139, 92, 246, 0.45);
+}
+
+.apice-glow-neon {
+  box-shadow: 0 0 0 1px rgba(57, 255, 140, 0.3), 0 0 40px -5px rgba(57, 255, 140, 0.35);
+}
+
+.apice-pulse-glow {
+  animation: apicePulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes apicePulseGlow {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.25), 0 0 40px -10px rgba(139, 92, 246, 0.55); }
+  50% { box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.35), 0 0 60px 0px rgba(59, 130, 246, 0.6); }
+}
+
+/* ---------- Entrada de página (above the fold, sem observer) ---------- */
+.apice-fade-up { animation: apiceFadeUp 0.8s ease-out both; }
+.apice-fade-up-delay-1 { animation: apiceFadeUp 0.8s ease-out 0.12s both; }
+.apice-fade-up-delay-2 { animation: apiceFadeUp 0.8s ease-out 0.24s both; }
+.apice-fade-up-delay-3 { animation: apiceFadeUp 0.8s ease-out 0.36s both; }
+
+@keyframes apiceFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (classes alternadas via JS em Reveal.tsx) ---------- */
+.apice-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.apice-reveal[data-variant="fade-up"] { transform: translateY(28px); }
+.apice-reveal[data-variant="scale-in"] { transform: scale(0.92); filter: blur(2px); }
+.apice-reveal[data-variant="slide-right"] { transform: translateX(-32px); }
+.apice-reveal[data-variant="slide-left"] { transform: translateX(32px); }
+
+.apice-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Elementos flutuantes / blobs de fundo ---------- */
+.apice-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(60px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.apice-float-slow { animation: apiceFloat 9s ease-in-out infinite; }
+.apice-float-slower { animation: apiceFloat 13s ease-in-out infinite reverse; }
+
+@keyframes apiceFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(18px, -26px) scale(1.06); }
+}
+
+.apice-particle {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  animation: apiceDrift linear infinite;
+}
+
+@keyframes apiceDrift {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-120px) translateX(12px); opacity: 0; }
+}
+
+/* ---------- Hover de cards (profundidade) ---------- */
+.apice-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease;
+}
+.apice-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 24px 48px -20px rgba(139, 92, 246, 0.35);
+}
+
+/* ---------- Acordeão FAQ (sem JS para altura: grid-template-rows) ---------- */
+.apice-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.35s ease;
+}
+.apice-accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.apice-accordion-panel > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ---------- Marquee de depoimentos (controle de transição via transform) --- */
+.apice-carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apice-gradient-text,
+  .apice-pulse-glow,
+  .apice-fade-up,
+  .apice-fade-up-delay-1,
+  .apice-fade-up-delay-2,
+  .apice-fade-up-delay-3,
+  .apice-float-slow,
+  .apice-float-slower,
+  .apice-particle {
+    animation: none !important;
+  }
+  .apice-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .apice-card-hover:hover {
+    transform: none;
+  }
+}

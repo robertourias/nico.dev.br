@@ -31,6 +31,14 @@ const campanhas: Page[] = [
     status: "active",
     href: "/desafio-30-dias-habitos",
   },
+  {
+    slug: "pre-venda-metodo-apice",
+    name: "Pré-venda Método Ápice",
+    description: "Landing de pré-venda e lista de espera para lançamento de produto digital, com identidade visual exclusiva.",
+    icon: "🚀",
+    status: "active",
+    href: "/pre-venda-metodo-apice",
+  },
 ]
 
 const portfolio: Page[] = [
