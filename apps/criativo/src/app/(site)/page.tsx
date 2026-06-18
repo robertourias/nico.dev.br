@@ -39,6 +39,14 @@ const campanhas: Page[] = [
     status: "active",
     href: "/pre-venda-metodo-apice",
   },
+  {
+    slug: "teste-perfil-profissional",
+    name: "Teste de Perfil Profissional",
+    description: "Landing de conversão para questionário inteligente que gera um perfil comportamental e recomendações de carreira.",
+    icon: "🧭",
+    status: "active",
+    href: "/teste-perfil-profissional",
+  },
 ]
 
 const portfolio: Page[] = [

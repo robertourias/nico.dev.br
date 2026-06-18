@@ -1,0 +1,194 @@
+/*
+ * Tema próprio desta campanha — independente do restante do app "criativo" e
+ * das demais landings. Escopado à classe `.theme-perfil`, nunca em `:root`
+ * ou `globals.css`.
+ *
+ * Estética "SaaS premium" pedida no briefing: light theme, muito espaço em
+ * branco, glassmorphism sutil, gradiente azul → roxo como identidade
+ * primária. Fixo (sem `.dark`) — esta página não exibe ThemeToggle.
+ */
+
+.theme-perfil {
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+
+  --color-surface: #f8fafc;
+  --color-surface-raised: #ffffff;
+  --color-surface-overlay: #eef2ff;
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-foreground: #ffffff;
+  --color-primary-light: #60a5fa;
+
+  --color-secondary: #7c3aed;
+  --color-secondary-hover: #6d28d9;
+  --color-secondary-foreground: #ffffff;
+  --color-secondary-light: #a78bfa;
+
+  --color-muted: #f8fafc;
+  --color-muted-foreground: #64748b;
+
+  --color-accent: #eef2ff;
+  --color-accent-foreground: #4338ca;
+
+  --color-success: #16a34a;
+  --color-success-foreground: #ffffff;
+  --color-warning: #d97706;
+  --color-warning-foreground: #ffffff;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e2e8f0;
+  --color-input: #cbd5e1;
+  --color-ring: #2563eb;
+
+  --perfil-gradient-primary: linear-gradient(120deg, #2563eb 0%, #7c3aed 100%);
+  --perfil-gradient-text: linear-gradient(100deg, #2563eb 0%, #60a5fa 35%, #7c3aed 70%, #a78bfa 100%);
+  --perfil-gradient-soft: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(124, 58, 237, 0.08) 100%);
+
+  color-scheme: light;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* ---------- Texto em gradiente translúcido (headline) ---------- */
+.perfil-gradient-text {
+  background-image: var(--perfil-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: perfilGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes perfilGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Glassmorphism sutil ---------- */
+.perfil-glass {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px -12px rgba(37, 99, 235, 0.12);
+}
+
+/* ---------- Glow sutil em CTAs e cards de destaque ---------- */
+.perfil-glow {
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.08), 0 20px 45px -18px rgba(37, 99, 235, 0.35);
+}
+
+/* ---------- Entrada de página (above the fold, sem observer) ---------- */
+.perfil-fade-up { animation: perfilFadeUp 0.8s ease-out both; }
+.perfil-fade-up-delay-1 { animation: perfilFadeUp 0.8s ease-out 0.12s both; }
+.perfil-fade-up-delay-2 { animation: perfilFadeUp 0.8s ease-out 0.24s both; }
+.perfil-fade-up-delay-3 { animation: perfilFadeUp 0.8s ease-out 0.36s both; }
+
+@keyframes perfilFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (classes alternadas via JS em Reveal.tsx) ---------- */
+.perfil-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.perfil-reveal[data-variant="fade-up"] { transform: translateY(28px); }
+.perfil-reveal[data-variant="scale-in"] { transform: scale(0.94); filter: blur(2px); }
+.perfil-reveal[data-variant="slide-right"] { transform: translateX(-32px); }
+.perfil-reveal[data-variant="slide-left"] { transform: translateX(32px); }
+
+.perfil-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Elementos flutuantes / blobs de fundo ---------- */
+.perfil-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.perfil-float-slow { animation: perfilFloat 10s ease-in-out infinite; }
+.perfil-float-slower { animation: perfilFloat 14s ease-in-out infinite reverse; }
+
+@keyframes perfilFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(16px, -22px) scale(1.05); }
+}
+
+/* ---------- Hover de cards (profundidade) ---------- */
+.perfil-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.perfil-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 24px 48px -22px rgba(37, 99, 235, 0.3);
+}
+
+/* ---------- Barra de habilidade / progresso (animada ao entrar em viewport) ---------- */
+.perfil-progress-track {
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  overflow: hidden;
+}
+.perfil-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-image: var(--perfil-gradient-primary);
+  width: 0%;
+  transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.perfil-progress-fill[data-visible="true"] {
+  width: var(--target-width, 100%);
+}
+
+/* ---------- Acordeão FAQ (sem JS para altura: grid-template-rows) ---------- */
+.perfil-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.35s ease;
+}
+.perfil-accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.perfil-accordion-panel > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .perfil-gradient-text,
+  .perfil-fade-up,
+  .perfil-fade-up-delay-1,
+  .perfil-fade-up-delay-2,
+  .perfil-fade-up-delay-3,
+  .perfil-float-slow,
+  .perfil-float-slower {
+    animation: none !important;
+  }
+  .perfil-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .perfil-progress-fill {
+    transition: none !important;
+  }
+  .perfil-card-hover:hover {
+    transform: none;
+  }
+}
