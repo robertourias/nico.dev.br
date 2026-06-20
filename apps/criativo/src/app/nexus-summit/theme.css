@@ -1,0 +1,235 @@
+/*
+ * Identidade visual exclusiva da campanha NEXUS Summit — landing de captação
+ * de inscritos para evento presencial/híbrido. Diferente das demais landings
+ * do app (fundo escuro premium), o briefing pede uma estética clara,
+ * corporativa e sofisticada (referência: TEDx, Web Summit, RD Summit), por
+ * isso o tema é light por padrão e não alterna para dark.
+ *
+ * Variáveis com prefixo `--nexus-*`, escopadas à classe `.theme-nexus` (nunca
+ * `:root`), consumidas via utilitários arbitrários do Tailwind ou pelas
+ * classes utilitárias definidas abaixo — mesmo padrão de
+ * `pre-venda-metodo-apice/theme.css`.
+ */
+
+.theme-nexus {
+  --nexus-bg: #ffffff;
+  --nexus-bg-soft: #f8f7fd;
+  --nexus-bg-raised: #f3f1fb;
+  --nexus-surface-glass: rgba(255, 255, 255, 0.66);
+  --nexus-border-glass: rgba(124, 58, 237, 0.14);
+
+  --nexus-fg: #15132b;
+  --nexus-fg-muted: #5b5970;
+  --nexus-fg-faint: #9b99ac;
+  --nexus-border: #e8e5f5;
+
+  --nexus-purple: #7c3aed;
+  --nexus-blue: #2563eb;
+  --nexus-cyan: #06b6d4;
+  --nexus-orange: #f97316;
+  --nexus-orange-hover: #ea580c;
+  --nexus-amber: #f59e0b;
+  --nexus-rose: #f43f5e;
+  --nexus-emerald: #10b981;
+
+  --nexus-gradient-primary: linear-gradient(115deg, var(--nexus-purple), var(--nexus-blue));
+  --nexus-gradient-text: linear-gradient(110deg, var(--nexus-purple) 0%, var(--nexus-blue) 50%, var(--nexus-cyan) 100%);
+  --nexus-gradient-cta: linear-gradient(120deg, var(--nexus-orange), var(--nexus-amber));
+
+  color-scheme: light;
+  background: var(--nexus-bg);
+  color: var(--nexus-fg);
+}
+
+/* ---------- Texto em gradiente animado (headline) ---------- */
+.nexus-gradient-text {
+  background-image: var(--nexus-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: nexusGradientShift 7s ease-in-out infinite;
+}
+
+@keyframes nexusGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Glassmorphism leve (sobre fundo claro) ---------- */
+.nexus-glass {
+  background: var(--nexus-surface-glass);
+  border: 1px solid var(--nexus-border-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ---------- Glow ---------- */
+.nexus-glow {
+  box-shadow: 0 1px 0 1px rgba(124, 58, 237, 0.06), 0 24px 60px -20px rgba(37, 99, 235, 0.28);
+}
+
+.nexus-glow-cta {
+  box-shadow: 0 1px 0 1px rgba(249, 115, 22, 0.12), 0 16px 36px -12px rgba(249, 115, 22, 0.45);
+}
+
+/* CTA pulse: leve respiração de glow no botão primário, para reforçar senso
+   de urgência sem ser intrusivo (briefing pede explicitamente "CTA pulse
+   animation"). */
+.nexus-cta-pulse {
+  animation: nexusCtaPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes nexusCtaPulse {
+  0%, 100% { box-shadow: 0 1px 0 1px rgba(249, 115, 22, 0.12), 0 14px 30px -10px rgba(249, 115, 22, 0.45); }
+  50% { box-shadow: 0 1px 0 1px rgba(249, 115, 22, 0.2), 0 18px 42px -8px rgba(249, 115, 22, 0.65); }
+}
+
+/* ---------- Entrada de página (above the fold, sem observer) ---------- */
+.nexus-fade-up { animation: nexusFadeUp 0.8s ease-out both; }
+.nexus-fade-up-delay-1 { animation: nexusFadeUp 0.8s ease-out 0.12s both; }
+.nexus-fade-up-delay-2 { animation: nexusFadeUp 0.8s ease-out 0.24s both; }
+.nexus-fade-up-delay-3 { animation: nexusFadeUp 0.8s ease-out 0.36s both; }
+
+@keyframes nexusFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (classes alternadas via JS em Reveal.tsx) ---------- */
+.nexus-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.nexus-reveal[data-variant="fade-up"] { transform: translateY(28px); }
+.nexus-reveal[data-variant="scale-in"] { transform: scale(0.92); filter: blur(2px); }
+.nexus-reveal[data-variant="slide-right"] { transform: translateX(-32px); }
+.nexus-reveal[data-variant="slide-left"] { transform: translateX(32px); }
+
+.nexus-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Blobs de fundo / parallax suave do Hero ---------- */
+.nexus-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(64px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.nexus-float-slow { animation: nexusFloat 10s ease-in-out infinite; }
+.nexus-float-slower { animation: nexusFloat 14s ease-in-out infinite reverse; }
+
+@keyframes nexusFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(16px, -24px) scale(1.05); }
+}
+
+/* Cards flutuantes do Hero (mockups de UI) */
+.nexus-float-card { animation: nexusCardFloat 7s ease-in-out infinite; }
+.nexus-float-card-delay { animation: nexusCardFloat 7s ease-in-out 1.4s infinite; }
+
+@keyframes nexusCardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+/* ---------- Hover de cards (profundidade) ---------- */
+.nexus-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.nexus-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 24px 48px -22px rgba(37, 99, 235, 0.32);
+}
+
+/* ---------- Logos de parceiros: grayscale → color no hover ---------- */
+.nexus-logo-card {
+  filter: grayscale(1) opacity(0.7);
+  transition: filter 0.35s ease, transform 0.35s ease;
+}
+.nexus-logo-card:hover {
+  filter: grayscale(0) opacity(1);
+  transform: translateY(-2px);
+}
+
+/* ---------- Acordeão FAQ (sem JS para altura: grid-template-rows) ---------- */
+.nexus-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.35s ease;
+}
+.nexus-accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.nexus-accordion-panel > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ---------- Carousel de depoimentos ---------- */
+.nexus-carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ---------- Painel da timeline (expande detalhe no clique) ---------- */
+.nexus-timeline-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.3s ease;
+}
+.nexus-timeline-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.nexus-timeline-panel > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ---------- Impressão da programação (botão "Imprimir / Salvar em PDF") --- */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #nexus-print-area, #nexus-print-area * {
+    visibility: visible;
+  }
+  #nexus-print-area {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nexus-gradient-text,
+  .nexus-cta-pulse,
+  .nexus-fade-up,
+  .nexus-fade-up-delay-1,
+  .nexus-fade-up-delay-2,
+  .nexus-fade-up-delay-3,
+  .nexus-float-slow,
+  .nexus-float-slower,
+  .nexus-float-card,
+  .nexus-float-card-delay {
+    animation: none !important;
+  }
+  .nexus-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .nexus-card-hover:hover {
+    transform: none;
+  }
+}

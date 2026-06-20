@@ -55,6 +55,14 @@ const campanhas: Page[] = [
     status: "active",
     href: "/simulador-economia-domestica",
   },
+  {
+    slug: "nexus-summit",
+    name: "NEXUS Summit",
+    description: "Landing de captação de inscritos para evento corporativo híbrido, com programação, palestrantes, planos de ingresso e formulário de inscrição.",
+    icon: "🎫",
+    status: "active",
+    href: "/nexus-summit",
+  },
 ]
 
 const portfolio: Page[] = [
