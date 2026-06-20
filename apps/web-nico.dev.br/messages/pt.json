@@ -49,7 +49,11 @@
     "ariaPage": "Página {current} de {total}",
     "pageTitle": "Todos os Projetos",
     "pageMetaTitle": "Projetos | Roberto Nicoletti",
-    "pageMetaDesc": "Todos os projetos desenvolvidos — landing pages, aplicações web e produtos digitais."
+    "pageMetaDesc": "Todos os projetos desenvolvidos — landing pages, aplicações web e produtos digitais.",
+    "allCategories": "Todos",
+    "searchPlaceholder": "Buscar projetos por nome...",
+    "noProjectsFound": "Nenhum projeto encontrado.",
+    "clearFilters": "Limpar filtros"
   },
   "contact": {
     "tag": "Comunicação",

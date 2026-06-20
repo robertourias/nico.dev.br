@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { SiteHeader } from "../../components/SiteHeader"
 import Footer from "../../components/Footer"
-import ProjectCard from "../../components/ProjectCard"
+import ProjectsFilter from "../../components/ProjectsFilter"
 import { projects } from "../../data/projects"
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -35,11 +35,7 @@ export default async function ProjetosPage({
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
+          <ProjectsFilter projects={projects} />
         </div>
       </div>
 

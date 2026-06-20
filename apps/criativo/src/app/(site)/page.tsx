@@ -65,16 +65,6 @@ const campanhas: Page[] = [
   },
 ]
 
-const portfolio: Page[] = [
-  {
-    slug: "portfolio-layout-base",
-    name: "Layout de Portfólio",
-    description: "Estrutura de página para apresentar projetos, cases e trabalhos selecionados.",
-    icon: "🖼️",
-    status: "coming-soon",
-  },
-]
-
 export default function HomePage() {
   return (
     <main className="flex-1 px-6 pt-28 pb-12 max-w-5xl mx-auto w-full">
@@ -91,11 +81,6 @@ export default function HomePage() {
       <section className="mb-12">
         <h2 className="text-lg font-semibold text-foreground mb-4">Campanhas</h2>
         <PageGrid pages={campanhas} />
-      </section>
-
-      <section>
-        <h2 className="text-lg font-semibold text-foreground mb-4">Portfólio</h2>
-        <PageGrid pages={portfolio} />
       </section>
     </main>
   )

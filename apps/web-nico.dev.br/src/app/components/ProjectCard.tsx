@@ -27,10 +27,21 @@ export default function ProjectCard({
         />
       </div>
       <div className="p-6 md:p-8">
-        <div className="flex gap-2 mb-4">
-          <span className="px-2 py-0.5 bg-surface-container-highest text-[10px] text-on-surface-variant rounded-sm font-label uppercase tracking-widest">
-            {project.category}
-          </span>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {Array.isArray(project.category) ? (
+            project.category.map((cat) => (
+              <span
+                key={cat}
+                className="px-2 py-0.5 bg-surface-container-highest text-[10px] text-on-surface-variant rounded-sm font-label uppercase tracking-widest"
+              >
+                {cat}
+              </span>
+            ))
+          ) : typeof project.category === "string" ? (
+            <span className="px-2 py-0.5 bg-surface-container-highest text-[10px] text-on-surface-variant rounded-sm font-label uppercase tracking-widest">
+              {project.category}
+            </span>
+          ) : null}
         </div>
         <h3 className="font-display text-xl font-bold text-on-surface mb-4 hover:text-primary transition-colors">
           {project.title}
