@@ -11,6 +11,14 @@ interface ShareExportBarProps {
   onReset: () => void
 }
 
+// `navigator.share` (Web Share API) ainda não está nas typings padrão do
+// lib.dom.d.ts em todas as versões do TypeScript — declaramos a forma mínima
+// aqui em vez de depender disso, evitando erro de compilação independente da
+// versão instalada.
+type NavigatorWithShare = Navigator & {
+  share?: (data: { title?: string; text?: string }) => Promise<void>
+}
+
 // Recursos extras do briefing implementados sem dependências externas:
 // - Compartilhar: Web Share API quando disponível (mobile/Safari/Chrome),
 //   com fallback para copiar um resumo para a área de transferência.
@@ -38,9 +46,10 @@ export function ShareExportBar({ result, scenarioLabel, onReset }: ShareExportBa
   }
 
   const handleShare = async () => {
-    if (typeof navigator !== "undefined" && "share" in navigator) {
+    const nav = typeof navigator !== "undefined" ? (navigator as NavigatorWithShare) : undefined
+    if (nav?.share) {
       try {
-        await navigator.share({ title: "Simulador de Economia Doméstica", text: shareText })
+        await nav.share({ title: "Simulador de Economia Doméstica", text: shareText })
         return
       } catch {
         // Usuário cancelou o compartilhamento nativo ou ele falhou — segue
