@@ -1,0 +1,337 @@
+/*
+ * Tema próprio desta campanha — independente do restante do app "criativo" e
+ * das demais landings. Escopado à classe `.theme-economia`, nunca em `:root`
+ * ou `globals.css`.
+ *
+ * Identidade "fintech premium" (Stripe/Linear/Vercel/Arc): light theme, muito
+ * espaço em branco, glassmorphism sutil. Verde-esmeralda (crescimento /
+ * dinheiro) → azul (confiança) como gradiente primário, com âmbar reservado
+ * para gamificação (badges). Fixo (sem `.dark`) — esta página não exibe
+ * ThemeToggle.
+ */
+
+.theme-economia {
+  --color-background: #ffffff;
+  --color-foreground: #0b1f17;
+
+  --color-surface: #f7faf8;
+  --color-surface-raised: #ffffff;
+  --color-surface-overlay: #ecfdf5;
+
+  --color-primary: #059669;
+  --color-primary-hover: #047857;
+  --color-primary-foreground: #ffffff;
+  --color-primary-light: #34d399;
+
+  --color-secondary: #2563eb;
+  --color-secondary-hover: #1d4ed8;
+  --color-secondary-foreground: #ffffff;
+  --color-secondary-light: #60a5fa;
+
+  --color-muted: #f1f5f3;
+  --color-muted-foreground: #5b6b63;
+
+  --color-accent: #ecfdf5;
+  --color-accent-foreground: #047857;
+
+  --color-success: #16a34a;
+  --color-success-foreground: #ffffff;
+  --color-warning: #d97706;
+  --color-warning-foreground: #ffffff;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e2e8e4;
+  --color-input: #cbd5d1;
+  --color-ring: #059669;
+
+  --economia-amber: #f59e0b;
+  --economia-amber-light: #fcd34d;
+
+  --economia-gradient-primary: linear-gradient(120deg, #059669 0%, #2563eb 100%);
+  --economia-gradient-text: linear-gradient(100deg, #059669 0%, #34d399 35%, #2563eb 70%, #60a5fa 100%);
+  --economia-gradient-soft: linear-gradient(135deg, rgba(5, 150, 105, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%);
+  --economia-gradient-amber: linear-gradient(120deg, #f59e0b 0%, #fbbf24 100%);
+
+  color-scheme: light;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* ---------- Texto em gradiente translúcido (headline) ---------- */
+.economia-gradient-text {
+  background-image: var(--economia-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: economiaGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes economiaGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Glassmorphism sutil ---------- */
+.economia-glass {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(226, 232, 228, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px -12px rgba(5, 150, 105, 0.12);
+}
+
+/* ---------- Glow sutil em CTAs e cards de destaque ---------- */
+.economia-glow {
+  box-shadow: 0 0 0 1px rgba(5, 150, 105, 0.08), 0 20px 45px -18px rgba(5, 150, 105, 0.35);
+}
+
+.economia-glow-amber {
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.12), 0 16px 36px -16px rgba(245, 158, 11, 0.4);
+}
+
+/* ---------- Entrada de página (above the fold, sem observer) ---------- */
+.economia-fade-up { animation: economiaFadeUp 0.8s ease-out both; }
+.economia-fade-up-delay-1 { animation: economiaFadeUp 0.8s ease-out 0.12s both; }
+.economia-fade-up-delay-2 { animation: economiaFadeUp 0.8s ease-out 0.24s both; }
+.economia-fade-up-delay-3 { animation: economiaFadeUp 0.8s ease-out 0.36s both; }
+
+@keyframes economiaFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (classes alternadas via JS em Reveal.tsx) ---------- */
+.economia-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.economia-reveal[data-variant="fade-up"] { transform: translateY(28px); }
+.economia-reveal[data-variant="scale-in"] { transform: scale(0.94); filter: blur(2px); }
+.economia-reveal[data-variant="slide-right"] { transform: translateX(-32px); }
+.economia-reveal[data-variant="slide-left"] { transform: translateX(32px); }
+
+.economia-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Elementos flutuantes / blobs de fundo ---------- */
+.economia-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.economia-float-slow { animation: economiaFloat 10s ease-in-out infinite; }
+.economia-float-slower { animation: economiaFloat 14s ease-in-out infinite reverse; }
+
+@keyframes economiaFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(16px, -22px) scale(1.05); }
+}
+
+/* ---------- Hover de cards (profundidade) ---------- */
+.economia-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.economia-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(5, 150, 105, 0.35);
+  box-shadow: 0 24px 48px -22px rgba(5, 150, 105, 0.3);
+}
+
+/* ---------- Barra de progresso horizontal (animada ao entrar em viewport) ---------- */
+.economia-progress-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  overflow: hidden;
+}
+.economia-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-image: var(--economia-gradient-primary);
+  width: 0%;
+  transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.economia-progress-fill[data-visible="true"] {
+  width: var(--target-width, 100%);
+}
+.economia-progress-fill[data-variant="amber"] {
+  background-image: var(--economia-gradient-amber);
+}
+
+/* ---------- Barras verticais do gráfico comparativo ---------- */
+.economia-bar-fill {
+  width: 100%;
+  border-radius: 0.5rem 0.5rem 0.25rem 0.25rem;
+  height: 0%;
+  transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.economia-bar-fill[data-visible="true"] {
+  height: var(--target-height, 0%);
+}
+
+/* ---------- Steppers numéricos (hábitos) ---------- */
+.economia-stepper-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  color: var(--color-foreground);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+.economia-stepper-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.economia-stepper-btn:active {
+  transform: scale(0.92);
+}
+.economia-stepper-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.economia-input {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.economia-input::-webkit-outer-spin-button,
+.economia-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ---------- Slider de energia (range input) ---------- */
+.economia-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  outline: none;
+  cursor: pointer;
+}
+.economia-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.45);
+  transition: transform 0.15s ease;
+}
+.economia-range::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+.economia-range::-moz-range-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.45);
+  cursor: pointer;
+}
+.economia-range::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+}
+
+/* ---------- Abas de cenário ---------- */
+.economia-tab {
+  position: relative;
+  border-radius: 0.85rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+.economia-tab[data-active="true"] {
+  border-color: transparent;
+  box-shadow: 0 0 0 1px rgba(5, 150, 105, 0.15), 0 14px 30px -14px rgba(5, 150, 105, 0.35);
+}
+.economia-tab[data-active="true"] .economia-tab-bg {
+  opacity: 1;
+}
+.economia-tab-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: var(--economia-gradient-soft);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+/* ---------- Badges de gamificação ---------- */
+.economia-badge {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, filter 0.3s ease;
+}
+.economia-badge[data-unlocked="false"] {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+.economia-badge[data-unlocked="true"]:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* ---------- Indicador "salvo automaticamente" ---------- */
+.economia-save-pulse {
+  animation: economiaSavePulse 0.6s ease-out;
+}
+@keyframes economiaSavePulse {
+  0% { opacity: 0; transform: scale(0.85); }
+  60% { opacity: 1; transform: scale(1.03); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- Impressão (Exportar PDF via window.print) ---------- */
+@media print {
+  .economia-no-print {
+    display: none !important;
+  }
+  .theme-economia {
+    background: #ffffff !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .economia-gradient-text,
+  .economia-fade-up,
+  .economia-fade-up-delay-1,
+  .economia-fade-up-delay-2,
+  .economia-fade-up-delay-3,
+  .economia-float-slow,
+  .economia-float-slower {
+    animation: none !important;
+  }
+  .economia-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .economia-progress-fill,
+  .economia-bar-fill {
+    transition: none !important;
+  }
+  .economia-card-hover:hover,
+  .economia-badge[data-unlocked="true"]:hover {
+    transform: none;
+  }
+}

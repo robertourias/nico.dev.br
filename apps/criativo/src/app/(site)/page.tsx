@@ -47,6 +47,14 @@ const campanhas: Page[] = [
     status: "active",
     href: "/teste-perfil-profissional",
   },
+  {
+    slug: "simulador-economia-domestica",
+    name: "Simulador de Economia Doméstica",
+    description: "Simulador interativo que calcula em tempo real quanto pequenas mudanças de hábito podem economizar por mês, ano e em 5 anos.",
+    icon: "💰",
+    status: "active",
+    href: "/simulador-economia-domestica",
+  },
 ]
 
 const portfolio: Page[] = [
