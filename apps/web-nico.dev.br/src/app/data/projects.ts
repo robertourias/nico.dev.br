@@ -10,6 +10,43 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 35,
+    title: "Escritório de Advocacia",
+    description:
+      "Landing page institucional para escritório de advocacia, com áreas de atuação, equipe e captura de leads.",
+    category: ["Marketing", "Design"],
+    image: "/projects/escritorio-advocacia.png",
+    demoUrl: "https://criativo.nico.dev.br/escritorio-advocacia",
+  },
+  {
+    id: 13,
+    title: "Metrônomo",
+    description:
+      "Aplicativo web completo para músicos e entusiastas de música, com funcionalidades de metrônomo e gerenciamento de batidas.",
+    category: ["Produtividade", "Utilitários"],
+    image: "/projects/metronomo.png",
+    demoUrl: process.env.NEXT_PUBLIC_METRONOME_URL ?? "https://metronomo.nico.dev.br/",
+    repoUrl: "https://github.com/robertourias/nico.dev.br/tree/main/apps/metronome",
+  },
+  {
+    id: 29,
+    title: "Gerador de Paleta de Cores",
+    description:
+      "Gere paletas harmônicas com IA. Escolha cor base, tipo de harmonia e quantidade. Exporte em CSS, SCSS, JSON ou Tailwind.",
+    category: ["IA", "Utilitários", "Dev"],
+    image: "/projects/paleta-cores.png",
+    demoUrl: "https://tools.nico.dev.br/gerador-paleta",
+  },
+  {
+    id: 28,
+    title: "Minuto Estoico",
+    description:
+      "Reflexões sobre estoicismo para o dia a dia.",
+    category: ["IA", "Utilitários"],
+    image: "/projects/minuto-estoico.png",
+    demoUrl: "https://minutoestoico.nico.dev.br/",
+  },
+  {
     id: 34,
     title: "Diagnóstico Gratuito de Negócios",
     description:
@@ -35,34 +72,6 @@ export const projects: Project[] = [
     category: ["Marketing", "Finanças", "Utilitários"],
     image: "/projects/calculadora-roi.png",
     demoUrl: "https://criativo.nico.dev.br/calculadora-roi",
-  },
-  {
-    id: 28,
-    title: "Minuto Estoico",
-    description:
-      "Reflexões sobre estoicismo para o dia a dia.",
-    category: ["IA", "Utilitários"],
-    image: "/projects/minuto-estoico.png",
-    demoUrl: "https://minutoestoico.nico.dev.br/",
-  },
-  {
-    id: 13,
-    title: "Metrônomo",
-    description:
-      "Aplicativo web completo para músicos e entusiastas de música, com funcionalidades de metrônomo e gerenciamento de batidas.",
-    category: ["Produtividade", "Utilitários"],
-    image: "/projects/metronomo.png",
-    demoUrl: process.env.NEXT_PUBLIC_METRONOME_URL ?? "https://metronomo.nico.dev.br/",
-    repoUrl: "https://github.com/robertourias/nico.dev.br/tree/main/apps/metronome",
-  },
-  {
-    id: 29,
-    title: "Gerador de Paleta de Cores",
-    description:
-      "Gere paletas harmônicas com IA. Escolha cor base, tipo de harmonia e quantidade. Exporte em CSS, SCSS, JSON ou Tailwind.",
-    category: ["IA", "Utilitários", "Dev"],
-    image: "/projects/paleta-cores.png",
-    demoUrl: "https://tools.nico.dev.br/gerador-paleta",
   },
   {
     id: 15,

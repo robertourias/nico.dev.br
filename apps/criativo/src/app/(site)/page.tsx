@@ -87,6 +87,14 @@ const campanhas: Page[] = [
     status: "active",
     href: "/consultoria-ti",
   },
+  {
+    slug: "escritorio-advocacia",
+    name: "Escritório de Advocacia",
+    description: "Site institucional premium para escritório de advocacia: áreas de atuação, equipe jurídica, processo de atendimento, depoimentos, conteúdo jurídico e agendamento de consultas.",
+    icon: "⚖️",
+    status: "active",
+    href: "/escritorio-advocacia",
+  },
 ]
 
 export default function HomePage() {
