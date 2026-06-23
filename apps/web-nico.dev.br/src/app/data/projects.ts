@@ -10,6 +10,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 36,
+    title: "Clínica Médica",
+    description:
+      "Landing page institucional para clínica médica, com especialidades, corpo clínico e captura de leads.",
+    category: ["Marketing", "Design", "Institucional"],
+    image: "/projects/clinica-musica.png",
+    demoUrl: "https://criativo.nico.dev.br/clinica-medica",
+  },
+  {
     id: 35,
     title: "Escritório de Advocacia",
     description:
