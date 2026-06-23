@@ -17,6 +17,7 @@ jobs:
       challenges: ${{ steps.filter.outputs.challenges }}
       metronome:  ${{ steps.filter.outputs.metronome }}
       storybook:  ${{ steps.filter.outputs.storybook }}
+      blog:       ${{ steps.filter.outputs.blog }}
     steps:
       - uses: actions/checkout@v4
 
@@ -44,6 +45,10 @@ jobs:
               - 'apps/storybook/**'
               - 'packages/**'
               - 'pnpm-lock.yaml'
+            blog:
+              - 'apps/blog/**'
+              - 'packages/**'
+              - 'pnpm-lock.yaml'
 
   # ── 2. web-nico.dev.br ───────────────────────────────────────────────────
   deploy-web:
@@ -55,8 +60,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -94,8 +97,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -132,8 +133,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -170,8 +169,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -208,8 +205,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -235,3 +230,39 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
+
+  # ── 7. blog.nico.dev.br ─────────────────────────────────────────────────
+  deploy-blog:
+    name: "blog — Build & Deploy"
+    needs: detect-changes
+    if: needs.detect-changes.outputs.blog == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm turbo lint --filter=@nico.dev/blog
+
+      - name: Build
+        run: pnpm turbo build --filter=@nico.dev/blog
+
+      # Secrets necessários: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID_BLOG
+      - name: Deploy to Vercel (production)
+        if: github.event_name == 'push'
+        run: |
+          npx vercel pull --yes --environment=production --cwd=apps/blog --token=${{ secrets.VERCEL_TOKEN }}
+          npx vercel build --prod --cwd=apps/blog --token=${{ secrets.VERCEL_TOKEN }}
+          npx vercel deploy --prebuilt --prod --cwd=apps/blog --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_BLOG }}
