@@ -95,6 +95,14 @@ const campanhas: Page[] = [
     status: "active",
     href: "/escritorio-advocacia",
   },
+  {
+    slug: "clinica-medica",
+    name: "Clínica Médica",
+    description: "Site institucional premium para clínica médica: especialidades, equipe médica, diferenciais, processo de atendimento, agendamento online, convênios, depoimentos e FAQ.",
+    icon: "🩺",
+    status: "active",
+    href: "/clinica-medica",
+  },
 ]
 
 export default function HomePage() {

@@ -14,7 +14,7 @@ export const projects: Project[] = [
     title: "Escritório de Advocacia",
     description:
       "Landing page institucional para escritório de advocacia, com áreas de atuação, equipe e captura de leads.",
-    category: ["Marketing", "Design"],
+    category: ["Marketing", "Design", "Institucional"],
     image: "/projects/escritorio-advocacia.png",
     demoUrl: "https://criativo.nico.dev.br/escritorio-advocacia",
   },
