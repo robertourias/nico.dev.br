@@ -63,6 +63,30 @@ const campanhas: Page[] = [
     status: "active",
     href: "/nexus-summit",
   },
+  {
+    slug: "diagnostico-gratuito-negocios",
+    name: "Diagnóstico Gratuito de Negócios",
+    description: "Landing de captação de leads via questionário interativo que avalia marketing, vendas, operação, financeiro e estratégia, gerando um diagnóstico com score e recomendações.",
+    icon: "📊",
+    status: "active",
+    href: "/diagnostico-gratuito-negocios",
+  },
+  {
+    slug: "calculadora-roi",
+    name: "Calculadora de ROI",
+    description: "Calculadora interativa que simula o retorno financeiro de contratar um serviço: receita adicional, economia, lucro, ROI e payback, com gráfico comparativo e exemplos prontos.",
+    icon: "📈",
+    status: "active",
+    href: "/calculadora-roi",
+  },
+  {
+    slug: "consultoria-ti",
+    name: "Consultoria de TI",
+    description: "Site institucional premium para consultoria de TI: serviços, cases de sucesso, indicadores, depoimentos, blog técnico, formulário de lead e uma calculadora interativa de maturidade tecnológica.",
+    icon: "🖥️",
+    status: "active",
+    href: "/consultoria-ti",
+  },
 ]
 
 export default function HomePage() {

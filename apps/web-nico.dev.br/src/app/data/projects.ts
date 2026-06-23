@@ -10,6 +10,33 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 34,
+    title: "Diagnóstico Gratuito de Negócios",
+    description:
+      "Quiz interativo que identifica os gargalos de crescimento do seu negócio e entrega um diagnóstico personalizado.",
+    category: ["Marketing", "Design"],
+    image: "/projects/diagnostico-negocio.png",
+    demoUrl: "https://criativo.nico.dev.br/diagnostico-gratuito-negocios",
+  },
+  {
+    id: 33,
+    title: "Consultoria de TI",
+    description:
+      "Landing page institucional para consultoria de TI, com calculadora de maturidade digital, cases e captura de leads.",
+    category: ["Marketing", "Design"],
+    image: "/projects/consultoria-ti.png",
+    demoUrl: "https://criativo.nico.dev.br/consultoria-ti",
+  },
+  {
+    id: 32,
+    title: "Calculadora de ROI",
+    description:
+      "Simule o retorno do investimento comparando cenários e visualize resultados em gráficos e tabelas.",
+    category: ["Marketing", "Finanças", "Utilitários"],
+    image: "/projects/calculadora-roi.png",
+    demoUrl: "https://criativo.nico.dev.br/calculadora-roi",
+  },
+  {
     id: 28,
     title: "Minuto Estoico",
     description:

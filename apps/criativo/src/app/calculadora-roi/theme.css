@@ -1,0 +1,263 @@
+/*
+ * Tema próprio desta campanha — independente do restante do app "criativo" e
+ * das demais landings. Escopado à classe `.theme-roi`, nunca em `:root` ou
+ * `globals.css`.
+ *
+ * Identidade "dashboard financeiro premium": fundo neutro muito claro, azul
+ * profissional como cor de confiança/ação e verde reservado para indicadores
+ * positivos (ROI, lucro, economia) — nunca os dois com o mesmo papel, para
+ * reforçar a leitura "azul = decisão, verde = resultado". Fixo (sem `.dark`)
+ * — esta página não exibe ThemeToggle.
+ */
+
+.theme-roi {
+  --color-background: #f7f9fc;
+  --color-foreground: #0f172a;
+
+  --color-surface: #eef2f7;
+  --color-surface-raised: #ffffff;
+  --color-surface-overlay: #eaf1fd;
+
+  --color-primary: #1d4ed8;
+  --color-primary-hover: #1e40af;
+  --color-primary-foreground: #ffffff;
+  --color-primary-light: #60a5fa;
+
+  --color-secondary: #16a34a;
+  --color-secondary-hover: #15803d;
+  --color-secondary-foreground: #ffffff;
+  --color-secondary-light: #4ade80;
+
+  --color-muted: #eef2f7;
+  --color-muted-foreground: #5b6577;
+
+  --color-accent: #eaf1fd;
+  --color-accent-foreground: #1d4ed8;
+
+  --color-success: #16a34a;
+  --color-success-foreground: #ffffff;
+  --color-warning: #d97706;
+  --color-warning-foreground: #ffffff;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e2e8f0;
+  --color-input: #cbd5e1;
+  --color-ring: #1d4ed8;
+
+  --roi-gradient-primary: linear-gradient(120deg, #1d4ed8 0%, #4338ca 100%);
+  --roi-gradient-positive: linear-gradient(120deg, #16a34a 0%, #059669 100%);
+  --roi-gradient-text: linear-gradient(100deg, #1d4ed8 0%, #4338ca 35%, #16a34a 75%, #059669 100%);
+  --roi-gradient-soft: linear-gradient(135deg, rgba(29, 78, 216, 0.07) 0%, rgba(22, 163, 74, 0.07) 100%);
+
+  color-scheme: light;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* ---------- Texto em gradiente translúcido (headline) ---------- */
+.roi-gradient-text {
+  background-image: var(--roi-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: roiGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes roiGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Glassmorphism sutil ---------- */
+.roi-glass {
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px -12px rgba(29, 78, 216, 0.12);
+}
+
+/* ---------- Glow em CTAs e cards de destaque ---------- */
+.roi-glow {
+  box-shadow: 0 0 0 1px rgba(29, 78, 216, 0.08), 0 20px 45px -18px rgba(29, 78, 216, 0.35);
+}
+.roi-glow-positive {
+  box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.1), 0 20px 45px -18px rgba(22, 163, 74, 0.38);
+}
+
+/* ---------- Entrada de página (above the fold, sem observer) ---------- */
+.roi-fade-up { animation: roiFadeUp 0.8s ease-out both; }
+.roi-fade-up-delay-1 { animation: roiFadeUp 0.8s ease-out 0.12s both; }
+.roi-fade-up-delay-2 { animation: roiFadeUp 0.8s ease-out 0.24s both; }
+.roi-fade-up-delay-3 { animation: roiFadeUp 0.8s ease-out 0.36s both; }
+
+@keyframes roiFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (classes alternadas via JS em Reveal.tsx) ---------- */
+.roi-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.roi-reveal[data-variant="fade-up"] { transform: translateY(28px); }
+.roi-reveal[data-variant="scale-in"] { transform: scale(0.94); filter: blur(2px); }
+.roi-reveal[data-variant="slide-right"] { transform: translateX(-32px); }
+.roi-reveal[data-variant="slide-left"] { transform: translateX(32px); }
+
+.roi-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Elementos flutuantes / blobs de fundo ---------- */
+.roi-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.roi-float-slow { animation: roiFloat 10s ease-in-out infinite; }
+.roi-float-slower { animation: roiFloat 14s ease-in-out infinite reverse; }
+
+@keyframes roiFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(16px, -22px) scale(1.05); }
+}
+
+/* ---------- Hover de cards (profundidade) ---------- */
+.roi-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.roi-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(29, 78, 216, 0.3);
+  box-shadow: 0 24px 48px -22px rgba(29, 78, 216, 0.28);
+}
+
+/* ---------- Barra de progresso horizontal (animada ao entrar em viewport) ---------- */
+.roi-progress-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  overflow: hidden;
+}
+.roi-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-image: var(--roi-gradient-primary);
+  width: 0%;
+  transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.roi-progress-fill[data-visible="true"] {
+  width: var(--target-width, 100%);
+}
+
+/* ---------- Barras verticais (gráfico comparativo) ---------- */
+.roi-bar-fill {
+  width: 100%;
+  border-radius: 0.5rem 0.5rem 0.25rem 0.25rem;
+  height: 0%;
+  transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.roi-bar-fill[data-visible="true"] {
+  height: var(--target-height, 0%);
+}
+
+/* ---------- Input monetário (sem spinner nativo) ---------- */
+.roi-input {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.roi-input::-webkit-outer-spin-button,
+.roi-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ---------- Slider de crescimento esperado (range input) ---------- */
+.roi-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  outline: none;
+  cursor: pointer;
+}
+.roi-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.45);
+  transition: transform 0.15s ease;
+}
+.roi-range::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+.roi-range::-moz-range-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.45);
+  cursor: pointer;
+}
+.roi-range::-moz-range-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+}
+
+/* ---------- Cards de exemplo pronto (clicável) ---------- */
+.roi-example-card {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.roi-example-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(29, 78, 216, 0.35);
+  box-shadow: 0 18px 36px -18px rgba(29, 78, 216, 0.3);
+}
+.roi-example-card[data-active="true"] {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px rgba(29, 78, 216, 0.15), 0 18px 36px -18px rgba(29, 78, 216, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roi-gradient-text,
+  .roi-fade-up,
+  .roi-fade-up-delay-1,
+  .roi-fade-up-delay-2,
+  .roi-fade-up-delay-3,
+  .roi-float-slow,
+  .roi-float-slower {
+    animation: none !important;
+  }
+  .roi-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .roi-progress-fill,
+  .roi-bar-fill {
+    transition: none !important;
+  }
+  .roi-card-hover:hover,
+  .roi-example-card:hover {
+    transform: none;
+  }
+}

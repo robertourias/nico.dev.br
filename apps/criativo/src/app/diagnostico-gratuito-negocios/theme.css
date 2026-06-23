@@ -1,0 +1,185 @@
+/*
+ * Tema próprio desta campanha — escopado à classe `.theme-diagnostico`,
+ * nunca em `:root` ou `globals.css`. Identidade "consultoria estratégica
+ * SaaS B2B": fundo claro, gradientes azul/roxo/ciano, glassmorphism
+ * discreto. Paleta definida na spec do produto.
+ */
+
+.theme-diagnostico {
+  --color-background: #f8fafc;
+  --color-foreground: #0f172a;
+
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-surface-overlay: #eef2ff;
+
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #06b6d4;
+  --color-secondary-hover: #0891b2;
+  --color-secondary-foreground: #ffffff;
+
+  --diag-accent: #8b5cf6;
+
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #5b6478;
+
+  --color-accent: #eef2ff;
+  --color-accent-foreground: #4338ca;
+
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-destructive: #dc2626;
+
+  --color-border: #e2e8f0;
+  --color-input: #cbd5e1;
+  --color-ring: #4f46e5;
+
+  --diag-gradient-primary: linear-gradient(120deg, #4f46e5 0%, #8b5cf6 50%, #06b6d4 100%);
+  --diag-gradient-text: linear-gradient(100deg, #4f46e5 0%, #8b5cf6 40%, #06b6d4 100%);
+  --diag-gradient-soft: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%);
+
+  color-scheme: light;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.diag-gradient-text {
+  background-image: var(--diag-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: diagGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes diagGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.diag-glass {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px -12px rgba(79, 70, 229, 0.12);
+}
+
+.diag-glow {
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.08), 0 20px 45px -18px rgba(79, 70, 229, 0.35);
+}
+
+.diag-fade-up { animation: diagFadeUp 0.8s ease-out both; }
+.diag-fade-up-delay-1 { animation: diagFadeUp 0.8s ease-out 0.12s both; }
+.diag-fade-up-delay-2 { animation: diagFadeUp 0.8s ease-out 0.24s both; }
+
+@keyframes diagFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+.diag-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.diag-reveal[data-variant="fade-up"] { transform: translateY(28px); }
+.diag-reveal[data-variant="scale-in"] { transform: scale(0.94); filter: blur(2px); }
+
+.diag-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.diag-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.diag-float-slow { animation: diagFloat 10s ease-in-out infinite; }
+.diag-float-slower { animation: diagFloat 14s ease-in-out infinite reverse; }
+
+@keyframes diagFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(16px, -22px) scale(1.05); }
+}
+
+.diag-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.diag-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(79, 70, 229, 0.35);
+  box-shadow: 0 24px 48px -22px rgba(79, 70, 229, 0.3);
+}
+
+.diag-progress-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  overflow: hidden;
+}
+.diag-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-image: var(--diag-gradient-primary);
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.diag-option-btn {
+  border-radius: 0.85rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, background 0.2s ease;
+}
+.diag-option-btn:hover {
+  border-color: var(--color-primary);
+}
+.diag-option-btn[data-active="true"] {
+  border-color: transparent;
+  background-image: var(--diag-gradient-soft);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+.diag-option-btn:active {
+  transform: scale(0.98);
+}
+
+.diag-step-transition {
+  animation: diagStepIn 0.4s ease-out both;
+}
+@keyframes diagStepIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diag-gradient-text,
+  .diag-fade-up,
+  .diag-fade-up-delay-1,
+  .diag-fade-up-delay-2,
+  .diag-float-slow,
+  .diag-float-slower,
+  .diag-step-transition {
+    animation: none !important;
+  }
+  .diag-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .diag-progress-fill {
+    transition: none !important;
+  }
+  .diag-card-hover:hover {
+    transform: none;
+  }
+}

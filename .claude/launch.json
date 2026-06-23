@@ -1,0 +1,54 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web-nico.dev.br",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev", "--port", "3000"],
+      "cwd": "apps/web-nico.dev.br",
+      "port": 3000
+    },
+    {
+      "name": "tools",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev", "--port", "3001"],
+      "cwd": "apps/tools",
+      "port": 3001
+    },
+    {
+      "name": "challenges",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev", "--port", "3002"],
+      "cwd": "apps/challenges",
+      "port": 3002
+    },
+    {
+      "name": "metronome",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev", "--port", "3003"],
+      "cwd": "apps/metronome",
+      "port": 3003
+    },
+    {
+      "name": "blog",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["astro", "dev", "--port", "3004"],
+      "cwd": "apps/blog",
+      "port": 3004
+    },
+    {
+      "name": "criativo",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "dev", "--port", "3005"],
+      "cwd": "apps/criativo",
+      "port": 3005
+    },
+    {
+      "name": "storybook",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["storybook", "dev", "-p", "6006"],
+      "cwd": "apps/storybook",
+      "port": 6006
+    }
+  ]
+}

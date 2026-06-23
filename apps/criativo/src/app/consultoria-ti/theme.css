@@ -1,0 +1,225 @@
+/*
+ * Tema próprio desta campanha — escopado à classe `.theme-consultoria`,
+ * nunca em `:root` ou `globals.css`. Identidade "consultoria de TI premium":
+ * fundo navy muito escuro, gradiente indigo→cyan como assinatura visual,
+ * glassmorphism leve e um dourado discreto reservado para selos de destaque
+ * (satisfação, prêmios). Inspirado em Accenture / ThoughtWorks / IBM
+ * Consulting — tech corporativo, não "startup colorida".
+ */
+
+.theme-consultoria {
+  --color-background: #060a14;
+  --color-foreground: #f1f5f9;
+
+  --color-surface: #0a0f1d;
+  --color-surface-raised: #0f1626;
+  --color-surface-overlay: #131c30;
+
+  --color-primary: #6366f1;
+  --color-primary-hover: #818cf8;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #06b6d4;
+  --color-secondary-hover: #22d3ee;
+  --color-secondary-foreground: #04222b;
+
+  --consult-gold: #f5b942;
+
+  --color-muted: #131c30;
+  --color-muted-foreground: #94a3b8;
+
+  --color-accent: #1b2540;
+  --color-accent-foreground: #c7d2fe;
+
+  --color-success: #22c55e;
+  --color-warning: #f5b942;
+  --color-destructive: #f87171;
+
+  --color-border: #1e293b;
+  --color-input: #243049;
+  --color-ring: #6366f1;
+
+  --consult-gradient-primary: linear-gradient(120deg, #6366f1 0%, #06b6d4 100%);
+  --consult-gradient-text: linear-gradient(100deg, #a5b4fc 0%, #67e8f9 45%, #818cf8 100%);
+  --consult-gradient-gold: linear-gradient(120deg, #f5b942 0%, #fbbf24 100%);
+  --consult-gradient-soft: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(6, 182, 212, 0.1) 100%);
+
+  color-scheme: dark;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* ---------- Fundo em grid técnico (hero e seções de destaque) ---------- */
+.consult-grid-bg {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* ---------- Texto em gradiente translúcido (headlines) ---------- */
+.consult-gradient-text {
+  background-image: var(--consult-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: consultGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes consultGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Glassmorphism leve ---------- */
+.consult-glass {
+  background: rgba(15, 22, 38, 0.62);
+  border: 1px solid rgba(99, 102, 241, 0.16);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 30px -14px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Glow em CTAs e cards de destaque ---------- */
+.consult-glow {
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.18), 0 22px 48px -18px rgba(99, 102, 241, 0.45);
+}
+.consult-glow-gold {
+  box-shadow: 0 0 0 1px rgba(245, 185, 66, 0.25), 0 18px 40px -18px rgba(245, 185, 66, 0.35);
+}
+
+/* ---------- Entrada de página (above the fold, sem observer) ---------- */
+.consult-fade-up { animation: consultFadeUp 0.8s ease-out both; }
+.consult-fade-up-delay-1 { animation: consultFadeUp 0.8s ease-out 0.12s both; }
+.consult-fade-up-delay-2 { animation: consultFadeUp 0.8s ease-out 0.24s both; }
+.consult-fade-up-delay-3 { animation: consultFadeUp 0.8s ease-out 0.36s both; }
+
+@keyframes consultFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (alternado via JS em Reveal.tsx) ---------- */
+.consult-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.consult-reveal[data-variant="fade-up"] { transform: translateY(28px); }
+.consult-reveal[data-variant="scale-in"] { transform: scale(0.94); filter: blur(2px); }
+.consult-reveal[data-variant="slide-right"] { transform: translateX(-32px); }
+.consult-reveal[data-variant="slide-left"] { transform: translateX(32px); }
+
+.consult-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Blobs flutuantes de fundo ---------- */
+.consult-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.consult-float-slow { animation: consultFloat 11s ease-in-out infinite; }
+.consult-float-slower { animation: consultFloat 15s ease-in-out infinite reverse; }
+
+@keyframes consultFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(18px, -24px) scale(1.06); }
+}
+
+/* ---------- Hover de cards (profundidade) ---------- */
+.consult-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+.consult-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 26px 50px -22px rgba(99, 102, 241, 0.35);
+}
+
+/* ---------- Barra de progresso ---------- */
+.consult-progress-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  overflow: hidden;
+}
+.consult-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-image: var(--consult-gradient-primary);
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Botões de opção (quiz / calculadora) ---------- */
+.consult-option-btn {
+  border-radius: 0.85rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, background 0.2s ease;
+}
+.consult-option-btn:hover {
+  border-color: var(--color-primary);
+}
+.consult-option-btn[data-active="true"] {
+  border-color: transparent;
+  background-image: var(--consult-gradient-soft);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+.consult-option-btn:active {
+  transform: scale(0.98);
+}
+
+.consult-step-transition {
+  animation: consultStepIn 0.4s ease-out both;
+}
+@keyframes consultStepIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Carrossel de depoimentos ---------- */
+.consult-carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Linha vertical/horizontal do timeline "Como Trabalhamos" ---------- */
+.consult-timeline-line {
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), rgba(6, 182, 212, 0.5), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .consult-gradient-text,
+  .consult-fade-up,
+  .consult-fade-up-delay-1,
+  .consult-fade-up-delay-2,
+  .consult-fade-up-delay-3,
+  .consult-float-slow,
+  .consult-float-slower,
+  .consult-step-transition {
+    animation: none !important;
+  }
+  .consult-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .consult-progress-fill {
+    transition: none !important;
+  }
+  .consult-card-hover:hover {
+    transform: none;
+  }
+}
