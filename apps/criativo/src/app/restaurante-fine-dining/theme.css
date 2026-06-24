@@ -1,0 +1,379 @@
+/*
+ * Tema próprio desta campanha — escopado à classe `.theme-restaurante`, nunca
+ * em `:root` ou `globals.css`. Identidade "fine dining contemporâneo":
+ * preto profundo + off-white editorial, dourado suave como cor de
+ * exclusividade/ação, verde oliva e cobre escovado como acentos sensoriais
+ * (ingredientes, harmonizações). Tipografia serif editorial (Cormorant
+ * Garamond) nos títulos e Manrope no corpo — combinação própria, distinta de
+ * todas as outras landings do app (que usam Playfair Display, Inter, Bebas
+ * Neue...). Texturas de papel/manuscrito e selos de ingresso reforçam a
+ * sensação de experiência gastronômica exclusiva.
+ */
+
+.theme-restaurante {
+  --color-background: #0d0d0d;
+  --color-foreground: #f8f6f2;
+
+  --color-surface: #141311;
+  --color-surface-raised: #1c1a17;
+  --color-surface-overlay: #242220;
+
+  --color-primary: #c6a15b;
+  --color-primary-hover: #d9bc80;
+  --color-primary-foreground: #0d0d0d;
+
+  --color-secondary: #6f7858;
+  --color-secondary-hover: #838d6a;
+  --color-secondary-foreground: #f8f6f2;
+
+  --rest-copper: #b07a52;
+  --rest-terracotta: #a85c3e;
+  --rest-gold-light: #e8cd96;
+
+  --color-muted: #1a1816;
+  --color-muted-foreground: #b7afa0;
+
+  --color-accent: #241d12;
+  --color-accent-foreground: #c6a15b;
+
+  --color-success: #6f9c5e;
+  --color-warning: #c6a15b;
+  --color-destructive: #c75c4a;
+
+  --color-border: #2b2620;
+  --color-input: #2b2620;
+  --color-ring: #c6a15b;
+
+  --rest-gradient-gold: linear-gradient(120deg, #c6a15b 0%, #e8cd96 100%);
+  --rest-gradient-dark: linear-gradient(160deg, #0d0d0d 0%, #1c1a17 55%, #0d0d0d 100%);
+  --rest-gradient-olive: linear-gradient(120deg, #6f7858 0%, #93a06e 100%);
+  --rest-gradient-copper: linear-gradient(120deg, #b07a52 0%, #d6a37b 100%);
+  --rest-gradient-soft: linear-gradient(160deg, rgba(198, 161, 91, 0.1) 0%, rgba(111, 120, 88, 0.08) 100%);
+
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans-alt: var(--font-manrope), var(--font-sans), sans-serif;
+
+  color-scheme: dark;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans-alt);
+}
+
+.theme-restaurante h1,
+.theme-restaurante h2,
+.theme-restaurante h3,
+.theme-restaurante .rest-font-serif {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
+.theme-restaurante .rest-font-script {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+/* ---------- Fundo texturizado sutil (hero e seções escuras) ---------- */
+.rest-grid-bg {
+  background-image:
+    linear-gradient(rgba(198, 161, 91, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(198, 161, 91, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+.rest-noise {
+  background-image: radial-gradient(circle, rgba(248, 246, 242, 0.6) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.025;
+}
+
+/* ---------- Destaque de texto com sublinhado dourado translúcido ---------- */
+.rest-highlight {
+  position: relative;
+  display: inline;
+  white-space: normal;
+  color: var(--color-primary);
+}
+.rest-highlight::after {
+  content: "";
+  position: absolute;
+  left: -0.1em;
+  right: -0.1em;
+  bottom: -0.06em;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(198, 161, 91, 0.7), transparent);
+}
+
+/* ---------- Glassmorphism escuro dourado ---------- */
+.rest-glass {
+  background: rgba(248, 246, 242, 0.04);
+  border: 1px solid rgba(198, 161, 91, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 30px -16px rgba(0, 0, 0, 0.7);
+}
+
+/* ---------- Glow dourado em CTAs e destaques ---------- */
+.rest-glow {
+  box-shadow: 0 0 0 1px rgba(198, 161, 91, 0.2), 0 24px 48px -22px rgba(198, 161, 91, 0.25);
+}
+.rest-glow-olive {
+  box-shadow: 0 0 0 1px rgba(111, 120, 88, 0.32), 0 16px 36px -18px rgba(111, 120, 88, 0.4);
+}
+
+/* ---------- Entrada de página (above the fold) ---------- */
+.rest-fade-up { animation: restFadeUp 0.9s ease-out both; }
+.rest-fade-up-delay-1 { animation: restFadeUp 0.9s ease-out 0.14s both; }
+.rest-fade-up-delay-2 { animation: restFadeUp 0.9s ease-out 0.28s both; }
+.rest-fade-up-delay-3 { animation: restFadeUp 0.9s ease-out 0.42s both; }
+
+@keyframes restFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (alternado via JS em Reveal.tsx) ---------- */
+.rest-reveal {
+  opacity: 0;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out;
+  will-change: opacity, transform;
+}
+.rest-reveal[data-variant="fade-up"] { transform: translateY(30px); }
+.rest-reveal[data-variant="scale-in"] { transform: scale(0.94); filter: blur(2px); }
+.rest-reveal[data-variant="slide-right"] { transform: translateX(-36px); }
+.rest-reveal[data-variant="slide-left"] { transform: translateX(36px); }
+
+.rest-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Parallax suave ---------- */
+.rest-parallax {
+  will-change: transform;
+}
+
+/* ---------- Blobs decorativos (luz ambiente / candlelight) ---------- */
+.rest-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(95px);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* ---------- Composição artística do hero (pratos flutuantes) ---------- */
+.rest-plate {
+  position: absolute;
+  border-radius: 999px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+}
+.rest-plate-float {
+  animation: restPlateFloat 7s ease-in-out infinite;
+}
+.rest-plate-float-delay {
+  animation: restPlateFloat 7s ease-in-out 1.4s infinite;
+}
+@keyframes restPlateFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+/* ---------- Hover sofisticado de cards ---------- */
+.rest-card-hover {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.rest-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(198, 161, 91, 0.5);
+  box-shadow: 0 28px 52px -24px rgba(0, 0, 0, 0.75);
+}
+
+/* ---------- Timeline horizontal (Jornada dos Sabores) ---------- */
+.rest-timeline-line {
+  background: linear-gradient(90deg, transparent, rgba(198, 161, 91, 0.65), rgba(111, 120, 88, 0.4), transparent);
+}
+.rest-timeline-line-v {
+  background: linear-gradient(180deg, rgba(198, 161, 91, 0.7), rgba(111, 120, 88, 0.3));
+}
+.rest-timeline-dot {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.rest-timeline-step:hover .rest-timeline-dot {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 6px rgba(198, 161, 91, 0.18);
+}
+
+/* ---------- Ingredientes interativos ---------- */
+.rest-ingredient-chip {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease;
+}
+.rest-ingredient-chip:hover {
+  transform: translateY(-3px);
+}
+.rest-ingredient-chip[data-active="true"] {
+  border-color: var(--color-primary);
+  background: var(--color-accent);
+}
+.rest-detail-in {
+  animation: restDetailIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes restDetailIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Mesa do Chef: cards de entrevista ---------- */
+.rest-quote-mark {
+  font-family: var(--font-serif);
+  line-height: 0.6;
+  opacity: 0.5;
+}
+
+/* ---------- Prato em Movimento: estágios cinematográficos ---------- */
+.rest-stage-ring {
+  border: 1px dashed rgba(198, 161, 91, 0.35);
+  animation: restSpin 26s linear infinite;
+}
+@keyframes restSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Harmonizações: linha de conexão prato→vinho→drink→sobremesa ---------- */
+.rest-pairing-connector {
+  background: linear-gradient(90deg, rgba(198, 161, 91, 0.5), rgba(111, 120, 88, 0.5));
+  height: 1px;
+}
+
+/* ---------- Tabs/filtros do cardápio ---------- */
+.rest-tab {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.rest-tab[data-active="true"] {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border-color: var(--color-primary);
+}
+.rest-filter-chip {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.rest-filter-chip[data-active="true"] {
+  background: var(--color-accent);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ---------- Stepper da Reserva Inteligente ---------- */
+.rest-step-line {
+  background: var(--color-border);
+  position: relative;
+  overflow: hidden;
+}
+.rest-step-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--rest-gradient-gold);
+  transform: scaleX(var(--rest-step-progress, 0));
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rest-step-dot {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.rest-step-dot[data-state="active"] {
+  transform: scale(1.12);
+}
+.rest-step-panel {
+  animation: restDetailIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ---------- Cards de ingresso (Eventos Gastronômicos) ---------- */
+.rest-ticket {
+  position: relative;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+}
+.rest-ticket::before,
+.rest-ticket::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: var(--color-background);
+  border-radius: 999px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.rest-ticket::before { left: -11px; }
+.rest-ticket::after { right: -11px; }
+.rest-ticket-stub {
+  border-left: 1px dashed rgba(198, 161, 91, 0.4);
+}
+
+/* ---------- Mural de Experiências: cartões manuscritos ---------- */
+.rest-manuscript {
+  background: linear-gradient(165deg, rgba(248, 246, 242, 0.05), rgba(248, 246, 242, 0.02));
+  border: 1px solid rgba(198, 161, 91, 0.18);
+  position: relative;
+}
+.rest-manuscript::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px dashed rgba(198, 161, 91, 0.16);
+  pointer-events: none;
+}
+.rest-rotate-1 { transform: rotate(-1.4deg); }
+.rest-rotate-2 { transform: rotate(1.1deg); }
+.rest-rotate-3 { transform: rotate(-0.6deg); }
+.rest-manuscript:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+/* ---------- Mapa estilizado (Contato) ---------- */
+.rest-map-frame {
+  filter: grayscale(0.35) sepia(0.3) saturate(0.85) brightness(0.85) contrast(1.05);
+}
+
+/* ---------- Botão CTA com elevação dourada no hover ---------- */
+.rest-cta-highlight {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.rest-cta-highlight:hover {
+  transform: translateY(-2px) scale(1.015);
+}
+.rest-cta-highlight:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rest-fade-up,
+  .rest-fade-up-delay-1,
+  .rest-fade-up-delay-2,
+  .rest-fade-up-delay-3,
+  .rest-detail-in,
+  .rest-step-panel,
+  .rest-plate-float,
+  .rest-plate-float-delay,
+  .rest-stage-ring {
+    animation: none !important;
+  }
+  .rest-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .rest-card-hover:hover,
+  .rest-cta-highlight:hover,
+  .rest-manuscript:hover {
+    transform: none;
+  }
+  .rest-parallax {
+    transform: none !important;
+  }
+}

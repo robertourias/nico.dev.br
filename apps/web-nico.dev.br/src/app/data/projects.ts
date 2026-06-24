@@ -10,11 +10,19 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 37,
+    title: "Imobiliária Premium",
+    description:
+      "Landing page institucional para imobiliária, com busca de imóveis, simulador de financiamento, tour virtual e captura de leads.",
+    category: ["Marketing", "Design", "Imobiliário", "Landing Page"],
+    image: "/projects/imobiliaria-premium.png",
+  },
+  {
     id: 36,
     title: "Clínica Médica",
     description:
       "Landing page institucional para clínica médica, com especialidades, corpo clínico e captura de leads.",
-    category: ["Marketing", "Design", "Institucional"],
+    category: ["Marketing", "Design", "Institucional", "Landing Page"],
     image: "/projects/clinica-musica.png",
     demoUrl: "https://criativo.nico.dev.br/clinica-medica",
   },
@@ -23,7 +31,7 @@ export const projects: Project[] = [
     title: "Escritório de Advocacia",
     description:
       "Landing page institucional para escritório de advocacia, com áreas de atuação, equipe e captura de leads.",
-    category: ["Marketing", "Design", "Institucional"],
+    category: ["Marketing", "Design", "Institucional", "Landing Page"],
     image: "/projects/escritorio-advocacia.png",
     demoUrl: "https://criativo.nico.dev.br/escritorio-advocacia",
   },
@@ -69,7 +77,7 @@ export const projects: Project[] = [
     title: "Consultoria de TI",
     description:
       "Landing page institucional para consultoria de TI, com calculadora de maturidade digital, cases e captura de leads.",
-    category: ["Marketing", "Design"],
+    category: ["Marketing", "Design", "Landing Page"],
     image: "/projects/consultoria-ti.png",
     demoUrl: "https://criativo.nico.dev.br/consultoria-ti",
   },
@@ -87,7 +95,7 @@ export const projects: Project[] = [
     title: "Páginas criativas",
     description:
       "Landing pages de campanhas e layouts de portfólio, cada um com identidade visual e componentes próprios.",
-    category: ["Design", "Marketing"],
+    category: ["Design", "Marketing", "Landing Page"],
     image: "/projects/criativo.png",
     demoUrl: "https://criativo.nico.dev.br/",
   },
@@ -133,7 +141,7 @@ export const projects: Project[] = [
     title: "Pré-venda Método Apice",
     description:
       "Landing page de pré-venda do Método Apice, focada em capturar leads e gerar interesse no curso.",
-    category: ["Marketing", "Design"],
+    category: ["Marketing", "Design", "Landing Page"],
     image: "/projects/lp-campanha.png",
     demoUrl: "https://criativo.nico.dev.br/pre-venda-metodo-apice",
   },
@@ -142,7 +150,7 @@ export const projects: Project[] = [
     title: "Economia Doméstica",
     description:
       "Landing page para o curso Economia Doméstica, focada em apresentar o curso e capturar leads.",
-    category: ["Marketing", "Design"],
+    category: ["Marketing", "Design", "Landing Page"],
     image: "/projects/economia-domestica.png",
     demoUrl: "https://criativo.nico.dev.br/simulador-economia-domestica",
   },
@@ -151,7 +159,7 @@ export const projects: Project[] = [
     title: "Newsletter Premium",
     description:
       "Landing page para o curso Newsletter Premium, focada em apresentar o curso e capturar leads.",
-    category: ["Marketing", "Design", "Utilitários"],
+    category: ["Marketing", "Design", "Utilitários", "Landing Page"],
     image: "/projects/newsletter-premium.png",
     demoUrl: "https://criativo.nico.dev.br/landing-newsletter-premium",
   },
@@ -160,7 +168,7 @@ export const projects: Project[] = [
     title: "Rotina 30 dias",
     description:
       "Landing page para o curso Rotina 30 dias, focada em apresentar o curso e capturar leads.",
-    category: ["Marketing", "Design", "Utilitários"],
+    category: ["Marketing", "Design", "Utilitários", "Landing Page"],
     image: "/projects/rotina-30-dias.png",
     demoUrl: "https://criativo.nico.dev.br/desafio-30-dias-habitos",
   },
@@ -169,7 +177,7 @@ export const projects: Project[] = [
     title: "LP Evento",
     description:
       "Landing page para evento, focada em apresentar o evento e capturar leads.",
-    category: ["Marketing", "Design"],
+    category: ["Marketing", "Design", "Landing Page"],
     image: "/projects/lp-evento.png",
     demoUrl: "https://criativo.nico.dev.br/nexus-summit",
   },
@@ -251,7 +259,7 @@ export const projects: Project[] = [
     title: "Hair Day",
     description:
       "Landing page elegante para salão de beleza, barbearia ou serviços de cuidados capilares.",
-    category: ["Design"],
+    category: ["Design", "Landing Page"],
     image: "/projects/projects (11).png",
     demoUrl: "https://hairday.nico.dev.br/",
     repoUrl: "https://github.com/robertourias/hairday-template",
@@ -261,7 +269,7 @@ export const projects: Project[] = [
     title: "Landing Produto",
     description:
       "Página de apresentação de produto focada em conversão, destaque de benefícios e captura de leads",
-    category: ["Marketing", "Design"],
+    category: ["Marketing", "Design", "Landing Page"],
     image: "/projects/projects (4).png",
     demoUrl: "https://landingproduto.nico.dev.br/",
     repoUrl: "https://github.com/robertourias/landing-produto",
@@ -281,7 +289,7 @@ export const projects: Project[] = [
     title: "LP Portfólio",
     description:
       "Landing page profissional para apresentar projetos, experiências e habilidades de forma moderna.",
-    category: ["Design"],
+    category: ["Design", "Landing Page"],
     image: "/projects/projects (3).png",
     demoUrl: "https://lpportifolio.nico.dev.br/",
     repoUrl: "https://github.com/robertourias/landing-portifolio-dev",

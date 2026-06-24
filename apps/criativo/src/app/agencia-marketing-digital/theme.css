@@ -1,0 +1,319 @@
+/*
+ * Tema próprio desta campanha — escopado à classe `.theme-agencia`, nunca em
+ * `:root` ou `globals.css` (mesma convenção das demais landings do app).
+ * Identidade "agência de marketing digital premium": fundo quase-preto
+ * (#050816 → #0F172A), gradiente azul elétrico → roxo vibrante como
+ * assinatura visual, ciano e rosa neon como acentos secundários,
+ * glassmorphism, glow e partículas flutuantes para reforçar a sensação de
+ * "produto internacional" pedida no briefing.
+ */
+
+.theme-agencia {
+  --color-background: #050816;
+  --color-foreground: #ffffff;
+
+  --color-surface: #0a0f24;
+  --color-surface-raised: #0f1530;
+  --color-surface-overlay: #161b3d;
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #3b82f6;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #06b6d4;
+  --color-secondary-hover: #22d3ee;
+  --color-secondary-foreground: #04222b;
+
+  --agencia-purple: #7c3aed;
+  --agencia-pink: #ec4899;
+
+  --color-muted: #161b3d;
+  --color-muted-foreground: #cbd5e1;
+
+  --color-accent: #1b2050;
+  --color-accent-foreground: #c7d2fe;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-destructive: #f87171;
+
+  --color-border: #20264a;
+  --color-input: #262c54;
+  --color-ring: #2563eb;
+
+  --agencia-gradient-primary: linear-gradient(120deg, #2563eb 0%, #7c3aed 100%);
+  --agencia-gradient-accent: linear-gradient(120deg, #06b6d4 0%, #ec4899 100%);
+  --agencia-gradient-text: linear-gradient(100deg, #60a5fa 0%, #c4b5fd 45%, #22d3ee 100%);
+  --agencia-gradient-soft: linear-gradient(135deg, rgba(37, 99, 235, 0.16) 0%, rgba(124, 58, 237, 0.14) 100%);
+  --agencia-gradient-mesh: radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.25), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(124, 58, 237, 0.22), transparent 45%),
+    radial-gradient(circle at 75% 85%, rgba(236, 72, 153, 0.16), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(6, 182, 212, 0.18), transparent 45%);
+
+  color-scheme: dark;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* ---------- Malha de gradientes animada (hero e CTA final) ---------- */
+.agencia-mesh-bg {
+  background-image: var(--agencia-gradient-mesh);
+  background-size: 160% 160%;
+  animation: agenciaMeshDrift 18s ease-in-out infinite;
+}
+
+@keyframes agenciaMeshDrift {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 30% 20%; }
+}
+
+/* ---------- Fundo em grid técnico ---------- */
+.agencia-grid-bg {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* ---------- Texto em gradiente translúcido (headlines) ---------- */
+.agencia-gradient-text {
+  background-image: var(--agencia-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: agenciaGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes agenciaGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- Glassmorphism sutil ---------- */
+.agencia-glass {
+  background: rgba(15, 21, 48, 0.6);
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px -14px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Glow em CTAs e cards de destaque ---------- */
+.agencia-glow {
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2), 0 24px 50px -18px rgba(124, 58, 237, 0.45);
+}
+.agencia-glow-pink {
+  box-shadow: 0 0 0 1px rgba(236, 72, 153, 0.25), 0 18px 40px -18px rgba(236, 72, 153, 0.4);
+}
+
+/* ---------- Entrada de página (above the fold, sem observer) ---------- */
+.agencia-fade-up { animation: agenciaFadeUp 0.8s ease-out both; }
+.agencia-fade-up-delay-1 { animation: agenciaFadeUp 0.8s ease-out 0.12s both; }
+.agencia-fade-up-delay-2 { animation: agenciaFadeUp 0.8s ease-out 0.24s both; }
+.agencia-fade-up-delay-3 { animation: agenciaFadeUp 0.8s ease-out 0.36s both; }
+
+@keyframes agenciaFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (alternado via JS em Reveal.tsx) ---------- */
+.agencia-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.agencia-reveal[data-variant="fade-up"] { transform: translateY(30px); }
+.agencia-reveal[data-variant="scale-in"] { transform: scale(0.93); filter: blur(2px); }
+.agencia-reveal[data-variant="slide-right"] { transform: translateX(-34px); }
+.agencia-reveal[data-variant="slide-left"] { transform: translateX(34px); }
+
+.agencia-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Blobs flutuantes de fundo ---------- */
+.agencia-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(85px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.agencia-float-slow { animation: agenciaFloat 12s ease-in-out infinite; }
+.agencia-float-slower { animation: agenciaFloat 16s ease-in-out infinite reverse; }
+
+@keyframes agenciaFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -26px) scale(1.07); }
+}
+
+/* ---------- Partículas flutuantes do Hero ---------- */
+.agencia-particle {
+  position: absolute;
+  border-radius: 999px;
+  background: var(--agencia-particle-color, #60a5fa);
+  opacity: 0.55;
+  animation: agenciaParticleDrift var(--agencia-particle-duration, 9s) ease-in-out infinite;
+  animation-delay: var(--agencia-particle-delay, 0s);
+  pointer-events: none;
+}
+
+@keyframes agenciaParticleDrift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.25; }
+  50% { transform: translate(var(--agencia-particle-x, 14px), var(--agencia-particle-y, -22px)); opacity: 0.75; }
+}
+
+/* ---------- Hover de cards (profundidade) ---------- */
+.agencia-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+.agencia-card-hover:hover {
+  transform: translateY(-7px);
+  border-color: rgba(124, 58, 237, 0.45);
+  box-shadow: 0 28px 54px -22px rgba(37, 99, 235, 0.4);
+}
+
+/* ---------- Cards de serviço: glow no ícone ao hover ---------- */
+.agencia-service-card { position: relative; overflow: hidden; }
+.agencia-service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--agencia-gradient-soft);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.agencia-service-card:hover::before { opacity: 1; }
+.agencia-service-card .agencia-service-icon {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.agencia-service-card:hover .agencia-service-icon {
+  transform: scale(1.1) rotate(-4deg);
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.3), 0 16px 30px -12px rgba(37, 99, 235, 0.55);
+}
+
+/* ---------- Barra de progresso ---------- */
+.agencia-progress-track {
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  overflow: hidden;
+}
+.agencia-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-image: var(--agencia-gradient-primary);
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Carrossel de depoimentos ---------- */
+.agencia-carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Marquee infinito de logos de clientes ---------- */
+.agencia-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: agenciaMarquee 32s linear infinite;
+}
+.agencia-marquee-viewport:hover .agencia-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes agenciaMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- Linha do timeline "Processo de Trabalho" ---------- */
+.agencia-timeline-line {
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.55), rgba(124, 58, 237, 0.55), rgba(6, 182, 212, 0.5), transparent);
+}
+
+/* ---------- Cursor customizado (desktop, ponteiro fino) ---------- */
+.agencia-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--agencia-gradient-primary, #2563eb);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+  will-change: transform;
+}
+.agencia-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+.agencia-cursor-ring[data-hovering="true"] {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(124, 58, 237, 0.8);
+}
+.agencia-cursor-dot[data-hovering="true"] {
+  width: 8px;
+  height: 8px;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .agencia-cursor-dot,
+  .agencia-cursor-ring {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agencia-gradient-text,
+  .agencia-mesh-bg,
+  .agencia-fade-up,
+  .agencia-fade-up-delay-1,
+  .agencia-fade-up-delay-2,
+  .agencia-fade-up-delay-3,
+  .agencia-float-slow,
+  .agencia-float-slower,
+  .agencia-particle,
+  .agencia-marquee-track {
+    animation: none !important;
+  }
+  .agencia-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .agencia-progress-fill {
+    transition: none !important;
+  }
+  .agencia-card-hover:hover {
+    transform: none;
+  }
+  .agencia-cursor-dot,
+  .agencia-cursor-ring {
+    display: none;
+  }
+}

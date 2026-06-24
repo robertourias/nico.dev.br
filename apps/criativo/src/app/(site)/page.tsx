@@ -103,6 +103,38 @@ const campanhas: Page[] = [
     status: "active",
     href: "/clinica-medica",
   },
+  {
+    slug: "agencia-marketing-digital",
+    name: "Agência de Marketing Digital",
+    description: "Site institucional premium para agência de marketing digital: serviços, cases de sucesso, processo de trabalho, depoimentos, planos e formulário de proposta, com identidade visual moderna e tech.",
+    icon: "📣",
+    status: "active",
+    href: "/agencia-marketing-digital",
+  },
+  {
+    slug: "academia-fitness",
+    name: "Academia de Musculação e Fitness",
+    description: "Site institucional premium para academia, inspirado na Bio Ritmo: estrutura, modalidades, planos, grade de horários, professores, depoimentos, resultados, aula experimental e matrícula online.",
+    icon: "🏋️",
+    status: "active",
+    href: "/academia-fitness",
+  },
+  {
+    slug: "restaurante-fine-dining",
+    name: "Restaurante Fine Dining",
+    description: "Site para restaurante de gastronomia de autor: cardápio digital com busca e filtros, reserva inteligente em etapas, menus degustação, eventos exclusivos e mural de experiências.",
+    icon: "🍽️",
+    status: "active",
+    href: "/restaurante-fine-dining",
+  },
+  {
+    slug: "imobiliaria-premium",
+    name: "Imobiliária Premium",
+    description: "Site para imobiliária premium inspirado em revistas de arquitetura: navegação por estilo de vida, mapa de regiões, simulador de perfil imobiliário, tour virtual 360° e indicadores de mercado.",
+    icon: "🏛️",
+    status: "active",
+    href: "/imobiliaria-premium",
+  },
 ]
 
 export default function HomePage() {
