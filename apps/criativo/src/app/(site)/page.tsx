@@ -135,6 +135,14 @@ const campanhas: Page[] = [
     status: "active",
     href: "/imobiliaria-premium",
   },
+  {
+    slug: "energia-solar",
+    name: "Energia Solar",
+    description: "Landing premium para empresa de energia solar: hero com ilustração isométrica animada, simulador inteligente de economia em tempo real, fluxo de energia interativo, comparativo antes x depois, galeria de projetos e impacto ambiental.",
+    icon: "☀️",
+    status: "active",
+    href: "/energia-solar",
+  },
 ]
 
 export default function HomePage() {

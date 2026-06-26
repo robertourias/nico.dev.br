@@ -133,6 +133,16 @@ module/
 
 ---
 
+## API (apps/api)
+
+- Primeira implementação real do backend NestJS já previsto na estrutura do monorepo (`api/ → NestJS backend (quando necessário)`). Primeiro consumidor: o contador de claps do blog.
+- Segue a convenção de backend já documentada na seção "Backend" acima (Clean Architecture, Prisma + PostgreSQL, REST + Swagger, Redis para cache/rate-limit, Pino, Zod/class-validator, Helmet).
+- **Hosting:** VPS própria do Beto (Hostinger), via Docker — não Railway. Postgres e Redis (também na mesma VPS) ficam só na rede Docker interna do `apps/api`, sem porta publicada para a internet; só a API tem endpoint público (`api.nico.dev.br`, HTTPS via reverse proxy). Isso diverge do hosting documentado em `docs/architecture/infra.md` (Railway) — registrado aqui como exceção explícita, não substituição silenciosa. Railway continua sendo o destino padrão para backends futuros que não dependam de infra que já existe na VPS.
+- Autenticação entre blog (Vercel) e api (VPS) é um secret compartilhado simples em header (`X-Internal-Secret`) — tráfego servidor-servidor, não tráfego de usuário final, não usa NextAuth/Auth.js.
+- Spec completa: `docs/specs/2026-06-25-api-claps-backend.md`. Plano: `docs/plans/2026-06-25-api-claps-backend.md`.
+
+---
+
 ## Criativo (criativo.nico.dev.br)
 
 - App dedicado a landing pages de campanhas e estruturas de portfólio, com tema e componentes independentes por página.

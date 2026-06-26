@@ -63,7 +63,8 @@ packages/
 - **Contact**: Formulário de contato
 - **Subprojects**: Cada subprojeto é um contexto isolado no monorepo
 - **Metronome**: App puramente frontend — Web Audio API para som, animações CSS/React para visual. Sem backend, sem banco, sem auth.
-- **Blog**: Site estático Astro — posts como arquivos `.md` no repositório, sem banco, sem auth, sem backend. Deploy contínuo via Vercel integração GitHub. Checagem de conteúdo ofensivo no pipeline antes do merge.
+- **Blog**: Site estático Astro — posts como arquivos `.md` no repositório, sem auth, sem backend próprio. Deploy contínuo via Vercel integração GitHub. Checagem de conteúdo ofensivo no pipeline antes do merge. Exceção: o contador de claps consome `apps/api` via HTTP (sem cliente de banco no próprio blog) — ver `apps/blog/docs/context/decisions.md`.
+- **API**: Primeira implementação real do backend NestJS do monorepo — primeiro consumidor é o contador de claps do blog. Hospedado na VPS própria (Hostinger) via Docker, não Railway — ver seção "Decisões registradas" e `docs/context/decisions.md`.
 
 ## Modelo de domínio (site principal)
 
@@ -95,9 +96,11 @@ BlogPost ──── Tag
 | Blog deploy | Vercel + GitHub integration | 2026-06 | Push → deploy automático, sem CI/CD customizado |
 | Docs | Migração .ai-core/ → docs/ | 2026-05-23 | Novo padrão com skills separadas, changelog por data, commands agnósticos |
 | Docs | Modelo distribuído de docs | 2026-05-28 | Cada app/package tem docs/ próprio; root docs/ mantém apenas contexto global |
+| API (1ª implementação) | NestJS em `apps/api`, hosting VPS própria (Hostinger, Docker) | 2026-06-25 | Primeiro consumidor: claps do blog. Postgres+Redis também self-hosted na mesma VPS, só na rede Docker interna — nunca expostos publicamente. Diverge do hosting Railway documentado em `infra.md` (exceção registrada explicitamente, não substituição). Ver `docs/specs/2026-06-25-api-claps-backend.md` |
 
 ## Constraints conhecidos
 
 - Subprojetos são independentes: compartilham packages mas têm deploys e ciclos de vida separados
 - Dois ORMs no monorepo exigem atenção para não misturar padrões entre projetos
 - `apps/web` ainda não migrado para `@nico.dev/ui` (pendente)
+- `apps/api` é hospedado na VPS própria do Beto, não em Railway — único backend do monorepo nessa situação hoje; se outro subprojeto precisar de backend e não tiver motivo para usar a mesma VPS, o destino padrão continua sendo Railway (ver `docs/architecture/infra.md`)

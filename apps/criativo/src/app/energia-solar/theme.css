@@ -1,0 +1,463 @@
+/*
+ * Tema próprio desta campanha — independente do restante do app "criativo" e
+ * das demais landings. Escopado à classe `.theme-solar`, nunca em `:root` ou
+ * `globals.css`.
+ *
+ * Identidade "SaaS premium de energia": azul petróleo (tecnologia, confiança)
+ * como base estrutural, amarelo solar como cor de destaque/ação (CTAs,
+ * ícones de energia) e verde reservado exclusivamente para indicadores
+ * positivos (economia, redução de CO2), conforme briefing. Fixo (sem
+ * `.dark`) — esta landing não exibe ThemeToggle.
+ */
+
+.theme-solar {
+  --color-background: #ffffff;
+  --color-foreground: #0a1f2e;
+
+  --color-surface: #f6f9fb;
+  --color-surface-raised: #ffffff;
+  --color-surface-overlay: #eef5f9;
+
+  --color-primary: #0b3552;
+  --color-primary-hover: #0a2c43;
+  --color-primary-foreground: #ffffff;
+  --color-primary-light: #1c7fa6;
+
+  --color-secondary: #ffb627;
+  --color-secondary-hover: #f5a300;
+  --color-secondary-foreground: #0a1f2e;
+  --color-secondary-light: #ffd27a;
+
+  --color-muted: #eef3f6;
+  --color-muted-foreground: #5b6b76;
+
+  --color-accent: #fff3da;
+  --color-accent-foreground: #9a5b00;
+
+  --color-success: #16a34a;
+  --color-success-foreground: #ffffff;
+  --color-warning: #d97706;
+  --color-warning-foreground: #ffffff;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e1e8ed;
+  --color-input: #cdd9e1;
+  --color-ring: #1c7fa6;
+
+  /* ---------- Paleta nomeada própria desta campanha ---------- */
+  --solar-blue: #0b3552;
+  --solar-blue-deep: #061d2b;
+  --solar-blue-light: #1c7fa6;
+  --solar-cyan: #2bb4d6;
+  --solar-yellow: #ffb627;
+  --solar-yellow-deep: #f5a300;
+  --solar-green: #16a34a;
+
+  --solar-gradient-primary: linear-gradient(120deg, #0b3552 0%, #1c7fa6 60%, #2bb4d6 100%);
+  --solar-gradient-sun: linear-gradient(120deg, #ffd27a 0%, #ffb627 50%, #f5a300 100%);
+  --solar-gradient-text: linear-gradient(100deg, #0b3552 0%, #1c7fa6 45%, #2bb4d6 85%, #6fd3e8 100%);
+  --solar-gradient-soft: linear-gradient(135deg, rgba(11, 53, 82, 0.07) 0%, rgba(43, 180, 214, 0.07) 100%);
+  --solar-gradient-night: linear-gradient(160deg, #061d2b 0%, #0b3552 55%, #1c4f6e 100%);
+
+  color-scheme: light;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* ---------- Texto em gradiente translúcido (headline) ---------- */
+.solar-gradient-text {
+  background-image: var(--solar-gradient-text);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: solarGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes solarGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.solar-text-sun {
+  color: var(--solar-yellow-deep);
+}
+
+/* ---------- Glassmorphism sutil ---------- */
+.solar-glass {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(11, 53, 82, 0.1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 30px -14px rgba(11, 53, 82, 0.22);
+}
+
+.solar-glass-dark {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* ---------- Glow em CTAs e cards de destaque ---------- */
+.solar-glow {
+  box-shadow: 0 0 0 1px rgba(11, 53, 82, 0.06), 0 20px 45px -18px rgba(11, 53, 82, 0.35);
+}
+
+.solar-glow-sun {
+  box-shadow: 0 0 0 1px rgba(255, 182, 39, 0.18), 0 18px 40px -16px rgba(245, 163, 0, 0.45);
+}
+
+.solar-glow-green {
+  box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.14), 0 16px 36px -16px rgba(22, 163, 74, 0.35);
+}
+
+/* ---------- Entrada de página (above the fold, sem observer) ---------- */
+.solar-fade-up { animation: solarFadeUp 0.8s ease-out both; }
+.solar-fade-up-delay-1 { animation: solarFadeUp 0.8s ease-out 0.12s both; }
+.solar-fade-up-delay-2 { animation: solarFadeUp 0.8s ease-out 0.24s both; }
+.solar-fade-up-delay-3 { animation: solarFadeUp 0.8s ease-out 0.36s both; }
+
+@keyframes solarFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Scroll reveal (classes alternadas via JS em Reveal.tsx) ---------- */
+.solar-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out, filter 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.solar-reveal[data-variant="fade-up"] { transform: translateY(28px); }
+.solar-reveal[data-variant="scale-in"] { transform: scale(0.94); filter: blur(2px); }
+.solar-reveal[data-variant="slide-right"] { transform: translateX(-32px); }
+.solar-reveal[data-variant="slide-left"] { transform: translateX(32px); }
+
+.solar-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Blobs de fundo flutuantes ---------- */
+.solar-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(75px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.solar-float-slow { animation: solarFloat 11s ease-in-out infinite; }
+.solar-float-slower { animation: solarFloat 15s ease-in-out infinite reverse; }
+
+@keyframes solarFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(18px, -24px) scale(1.06); }
+}
+
+/* ---------- Linhas de fluxo elétrico cruzando o fundo (discretas) ---------- */
+.solar-power-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(43, 180, 214, 0.45), transparent);
+  animation: solarPowerLine linear infinite;
+  pointer-events: none;
+}
+
+@keyframes solarPowerLine {
+  0% { transform: translateX(-120%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+
+/* ---------- Sol pulsante (Hero) ---------- */
+.solar-sun-core {
+  animation: solarPulse 3.2s ease-in-out infinite;
+}
+.solar-sun-ray {
+  animation: solarRayPulse 3.2s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes solarPulse {
+  0%, 100% { filter: drop-shadow(0 0 18px rgba(255, 182, 39, 0.55)); }
+  50% { filter: drop-shadow(0 0 32px rgba(255, 182, 39, 0.85)); }
+}
+@keyframes solarRayPulse {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 0.95; transform: scale(1.07); }
+}
+
+/* ---------- Fluxo de energia animado (traço percorrendo cabos/conexões) ---------- */
+.solar-flow-dash {
+  stroke-dasharray: 6 10;
+  animation: solarFlowDash 1.4s linear infinite;
+}
+@keyframes solarFlowDash {
+  to { stroke-dashoffset: -32; }
+}
+
+/* ---------- Painel solar refletindo luz ---------- */
+.solar-panel-shine {
+  animation: solarShine 4.5s ease-in-out infinite;
+}
+@keyframes solarShine {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.55; }
+}
+
+/* ---------- Hover de cards (profundidade) ---------- */
+.solar-card-hover {
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.solar-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(28, 127, 166, 0.35);
+  box-shadow: 0 24px 48px -22px rgba(11, 53, 82, 0.3);
+}
+
+/* ---------- Barra de progresso horizontal ---------- */
+.solar-progress-track {
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--color-surface-overlay);
+  overflow: hidden;
+}
+.solar-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-image: var(--solar-gradient-primary);
+  width: 0%;
+  transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.solar-progress-fill[data-visible="true"] {
+  width: var(--target-width, 100%);
+}
+.solar-progress-fill[data-variant="sun"] {
+  background-image: var(--solar-gradient-sun);
+}
+.solar-progress-fill[data-variant="green"] {
+  background-image: linear-gradient(120deg, #16a34a, #4ade80);
+}
+
+/* ---------- Barras verticais (comparativo / gráficos) ---------- */
+.solar-bar-fill {
+  width: 100%;
+  border-radius: 0.5rem 0.5rem 0.25rem 0.25rem;
+  height: 0%;
+  transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.solar-bar-fill[data-visible="true"] {
+  height: var(--target-height, 0%);
+}
+
+/* ---------- Linha da timeline construída ao rolar ---------- */
+.solar-timeline-track {
+  position: relative;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--color-border);
+  overflow: hidden;
+}
+.solar-timeline-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background-image: var(--solar-gradient-primary);
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.solar-timeline-fill[data-visible="true"] {
+  width: 100%;
+}
+.solar-timeline-dot {
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  transform: scale(0.6);
+  opacity: 0.5;
+}
+.solar-timeline-dot[data-visible="true"] {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ---------- Órbita de benefícios ----------
+ * Cada item anima o próprio ângulo (via custom property `--orbit-angle`),
+ * em vez de depender de um container pai girando + composição de transforms
+ * entre ancestrais. Essa composição (pai gira, filho cancela) é frágil:
+ * qualquer regra de especificidade maior sobrescrevendo `transform` no
+ * elemento errado quebra o posicionamento. Com o ângulo embutido na própria
+ * animação de cada item, a posição e a rotação inversa do conteúdo (para o
+ * ícone/texto permanecerem na vertical) ficam sempre consistentes.
+ *
+ * `.solar-orbit-item-wrap` é posicionado via `left:50%; top:50%`, ou seja,
+ * seu canto superior esquerdo (não o centro) fica ancorado no centro do
+ * círculo. Por isso o `translate(-50%, -50%)` precisa vir ANTES do
+ * rotate/translateX: ele realinha o pivô da rotação exatamente no centro
+ * do círculo antes de girar e deslocar — sem ele, o pivô fica deslocado
+ * em metade do tamanho do próprio card, e o anel inteiro de órbita acaba
+ * descentralizado em relação ao sol (mais perto dele de um lado do que
+ * do outro). `.solar-orbit-item` (o card em si) só precisa da rotação
+ * inversa, sem nenhum translate — ele já ocupa a caixa do wrap. */
+.solar-orbit-item-wrap {
+  animation: solarOrbitItem 38s linear infinite;
+  transform: translate(-50%, -50%) rotate(var(--orbit-angle)) translateX(var(--orbit-radius));
+}
+@keyframes solarOrbitItem {
+  from { transform: translate(-50%, -50%) rotate(var(--orbit-angle)) translateX(var(--orbit-radius)); }
+  to { transform: translate(-50%, -50%) rotate(calc(var(--orbit-angle) + 360deg)) translateX(var(--orbit-radius)); }
+}
+.solar-orbit-item {
+  animation: solarOrbitItemCounter 38s linear infinite;
+  transform: rotate(calc(var(--orbit-angle) * -1));
+}
+@keyframes solarOrbitItemCounter {
+  from { transform: rotate(calc(var(--orbit-angle) * -1)); }
+  to { transform: rotate(calc(var(--orbit-angle) * -1 - 360deg)); }
+}
+
+/* ---------- Toggle do comparativo ---------- */
+.solar-toggle-track {
+  position: relative;
+  width: 3.25rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--color-border);
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+.solar-toggle-track[data-active="true"] {
+  background-image: var(--solar-gradient-primary);
+}
+.solar-toggle-thumb {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(11, 53, 82, 0.3);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.solar-toggle-track[data-active="true"] .solar-toggle-thumb {
+  transform: translateX(1.5rem);
+}
+
+/* ---------- Steppers numéricos do formulário do simulador ---------- */
+.solar-stepper-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-raised);
+  color: var(--color-foreground);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+.solar-stepper-btn:hover {
+  border-color: var(--solar-blue-light);
+  color: var(--solar-blue-light);
+}
+.solar-stepper-btn:active {
+  transform: scale(0.92);
+}
+.solar-stepper-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Inputs ---------- */
+.solar-input {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.solar-input::-webkit-outer-spin-button,
+.solar-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.solar-input:focus,
+.solar-select:focus {
+  box-shadow: 0 0 0 3px rgba(28, 127, 166, 0.18);
+}
+
+/* ---------- Ripple em botões ---------- */
+.solar-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.solar-ripple-circle {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  transform: scale(0);
+  animation: solarRipple 0.6s ease-out;
+  pointer-events: none;
+}
+@keyframes solarRipple {
+  to { transform: scale(2.6); opacity: 0; }
+}
+
+/* ---------- Acordeão FAQ ---------- */
+.solar-accordion-content {
+  animation: solarAccordionIn 0.3s ease-out both;
+}
+@keyframes solarAccordionIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Modal da galeria ---------- */
+.solar-modal-panel {
+  animation: solarModalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes solarModalIn {
+  from { opacity: 0; transform: scale(0.94) translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media print {
+  .solar-no-print {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .solar-gradient-text,
+  .solar-fade-up,
+  .solar-fade-up-delay-1,
+  .solar-fade-up-delay-2,
+  .solar-fade-up-delay-3,
+  .solar-float-slow,
+  .solar-float-slower,
+  .solar-power-line,
+  .solar-sun-core,
+  .solar-sun-ray,
+  .solar-flow-dash,
+  .solar-panel-shine,
+  .solar-orbit-item-wrap,
+  .solar-orbit-item {
+    animation: none !important;
+  }
+  .solar-reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .solar-progress-fill,
+  .solar-bar-fill,
+  .solar-timeline-fill,
+  .solar-timeline-dot,
+  .solar-toggle-thumb {
+    transition: none !important;
+  }
+  .solar-card-hover:hover {
+    transform: none;
+  }
+}
