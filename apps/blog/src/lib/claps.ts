@@ -4,8 +4,12 @@
 // Ver docs/specs/2026-06-25-api-claps-backend.md (raiz) e
 // docs/context/decisions.md (exceção "sem banco de dados").
 
-const API_URL = import.meta.env.CLAPS_API_URL;
-const API_SECRET = import.meta.env.CLAPS_API_SECRET;
+// process.env (não import.meta.env): vars "Sensitive" no Vercel só existem em
+// runtime das functions, não durante o build — import.meta.env é substituído
+// estaticamente em build-time pelo Vite/Astro e ficaria gravado como `undefined`
+// no bundle. process.env.X é um lookup dinâmico real, lido a cada request.
+const API_URL = process.env.CLAPS_API_URL;
+const API_SECRET = process.env.CLAPS_API_SECRET;
 
 export interface ClapsData {
   total: number;
