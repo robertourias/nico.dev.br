@@ -2,10 +2,15 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://blog.nico.dev.br',
+  // 'static' por padrão — apenas /api/claps/[slug] opta por SSR via `export const prerender = false`.
+  // Ver docs/context/decisions.md (exceção claps) e docs/specs/2026-06-25-claps.md.
+  output: 'static',
+  adapter: vercel(),
   integrations: [react(), mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],

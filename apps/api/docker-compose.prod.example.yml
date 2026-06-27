@@ -1,0 +1,59 @@
+# EXEMPLO de referência para o compose de PRODUÇÃO na VPS — não é usado por nenhum
+# comando automatizado deste repo (deploy na VPS ainda é manual, ver T-05/T-07 de
+# docs/plans/2026-06-25-api-claps-backend.md). Copie/adapte na VPS, não aqui.
+#
+# Premissa (confirmada com Beto): Postgres e Redis JÁ EXISTEM na VPS, cada um no seu
+# próprio stack/rede (`postgres_default`, `redis_default` — não compartilham rede
+# entre si). Este compose NÃO cria containers novos de Postgres/Redis — só conecta
+# o `api` às redes já existentes como `external`, falando com elas pelos nomes de
+# serviço de sempre (`postgres`, `redis`).
+#
+# Traefik: não existe uma rede "proxy" única compartilhada nesta VPS — cada stack
+# (ex. minuto-estoico, minio) declara sua própria rede nomeada (`driver: bridge`, ex.
+# `minio-network`) e conecta essa rede ao container do Traefik manualmente
+# (`docker network connect <rede-deste-stack> <container-do-traefik>`). Por isso a
+# rede `api-network` abaixo é nomeada explicitamente (em vez de usar a `default`
+# implícita) — fica previsível pra rodar esse `docker network connect` independente
+# do nome da pasta onde o compose for colocado na VPS. Depois do primeiro
+# `docker compose up -d` deste arquivo, conecte `api-network` ao Traefik (ver T-05
+# no checklist do plano). Os labels abaixo seguem a mesma convenção já usada em
+# produção (confirmada via `minio` e `minuto-estoico-api`): `traefik.http.routers.*`,
+# `entrypoints=websecure`, `certresolver=letsencrypt`.
+#
+# Variáveis sensíveis (DATABASE_URL, REDIS_URL, CLAPS_API_SECRET) vêm de um `.env`
+# na VPS, fora do controle de versão — os valores abaixo são só placeholders.
+# DATABASE_URL/REDIS_URL devem apontar para os nomes dos containers existentes
+# (ex.: postgres://<user>:<senha>@postgres:5432/claps e redis://:<senha>@redis:6379)
+# — ao trocar a senha do Postgres/Redis, atualize a connection string aqui também,
+# os dois valores não são sincronizados automaticamente.
+
+networks:
+  api-network:
+    driver: bridge
+  postgres_default:
+    external: true
+  redis_default:
+    external: true
+
+services:
+  api:
+    image: nico-api:latest # build local ou de um registry privado
+    restart: unless-stopped
+    networks:
+      - api-network # rede própria deste stack — conectar ao Traefik manualmente depois do `up` (ver comentário acima)
+      - postgres_default
+      - redis_default
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      CLAPS_API_SECRET: ${CLAPS_API_SECRET}
+      NODE_ENV: production
+      PORT: 3001
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.nico-api.rule=Host(`api.nico.dev.br`)'
+      - 'traefik.http.routers.nico-api.entrypoints=websecure'
+      - 'traefik.http.routers.nico-api.tls.certresolver=letsencrypt'
+      - 'traefik.http.services.nico-api.loadbalancer.server.port=3001'
+    # Sem `ports:` — Traefik alcança o container pela rede Docker (roteamento via
+    # labels), não precisa publicar nenhuma porta para o host/internet.

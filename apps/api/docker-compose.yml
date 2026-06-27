@@ -1,0 +1,56 @@
+# Infra de DEV LOCAL para apps/api: Postgres + Redis + a própria api, na mesma
+# rede Docker. Publicamos as portas de Postgres/Redis aqui só por conveniência de
+# dev (psql/redis-cli do host) — em produção (VPS), NUNCA publicar essas portas
+# (ver docker-compose.prod.example.yml e docs/specs/2026-06-25-api-claps-backend.md).
+#
+# Uso: a partir da raiz do monorepo, `docker compose -f apps/api/docker-compose.yml up`
+# (o build da api usa a raiz como contexto — ver Dockerfile).
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: api-claps-postgres
+    environment:
+      POSTGRES_USER: api
+      POSTGRES_PASSWORD: api
+      POSTGRES_DB: api_claps
+    ports:
+      - '5432:5432'
+    volumes:
+      - api-claps-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U api -d api_claps']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: api-claps-redis
+    command: ['redis-server', '--appendonly', 'yes']
+    ports:
+      - '6379:6379'
+    volumes:
+      - api-claps-redis-data:/data
+
+  api:
+    build:
+      context: ../..
+      dockerfile: apps/api/Dockerfile
+    container_name: api-claps-api
+    environment:
+      DATABASE_URL: postgres://api:api@postgres:5432/api_claps
+      REDIS_URL: redis://redis:6379
+      CLAPS_API_SECRET: dev-secret-change-me
+      PORT: 3001
+      NODE_ENV: development
+    ports:
+      - '3001:3001'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+volumes:
+  api-claps-postgres-data:
+  api-claps-redis-data:

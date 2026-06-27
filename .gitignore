@@ -62,3 +62,5 @@ next-env.d.ts
 *.local.json
 .claude/worktrees/*
 
+.pnpm-store*
+_tmp_*

@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Ledger durável dos claps. Um row por (slug, uid) — count é o número de claps
+// daquele visitante naquele post, capado em MAX_CLAPS_PER_USER (ver claps.service.ts).
+// Ver docs/specs/2026-06-25-api-claps-backend.md (raiz).
+model Clap {
+  slug      String
+  uid       String   @db.Uuid
+  count     Int      @default(0)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@id([slug, uid])
+  @@index([slug])
+  @@map("claps")
+}

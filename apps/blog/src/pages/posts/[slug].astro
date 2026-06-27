@@ -7,6 +7,7 @@ import { PostSidebar } from '@/components/PostSidebar';
 import { mdxComponents } from '@/content/mdx-components';
 import { readingTime } from '@/utils/readingTime';
 import { CATEGORY_LABELS } from '@/types/post';
+import { ClapButton } from '@/components/ClapButton';
 import { ArrowLeft } from 'lucide-react';
 
 export async function getStaticPaths() {
@@ -56,6 +57,7 @@ const {
   coverImage,
   template,
   heroImage,
+  slug,
 } = post.data;
 
 const formattedDate = date.toLocaleDateString('pt-BR', {
@@ -79,6 +81,7 @@ const isImmersive = template === 'immersive';
     {heroImage}
     {readTime}
     {categoryLabel}
+    {slug}
   >
     <Content components={mdxComponents} />
   </ImmersivePostLayout>
@@ -129,8 +132,12 @@ const isImmersive = template === 'immersive';
           {description}
         </p>
 
-        <!-- Data + tags -->
+        <!-- Clap + data + tags -->
         <div class="flex flex-wrap items-center gap-2">
+          <ClapButton client:visible slug={slug} />
+
+          <span style="color: var(--color-border);">·</span>
+
           <time
             class="text-xs"
             style="color: var(--color-text-body);"
@@ -175,6 +182,18 @@ const isImmersive = template === 'immersive';
       <article class="post-content">
         <Content components={mdxComponents} />
       </article>
+
+      <!-- Footer -->
+      <footer class="mt-12 pt-8 border-t" style="border-color: var(--color-border);">
+        <a
+          href="/"
+          class="inline-flex items-center gap-1.5 text-sm transition-colors"
+          style="color: var(--color-text-body);"
+        >
+          <ArrowLeft size={14} />
+          Todos os posts
+        </a>
+      </footer>
     </div>
   </BaseLayout>
 )}

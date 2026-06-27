@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { BlogHeader } from '@/components/BlogHeader';
+import { ClapButton } from '@/components/ClapButton';
 
 interface Props {
   title: string;
@@ -11,9 +12,10 @@ interface Props {
   heroImage?: string;
   readTime: number;
   categoryLabel: string;
+  slug: string;
 }
 
-const { title, description, date, category, tags, heroImage, readTime, categoryLabel } = Astro.props;
+const { title, description, date, category, tags, heroImage, readTime, categoryLabel, slug } = Astro.props;
 
 const formattedDate = date.toLocaleDateString('pt-BR', {
   day: '2-digit',
@@ -45,6 +47,15 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
       style="background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.25) 55%, transparent 100%);"
     />
 
+    <!-- Voltar: topo, lado esquerdo, com espaçamento -->
+    <a
+      href="/"
+      class="absolute top-6 left-6 z-10 inline-flex items-center gap-1.5 text-xs transition-colors"
+      style="color: rgba(255,255,255,0.75);"
+    >
+      ← Todos os posts
+    </a>
+
     <!-- Texto sobre o hero -->
     <div class="absolute bottom-0 left-0 right-0 px-6 pb-10">
       <div class="max-w-[75ch] mx-auto">
@@ -55,6 +66,25 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
           <span class="text-xs" style="color: rgba(255,255,255,0.55);">{readTime} min de leitura</span>
           <span class="text-xs" style="color: rgba(255,255,255,0.45);">{formattedDate}</span>
         </div>
+
+        <!-- Clap + tags, uma linha após a data -->
+        <div class="flex items-center flex-wrap gap-3 mb-5">
+          <ClapButton client:visible slug={slug} />
+
+          {tags.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <span
+                  class="text-xs px-2 py-0.5 rounded-full border"
+                  style="color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.3);"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
         <h1
           class="font-heading font-semibold leading-tight"
           style="font-size: clamp(2rem, 5vw, 3.75rem); color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,0.4);"
@@ -73,29 +103,6 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
     <article class="post-content immersive-content">
       <slot />
     </article>
-
-    <!-- Footer -->
-    <footer class="mt-12 pt-8 border-t" style="border-color: var(--color-border);">
-      {tags.length > 0 && (
-        <div class="flex flex-wrap gap-2 mb-6">
-          {tags.map((tag) => (
-            <span
-              class="text-xs px-2 py-0.5 rounded-full border"
-              style="color: var(--color-text-body); border-color: var(--color-border);"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
-      )}
-      <a
-        href="/"
-        class="inline-flex items-center gap-1.5 text-sm transition-colors"
-        style="color: var(--color-text-body);"
-      >
-        ← Todos os posts
-      </a>
-    </footer>
   </div>
 </BaseLayout>
 

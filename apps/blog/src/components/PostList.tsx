@@ -8,9 +8,10 @@ interface PostListProps {
   posts: PostCardProps[];
   selectedCategory: string | null;
   selectedTag: string | null;
+  clapsTotals?: Record<string, number>;
 }
 
-export function PostList({ posts, selectedCategory, selectedTag }: PostListProps) {
+export function PostList({ posts, selectedCategory, selectedTag, clapsTotals }: PostListProps) {
   const filtered = selectedCategory
     ? posts.filter((p) => p.category === selectedCategory)
     : selectedTag
@@ -55,7 +56,7 @@ export function PostList({ posts, selectedCategory, selectedTag }: PostListProps
     <div>
       <div className="flex flex-col gap-4">
         {visible.map((post) => (
-          <PostCard key={post.slug} {...post} />
+          <PostCard key={post.slug} {...post} clapsTotal={clapsTotals?.[post.slug]} />
         ))}
       </div>
       {visibleCount < filtered.length && (
