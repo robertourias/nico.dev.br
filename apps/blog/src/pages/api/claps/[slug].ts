@@ -31,6 +31,7 @@ export const GET: APIRoute = async ({ params, cookies }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error('[claps] GET falhou', error);
     const status = error instanceof ClapsApiError && error.status === 429 ? 429 : 502;
     return new Response(JSON.stringify({ error: 'claps_api_unavailable' }), {
       status,
@@ -77,6 +78,7 @@ export const POST: APIRoute = async ({ params, cookies, request }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
+    console.error('[claps] POST falhou', error);
     const status = error instanceof ClapsApiError && error.status === 429 ? 429 : 502;
     return new Response(JSON.stringify({ error: 'claps_api_unavailable' }), {
       status,

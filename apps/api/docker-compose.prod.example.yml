@@ -8,17 +8,19 @@
 # o `api` às redes já existentes como `external`, falando com elas pelos nomes de
 # serviço de sempre (`postgres`, `redis`).
 #
-# Traefik: não existe uma rede "proxy" única compartilhada nesta VPS — cada stack
-# (ex. minuto-estoico, minio) declara sua própria rede nomeada (`driver: bridge`, ex.
-# `minio-network`) e conecta essa rede ao container do Traefik manualmente
-# (`docker network connect <rede-deste-stack> <container-do-traefik>`). Por isso a
-# rede `api-network` abaixo é nomeada explicitamente (em vez de usar a `default`
-# implícita) — fica previsível pra rodar esse `docker network connect` independente
-# do nome da pasta onde o compose for colocado na VPS. Depois do primeiro
-# `docker compose up -d` deste arquivo, conecte `api-network` ao Traefik (ver T-05
-# no checklist do plano). Os labels abaixo seguem a mesma convenção já usada em
-# produção (confirmada via `minio` e `minuto-estoico-api`): `traefik.http.routers.*`,
-# `entrypoints=websecure`, `certresolver=letsencrypt`.
+# Traefik nesta VPS roda com `network_mode: host` (confirmado via
+# `docker inspect <container-traefik> --format '{{.HostConfig.NetworkMode}}'`) —
+# não tem rede bridge própria, então NÃO dá (nem precisa) `docker network connect`
+# nele: host-mode já alcança a IP de qualquer container em qualquer bridge network
+# do Docker via rota do kernel. Tentar conectar uma rede a ele falha com
+# "container sharing network namespace with another container or host cannot be
+# connected to any other network".
+#
+# Como o `api` está em 3 redes (`api-network`, `postgres_default`, `redis_default`),
+# o label `traefik.docker.network` abaixo é obrigatório pra dizer ao Traefik qual
+# IP usar pra rotear — sem ele a escolha é ambígua. Os demais labels seguem a mesma
+# convenção já usada em produção (confirmada via `minio` e `minuto-estoico-api`):
+# `traefik.http.routers.*`, `entrypoints=websecure`, `certresolver=letsencrypt`.
 #
 # Variáveis sensíveis (DATABASE_URL, REDIS_URL, CLAPS_API_SECRET) vêm de um `.env`
 # na VPS, fora do controle de versão — os valores abaixo são só placeholders.
@@ -40,7 +42,7 @@ services:
     image: nico-api:latest # build local ou de um registry privado
     restart: unless-stopped
     networks:
-      - api-network # rede própria deste stack — conectar ao Traefik manualmente depois do `up` (ver comentário acima)
+      - api-network # rede própria deste stack
       - postgres_default
       - redis_default
     environment:
@@ -55,5 +57,9 @@ services:
       - 'traefik.http.routers.nico-api.entrypoints=websecure'
       - 'traefik.http.routers.nico-api.tls.certresolver=letsencrypt'
       - 'traefik.http.services.nico-api.loadbalancer.server.port=3001'
-    # Sem `ports:` — Traefik alcança o container pela rede Docker (roteamento via
-    # labels), não precisa publicar nenhuma porta para o host/internet.
+      # Nome real da rede no Docker (prefixo do projeto compose, não a chave `api-network`
+      # declarada acima) — confirmado via `docker inspect api-api-1`. Se o projeto for
+      # criado com outro nome de pasta/--project-name, ajuste o prefixo.
+      - 'traefik.docker.network=api_api-network' # desambigua: api está em 3 redes, Traefik (host-mode) precisa saber qual IP usar
+    # Sem `ports:` — Traefik (host-mode) alcança o container direto pela IP da rede
+    # Docker indicada no label acima, sem precisar publicar porta pro host/internet.
