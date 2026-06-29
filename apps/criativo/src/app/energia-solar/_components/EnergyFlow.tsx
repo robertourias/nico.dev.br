@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, type LucideIcon } from "react"
-import { Sun, Grid2x2, Zap, Home, Share2, TrendingDown } from "lucide-react"
+import { useState } from "react"
+import { Sun, Grid2x2, Zap, Home, Share2, TrendingDown, type LucideIcon } from "lucide-react"
 import { ENERGY_FLOW_STEPS } from "../_lib/data"
 import { Reveal } from "./Reveal"
 
