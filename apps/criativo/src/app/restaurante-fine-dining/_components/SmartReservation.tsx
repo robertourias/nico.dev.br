@@ -337,7 +337,7 @@ export function SmartReservation() {
         )}
 
         {(errors.partySize || errors.date || errors.time || errors.occasion) && step === 3 && (
-          <Alert variant="error" className="mt-4">
+          <Alert variant="destructive" className="mt-4">
             <AlertDescription>Revise as etapas anteriores antes de confirmar.</AlertDescription>
           </Alert>
         )}
