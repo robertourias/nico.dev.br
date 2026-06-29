@@ -41,7 +41,7 @@ const formSchema = z.object({
   date: z.string().min(1, "Selecione a data."),
   time: z.string().min(1, "Selecione o horário."),
   occasion: z.string().min(1, "Selecione a ocasião."),
-  seatingPreferences: z.array(z.string()).default([]),
+  seatingPreferences: z.array(z.string()),
   nome: z.string().min(2, "Informe seu nome."),
   telefone: z.string().min(8, "Informe um telefone válido."),
   email: z.string().min(1, "Informe seu e-mail.").email("Informe um e-mail válido."),
