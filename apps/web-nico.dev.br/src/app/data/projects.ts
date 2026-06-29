@@ -10,12 +10,22 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 38,
+    title: "DevPath",
+    description:
+      "Portal de carreiras tech, com busca de vagas agregadas, roadmaps interativos, comparador de carreiras, pesquisa salarial e assistente de IA.",
+    category: ["Marketing", "Design", "Dev", "Landing Page"],
+    image: "/projects/devpath.png",
+    demoUrl: "https://criativo.nico.dev.br/devpath",
+  },
+  {
     id: 37,
     title: "Imobiliária Premium",
     description:
       "Landing page institucional para imobiliária, com busca de imóveis, simulador de financiamento, tour virtual e captura de leads.",
     category: ["Marketing", "Design", "Imobiliário", "Landing Page"],
     image: "/projects/imobiliaria-premium.png",
+    demoUrl: "https://criativo.nico.dev.br/imobiliaria-premium",
   },
   {
     id: 36,

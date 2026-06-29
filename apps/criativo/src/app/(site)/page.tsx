@@ -143,6 +143,14 @@ const campanhas: Page[] = [
     status: "active",
     href: "/energia-solar",
   },
+  {
+    slug: "devpath",
+    name: "DevPath",
+    description: "Portal de carreiras tech: busca de vagas agregadas com filtros funcionais, roadmaps interativos com checklist de progresso, comparador de carreiras, pesquisa salarial e assistente de IA em preview com chat.",
+    icon: "💻",
+    status: "active",
+    href: "/devpath",
+  },
 ]
 
 export default function HomePage() {
