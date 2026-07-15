@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { BlogHeader } from '@/components/BlogHeader';
 import { ClapButton } from '@/components/ClapButton';
+import { ShareButton } from '@/components/ShareButton';
 
 interface Props {
   title: string;
@@ -24,7 +25,13 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
 });
 ---
 
-<BaseLayout {title} {description}>
+<BaseLayout
+  {title}
+  {description}
+  type="article"
+  image={heroImage}
+  publishedTime={date.toISOString()}
+>
   <BlogHeader client:load />
 
   <!-- Hero fullbleed -->
@@ -64,12 +71,15 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
             {categoryLabel}
           </span>
           <span class="text-xs" style="color: rgba(255,255,255,0.55);">{readTime} min de leitura</span>
-          <span class="text-xs" style="color: rgba(255,255,255,0.45);">{formattedDate}</span>
+          <time class="text-xs" style="color: rgba(255,255,255,0.45);" datetime={date.toISOString()}>
+            {formattedDate}
+          </time>
         </div>
 
-        <!-- Clap + tags, uma linha após a data -->
+        <!-- Clap + share + tags -->
         <div class="flex items-center flex-wrap gap-3 mb-5">
           <ClapButton client:visible slug={slug} />
+          <ShareButton client:visible title={title} text={description} url={`/posts/${slug}`} />
 
           {tags.length > 0 && (
             <div class="flex flex-wrap gap-2">

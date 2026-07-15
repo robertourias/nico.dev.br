@@ -8,6 +8,7 @@ import { mdxComponents } from '@/content/mdx-components';
 import { readingTime } from '@/utils/readingTime';
 import { CATEGORY_LABELS } from '@/types/post';
 import { ClapButton } from '@/components/ClapButton';
+import { ShareButton } from '@/components/ShareButton';
 import { ArrowLeft } from 'lucide-react';
 
 export async function getStaticPaths() {
@@ -69,6 +70,7 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
 const readTime = readingTime(post.body ?? '');
 const categoryLabel = CATEGORY_LABELS[category] ?? category;
 const isImmersive = template === 'immersive';
+const socialImage = coverImage ?? heroImage;
 ---
 
 {isImmersive ? (
@@ -86,7 +88,13 @@ const isImmersive = template === 'immersive';
     <Content components={mdxComponents} />
   </ImmersivePostLayout>
 ) : (
-  <BaseLayout {title} {description}>
+  <BaseLayout
+    {title}
+    {description}
+    type="article"
+    image={socialImage}
+    publishedTime={date.toISOString()}
+  >
     <BlogHeader client:load />
     <PostSidebar client:load {categories} {featuredPosts} {allTags} />
 
@@ -132,9 +140,10 @@ const isImmersive = template === 'immersive';
           {description}
         </p>
 
-        <!-- Clap + data + tags -->
+        <!-- Clap + share + data + tags -->
         <div class="flex flex-wrap items-center gap-2">
           <ClapButton client:visible slug={slug} />
+          <ShareButton client:visible title={title} text={description} url={`/posts/${slug}`} />
 
           <span style="color: var(--color-border);">·</span>
 

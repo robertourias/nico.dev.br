@@ -1,0 +1,61 @@
+---
+title: "Exemplo: O Futuro da IA: Uma Jornada"
+slug: "exemplo-imersivo"
+date: "2026-06-03"
+category: "ia"
+status: "published"
+featured: false
+description: "Um exemplo de post com layout imersivo, hero image e componentes MDX inline como Callout e Timeline."
+tags: ["ia", "futuro", "exemplo"]
+template: "immersive"
+heroImage: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1600&q=80"
+---
+
+Este é um post com **layout imersivo**. O hero image cobre toda a largura da tela e o conteúdo aparece centralizado abaixo, sem sidebar, com tipografia levemente maior.
+
+## Por que um novo layout?
+
+Posts editoriais, histórias técnicas e deep-dives merecem mais do que um layout genérico. O template imersivo elimina a sidebar, expande a tipografia e permite usar componentes React inline via MDX.
+
+<Callout type="info">
+  Para usar o layout imersivo em um post, adicione `template: "immersive"` no frontmatter. O campo `heroImage` é opcional — sem ele, o hero usa o fundo padrão do blog.
+</Callout>
+
+## Componentes disponíveis
+
+Qualquer post `.mdx` pode usar os componentes do registry sem precisar de import explícito:
+
+- `<Callout type="info|tip|warning|note">` — bloco de destaque
+- `<Timeline>` + `<TimelineItem date="..." title="...">` — linha do tempo
+
+<Callout type="tip">
+  Prefira componentes Astro (sem JS) quando não há interatividade. React islands ficam para casos de estado dinâmico.
+</Callout>
+
+## Linha do tempo da IA
+
+<Timeline>
+  <TimelineItem date="2017" title="Attention is All You Need">
+    Google publica o paper do Transformer. A arquitetura que fundamenta todos os LLMs modernos nasce aqui.
+  </TimelineItem>
+  <TimelineItem date="2020" title="GPT-3 muda o jogo">
+    A OpenAI lança o GPT-3 com 175 bilhões de parâmetros. LLMs deixam de ser pesquisa acadêmica e viram produto.
+  </TimelineItem>
+  <TimelineItem date="2022" title="ChatGPT para o público">
+    Interface conversacional acessível. 100 milhões de usuários em 2 meses — o crescimento mais rápido de qualquer produto da história.
+  </TimelineItem>
+  <TimelineItem date="2024" title="Agentes autônomos">
+    Modelos que executam tarefas de forma autônoma. Claude Code, Cursor, Devin. O desenvolvedor vira diretor de operações da IA.
+  </TimelineItem>
+  <TimelineItem date="2026" title="Hoje">
+    Agentes multimodais, raciocínio estendido, contextos de milhões de tokens. A velocidade de evolução ainda acelera.
+  </TimelineItem>
+</Timeline>
+
+<Callout type="warning">
+  A velocidade de mudança exige atualização constante. Ferramentas que eram estado da arte há 6 meses já podem estar desatualizadas.
+</Callout>
+
+## Conclusão
+
+O layout imersivo permite contar histórias com mais impacto visual — sem abrir mão da consistência do design system do blog. Use quando o conteúdo pede mais do que texto simples.

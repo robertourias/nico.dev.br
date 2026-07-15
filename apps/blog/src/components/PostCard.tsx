@@ -1,5 +1,6 @@
 import { HandMetal } from 'lucide-react';
 import { CATEGORY_LABELS, type PostCardProps } from '@/types/post';
+import { ShareButton } from '@/components/ShareButton';
 
 interface PostCardWithClapsProps extends PostCardProps {
   // Opcional e separado de PostCardProps de propósito: PostCardProps é o shape
@@ -23,38 +24,42 @@ export function PostCard({
     year: 'numeric',
   });
 
+  const postUrl = `/posts/${slug}`;
+
   return (
-    <a
-      href={`/posts/${slug}`}
-      className="block bg-bg-card border border-border rounded-card p-5 hover:border-text-highlight/30 transition-colors group"
-    >
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-medium text-text-highlight uppercase tracking-wide">
-          {CATEGORY_LABELS[category] ?? category}
-        </span>
-        <div className="flex items-center gap-3">
-          {typeof clapsTotal === 'number' && (
-            <span
-              className="inline-flex items-center gap-1 text-xs text-text-body cursor-pointer"
-              style={{ fontVariantNumeric: 'tabular-nums' }}
-            >
-              <HandMetal size={12} aria-hidden="true" />
-              {clapsTotal}
-            </span>
-          )}
-          <span className="text-xs text-text-body">{readingTimeMinutes} min</span>
+    <article className="relative bg-bg-card border border-border rounded-card p-5 hover:border-text-highlight/30 transition-colors group">
+      <a href={postUrl} className="block">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-xs font-medium text-text-highlight uppercase tracking-wide">
+            {CATEGORY_LABELS[category] ?? category}
+          </span>
+          <div className="flex items-center gap-3">
+            {typeof clapsTotal === 'number' && (
+              <span
+                className="inline-flex items-center gap-1 text-xs text-text-body"
+                style={{ fontVariantNumeric: 'tabular-nums' }}
+              >
+                <HandMetal size={12} aria-hidden="true" />
+                {clapsTotal}
+              </span>
+            )}
+            <span className="text-xs text-text-body">{readingTimeMinutes} min</span>
+          </div>
         </div>
+
+        <h2 className="font-heading text-text-heading text-lg font-semibold mb-2 leading-snug group-hover:text-text-highlight transition-colors">
+          {title}
+        </h2>
+
+        <p className="text-text-body text-sm leading-relaxed mb-4">{description}</p>
+      </a>
+
+      <div className="flex items-center justify-between gap-3">
+        <time className="text-xs text-text-body" dateTime={date.toISOString()}>
+          {formatted}
+        </time>
+        <ShareButton compact title={title} text={description} url={postUrl} />
       </div>
-
-      <h2 className="font-heading text-text-heading text-lg font-semibold mb-2 leading-snug group-hover:text-text-highlight transition-colors">
-        {title}
-      </h2>
-
-      <p className="text-text-body text-sm leading-relaxed mb-4">
-        {description}
-      </p>
-
-      <time className="text-xs text-text-body">{formatted}</time>
-    </a>
+    </article>
   );
 }
