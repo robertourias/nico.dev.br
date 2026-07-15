@@ -26,7 +26,7 @@ export function SiteHeader() {
         <NavLink href={SITES.blog.url} external>{SITES.blog.label}</NavLink>
       </Header.Menu>
 
-      <Header.Logo href="/" label="Criativo" />
+      <Header.Logo href="/" label="Criativo" icon="/criativo-logo.svg" />
 
       <Header.Nav>
         <NavLink href={SITES.portfolio.url} external>{SITES.portfolio.label}</NavLink>

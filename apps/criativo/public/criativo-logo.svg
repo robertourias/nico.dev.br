@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Criativo logo">
+<defs>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#172B49"/><stop offset="1" stop-color="#06142A"/>
+  </linearGradient>
+  <linearGradient id="yellow" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#FFC62A"/><stop offset="1" stop-color="#FF7A1A"/>
+  </linearGradient>
+  <linearGradient id="pink" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#FF477F"/><stop offset="1" stop-color="#C31CB2"/>
+  </linearGradient>
+  <linearGradient id="purple" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#6B52FF"/><stop offset="1" stop-color="#3438D8"/>
+  </linearGradient>
+</defs>
+
+<!-- páginas criativas em camadas -->
+<path d="M94 115Q94 92 117 87L257 57Q275 53 288 66L249 113L151 135Q139 138 139 151V377Q139 394 122 390L108 387Q94 384 94 367Z" fill="url(#yellow)"/>
+<path d="M123 126Q123 103 146 98L267 64Q282 60 293 71L260 116L180 142Q168 146 168 159V392Q168 407 153 403L139 399Q123 395 123 379Z" fill="url(#pink)"/>
+<path d="M151 137Q151 114 174 108L277 67Q291 62 302 73L270 119L207 149Q196 154 196 167V405Q196 421 181 416L167 411Q151 406 151 390Z" fill="url(#purple)"/>
+
+<!-- C principal -->
+<path d="M281 57
+C370 57 432 98 466 153
+Q474 166 461 175L391 222
+Q380 230 371 218
+C350 190 322 176 286 176
+C226 176 194 216 194 275
+C194 334 226 374 286 374
+C322 374 350 360 371 332
+Q380 320 391 328L461 375
+Q474 384 466 397
+C432 452 370 493 281 493
+C151 493 76 403 76 275
+C76 147 151 57 281 57Z" fill="url(#navy)"/>
+
+<!-- recorte interno branco -->
+<path d="M288 177
+C242 177 213 215 213 275
+C213 335 242 373 288 373
+C319 373 341 359 358 336
+L397 362
+C371 399 335 420 286 420
+C198 420 147 360 147 275
+C147 190 198 130 286 130
+C335 130 371 151 397 188
+L358 214
+C341 191 319 177 288 177Z" fill="#FFFDF9"/>
+</svg>

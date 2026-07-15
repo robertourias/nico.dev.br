@@ -11,6 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "criativo.nico.dev — Landing pages e portfólio",
   description: "Estúdio de landing pages de campanhas e layouts de portfólio do nico.dev.",
+  icons: { icon: "/criativo-favicon.ico" },
 }
 
 // Layout raiz minimalista: header/site-wide e footer ficam no route group

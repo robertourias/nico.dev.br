@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SiteHeader } from "@/components/site-header";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -11,6 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Metronome — metronome.nico.dev",
   description: "Metrônomo online com marcação de tempo audiovisual para músicos.",
+  icons: { icon: "/metrobeat-favicon.ico" },
 };
 
 export default function RootLayout({
@@ -28,6 +30,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} min-h-screen bg-background text-foreground antialiased`}>
+        <SiteHeader />
         {children}
       </body>
     </html>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Pomodoro timer logo">
+<defs>
+  <linearGradient id="tomato" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FF5436"/>
+    <stop offset=".55" stop-color="#FF3B24"/>
+    <stop offset="1" stop-color="#D92B1D"/>
+  </linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#65B63B"/>
+    <stop offset="1" stop-color="#23842F"/>
+  </linearGradient>
+</defs>
+
+<!-- tomate -->
+<circle cx="256" cy="278" r="190" fill="url(#tomato)"/>
+
+<!-- folhas -->
+<path fill="url(#leaf)" d="M246 116
+ C214 82 163 83 130 104
+ C170 111 199 123 224 141
+ C183 139 151 159 133 190
+ C177 181 218 163 256 139
+ C294 163 335 181 379 190
+ C361 159 329 139 288 141
+ C313 123 342 111 382 104
+ C349 83 298 82 266 116
+ C266 78 279 54 291 40
+ C275 25 258 26 250 45
+ C243 62 244 88 246 116 Z"/>
+
+<!-- mostrador -->
+<circle cx="256" cy="285" r="128" fill="none" stroke="#FFFDF8" stroke-width="14"/>
+
+<!-- área do tempo restante -->
+<path d="M256 157 A128 128 0 0 1 384 285 H256 Z" fill="#FFFDF8"/>
+
+<!-- marcações -->
+<g stroke="#FFFDF8" stroke-width="10" stroke-linecap="round">
+  <line x1="256" y1="177" x2="256" y2="194"/>
+  <line x1="180" y1="209" x2="192" y2="221"/>
+  <line x1="148" y1="285" x2="165" y2="285"/>
+  <line x1="180" y1="361" x2="192" y2="349"/>
+  <line x1="256" y1="376" x2="256" y2="393"/>
+  <line x1="320" y1="349" x2="332" y2="361"/>
+  <line x1="347" y1="285" x2="364" y2="285"/>
+</g>
+
+<!-- ponteiros -->
+<circle cx="256" cy="285" r="17" fill="#FFFDF8"/>
+<line x1="256" y1="285" x2="256" y2="173" stroke="#FFFDF8" stroke-width="8" stroke-linecap="round"/>
+<line x1="256" y1="285" x2="365" y2="285" stroke="#FFFDF8" stroke-width="8" stroke-linecap="round"/>
+</svg>

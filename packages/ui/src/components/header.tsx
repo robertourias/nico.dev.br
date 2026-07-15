@@ -11,18 +11,21 @@ import { cn } from "../lib/utils";
 interface HeaderLogoProps {
   href: string;
   label: string;
+  /** Caminho para o SVG/ícone do logo, exibido antes do label. */
+  icon?: string;
   className?: string;
 }
 
-function HeaderLogo({ href, label, className }: HeaderLogoProps) {
+function HeaderLogo({ href, label, icon, className }: HeaderLogoProps) {
   return (
     <a
       href={href}
       className={cn(
-        "font-semibold text-md text-foreground shrink-0 transition-colors hover:text-primary mr-auto lg:mr-0",
+        "flex items-center gap-2 font-semibold text-md text-foreground shrink-0 transition-colors hover:text-primary mr-auto lg:mr-0",
         className
       )}
     >
+      {icon && <img src={icon} alt="" className="h-6 w-6 shrink-0" />}
       {label}
     </a>
   );

@@ -13,6 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "tools.nico.dev — Ferramentas para devs",
   description: "Coleção de ferramentas web para desenvolvedores, potencializadas por IA.",
+  icons: { icon: "/toolhub-favicon.ico" },
 }
 
 export default function RootLayout({

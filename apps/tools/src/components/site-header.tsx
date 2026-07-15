@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { Header, ThemeToggle, NavLink } from "@nico.dev/ui";
 
 const SITES = {
@@ -18,6 +19,9 @@ const SITES = {
 };
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const isPomodoro = pathname?.startsWith("/pomodoro");
+
   return (
     <Header>
       <Header.Menu>
@@ -25,7 +29,11 @@ export function SiteHeader() {
         <NavLink href={SITES.challenges.url} external>{SITES.challenges.label}</NavLink>
       </Header.Menu>
 
-      <Header.Logo href="/" label="Tools" />
+      {isPomodoro ? (
+        <Header.Logo href="/pomodoro" label="Pomodoro" icon="/pomodoro-logo.svg" />
+      ) : (
+        <Header.Logo href="/" label="Tools" icon="/toolhub-logo.svg" />
+      )}
 
       <Header.Nav>
         <NavLink href={SITES.portfolio.url} external>{SITES.portfolio.label}</NavLink>
