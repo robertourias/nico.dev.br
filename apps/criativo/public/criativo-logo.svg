@@ -1,49 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Criativo logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 620" role="img" aria-label="Criativo - Páginas que impressionam">
 <defs>
   <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
-    <stop stop-color="#172B49"/><stop offset="1" stop-color="#06142A"/>
+    <stop offset="0" stop-color="#102442"/>
+    <stop offset="1" stop-color="#020F26"/>
   </linearGradient>
-  <linearGradient id="yellow" x1="0" y1="0" x2="0" y2="1">
-    <stop stop-color="#FFC62A"/><stop offset="1" stop-color="#FF7A1A"/>
+  <linearGradient id="orange" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFBF18"/>
+    <stop offset="1" stop-color="#FF7610"/>
   </linearGradient>
   <linearGradient id="pink" x1="0" y1="0" x2="0" y2="1">
-    <stop stop-color="#FF477F"/><stop offset="1" stop-color="#C31CB2"/>
+    <stop offset="0" stop-color="#FF3984"/>
+    <stop offset="1" stop-color="#BD1BB7"/>
   </linearGradient>
   <linearGradient id="purple" x1="0" y1="0" x2="0" y2="1">
-    <stop stop-color="#6B52FF"/><stop offset="1" stop-color="#3438D8"/>
+    <stop offset="0" stop-color="#684BFF"/>
+    <stop offset="1" stop-color="#3430DC"/>
   </linearGradient>
 </defs>
 
-<!-- páginas criativas em camadas -->
-<path d="M94 115Q94 92 117 87L257 57Q275 53 288 66L249 113L151 135Q139 138 139 151V377Q139 394 122 390L108 387Q94 384 94 367Z" fill="url(#yellow)"/>
-<path d="M123 126Q123 103 146 98L267 64Q282 60 293 71L260 116L180 142Q168 146 168 159V392Q168 407 153 403L139 399Q123 395 123 379Z" fill="url(#pink)"/>
-<path d="M151 137Q151 114 174 108L277 67Q291 62 302 73L270 119L207 149Q196 154 196 167V405Q196 421 181 416L167 411Q151 406 151 390Z" fill="url(#purple)"/>
+<!-- Camadas de páginas -->
+<path d="M28 145Q28 119 54 113L324 54Q344 50 359 64L326 103L104 158Q91 161 91 176V513Q91 532 72 527L48 521Q28 516 28 496Z" fill="url(#orange)"/>
+<path d="M75 137Q75 113 99 107L333 55Q351 51 365 65L333 107L142 160Q128 164 128 179V526Q128 544 110 539L94 535Q75 530 75 511Z" fill="url(#pink)"/>
+<path d="M121 129Q121 106 144 100L342 55Q360 51 374 66L343 109L181 161Q168 165 168 180V536Q168 554 150 549L138 546Q121 541 121 523Z" fill="url(#purple)"/>
 
-<!-- C principal -->
-<path d="M281 57
-C370 57 432 98 466 153
-Q474 166 461 175L391 222
-Q380 230 371 218
-C350 190 322 176 286 176
-C226 176 194 216 194 275
-C194 334 226 374 286 374
-C322 374 350 360 371 332
-Q380 320 391 328L461 375
-Q474 384 466 397
-C432 452 370 493 281 493
-C151 493 76 403 76 275
-C76 147 151 57 281 57Z" fill="url(#navy)"/>
+<!-- C -->
+<path d="M351 54
+C459 54 535 102 578 173
+Q586 186 573 195L489 252
+Q477 260 468 247
+C442 213 410 197 369 197
+C299 197 263 243 263 310
+C263 377 299 423 369 423
+C410 423 442 407 468 373
+Q477 360 489 368L573 425
+Q586 434 578 447
+C535 518 459 566 351 566
+C207 566 124 462 124 310
+C124 158 207 54 351 54Z" fill="url(#navy)"/>
 
-<!-- recorte interno branco -->
-<path d="M288 177
-C242 177 213 215 213 275
-C213 335 242 373 288 373
-C319 373 341 359 358 336
-L397 362
-C371 399 335 420 286 420
-C198 420 147 360 147 275
-C147 190 198 130 286 130
-C335 130 371 151 397 188
-L358 214
-C341 191 319 177 288 177Z" fill="#FFFDF9"/>
+<!-- Página branca frontal -->
+<path d="M342 61L192 166Q178 176 178 193V528Q178 551 197 537L298 437
+Q310 425 310 406V348
+C326 371 345 383 371 383
+C398 383 419 368 437 344
+L477 371
+C450 410 416 431 368 431
+C283 431 235 383 235 310
+C235 237 283 189 368 189
+C416 189 450 210 477 249
+L437 276
+C419 252 398 237 371 237
+C328 237 305 265 305 310
+C305 323 307 335 310 345V185
+Q310 166 319 145Z" fill="#FFFDF9"/>
+
+<!-- Wordmark -->
+<text x="592" y="345" font-family="Arial, Helvetica, sans-serif" font-size="188" font-weight="800" letter-spacing="-8" fill="url(#navy)">Criativo</text>
+
+<!-- pontos coloridos dos i -->
+<circle cx="901" cy="183" r="23" fill="url(#orange)"/>
+<circle cx="1241" cy="183" r="23" fill="url(#purple)"/>
+
+<!-- tagline -->
+<text x="625" y="445" font-family="Arial, Helvetica, sans-serif" font-size="49" font-weight="500" letter-spacing="15" fill="#526A91">PÁGINAS QUE IMPRESSIONAM</text>
 </svg>

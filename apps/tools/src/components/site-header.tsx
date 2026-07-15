@@ -32,7 +32,7 @@ export function SiteHeader() {
       {isPomodoro ? (
         <Header.Logo href="/pomodoro" label="Pomodoro" icon="/pomodoro-logo.svg" />
       ) : (
-        <Header.Logo href="/" label="Tools" icon="/toolhub-logo.svg" />
+        <Header.Logo href="/" label="Tools" icon="/logo-tools.png" />
       )}
 
       <Header.Nav>

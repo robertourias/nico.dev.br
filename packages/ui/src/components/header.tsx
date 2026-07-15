@@ -26,7 +26,6 @@ function HeaderLogo({ href, label, icon, className }: HeaderLogoProps) {
       )}
     >
       {icon && <img src={icon} alt="" className="h-6 w-6 shrink-0" />}
-      {label}
     </a>
   );
 }

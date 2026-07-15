@@ -12,7 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Metronome — metronome.nico.dev",
   description: "Metrônomo online com marcação de tempo audiovisual para músicos.",
-  icons: { icon: "/metrobeat-favicon.ico" },
+  icons: { icon: "/metrobeat-logo.svg" },
 };
 
 export default function RootLayout({
