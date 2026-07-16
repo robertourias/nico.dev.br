@@ -13,10 +13,12 @@ interface HeaderLogoProps {
   label: string;
   /** Caminho para o SVG/ícone do logo, exibido antes do label. */
   icon?: string;
+  /** Classes do <img> do ícone (tamanho, etc). @default "h-6 w-6" */
+  iconClassName?: string;
   className?: string;
 }
 
-function HeaderLogo({ href, label, icon, className }: HeaderLogoProps) {
+function HeaderLogo({ href, label, icon, iconClassName, className }: HeaderLogoProps) {
   return (
     <a
       href={href}
@@ -25,7 +27,7 @@ function HeaderLogo({ href, label, icon, className }: HeaderLogoProps) {
         className
       )}
     >
-      {icon && <img src={icon} alt="" className="h-6 w-6 shrink-0" />}
+      {icon && <img src={icon} alt="" className={cn("h-16 w-auto shrink-0", iconClassName)} />}
     </a>
   );
 }
