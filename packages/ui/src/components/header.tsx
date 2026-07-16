@@ -16,18 +16,21 @@ interface HeaderLogoProps {
   /** Classes do <img> do ícone (tamanho, etc). @default "h-6 w-6" */
   iconClassName?: string;
   className?: string;
+  /** Conteúdo customizado do logo (ex: texto multi-cor). Sobrepõe `icon` quando informado. */
+  children?: React.ReactNode;
 }
 
-function HeaderLogo({ href, label, icon, iconClassName, className }: HeaderLogoProps) {
+function HeaderLogo({ href, label, icon, iconClassName, className, children }: HeaderLogoProps) {
   return (
     <a
       href={href}
+      aria-label={label}
       className={cn(
         "flex items-center gap-2 font-semibold text-md text-foreground shrink-0 transition-colors hover:text-primary mr-auto lg:mr-0",
         className
       )}
     >
-      {icon && <img src={icon} alt="" className={cn("h-16 w-auto shrink-0", iconClassName)} />}
+      {children ?? (icon && <img src={icon} alt="" className={cn("h-16 w-auto shrink-0", iconClassName)} />)}
     </a>
   );
 }

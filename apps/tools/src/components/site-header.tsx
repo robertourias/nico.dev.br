@@ -30,9 +30,11 @@ export function SiteHeader() {
       </Header.Menu>
 
       {isPomodoro ? (
-        <Header.Logo href="/pomodoro" label="Pomodoro" icon="/pomodoro-logo.svg" />
+        <Header.Logo href="/pomodoro" label="Pomodoro" icon="/pomodoro-logo.svg" iconClassName="h-10 w-auto" />
       ) : (
-        <Header.Logo href="/" label="Tools" icon="/logo-tools.png" />
+        <Header.Logo href="/" label="Tools">
+          Tools
+        </Header.Logo>
       )}
 
       <Header.Nav>
