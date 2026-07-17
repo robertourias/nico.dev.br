@@ -71,29 +71,28 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
             {categoryLabel}
           </span>
           <span class="text-xs" style="color: rgba(255,255,255,0.55);">{readTime} min de leitura</span>
+        </div>
+
+        <!-- Data -->
+        <div class="mb-3">
           <time class="text-xs" style="color: rgba(255,255,255,0.45);" datetime={date.toISOString()}>
             {formattedDate}
           </time>
         </div>
 
-        <!-- Clap + share + tags -->
-        <div class="flex items-center flex-wrap gap-3 mb-5">
-          <ClapButton client:visible slug={slug} />
-          <ShareButton client:visible title={title} text={description} url={`/posts/${slug}`} />
-
-          {tags.length > 0 && (
-            <div class="flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <span
-                  class="text-xs px-2 py-0.5 rounded-full border"
-                  style="color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.3);"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
+        <!-- Tags -->
+        {tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-5">
+            {tags.map((tag) => (
+              <span
+                class="text-xs px-2 py-0.5 rounded-full border"
+                style="color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.3);"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         <h1
           class="font-heading font-semibold leading-tight"
@@ -104,6 +103,12 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
         <p class="mt-4 leading-relaxed" style="font-size: 1.125rem; color: rgba(255,255,255,0.8);">
           {description}
         </p>
+
+        <!-- Clap + Share -->
+        <div class="flex items-center gap-3 mt-6">
+          <ClapButton client:visible slug={slug} />
+          <ShareButton client:visible title={title} text={description} url={`/posts/${slug}`} />
+        </div>
       </div>
     </div>
   </div>
