@@ -64,3 +64,5 @@ next-env.d.ts
 
 .pnpm-store*
 _tmp_*
+.vercel
+.env*

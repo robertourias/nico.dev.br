@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Rober/projetos/nico.dev.br/**)",
+      "Bash(rtk ls *)",
+      "Bash(grep -E \"\\\\.\\(ts|js|json\\)$\")"
+    ]
+  }
+}
