@@ -2,7 +2,7 @@
 title: "As 48 Leis do Poder: resumo direto de cada lei"
 slug: "48-leis-do-poder-resumo"
 date: "2026-07-20"
-category: "organizacao"
+category: "livros"
 status: "published"
 featured: false
 description: "Resumo direto e sem filtro das 48 leis do poder de Robert Greene — o que cada lei realmente diz e os insights que valem a pena levar para a vida real."
