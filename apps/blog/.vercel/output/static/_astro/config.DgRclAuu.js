@@ -1,1 +1,0 @@
-const o={name:"Blog Nico"},t={github:"https://github.com/robertourias",linkedin:"https://linkedin.com/in/robertourias"},s={portfolio:{url:"https://nico.dev.br",label:"Portfólio"},tools:{url:"https://tools.nico.dev.br",label:"Tools"}};export{o as S,s as a,t as b};
