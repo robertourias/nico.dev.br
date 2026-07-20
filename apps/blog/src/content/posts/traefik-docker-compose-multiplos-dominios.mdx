@@ -1,0 +1,182 @@
+---
+title: "Traefik no Docker Compose: um domínio por projeto, sem dor"
+slug: "traefik-docker-compose-multiplos-dominios"
+date: "2026-07-18"
+category: "tech"
+status: "published"
+featured: false
+description: "Como usar o Traefik como reverse proxy no Docker Compose pra rodar vários projetos na mesma VPS, cada um no seu domínio, com HTTPS automático."
+tags: ["traefik", "docker", "docker-compose", "reverse-proxy", "self-hosted"]
+template: "immersive"
+heroImage: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1600&q=80"
+---
+
+import Timeline from '@/components/mdx/Timeline.astro';
+import TimelineItem from '@/components/mdx/TimelineItem.astro';
+import Callout from '@/components/mdx/Callout.astro';
+
+Toda VPS que hospeda mais de um projeto chega nesse ponto: você tem três, quatro, dez containers rodando, cada um numa porta diferente, e precisa que `projeto-a.com` caia no container certo enquanto `projeto-b.com` cai em outro — tudo na porta 443, com certificado válido. É exatamente o problema que o Traefik resolve, e resolve de um jeito que muda como você pensa em subir projeto novo.
+
+## O problema que o Traefik ataca
+
+Sem reverse proxy, cada projeto expõe sua porta direto (`8081`, `8082`, `8083`...) e você lembra manualmente qual porta é qual, ou aponta subdomínios pra portas específicas no DNS. Funciona até o quinto projeto. Depois disso vira planilha mental.
+
+Com um reverse proxy na frente, todos os projetos ficam atrás da porta 80/443, e o roteamento por domínio decide pra qual container o tráfego vai. O Nginx resolve isso há décadas. O Traefik resolve o mesmo problema, mas descobrindo os projetos sozinho.
+
+## Traefik vs Nginx: a diferença real
+
+A diferença não é performance nem recurso — nginx serve bilhões de requisições por dia no mundo todo, é rápido e maduro. A diferença é **onde mora a configuração**.
+
+No Nginx, o roteamento vive em arquivos `.conf` separados do container que ele serve. Subir um projeto novo significa: criar o vhost, apontar pro upstream certo, testar a config (`nginx -t`), recarregar (`nginx -s reload`), e sincronizar isso com o `docker-compose.yml` do projeto — que é um arquivo à parte, sem relação direta com o vhost.
+
+No Traefik, a configuração de roteamento vive dentro do próprio `docker-compose.yml` do projeto, como labels no serviço. O Traefik fica observando o socket do Docker e, quando um container sobe com as labels certas, o roteador aparece sozinho — sem editar arquivo nenhum do proxy, sem reload manual.
+
+<Callout type="info">
+  Nginx é configuração declarada fora do container. Traefik é configuração declarada dentro do container, via labels. Isso muda o fluxo de "subir projeto novo" de dois arquivos pra um.
+</Callout>
+
+Isso tem custo: para debugar um problema de roteamento no Traefik, você não vai olhar um `.conf`, vai olhar as labels do compose e o dashboard do Traefik. Quem já tem know-how sólido de Nginx e uma infra estável não ganha muito trocando. Quem sobe projeto novo com frequência — o caso de quem tem vários side projects na mesma VPS — sente a diferença rápido.
+
+O outro ganho grande é certificado. O Traefik integra com Let's Encrypt nativamente: pede, renova e aplica o certificado por domínio sem `certbot`, sem cron de renovação, sem hook de reload. O Nginx precisa do Certbot (ou similar) como peça separada.
+
+## Instalando o Traefik
+
+O Traefik roda como mais um container. A ideia central: ele precisa acessar o socket do Docker (pra descobrir os outros containers) e expor as portas 80 e 443 pra internet.
+
+```yaml
+# traefik/docker-compose.yml
+services:
+  traefik:
+    image: traefik:v3.1
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedByDefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=voce@seudominio.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
+```
+
+`providers.docker.exposedByDefault=false` é a linha mais importante do arquivo: sem ela, todo container Docker da máquina vira rota pública automaticamente. Com ela, só entra no roteamento quem tiver a label `traefik.enable=true` explícita.
+
+A rede `proxy` precisa existir antes de subir qualquer coisa:
+
+```bash
+docker network create proxy
+```
+
+<Timeline>
+  <TimelineItem date="1" title="Rede compartilhada">
+    Cria a rede Docker `proxy`, externa, que o Traefik e todos os projetos vão compartilhar.
+  </TimelineItem>
+  <TimelineItem date="2" title="Sobe o Traefik">
+    `docker compose up -d` na pasta do Traefik. Ele começa a escutar o socket do Docker e expõe 80/443.
+  </TimelineItem>
+  <TimelineItem date="3" title="Labels no projeto">
+    Cada `docker-compose.yml` de projeto ganha labels dizendo qual domínio roteia pra ele.
+  </TimelineItem>
+  <TimelineItem date="4" title="Sobe o projeto">
+    `docker compose up -d` no projeto. O Traefik detecta o container novo e cria o roteador na hora — sem reiniciar o Traefik.
+  </TimelineItem>
+  <TimelineItem date="5" title="Certificado automático">
+    Na primeira requisição HTTPS pro domínio, o Traefik pede o certificado ao Let's Encrypt e passa a servir com TLS válido.
+  </TimelineItem>
+</Timeline>
+
+## Usando pra múltiplos projetos
+
+Cada projeto entra na mesma rede `proxy` e ganha labels próprias — não precisa saber nada sobre os outros projetos, nem sobre a config interna do Traefik.
+
+```yaml
+# projeto-a/docker-compose.yml
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.projeto-a.rule=Host(`projeto-a.com`)"
+      - "traefik.http.routers.projeto-a.entrypoints=websecure"
+      - "traefik.http.routers.projeto-a.tls.certresolver=letsencrypt"
+      - "traefik.http.services.projeto-a.loadbalancer.server.port=3000"
+
+networks:
+  proxy:
+    external: true
+```
+
+Repare que **não há `ports:` nesse serviço**. O container não precisa expor porta pra internet — o Traefik conversa com ele direto pela rede interna `proxy`, na porta declarada em `loadbalancer.server.port`. É a própria porta que a aplicação escuta dentro do container (a do `EXPOSE` ou do processo Node/Python/etc.), não uma porta pública.
+
+Pra outro projeto, é copiar o mesmo bloco trocando o nome do roteador e o domínio:
+
+```yaml
+# projeto-b/docker-compose.yml
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.projeto-b.rule=Host(`projeto-b.com`)"
+      - "traefik.http.routers.projeto-b.entrypoints=websecure"
+      - "traefik.http.routers.projeto-b.tls.certresolver=letsencrypt"
+      - "traefik.http.services.projeto-b.loadbalancer.server.port=8080"
+
+networks:
+  proxy:
+    external: true
+```
+
+<Callout type="warning">
+  O nome do roteador (`projeto-a`, `projeto-b` nas labels acima) precisa ser único entre todos os projetos que compartilham o Traefik. Repetir o nome em dois compose files diferentes faz um sobrescrever a configuração do outro silenciosamente — sem erro visível, só o domínio errado respondendo.
+</Callout>
+
+Pra subdomínio em vez de domínio próprio (`app.projeto-a.com`), a regra muda só a expressão: `Host(\`app.projeto-a.com\`)`. Pra rotear por path em vez de domínio, dá pra combinar `Host()` com `PathPrefix()` na mesma rule.
+
+## Exemplo real: dois projetos e um dashboard
+
+Um caso concreto que já rodou assim: uma VPS com um projeto Next.js (`blog.nico.dev.br`) e uma API em Node (`api.nico.dev.br`), mais o dashboard do próprio Traefik protegido por senha.
+
+O dashboard fica no `traefik/docker-compose.yml`, com autenticação básica pra não ficar público:
+
+```yaml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.nico.dev.br`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$hash-gerado-com-htpasswd"
+```
+
+O `$$` duplicado é necessário porque o Compose interpreta `$` como início de variável — o hash gerado pelo `htpasswd` já vem com `$` sozinho, e precisa ser escapado.
+
+Cada projeto sobe do seu jeito — o blog com `npm run build` num Dockerfile próprio, a API com seu próprio processo — e ambos só precisam saber duas coisas: entrar na rede `proxy` e declarar as quatro labels de roteamento. O Traefik nunca precisa ser reiniciado quando um projeto novo entra ou sai; ele reage aos eventos do Docker em tempo real.
+
+<Callout type="tip">
+  Pra confirmar que um roteador foi criado certo sem esperar o DNS propagar, o dashboard (`/dashboard/`, com a rota liberada acima) lista todos os roteadores ativos, o domínio de cada um e se o certificado foi emitido. É o primeiro lugar a olhar quando um domínio novo não responde.
+</Callout>
+
+No fim, a régua pra decidir entre Traefik e Nginx é sobre frequência de mudança: infra estável com poucos domínios, Nginx clássico segue sólido. Infra que ganha projeto novo todo mês, o Traefik corta o atrito de configurar proxy pra praticamente zero — o roteamento já nasce junto com o `docker-compose.yml` do projeto.

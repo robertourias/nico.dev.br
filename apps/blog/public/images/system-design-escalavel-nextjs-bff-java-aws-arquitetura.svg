@@ -1,0 +1,120 @@
+<svg viewBox="0 0 1340 940" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1340" height="940" fill="#ffffff"/>
+  <rect x="10" y="10" width="1320" height="920" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <text x="660" y="45" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">ImageFeed — arquitetura final</text>
+  <text x="660" y="68" text-anchor="middle" font-size="13" fill="#64748b">Next.js · BFF (NestJS) · APIs de domínio (Java) · Postgres · Redis · AWS</text>
+
+  <!-- Row A: Navegador -->
+  <rect x="470" y="95" width="340" height="65" rx="10" fill="#334155"/>
+  <text x="640" y="122" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">Navegador</text>
+  <text x="640" y="142" text-anchor="middle" font-size="12" fill="#cbd5e1">usuário abrindo o feed / enviando foto</text>
+
+  <!-- Row B: Next.js SSR + CloudFront -->
+  <rect x="140" y="235" width="300" height="65" rx="10" fill="#0f172a"/>
+  <text x="290" y="262" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">Next.js (SSR/CSR)</text>
+  <text x="290" y="282" text-anchor="middle" font-size="12" fill="#cbd5e1">renderiza o feed, next/image</text>
+
+  <rect x="840" y="235" width="300" height="65" rx="10" fill="#7c3aed"/>
+  <text x="990" y="262" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">CloudFront (CDN)</text>
+  <text x="990" y="282" text-anchor="middle" font-size="12" fill="#ede9fe">serve imagem já processada</text>
+
+  <!-- Row C: BFF -->
+  <rect x="470" y="375" width="340" height="65" rx="10" fill="#e11d48"/>
+  <text x="640" y="402" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">BFF — NestJS</text>
+  <text x="640" y="422" text-anchor="middle" font-size="12" fill="#fecdd3">agrega usuário + feed + mídia numa resposta</text>
+
+  <!-- Row D: 3 Java APIs -->
+  <rect x="60" y="515" width="280" height="65" rx="10" fill="#0f766e"/>
+  <text x="200" y="542" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">API Java — Usuários</text>
+  <text x="200" y="562" text-anchor="middle" font-size="12" fill="#ccfbf1">cadastro, seguir</text>
+
+  <rect x="500" y="515" width="280" height="65" rx="10" fill="#0f766e"/>
+  <text x="640" y="542" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">API Java — Feed</text>
+  <text x="640" y="562" text-anchor="middle" font-size="12" fill="#ccfbf1">monta feed, curtidas</text>
+
+  <rect x="940" y="515" width="280" height="65" rx="10" fill="#0f766e"/>
+  <text x="1080" y="542" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">API Java — Mídia</text>
+  <text x="1080" y="562" text-anchor="middle" font-size="12" fill="#ccfbf1">metadado do post</text>
+
+  <!-- Row E: Postgres, Redis, S3 -->
+  <rect x="60" y="655" width="280" height="65" rx="10" fill="#2563eb"/>
+  <text x="200" y="682" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">Postgres (RDS)</text>
+  <text x="200" y="702" text-anchor="middle" font-size="12" fill="#dbeafe">usuário, relação, metadado</text>
+
+  <rect x="500" y="655" width="280" height="65" rx="10" fill="#dc2626"/>
+  <text x="640" y="682" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">Redis (ElastiCache)</text>
+  <text x="640" y="702" text-anchor="middle" font-size="12" fill="#fee2e2">cache de feed, TTL 60s</text>
+
+  <rect x="940" y="655" width="280" height="65" rx="10" fill="#f59e0b"/>
+  <text x="1080" y="682" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">S3</text>
+  <text x="1080" y="702" text-anchor="middle" font-size="12" fill="#fffbeb">binário da imagem original</text>
+
+  <!-- Row F: Lambda -->
+  <rect x="940" y="795" width="280" height="65" rx="10" fill="#ea580c"/>
+  <text x="1080" y="822" text-anchor="middle" font-size="15" font-weight="600" fill="#ffffff">Lambda</text>
+  <text x="1080" y="842" text-anchor="middle" font-size="12" fill="#ffedd5">gera thumbnail, valida conteúdo</text>
+
+  <!-- Arrows: main synchronous flow -->
+  <line x1="580" y1="160" x2="330" y2="235" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="290" y1="300" x2="530" y2="375" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="330" y="345" font-size="11" fill="#475569">SSR fetch</text>
+
+  <line x1="580" y1="440" x2="220" y2="515" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="640" y1="440" x2="640" y2="515" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="700" y1="440" x2="1050" y2="515" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="700" y="470" font-size="11" fill="#475569">REST interno</text>
+
+  <line x1="200" y1="580" x2="200" y2="655" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="580" y1="580" x2="280" y2="655" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <path d="M 640 580 L 640 655" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)" fill="none"/>
+  <text x="650" y="620" font-size="11" fill="#475569">cache</text>
+
+  <line x1="1080" y1="580" x2="1080" y2="655" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="1090" y="620" font-size="11" fill="#475569">referência</text>
+
+  <!-- Image pipeline (orange) -->
+  <line x1="1080" y1="720" x2="1080" y2="795" stroke="#c2410c" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowOrange)"/>
+  <text x="1090" y="762" font-size="11" fill="#c2410c">evento s3:ObjectCreated</text>
+
+  <path d="M 1220 795 L 1245 795 L 1245 267 L 1140 267" stroke="#c2410c" stroke-width="2" stroke-dasharray="6,4" fill="none" marker-end="url(#arrowOrange)"/>
+  <text x="1245" y="531" font-size="11" fill="#c2410c" transform="rotate(-90 1245,531)" text-anchor="middle">thumbnail pronto</text>
+
+  <path d="M 810 127 L 1300 127 L 1300 687 L 1220 687" stroke="#c2410c" stroke-width="2" stroke-dasharray="6,4" fill="none" marker-end="url(#arrowOrange)"/>
+  <text x="1300" y="407" font-size="11" fill="#c2410c" transform="rotate(-90 1300,407)" text-anchor="middle">upload direto — presigned URL</text>
+
+  <line x1="700" y1="127" x2="900" y2="235" stroke="#c2410c" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="800" y="185" font-size="11" fill="#c2410c">GET imagem</text>
+
+  <!-- Legend -->
+  <g transform="translate(60,890)">
+    <rect x="0" y="0" width="16" height="16" rx="3" fill="#475569"/>
+    <text x="22" y="13" font-size="12" fill="#334155">fluxo síncrono (leitura)</text>
+  </g>
+  <g transform="translate(300,890)">
+    <rect x="0" y="0" width="16" height="16" rx="3" fill="#c2410c"/>
+    <text x="22" y="13" font-size="12" fill="#334155">pipeline de imagem (upload/CDN)</text>
+  </g>
+  <g transform="translate(620,890)">
+    <rect x="0" y="0" width="16" height="16" rx="3" fill="#dc2626"/>
+    <text x="22" y="13" font-size="12" fill="#334155">cache</text>
+  </g>
+  <g transform="translate(760,890)">
+    <rect x="0" y="0" width="16" height="16" rx="3" fill="#0f766e"/>
+    <text x="22" y="13" font-size="12" fill="#334155">API Java (domínio)</text>
+  </g>
+  <g transform="translate(960,890)">
+    <rect x="0" y="0" width="16" height="16" rx="3" fill="#f59e0b"/>
+    <text x="22" y="13" font-size="12" fill="#334155">AWS (S3 / Lambda / CloudFront)</text>
+  </g>
+</svg>

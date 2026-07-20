@@ -1,0 +1,427 @@
+---
+title: "Arquitetura moderna com React e Next.js"
+slug: "arquitetura-moderna-react-nextjs"
+date: "2026-07-20"
+category: "tech"
+status: "published"
+featured: false
+description: "Guia prático de arquitetura para projetos React e Next.js: organização com TypeScript, TanStack Query, cache em múltiplas camadas, hooks customizados, Tailwind com shadcn e como escalar sem virar bagunça."
+tags: ["react", "nextjs", "tanstack-query", "arquitetura", "tailwind"]
+template: "immersive"
+heroImage: "https://images.unsplash.com/photo-1759661881353-5b9cc55e1cf4?w=1600&q=80"
+---
+
+import Timeline from '@/components/mdx/Timeline.astro';
+import TimelineItem from '@/components/mdx/TimelineItem.astro';
+import Callout from '@/components/mdx/Callout.astro';
+
+Todo projeto React começa organizado. O problema aparece no mês três, quando o time dobrou, a pasta `components` tem 80 arquivos sem critério nenhum e ninguém sabe mais onde fica a lógica de negócio. Arquitetura não é sobre seguir regra por estética — é sobre o projeto aguentar crescer sem que cada feature nova exija reescrever a anterior.
+
+Este post cobre as decisões que mais importam num projeto React + Next.js: como organizar pastas com TypeScript, os recursos do Next que resolvem problema de verdade, integração com API, uso de hooks (nativos e customizados), Tailwind com shadcn/ui, performance, e como pensar a escala do projeto — inclusive documentando isso num diagrama.
+
+## Organizando o projeto com TypeScript
+
+A armadilha mais comum é organizar por *tipo* de arquivo (`components/`, `hooks/`, `utils/` soltos na raiz). Funciona com 10 arquivos, quebra com 100. O critério que escala é organizar por **domínio**, com uma camada compartilhada por baixo:
+
+```
+src/
+├── app/                     # rotas (App Router)
+│   ├── (public)/
+│   ├── (dashboard)/
+│   └── api/
+├── components/
+│   ├── ui/                  # shadcn — evite editar sem necessidade real
+│   └── shared/               # componentes usados por mais de um domínio
+├── features/
+│   ├── pedidos/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── services/
+│   │   └── types.ts
+│   └── usuarios/
+├── hooks/                    # hooks genéricos, sem ligação a um domínio
+├── lib/                       # clientes de API, config, utils
+└── types/                     # tipos globais compartilhados
+```
+
+Cada pasta em `features/` é praticamente um mini-app: tem seus componentes, hooks e chamadas de API isolados. Isso significa que remover ou refatorar uma feature inteira não exige caçar arquivo espalhado pelo projeto todo.
+
+<Callout type="tip">
+  Configure `strict: true` no `tsconfig.json` desde o commit inicial. Ativar depois, com o projeto já grande, vira uma tarde inteira corrigindo `any` implícito espalhado por todo canto.
+</Callout>
+
+## Recursos do React e Next.js que fazem diferença
+
+Nem todo recurso novo do Next vale a pena adotar cegamente, mas alguns mudam a arquitetura de verdade:
+
+**Server Components** são o padrão no App Router — o componente roda no servidor, não manda JS pro cliente, e pode acessar banco ou API direto, sem passar por uma rota `/api`. Use `"use client"` só onde precisa de interatividade (estado, eventos, hooks de navegador).
+
+**Server Actions** substituem boa parte das rotas de API feitas só pra receber um form. Uma função marcada com `"use server"` pode ser chamada direto do client, com validação e tudo, sem você escrever um endpoint só pra isso.
+
+**Streaming com `Suspense`** deixa a página renderizar por partes: o que já está pronto aparece, o que depende de uma query lenta mostra um esqueleto até chegar.
+
+<Callout type="info">
+  Regra prática: comece todo componente como Server Component. Só migre para Client Component quando o compilador reclamar de `useState`, `useEffect` ou evento de clique. Fazer o caminho contrário — tudo client por padrão — é o erro mais comum em projetos que migraram do Pages Router.
+</Callout>
+
+## Integrando com API sem virar bagunça
+
+Chamada de API direto dentro do componente é o primeiro sinal de que a arquitetura vai desandar. O padrão que se sustenta é isolar a chamada numa camada de serviço, tipada, e deixar o componente só consumir:
+
+```ts
+// lib/api/pedidos.ts
+export async function getPedidos(): Promise<Pedido[]> {
+  const res = await fetch(`${process.env.API_URL}/pedidos`, {
+    next: { revalidate: 60, tags: ["pedidos"] },
+  });
+
+  if (!res.ok) throw new Error("Falha ao buscar pedidos");
+  return res.json();
+}
+```
+
+```tsx
+// app/pedidos/page.tsx
+import { getPedidos } from "@/lib/api/pedidos";
+import { ListaPedidos } from "@/features/pedidos/components/ListaPedidos";
+
+export default async function PedidosPage() {
+  const pedidos = await getPedidos();
+  return <ListaPedidos pedidos={pedidos} />;
+}
+```
+
+Repare que o `fetch` já busca os dados no servidor, com cache e tag de revalidação — nada de `useEffect` disparando a chamada depois que a página já renderizou vazia.
+
+## Cache no cliente com TanStack Query
+
+Server Component resolve a busca inicial, mas não resolve tudo: refetch em background, mutation com atualização otimista, paginação infinita ou polling exigem estado de cache no cliente. É o problema que o TanStack Query (React Query) resolve — ele trata resposta de API como um cache com regra própria de invalidação, não como mais um `useState`.
+
+Setup mínimo, uma vez por app:
+
+```tsx
+// app/providers.tsx
+"use client";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: { staleTime: 60 * 1000, gcTime: 5 * 60 * 1000 },
+        },
+      })
+  );
+
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+}
+```
+
+`staleTime` define por quanto tempo o dado é considerado fresco (não refaz a chamada); `gcTime` define por quanto tempo o cache fica vivo depois que ninguém mais usa aquele dado. Confundir os dois é a causa mais comum de "por que essa tela busca de novo toda hora".
+
+Um padrão que vale adotar desde cedo — mesmo em projeto pequeno — é centralizar as chaves de cache numa factory, em vez de espalhar array de string por todo componente:
+
+```ts
+// features/pedidos/queries.ts
+export const pedidosKeys = {
+  all: ["pedidos"] as const,
+  lista: (filtro: string) => [...pedidosKeys.all, "lista", filtro] as const,
+  detalhe: (id: string) => [...pedidosKeys.all, "detalhe", id] as const,
+};
+```
+
+Isso evita erro de digitação na hora de invalidar cache e deixa explícito quais telas dependem de qual dado:
+
+```tsx
+function useListaPedidos(filtro: string) {
+  return useQuery({
+    queryKey: pedidosKeys.lista(filtro),
+    queryFn: () => getPedidos(filtro),
+  });
+}
+
+function useCriarPedido() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: criarPedido,
+    onMutate: async (novoPedido) => {
+      await queryClient.cancelQueries({ queryKey: pedidosKeys.all });
+      const anterior = queryClient.getQueryData(pedidosKeys.lista(""));
+
+      queryClient.setQueryData(pedidosKeys.lista(""), (atual: Pedido[] = []) => [
+        ...atual,
+        { ...novoPedido, id: "temp", status: "enviando" },
+      ]);
+
+      return { anterior };
+    },
+    onError: (_err, _novoPedido, contexto) => {
+      queryClient.setQueryData(pedidosKeys.lista(""), contexto?.anterior);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: pedidosKeys.all });
+    },
+  });
+}
+```
+
+A mutation acima já é um padrão avançado completo: atualiza a tela antes da resposta do servidor chegar (`onMutate`), desfaz se der erro (`onError`), e sincroniza com a verdade do servidor no final (`onSettled`).
+
+<Callout type="tip">
+  Combine TanStack Query com o `useDebounce` visto antes: passe o valor debounced como parte da `queryKey`. A chamada só dispara quando o usuário para de digitar, e cada valor diferente já cacheia separado — busca repetida da mesma palavra não bate na API de novo.
+</Callout>
+
+Pra tela com rolagem infinita, `useInfiniteQuery` evita reimplementar paginação manual com estado espalhado pelo componente:
+
+```tsx
+function usePedidosInfinito() {
+  return useInfiniteQuery({
+    queryKey: pedidosKeys.all,
+    queryFn: ({ pageParam }) => getPedidos({ cursor: pageParam }),
+    initialPageParam: null as string | null,
+    getNextPageParam: (ultimaPagina) => ultimaPagina.proximoCursor,
+  });
+}
+```
+
+Um padrão mais avançado — que elimina a chamada inicial duplicada — é buscar o dado no Server Component e entregar esse resultado já pronto pro cache do TanStack Query no cliente, em vez de buscar tudo de novo:
+
+```tsx
+// app/pedidos/page.tsx
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient } from "@/lib/query-client";
+import { pedidosKeys } from "@/features/pedidos/queries";
+import { getPedidos } from "@/lib/api/pedidos";
+import { ListaPedidos } from "@/features/pedidos/components/ListaPedidos";
+
+export default async function PedidosPage() {
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: pedidosKeys.lista(""),
+    queryFn: () => getPedidos(""),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ListaPedidos />
+    </HydrationBoundary>
+  );
+}
+```
+
+O componente cliente usa `useListaPedidos` normalmente, mas o cache já chega preenchido — sem esperar um segundo round-trip depois que a página montou.
+
+<Callout type="warning">
+  Não use TanStack Query pra tudo. Se o dado só é lido uma vez, renderiza no servidor e não muda com interação do usuário, `fetch` direto num Server Component é mais simples e não exige nenhuma dessas camadas. TanStack Query resolve estado de servidor no cliente — não substitui Server Component.
+</Callout>
+
+## Hooks: usar bem e saber quando customizar
+
+Hook nativo mal usado é a causa mais comum de re-render desnecessário e bug sutil. Duas armadilhas recorrentes: dependência esquecida no array do `useEffect`, e estado guardado onde deveria ser derivado (calculado na hora, a partir de outro estado).
+
+Hook customizado só vale a pena quando a mesma lógica se repete em pelo menos três lugares — antes disso é abstração especulativa. Um exemplo que costuma pagar a pena cedo, por aparecer em quase toda tela com busca:
+
+```ts
+function useDebounce<T>(valor: T, delayMs = 300): T {
+  const [debounced, setDebounced] = useState(valor);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(valor), delayMs);
+    return () => clearTimeout(timer);
+  }, [valor, delayMs]);
+
+  return debounced;
+}
+```
+
+<Callout type="warning">
+  Não crie um hook customizado pra cada dois usos de `useState` juntos. Isso só adiciona uma camada de indireção pra quem lê o código sem ganho real. Extraia quando a lógica repetir de verdade, não quando parecer "mais organizado".
+</Callout>
+
+## Tailwind com shadcn/ui
+
+O shadcn não é uma biblioteca instalada via `npm install` — o componente é copiado pro seu projeto (`components/ui/`), o que significa que você é dono do código dele. Isso muda a forma de trabalhar: em vez de esperar uma versão nova da lib pra mudar o visual do `Button`, você edita o arquivo direto.
+
+O ponto que mais gera inconsistência visual é usar cor solta (`bg-blue-500`) misturada com os tokens do tema (`bg-primary`). Prefira sempre o token — ele já reflete dark mode, marca e contraste definidos no `tailwind.config` e no CSS do shadcn.
+
+<Callout type="tip">
+  Centralize `cn()` (helper que junta o `clsx` com o `tailwind-merge`) e use em todo componente que aceita `className` como prop. Sem isso, sobrescrever estilo de um componente shadcn vira um jogo de especificidade de CSS.
+</Callout>
+
+## Performance e economia de requisições
+
+A maior economia não vem de otimização de código, vem de não fazer a requisição de novo. Algumas táticas que resolvem a maior parte dos casos:
+
+Cache e revalidação por tag no `fetch` do Next (como no exemplo de `getPedidos` acima) evita repetir a mesma chamada em cada navegação — você invalida só a tag `"pedidos"` quando um pedido muda, e o resto do cache continua válido.
+
+`next/image` resolve otimização de imagem (tamanho, formato, lazy loading) sem configuração manual — é uma das trocas de menor esforço e maior ganho.
+
+`useMemo` e `useCallback` só valem a pena quando o cálculo é caro ou quando a referência estável evita re-render de um componente filho pesado. Usar em toda função é custo de leitura sem ganho de performance.
+
+Evite cascata de requisições (`await` um atrás do outro quando não há dependência entre eles). Duas chamadas independentes devem rodar em paralelo:
+
+```ts
+const [pedidos, usuario] = await Promise.all([
+  getPedidos(),
+  getUsuarioAtual(),
+]);
+```
+
+Deduplicação também acontece dentro do próprio servidor. Se dois Server Components diferentes, na mesma árvore de renderização, chamam a mesma função com os mesmos parâmetros, envolver a função com `cache()` do React garante que a chamada de rede aconteça uma vez só — mesmo que layout e página peçam o mesmo dado:
+
+```ts
+import { cache } from "react";
+
+export const getPedido = cache(async (id: string) => {
+  const res = await fetch(`${process.env.API_URL}/pedidos/${id}`);
+  if (!res.ok) throw new Error("Pedido não encontrado");
+  return res.json();
+});
+```
+
+Isso resolve o caso clássico de layout e página precisando do mesmo dado (dados do usuário logado, por exemplo) sem passar prop manualmente por três níveis de componente.
+
+Quando uma Server Action muda um dado, invalidar só o necessário evita recarregar a aplicação inteira:
+
+```ts
+"use server";
+
+import { revalidateTag } from "next/cache";
+
+export async function criarPedido(dados: NovoPedido) {
+  await fetch(`${process.env.API_URL}/pedidos`, {
+    method: "POST",
+    body: JSON.stringify(dados),
+  });
+
+  revalidateTag("pedidos");
+}
+```
+
+Só as páginas com fetch marcado pela tag `"pedidos"` buscam de novo — o resto do cache do Next continua servindo a versão antiga, sem regenerar página sem relação nenhuma com o pedido criado.
+
+Componente pesado que só aparece sob interação (modal, editor rico, gráfico) não precisa entrar no bundle inicial. `next/dynamic` adia o carregamento pro momento em que o componente é realmente necessário:
+
+```tsx
+import dynamic from "next/dynamic";
+
+const EditorDeTexto = dynamic(
+  () => import("@/features/pedidos/components/EditorDeTexto"),
+  { loading: () => <p>Carregando editor...</p>, ssr: false }
+);
+```
+
+E no TanStack Query, a opção `select` evita re-render de componente que só precisa de uma fatia do dado — ele só atualiza quando o resultado do `select` muda, não a cada refetch do objeto inteiro:
+
+```tsx
+function useTotalPedidos() {
+  return useQuery({
+    queryKey: pedidosKeys.all,
+    queryFn: () => getPedidos(""),
+    select: (pedidos) => pedidos.length,
+  });
+}
+```
+
+<Callout type="info">
+  Esses padrões se complementam por camada: `cache()` deduplica dentro do servidor, `revalidateTag` invalida cache do Next depois de uma escrita, e `staleTime` + `select` do TanStack Query controlam o que refaz chamada e o que re-renderiza no cliente. Misturar as três camadas sem entender qual resolve qual problema é a causa mais comum de cache "mentiroso" — tela mostrando dado antigo ou refazendo requisição sem necessidade.
+</Callout>
+
+## Escalando o projeto
+
+Escala não é uma decisão única — é uma progressão. O projeto que começa como app único não precisa (e não deve) nascer com a estrutura de uma empresa de 50 devs.
+
+<Timeline>
+  <TimelineItem date="MVP" title="Um app, estrutura simples">
+    `app/` com as rotas, `components/` com o essencial, chamadas de API direto em `lib/`. Sem `features/` ainda — a separação por domínio só compensa quando já existe mais de um domínio real.
+  </TimelineItem>
+  <TimelineItem date="Crescimento" title="Organização por domínio">
+    Migra pra `features/`, extrai hooks e componentes compartilhados pra pastas próprias, isola a camada de API por serviço. É o momento de formalizar convenções de nomenclatura e revisão de PR.
+  </TimelineItem>
+  <TimelineItem date="Escala multi-time" title="Monorepo">
+    Com mais de um time ou mais de um app (web, admin, mobile), um monorepo (Turborepo ou Nx) com pacotes compartilhados — `ui`, `config`, `types` — evita duplicar componente e regra de negócio entre projetos.
+  </TimelineItem>
+</Timeline>
+
+## Desenhando a arquitetura no draw.io
+
+Código organizado não substitui um diagrama — principalmente pra quem entra no time depois. Um diagrama útil no draw.io não precisa ser bonito, precisa responder três perguntas: onde o dado nasce, por onde ele passa, e onde ele é renderizado.
+
+A estrutura que funciona na prática tem quatro camadas, uma abaixo da outra: no topo, as rotas do App Router (páginas); logo abaixo, os Server Components que buscam dado; depois, a camada de serviço (`lib/api`) que fala com o backend; e por último, os sistemas externos (API, banco, serviços de terceiros). Setas descendo mostram a busca de dado; setas subindo, Server Actions escrevendo de volta.
+
+<Callout type="info">
+  Mantenha esse diagrama versionado junto do código (exportado como `.svg` numa pasta `docs/`) e atualize a cada mudança estrutural relevante. Um diagrama desatualizado é pior que nenhum — ele passa confiança errada pra quem confia nele sem checar o código.
+</Callout>
+
+## Perguntas e respostas rápidas
+
+**Preciso tipar 100% do projeto pra o TypeScript valer a pena?** Não. O ganho já aparece tipando fronteira: parâmetro de função, retorno de API, props de componente. Tipo interno de função pequena o próprio compilador infere sozinho.
+
+**`any` é sempre proibido?** Na prática, não — mas ele deveria ser raro e visível. Prefira `unknown` quando o tipo é realmente desconhecido, e force a validação antes de usar. `any` solto é o jeito mais comum de o TypeScript virar decoração em vez de proteção.
+
+**Ainda faz sentido usar Context API?** Sim, pra estado que muda pouco e é lido em qualquer lugar — tema, idioma, usuário autenticado. Pra dado de servidor (lista de pedidos, resultado de busca), isso é problema do TanStack Query, não do Context — misturar os dois é a origem de bug de cache duplicado.
+
+**Componente de classe antigo precisa ser reescrito logo?** Não com urgência. Componente de classe continua funcionando dentro do App Router (como Client Component). Reescreva quando for mexer nele por outro motivo, não como projeto isolado de "modernização".
+
+**Pages Router está obsoleto?** Continua recebendo suporte, mas não recebe mais recurso novo — App Router é onde o desenvolvimento do framework está concentrado. Projeto novo deveria nascer em App Router; migrar projeto grande existente é decisão de custo-benefício, não obrigação.
+
+**App Router já é maduro o suficiente pra produção?** Sim, é o padrão recomendado hoje. A curva de aprendizado é maior no início — entender quando um componente é Server ou Client, por exemplo — mas o modelo já é estável.
+
+**Lighthouse 100 é a meta certa?** Não é a métrica que importa de verdade. Ela roda em condição ideal e sintética. Web Vitals reais de usuário (LCP, INP, CLS medidos em produção, não no laboratório) mostram o que a pessoa de fato sente — inclusive em rede ruim e celular fraco.
+
+**Preciso de Redis e CDN desde o primeiro deploy?** Não. Cache do próprio Next (fetch com `tags`, `revalidate`) resolve a maior parte dos casos no começo. Redis e CDN dedicado entram quando o tráfego ou a latência de um recurso específico já viraram problema medido — não como pré-otimização.
+
+## Usando IA de forma assertiva: RAG, harness e SDD
+
+Agente de IA sem contexto do projeto real produz código genérico — ele não conhece sua estrutura de `features/`, sua convenção de nome, nem que você já decidiu usar TanStack Query em vez de Redux. Três técnicas resolvem isso, e nenhuma depende de ferramenta específica.
+
+**RAG (Retrieval-Augmented Generation)** aplicado a código não é sobre jogar o repositório inteiro no contexto — é dar ao agente uma forma de buscar só o trecho relevante antes de responder. Na prática, isso significa manter um arquivo de convenções que o agente lê (ou busca) antes de mexer num domínio:
+
+```md
+<!-- AGENTS.md -->
+# Convenções deste projeto
+
+- Organização por domínio em `features/`, não por tipo de arquivo.
+- Server Component por padrão; `"use client"` só quando necessário.
+- Cache de servidor via `tags` no `fetch`; cache de cliente com
+  TanStack Query e `queryKeys` centralizadas em `queries.ts`.
+- Nunca duplicar estado de servidor em `useState` local.
+```
+
+Com isso, o agente ancora a sugestão na decisão que seu time já tomou — não na média genérica de projeto React que ele viu em treinamento.
+
+**Harness** é o loop de verificação que roda depois de cada mudança, antes de qualquer coisa ser considerada pronta:
+
+```json
+{
+  "scripts": {
+    "verify": "tsc --noEmit && eslint . && vitest run"
+  }
+}
+```
+
+A instrução pro agente é simples e não negociável: rodar `npm run verify` depois de qualquer alteração, e só declarar a tarefa concluída se o comando passar. Isso transforma "o código parece certo" em "o código passou no typecheck, no lint e nos testes" — a mesma lógica por trás de frameworks como o Superpowers, que já cobri aqui no blog.
+
+**SDD (Spec-Driven Development)** é escrever a especificação antes do código, mesmo que curta. Em vez de "cria uma tela de pedidos", uma spec de três parágrafos — rota, formato do dado, comportamento de erro, se pagina ou não — corta a maior parte da divergência entre o que você queria e o que o agente entendeu.
+
+<Callout type="tip">
+  As três técnicas se reforçam: a spec (SDD) define o que construir, o arquivo de convenções (RAG) define como construir dentro do padrão do projeto, e o harness confirma que o resultado realmente funciona. Sem as três, você troca revisão de código por revisão de intenção — mais rápido na hora, mais caro depois.
+</Callout>
+
+## Documentando o projeto sem gerar atrito
+
+Documentação que ninguém lê geralmente está no lugar errado ou responde a pergunta que ninguém fez. As que valem o esforço são pontuais e ficam perto do código que descrevem.
+
+O README deveria ter só o essencial pra rodar o projeto: comando de instalação, variável de ambiente obrigatória, comando de dev e de teste. Descrição de marketing sobre o produto não ajuda quem está tentando subir o ambiente às 9h da manhã.
+
+Decisão de arquitetura que gerou debate — por que TanStack Query em vez de Redux, por que monorepo em vez de repositórios separados — merece um ADR curto (Architecture Decision Record): contexto, alternativas consideradas, decisão, consequência. Sem isso, a mesma discussão se repete a cada seis meses porque ninguém lembra por que aquilo foi decidido daquele jeito.
+
+O mesmo arquivo de convenções (`AGENTS.md` ou `CLAUDE.md`) que orienta o agente de IA na seção anterior serve como documentação viva pra quem entra no time — é um único lugar pra manter atualizado, em vez de duplicar a mesma informação num wiki que ninguém sincroniza com o código.
+
+Comentário no código deveria explicar o "porquê", nunca o "o quê" — o "o quê" já está escrito no próprio código. `// contorna bug do Safari em iOS < 16 com position: sticky` justifica sua existência; `// incrementa o contador` não.
+
+Arquitetura boa não é a que parece impressionante no primeiro commit. É a que ainda faz sentido quando o projeto tem o triplo do tamanho e metade do time original já não está mais lá.
