@@ -2,7 +2,7 @@
 title: "Acessibilidade avançada: WCAG 2.2 e Core Web Vitals"
 slug: "acessibilidade-avancada-wcag-core-web-vitals"
 date: "2026-07-20"
-category: "tech"
+category: "prog"
 status: "published"
 featured: false
 description: "Como WCAG 2.2 e Core Web Vitals resolvem o mesmo problema por ângulos diferentes — e como integrar os dois no fluxo de dev sem virar checklist de fim de sprint."

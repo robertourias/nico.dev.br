@@ -2,7 +2,7 @@
 title: "Indicadores de negócio que todo dev sênior deveria entender"
 slug: "indicadores-negocio-dev-senior"
 date: "2026-07-20"
-category: "qualidade-de-vida"
+category: "business"
 status: "published"
 featured: false
 description: "CAC, LTV, churn, MRR: um guia rápido dos indicadores que movem uma empresa — e por que entender negócio (e gente) separa o dev sênior do dev só tecnicamente bom."

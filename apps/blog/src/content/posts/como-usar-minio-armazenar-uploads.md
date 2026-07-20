@@ -2,7 +2,7 @@
 title: "Como usar MinIO para armazenar uploads"
 slug: "como-usar-minio-armazenar-uploads"
 date: "2026-06-23"
-category: "tech"
+category: "infra"
 status: "published"
 featured: false
 description: "Guia prático para subir um MinIO, criar buckets e integrar uploads de arquivos numa aplicação Node.js — sem depender da AWS."

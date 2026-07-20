@@ -14,4 +14,8 @@ export const CATEGORY_LABELS: Record<string, string> = {
   organizacao: 'Organização',
   'qualidade-de-vida': 'Qualidade de Vida',
   livros: 'Livros',
+  business: 'Negócios',
+  prog: 'Programação',
+  infra: 'Infra',
+  architecture: 'Arquitetura',
 };
