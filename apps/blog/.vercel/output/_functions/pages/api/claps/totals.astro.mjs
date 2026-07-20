@@ -1,4 +1,4 @@
-import { g as getCollection } from '../../../chunks/_astro_content_J4_-eXIA.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_sVftHkZD.mjs';
 import { a as getClapsTotals, C as ClapsApiError } from '../../../chunks/claps_Cde9ELZZ.mjs';
 export { renderers } from '../../../renderers.mjs';
 
