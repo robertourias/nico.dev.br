@@ -71,6 +71,4 @@ A pasta [`docs/`](./docs) contém toda a documentação do projeto:
 | [`specs/`](./docs/specs) | Specs de funcionalidades implementadas (template incluso) |
 | [`changelog/`](./docs/changelog) | Histórico de releases e mudanças |
 
-## Contribuindo
 
-Consulte o [CONTRIBUTING.md](./CONTRIBUTING.md) para convenções de código, uso do design system e padrões de componentes.
