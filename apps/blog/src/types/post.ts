@@ -13,4 +13,5 @@ export const CATEGORY_LABELS: Record<string, string> = {
   ia: 'IA',
   organizacao: 'Organização',
   'qualidade-de-vida': 'Qualidade de Vida',
+  livros: 'Livros',
 };
