@@ -21,7 +21,7 @@ export function FontSizeControl() {
   }, []);
 
   const applyFontSize = (size: number) => {
-    document.documentElement.style.setProperty('--post-font-size', `${size}px`);
+    document.documentElement.style.setProperty('--post-font-size', String(size));
   };
 
   const handleIncrease = (e: MouseEvent) => {
