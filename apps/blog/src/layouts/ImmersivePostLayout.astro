@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { BlogHeader } from '@/components/BlogHeader';
 import { ClapButton } from '@/components/ClapButton';
 import { ShareButton } from '@/components/ShareButton';
+import { FontSizeControl } from '@/components/FontSizeControl';
 
 interface Props {
   title: string;
@@ -104,10 +105,11 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
           {description}
         </p>
 
-        <!-- Clap + Share -->
+        <!-- Clap + Share + Font Size -->
         <div class="flex items-center gap-3 mt-6">
           <ClapButton client:visible slug={slug} />
           <ShareButton client:visible title={title} text={description} url={`/posts/${slug}`} />
+          <FontSizeControl client:visible />
         </div>
       </div>
     </div>
@@ -122,13 +124,37 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
 </BaseLayout>
 
 <style>
+  :root {
+    --post-font-size: 16px;
+  }
+
   /* Imersivo: corpo levemente maior */
   .immersive-content p {
-    font-size: 1.125rem;
+    font-size: calc(var(--post-font-size) * 1.125 / 16);
   }
 
   .immersive-content ul,
   .immersive-content ol {
-    font-size: 1.125rem;
+    font-size: calc(var(--post-font-size) * 1.125 / 16);
+  }
+
+  .immersive-content h2 {
+    font-size: calc(var(--post-font-size) * 1.5 / 16);
+  }
+
+  .immersive-content h3 {
+    font-size: calc(var(--post-font-size) * 1.25 / 16);
+  }
+
+  .immersive-content blockquote {
+    font-size: calc(var(--post-font-size) * 1.0625 / 16);
+  }
+
+  .immersive-content code {
+    font-size: calc(var(--post-font-size) * 0.9 / 16);
+  }
+
+  .immersive-content li {
+    font-size: calc(var(--post-font-size) * 1.125 / 16);
   }
 </style>
