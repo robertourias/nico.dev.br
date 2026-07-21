@@ -1,9 +1,9 @@
 import { useEffect, useState, type MouseEvent } from 'react';
 import { Plus, Minus } from 'lucide-react';
 
-const MIN_SIZE = 10;
-const MAX_SIZE = 22;
-const DEFAULT_SIZE = 16;
+const MIN_SIZE = 14;
+const MAX_SIZE = 28;
+const DEFAULT_SIZE = 20;
 
 export function FontSizeControl() {
   const [fontSize, setFontSize] = useState(DEFAULT_SIZE);
