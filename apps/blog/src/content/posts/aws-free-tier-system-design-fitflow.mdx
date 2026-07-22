@@ -1,0 +1,153 @@
+---
+title: "Free Tier da AWS na prática: o system design de um projeto"
+slug: "aws-free-tier-system-design-fitflow"
+date: "2026-07-22"
+category: "tech"
+status: "published"
+featured: false
+description: "Passo a passo pra configurar o free tier da AWS com segurança, entender S3, ECS e CloudWatch, e o system design completo do FitFlow — um app de treino com múltiplos usuários, upload pesado e cache."
+tags: ["aws", "free-tier", "system-design", "docker", "cloudwatch"]
+template: "immersive"
+heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80"
+---
+
+import Timeline from '@/components/mdx/Timeline.astro';
+import TimelineItem from '@/components/mdx/TimelineItem.astro';
+import Callout from '@/components/mdx/Callout.astro';
+
+Toda vez que alguém abre conta na AWS achando que vai usar só "o que é grátis", esbarra no mesmo problema: em julho de 2025 a AWS trocou a estrutura do Free Tier, e a maior parte dos tutoriais que aparecem numa busca ainda descreve o modelo antigo. Isso não é detalhe — é o que decide se o cartão de crédito toma uma cobrança inesperada no mês seguinte.
+
+Esse post faz duas coisas. Primeiro, explica o Free Tier como ele funciona hoje, e mostra o passo a passo de configurar a conta com segurança. Segundo, usa um projeto real como fio condutor — o **FitFlow**, um app de monitoramento e gerenciamento de treinos — pra desenhar um system design completo na AWS: API própria em Go ou Node, Postgres, Next.js, React Native, deploy em container e cache. Um exemplo completo o suficiente pra conhecer os recursos que realmente importam.
+
+## O Free Tier de verdade, hoje
+
+Até julho de 2025, toda conta nova ganhava dois pacotes: um grupo de serviços **sempre grátis** (dentro de limite mensal, pra sempre) e um grupo **grátis por 12 meses** (EC2, RDS, S3, entre outros, com cota fixa por mês). Passado o ano, a cobrança começava sozinha.
+
+Contas criadas a partir de 15 de julho de 2025 entram num modelo diferente: **crédito**, não cota por serviço. Você recebe US$ 100 em crédito na hora do cadastro, e pode ganhar mais US$ 100 completando tarefas guiadas (subir e derrubar uma instância EC2, configurar um RDS, publicar uma função Lambda, entre outras) — até US$ 200 no total. Esse crédito vale por até 6 meses ou até acabar, o que vier primeiro.
+
+<Callout type="info">
+  Se sua conta AWS é de antes de 15 de julho de 2025, nada muda — você segue no modelo legado de 12 meses grátis por serviço. Contas novas caem direto no modelo de crédito. Os dois convivem hoje: o que vale pra você depende só da data em que a conta foi criada.
+</Callout>
+
+O que **não muda** entre os dois modelos é a lista de mais de 30 serviços "sempre grátis" — Lambda (1 milhão de execuções/mês), DynamoDB (25GB), SNS, e boa parte do CloudWatch (10 métricas customizadas, 10 alarmes, 5GB de ingestão de log, 1 milhão de chamadas de API), disponíveis pra sempre, em qualquer plano, sem prazo de validade.
+
+A implicação prática pro FitFlow: peças como ECS Fargate, RDS e ElastiCache **não têm cota fixa gratuita** — elas consomem o crédito de US$ 100–200 (conta nova) ou a cota de 12 meses (conta legada). CloudWatch, em boa parte do uso normal de um projeto pequeno, fica dentro do sempre-grátis.
+
+## Criando a conta com segurança
+
+Antes de subir qualquer recurso, a conta precisa de uma base que evita dois problemas clássicos: cobrança surpresa e acesso indevido.
+
+<Timeline>
+  <TimelineItem date="1" title="Cadastro e escolha de plano">
+    Em [aws.amazon.com/free](https://aws.amazon.com/free), escolha o plano Free durante o cadastro. Isso garante o crédito inicial e trava a conta em 6 meses ou no limite de gasto — sem cobrança automática além disso.
+  </TimelineItem>
+  <TimelineItem date="2" title="MFA na conta root">
+    A conta root (o e-mail usado no cadastro) tem poder total e nunca deveria logar no dia a dia. Primeira ação: ativar MFA nela, em IAM → Security credentials.
+  </TimelineItem>
+  <TimelineItem date="3" title="Usuário IAM de administração">
+    Criar um usuário IAM separado, com política `AdministratorAccess`, e MFA próprio. É esse usuário — nunca o root — que faz login no console e roda o CLI.
+  </TimelineItem>
+  <TimelineItem date="4" title="Orçamento e alarme de billing">
+    Em AWS Budgets, criar um orçamento com alerta em 50%, 80% e 100% do crédito disponível. Sem isso, o primeiro sinal de estouro é o próprio extrato do cartão.
+  </TimelineItem>
+  <TimelineItem date="5" title="Região e cotas de serviço">
+    Escolher uma região só (`sa-east-1`, São Paulo, reduz latência pro Brasil) e conferir as cotas de serviço padrão — o limite de vCPU do Fargate, por exemplo, vem baixo por padrão numa conta nova.
+  </TimelineItem>
+</Timeline>
+
+<Callout type="warning">
+  Budget (AWS Budgets) e billing alarm (CloudWatch) são coisas diferentes: o budget avisa por e-mail quando o gasto projetado passa de um limite; o alarme de billing dispara uma ação (como notificação via SNS) quando o gasto real cruza um valor. Configurar só um dos dois deixa uma lacuna — o ideal é ter os dois.
+</Callout>
+
+## As ferramentas, explicadas com analogia
+
+Antes de desenhar o FitFlow inteiro, vale entender o que cada peça faz — e por que ela existe — sem recorrer só ao glossário oficial.
+
+**S3** é um galpão de armazenamento com prateleiras etiquetadas. Você não aluga o galpão inteiro pra guardar uma caixa — paga só pelo espaço que a caixa ocupa, e busca ela depois pela etiqueta (a *key* do objeto). Pro FitFlow, é onde ficam as fotos de treino e anexos de plano que o usuário sobe.
+
+**ECR** é o correio que fica entre você e o galpão de containers: você empacota a imagem Docker localmente, envia (`docker push`) pro ECR, e é de lá que o ECS busca a imagem certa na hora de rodar.
+
+**ECS com Fargate** é um restaurante onde você entrega a receita (a definição do container) e nunca precisa gerenciar a cozinha. Você não escolhe nem aloca servidor — o Fargate calcula CPU e memória necessárias, sobe o container, e cobra só pelo tempo rodando. A alternativa, ECS com EC2, é alugar a cozinha inteira (a instância) e você decide o que roda nela — mais controle, mais trabalho de manutenção, e é a única forma de aproveitar a cota gratuita de instância EC2 numa conta legada.
+
+**RDS Postgres** é ter um motorista particular pro banco de dados: backup automático, patch de segurança, failover — tudo administrado pela AWS. A alternativa (rodar Postgres você mesmo num EC2) é dirigir o carro sozinho: mais barato em alguns cenários, mas cada tarefa operacional vira responsabilidade sua.
+
+**ElastiCache (Redis)** é a memória de curto prazo do sistema — o post-it na mesa em vez do armário no fim do corredor. Guarda o resultado de uma consulta cara (o dashboard de progresso de um usuário, por exemplo) por alguns segundos ou minutos, pra não repetir o mesmo cálculo no Postgres a cada requisição.
+
+**CloudFront** é um entregador que já mora perto de cada bairro. Em vez de toda requisição viajar até a região onde a aplicação está hospedada, o CloudFront serve a resposta a partir do ponto mais próximo do usuário — e só busca de novo na origem quando o cache expira.
+
+**CloudWatch** é o painel de instrumentos do carro: velocímetro, conta-giros, luz de óleo. Ele não dirige por você, mas mostra quando algo está fora do esperado — CPU no talo, erro 500 subindo, fila crescendo — a tempo de agir antes do usuário sentir.
+
+## Configurando o CloudWatch, passo a passo
+
+CloudWatch não precisa de setup elaborado pra começar a dar valor. Três peças resolvem 90% do uso comum: log group, métrica e alarme.
+
+Criar um grupo de log pra API, com retenção definida (sem isso, log fica pra sempre e come sua cota de sempre-grátis):
+
+```bash
+aws logs create-log-group --log-group-name /fitflow/api
+aws logs put-retention-policy \
+  --log-group-name /fitflow/api \
+  --retention-in-days 14
+```
+
+Um tópico SNS pra receber o aviso do alarme (e-mail, por simplicidade):
+
+```bash
+aws sns create-topic --name fitflow-alarmes
+aws sns subscribe \
+  --topic-arn arn:aws:sns:sa-east-1:123456789012:fitflow-alarmes \
+  --protocol email \
+  --notification-endpoint voce@seudominio.com
+```
+
+E o alarme em si — CPU do serviço ECS acima de 80% por 3 períodos seguidos de 1 minuto:
+
+```bash
+aws cloudwatch put-metric-alarm \
+  --alarm-name fitflow-api-cpu-alta \
+  --namespace AWS/ECS \
+  --metric-name CPUUtilization \
+  --dimensions Name=ClusterName,Value=fitflow-cluster Name=ServiceName,Value=fitflow-api \
+  --statistic Average \
+  --period 60 \
+  --evaluation-periods 3 \
+  --threshold 80 \
+  --comparison-operator GreaterThanThreshold \
+  --alarm-actions arn:aws:sns:sa-east-1:123456789012:fitflow-alarmes
+```
+
+Um dashboard reúne essas métricas numa tela só — útil pra ver, num único lugar, CPU do ECS, conexões do RDS e taxa de acerto do cache do Redis, sem abrir três telas diferentes.
+
+<Callout type="tip">
+  Comece com poucos alarmes bem escolhidos — CPU, erro 5xx, conexão de banco — em vez de alarmar tudo que existe. Alarme demais que nunca dispara de verdade ensina o time a ignorar notificação, e é exatamente aí que o alarme importante passa despercebido.
+</Callout>
+
+## System design do FitFlow
+
+O FitFlow tem características que forçam decisão em quase toda camada: múltiplos usuários, cada um criando plano de treino com upload pesado de imagem, API própria consumida por web e mobile, e a exigência explícita de cache — não é um CRUD simples.
+
+Requisito funcional: cadastro, criação de plano de treino, registro de treino realizado, upload de foto (progresso, execução de exercício), dashboard de evolução.
+
+Requisito não funcional: múltiplos usuários simultâneos, upload de imagem não pode travar a API principal, leitura de dashboard e plano é muito mais frequente que escrita, e o time já trabalha com Docker Compose no dia a dia — o deploy precisa aproveitar isso, não descartar.
+
+![Arquitetura do FitFlow na AWS: Next.js, React Native, ALB, ECS Fargate, RDS, Redis, S3 e CloudWatch](/images/aws-free-tier-system-design-fitflow-arquitetura.svg)
+
+**O fluxo síncrono** (cinza no diagrama): a Web em Next.js e o app React Native falam com o backend através do CloudFront, que fica na frente do Application Load Balancer. O ALB distribui entre duas famílias de container no ECS Fargate — a API (Go ou Node) que segura regra de negócio e autenticação, e o Next.js rodando em modo SSR pra tela autenticada do dashboard. A API lê e escreve no RDS Postgres, e consulta o Redis antes de bater no banco pra dado que muda pouco — plano de treino do dia, resumo de progresso.
+
+**O upload de imagem** (laranja no diagrama) não passa pela API como binário. O app pede uma *presigned URL* à API, e o próprio React Native sobe a foto direto pro S3. A API só grava a referência do objeto no Postgres depois que o upload confirma — o container da API nunca segura uma conexão longa esperando 4MB de imagem passar por ele.
+
+**Cache em duas camadas resolve o problema real do FitFlow**: CloudFront cacheia a imagem em si (o recurso mais pesado, que não muda depois de publicado) e resposta de GET pública com TTL curto; o Redis cacheia o resultado de consulta cara e específica por usuário — o dashboard de evolução, que soma treinos de semanas, é caro de recalcular a cada abertura de tela e pode ficar em cache por 30–60 segundos sem prejuízo real pro usuário.
+
+**Deploy**: o time já escreve `docker-compose.yml` pra rodar API, Next.js e Postgres localmente — mantém isso como fonte da verdade pro ambiente de desenvolvimento.
+
+<Callout type="warning">
+  A integração nativa `docker compose --context ecs up`, que existia pra publicar um compose direto no ECS, foi **descontinuada pela Docker em novembro de 2023** e não deve ser usada em projeto novo. O caminho atual: build local com Docker Compose, `docker push` de cada imagem pro ECR, e definição das task definitions do ECS via CDK, Copilot CLI ou console — reaproveitando os mesmos Dockerfiles do compose, só sem o comando de deploy direto.
+</Callout>
+
+CloudWatch fecha o ciclo (linha pontilhada indigo no diagrama): logs de ALB, ECS, RDS e Redis convergem pra lá, e é onde qualquer alarme configurado no passo anterior é avaliado.
+
+## Onde a conta escapa do Free Tier
+
+Dois pontos custam mais do que parecem e não têm cota gratuita generosa em nenhum dos dois modelos: **NAT Gateway** (cobra por hora ativo e por GB processado, mesmo parado — evite um NAT Gateway por sub-rede privada se o projeto é pequeno, um único compartilhado resolve) e **transferência de dado de saída** (egress), que cresce sozinha conforme o app ganha uso real e o Free Tier de rede cobre só uma fatia pequena por mês.
+
+O terceiro ponto é mais silencioso: recurso esquecido rodando depois que o teste acabou — um RDS de desenvolvimento, um ElastiCache que ninguém desligou. Nenhum alarme de CPU pega isso, porque o recurso está ocioso, não sobrecarregado. É o orçamento do passo 4, lá em cima, que avisa antes do extrato.

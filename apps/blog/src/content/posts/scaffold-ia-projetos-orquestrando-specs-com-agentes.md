@@ -28,6 +28,7 @@ O `docs/` se divide em blocos com responsabilidade clara:
 | `architecture/` | Visão técnica de backend, frontend, infra |
 | `workflows/` | Processos, incluindo o playbook de modos econômico/rigor/emergência |
 | `commands/` | Prompts de ativação de cada papel |
+| `prompts/` | Prompts avulsos de bootstrap e auditoria, fora do fluxo do dia a dia |
 
 Cada arquivo só é carregado quando é relevante pra tarefa em curso. Um agente atuando como backend lê `skills/backend.md` + `conventions.md` + `decisions.md` — nada além disso. Isso mantém o contexto pequeno mesmo em projetos grandes.
 
@@ -49,6 +50,21 @@ O scaffold organiza o trabalho em um fluxo spec-driven com um gate no meio:
 ```
 
 O gate é o ponto que faz diferença. Sem aprovação explícita da spec, o agente assume escopo — e você só percebe o desalinhamento quando já tem código escrito. Forçar a leitura e aprovação da spec antes de qualquer implementação custa dois minutos e evita retrabalho de horas.
+
+## Bootstrap retroativo: quando o projeto já existe há meses
+
+Esse fluxo todo pressupõe que `docs/context/` já está preenchido. Mas um projeto com seis meses de código, zero de documentação e ninguém lembrando por que a lib X foi trocada pela Y não tem por onde entrar — `/init-project` é uma entrevista pra projeto novo, não uma varredura de projeto existente. Até aqui a única saída era preencher tudo na mão.
+
+Pra isso adicionei `docs/prompts/retroactive-documentation.md`. A diferença em relação ao resto do scaffold é que ele não reorganiza arquivo genérico — ele lê `package.json`, configs, estrutura de pastas e `git log`, e gera o conteúdo de `context/product.md`, `context/decisions.md`, `architecture/overview.md` etc. a partir do que existe no código. O que não dá pra inferir com confiança — motivo de uma decisão, regra de negócio que só existe na cabeça de alguém — fica marcado como `[INFERIDO — confirmar]` em vez de inventado.
+
+Uso:
+
+```
+cat docs/prompts/retroactive-documentation.md
+# cole no Claude Code, na raiz do projeto existente
+```
+
+O resultado prático: em vez de um `architecture/overview.md` com "Status: —" desatualizado há meses, o projeto sai da sessão com documentação refletindo o estado real do código, e cada ponto incerto sinalizado pra revisão humana em vez de silenciosamente errado.
 
 ## Exemplo: campo de busca com autocomplete e subfiltros
 
