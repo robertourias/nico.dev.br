@@ -9,6 +9,7 @@ import { readingTime } from '@/utils/readingTime';
 import { CATEGORY_LABELS } from '@/types/post';
 import { ClapButton } from '@/components/ClapButton';
 import { ShareButton } from '@/components/ShareButton';
+import { ReadFlag } from '@/components/ReadFlag';
 import { ArrowLeft } from 'lucide-react';
 
 export async function getStaticPaths() {
@@ -168,6 +169,7 @@ const socialImage = coverImage ?? heroImage;
         <!-- Clap + Share -->
         <div class="flex items-center gap-2">
           <ClapButton client:visible slug={slug} />
+          <ReadFlag client:visible slug={slug} />
           <ShareButton client:visible title={title} text={description} url={`/posts/${slug}`} />
         </div>
       </header>
@@ -193,6 +195,9 @@ const socialImage = coverImage ?? heroImage;
         <Content components={mdxComponents} />
       </article>
 
+      <!-- Sentinela: quando entra na viewport, marca o post como lido -->
+      <div data-read-tracker={slug} aria-hidden="true"></div>
+
       <!-- Footer -->
       <footer class="mt-12 pt-8 border-t" style="border-color: var(--color-border);">
         <a
@@ -207,3 +212,23 @@ const socialImage = coverImage ?? heroImage;
     </div>
   </BaseLayout>
 )}
+
+<script>
+  import { markPostAsRead } from '@/lib/readPosts';
+
+  const sentinel = document.querySelector<HTMLElement>('[data-read-tracker]');
+  const slug = sentinel?.dataset.readTracker;
+
+  if (sentinel && slug) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          markPostAsRead(slug);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(sentinel);
+  }
+</script>

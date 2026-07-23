@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react';
 import { HandMetal } from 'lucide-react';
 import { CATEGORY_LABELS, type PostCardProps } from '@/types/post';
 import { ShareButton } from '@/components/ShareButton';
+import { ReadFlag } from '@/components/ReadFlag';
+import { isPostRead, onReadPostsChanged } from '@/lib/readPosts';
 
 interface PostCardWithClapsProps extends PostCardProps {
   // Opcional e separado de PostCardProps de propósito: PostCardProps é o shape
@@ -26,8 +29,20 @@ export function PostCard({
 
   const postUrl = `/posts/${slug}`;
 
+  const [read, setRead] = useState(false);
+  useEffect(() => {
+    setRead(isPostRead(slug));
+    return onReadPostsChanged((changedSlug) => {
+      if (changedSlug === slug) setRead(true);
+    });
+  }, [slug]);
+
   return (
-    <article className="relative bg-bg-card border border-border rounded-card p-5 hover:border-text-highlight/30 transition-colors group">
+    <article
+      className={`relative bg-bg-card rounded-card p-5 border transition-colors group ${
+        read ? 'border-text-highlight/30' : 'border-border hover:border-text-highlight/30'
+      }`}
+    >
       <a href={postUrl} className="block">
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-medium text-text-highlight uppercase tracking-wide">
@@ -58,7 +73,10 @@ export function PostCard({
         <time className="text-xs text-text-body" dateTime={date.toISOString()}>
           {formatted}
         </time>
-        <ShareButton compact title={title} text={description} url={postUrl} />
+        <div className="flex items-center gap-2">
+          <ReadFlag slug={slug} compact />
+          <ShareButton compact title={title} text={description} url={postUrl} />
+        </div>
       </div>
     </article>
   );

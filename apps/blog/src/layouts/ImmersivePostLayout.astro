@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { BlogHeader } from '@/components/BlogHeader';
 import { ClapButton } from '@/components/ClapButton';
 import { ShareButton } from '@/components/ShareButton';
+import { ReadFlag } from '@/components/ReadFlag';
 import { FontSizeControl } from '@/components/FontSizeControl';
 
 interface Props {
@@ -111,6 +112,7 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
         <!-- Clap + Share + Font Size -->
         <div class="flex items-center gap-3 mt-6">
           <ClapButton client:visible slug={slug} />
+          <ReadFlag client:visible slug={slug} />
           <ShareButton client:visible title={title} text={description} url={`/posts/${slug}`} />
           <FontSizeControl client:visible />
         </div>
@@ -123,6 +125,9 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
     <article class="post-content immersive-content">
       <slot />
     </article>
+
+    <!-- Sentinela: quando entra na viewport, marca o post como lido -->
+    <div data-read-tracker={slug} aria-hidden="true"></div>
   </div>
 </BaseLayout>
 
