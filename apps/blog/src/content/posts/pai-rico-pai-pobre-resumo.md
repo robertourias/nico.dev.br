@@ -1,5 +1,5 @@
 ---
-title: "Pai Rico, Pai Pobre: resumo por temas"
+title: "Pai Rico, Pai Pobre"
 slug: "pai-rico-pai-pobre-resumo"
 date: "2026-09-04"
 categories: ["livros", "investimentos"]

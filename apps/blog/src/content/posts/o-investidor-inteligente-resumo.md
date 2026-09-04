@@ -1,5 +1,5 @@
 ---
-title: "O Investidor Inteligente: resumo por temas"
+title: "O Investidor Inteligente"
 slug: "o-investidor-inteligente-resumo"
 date: "2026-09-04"
 categories: ["livros", "investimentos"]
