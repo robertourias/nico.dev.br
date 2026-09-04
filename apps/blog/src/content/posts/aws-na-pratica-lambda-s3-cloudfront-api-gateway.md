@@ -2,7 +2,7 @@
 title: "AWS na prática: Lambda, S3, CloudFront e API Gateway"
 slug: "aws-na-pratica-lambda-s3-cloudfront-api-gateway"
 date: "2026-07-20"
-category: "infra"
+categories: ["infra"]
 status: "published"
 featured: false
 description: "Onde Lambda, S3, CloudFront e um API Gateway (nativo ou algo como o Sensedia) realmente se encaixam numa arquitetura de projeto real."

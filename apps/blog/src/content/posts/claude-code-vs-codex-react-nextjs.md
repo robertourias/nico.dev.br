@@ -2,7 +2,7 @@
 title: "Claude Code vs Codex: qual usar para projetos React e Next.js?"
 slug: "claude-code-vs-codex-react-nextjs"
 date: "2026-06-02"
-category: "ia"
+categories: ["ia"]
 status: "published"
 featured: true
 description: "Comparativo direto entre Claude Code e OpenAI Codex CLI para desenvolver com React e Next.js — sem enrolação."

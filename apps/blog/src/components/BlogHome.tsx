@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { CategorySidebar } from '@/components/CategorySidebar';
 import { PostList } from '@/components/PostList';
 import type { PostCardProps } from '@/types/post';
+import { SITES } from '@/config';
 
 interface Category {
   name: string;
@@ -14,21 +15,14 @@ interface FeaturedPost {
   slug: string;
 }
 
-interface TagEntry {
-  tag: string;
-  count: number;
-}
-
 interface BlogHomeProps {
   posts: PostCardProps[];
   categories: Category[];
   featuredPosts: FeaturedPost[];
-  allTags: TagEntry[];
 }
 
-export function BlogHome({ posts, categories, featuredPosts, allTags }: BlogHomeProps) {
+export function BlogHome({ posts, categories, featuredPosts }: BlogHomeProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [clapsTotals, setClapsTotals] = useState<Record<string, number>>({});
 
@@ -60,34 +54,30 @@ export function BlogHome({ posts, categories, featuredPosts, allTags }: BlogHome
 
   function handleCategorySelect(category: string | null) {
     setSelectedCategory(category);
-    setSelectedTag(null);
     setIsSidebarOpen(false);
   }
 
-  function handleTagSelect(tag: string | null) {
-    setSelectedTag(tag);
-    setSelectedCategory(null);
-    setIsSidebarOpen(false);
-  }
+  const navLinks = [
+    { href: SITES.portfolio.url, label: SITES.portfolio.label },
+    { href: SITES.tools.url, label: SITES.tools.label },
+  ];
 
   return (
     <div className="flex min-h-screen max-w-3xl mx-auto">
       <CategorySidebar
         categories={categories}
         featuredPosts={featuredPosts}
-        allTags={allTags}
+        totalCount={posts.length}
         selectedCategory={selectedCategory}
-        selectedTag={selectedTag}
         onCategorySelect={handleCategorySelect}
-        onTagSelect={handleTagSelect}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
+        navLinks={navLinks}
       />
       <main className="flex-1 min-w-0 px-4 py-6 lg:px-8">
         <PostList
           posts={posts}
           selectedCategory={selectedCategory}
-          selectedTag={selectedTag}
           clapsTotals={clapsTotals}
         />
       </main>

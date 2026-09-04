@@ -2,7 +2,7 @@
 title: "Como esporte e música moldaram minha rotina (e minha cabeça)"
 slug: "rotina-esportes-musica-qualidade-de-vida"
 date: "2026-06-04"
-category: "qualidade-de-vida"
+categories: ["qualidade-de-vida"]
 status: "published"
 featured: false
 description: "Tênis, corrida, bike e violão não são hobbies que encaixo na agenda — são a estrutura que faz o resto funcionar."

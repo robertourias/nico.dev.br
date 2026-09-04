@@ -2,7 +2,7 @@
 title: "TypeScript: truques que uso todo dia"
 slug: "typescript-truques-que-uso-sempre"
 date: "2026-05-10"
-category: "tech"
+categories: ["prog"]
 status: "published"
 featured: false
 description: "Padrões de TypeScript que parecem avançados mas simplificam o código na prática."

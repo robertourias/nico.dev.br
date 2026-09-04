@@ -13,18 +13,13 @@ interface FeaturedPost {
   slug: string;
 }
 
-interface TagEntry {
-  tag: string;
-  count: number;
-}
-
 interface PostSidebarProps {
   categories: Category[];
   featuredPosts: FeaturedPost[];
-  allTags: TagEntry[];
+  totalCount: number;
 }
 
-export function PostSidebar({ categories, featuredPosts, allTags }: PostSidebarProps) {
+export function PostSidebar({ categories, featuredPosts, totalCount }: PostSidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -39,11 +34,6 @@ export function PostSidebar({ categories, featuredPosts, allTags }: PostSidebarP
     window.location.href = category ? `/?categoria=${category}` : '/';
   }
 
-  function handleTagSelect(tag: string | null) {
-    setIsOpen(false);
-    window.location.href = tag ? `/?tag=${tag}` : '/';
-  }
-
   const navLinks = [
     { href: SITES.portfolio.url, label: SITES.portfolio.label },
     { href: SITES.tools.url, label: SITES.tools.label },
@@ -53,11 +43,9 @@ export function PostSidebar({ categories, featuredPosts, allTags }: PostSidebarP
     <CategorySidebar
       categories={categories}
       featuredPosts={featuredPosts}
-      allTags={allTags}
+      totalCount={totalCount}
       selectedCategory={null}
-      selectedTag={null}
       onCategorySelect={handleCategorySelect}
-      onTagSelect={handleTagSelect}
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
       drawerOnly

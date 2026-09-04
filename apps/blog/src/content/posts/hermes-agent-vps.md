@@ -2,7 +2,7 @@
 title: "Hermes Agent na VPS: um agente de IA que trabalha por você"
 slug: "hermes-agent-vps"
 date: "2026-06-23"
-category: "ia"
+categories: ["ia"]
 status: "published"
 featured: false
 description: "Como instalar o Hermes Agent numa VPS para ter um agente com memória persistente, tarefas agendadas e resumos diários direto no seu e-mail."

@@ -1,28 +1,34 @@
 import { Menu, Github, Linkedin, Twitter } from 'lucide-react';
-import { Header, NavLink, ThemeToggle } from '@nico.dev/ui';
-import { SITE, SOCIAL, SITES } from '@/config';
+import { Header, ThemeToggle } from '@nico.dev/ui';
+import { SOCIAL } from '@/config';
+import { SearchBox } from '@/components/SearchBox';
 
 export function BlogHeader() {
   return (
     <Header>
-      {/* Hamburger direto — dispara toggle-sidebar sem abrir drawer de nav.
-          CategorySidebar e PostSidebar já escutam este evento para se abrir. */}
+      {/* Dispara toggle-sidebar — CategorySidebar e PostSidebar escutam este
+          evento pra abrir o drawer (categorias, favoritos, Portfólio/Tools).
+          Sempre visível: em telas largas é o único jeito de abrir o drawer
+          nas páginas de post, que não têm sidebar fixa (drawerOnly). */}
       <button
         onClick={() => window.dispatchEvent(new CustomEvent('toggle-sidebar'))}
         aria-label="Abrir menu de categorias"
-        className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors shrink-0 cursor-pointer"
+        className="flex items-center justify-center w-9 h-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors shrink-0 cursor-pointer"
       >
         <Menu size={18} />
       </button>
 
-      <Header.Logo href="/" label={SITE.name} />
-
-      <Header.Nav className="sm:flex">
-        <NavLink href={SITES.portfolio.url}>{SITES.portfolio.label}</NavLink>
-        <NavLink href={SITES.tools.url}>{SITES.tools.label}</NavLink>
-      </Header.Nav>
+      {/* mr-auto no wrapper (não no Header.Logo, que zera a própria margem em
+          telas largas) — mantém o título colado no hamburguer à esquerda e
+          empurra Actions pro fim, já que não há mais Header.Nav no meio. */}
+      <div className="mr-auto">
+        <Header.Logo href="/" label="Blog Nicoletti">
+          Blog <span className="text-text-highlight">Nicoletti</span>
+        </Header.Logo>
+      </div>
 
       <Header.Actions>
+        <SearchBox />
         <a
           href={SOCIAL.github}
           target="_blank"

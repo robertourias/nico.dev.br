@@ -2,7 +2,7 @@
 title: "Segundo Cérebro: como organizo estudos com Notion e Obsidian"
 slug: "segundo-cerebro-notion-obsidian"
 date: "2026-06-04"
-category: "organizacao"
+categories: ["organizacao"]
 status: "published"
 featured: false
 description: "Como usar Notion e Obsidian juntos para transformar anotações dispersas em um sistema real de conhecimento — sem perder o fio de nenhum tema."

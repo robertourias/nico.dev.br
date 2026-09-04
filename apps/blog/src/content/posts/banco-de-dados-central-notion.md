@@ -2,7 +2,7 @@
 title: "Um banco de dados central para não perder nada no Notion"
 slug: "banco-de-dados-central-notion"
 date: "2026-06-10"
-category: "organizacao"
+categories: ["organizacao"]
 status: "published"
 featured: false
 description: "Como usar uma página DATABASES como única fonte da verdade e deixar seus dashboards só com views filtradas — sem duplicar dado nenhum."

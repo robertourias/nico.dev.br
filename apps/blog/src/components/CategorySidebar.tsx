@@ -12,11 +12,6 @@ interface FeaturedPost {
   slug: string;
 }
 
-interface TagEntry {
-  tag: string;
-  count: number;
-}
-
 interface NavLink {
   href: string;
   label: string;
@@ -25,11 +20,9 @@ interface NavLink {
 interface CategorySidebarProps {
   categories: Category[];
   featuredPosts: FeaturedPost[];
-  allTags: TagEntry[];
+  totalCount: number;
   selectedCategory: string | null;
-  selectedTag: string | null;
   onCategorySelect: (category: string | null) => void;
-  onTagSelect: (tag: string | null) => void;
   isOpen: boolean;
   onClose: () => void;
   drawerOnly?: boolean;
@@ -39,17 +32,14 @@ interface CategorySidebarProps {
 function SidebarContent({
   categories,
   featuredPosts,
-  allTags,
+  totalCount,
   selectedCategory,
-  selectedTag,
   onCategorySelect,
-  onTagSelect,
   navLinks,
 }: Pick<
   CategorySidebarProps,
-  'categories' | 'featuredPosts' | 'allTags' | 'selectedCategory' | 'selectedTag' | 'onCategorySelect' | 'onTagSelect' | 'navLinks'
+  'categories' | 'featuredPosts' | 'totalCount' | 'selectedCategory' | 'onCategorySelect' | 'navLinks'
 >) {
-  const [tagsOpen, setTagsOpen] = useState(true);
   const [favoritesOpen, setFavoritesOpen] = useState(true);
   return (
     <nav className="flex flex-col gap-6 p-4">
@@ -83,13 +73,14 @@ function SidebarContent({
           <li>
             <button
               onClick={() => onCategorySelect(null)}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                selectedCategory === null && selectedTag === null
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors flex items-center justify-between ${
+                selectedCategory === null
                   ? 'text-text-highlight font-medium'
                   : 'text-text-body hover:text-text-heading'
               }`}
             >
-              Todos
+              <span>Todos</span>
+              <span className="text-xs opacity-50">{totalCount}</span>
             </button>
           </li>
           {categories.map((cat) => (
@@ -141,42 +132,6 @@ function SidebarContent({
           )}
         </div>
       )}
-
-      {/* Tags */}
-      {allTags.length > 0 && (
-        <div>
-          <button
-            onClick={() => setTagsOpen((v) => !v)}
-            className="w-full flex items-center justify-between mb-3 group"
-          >
-            <span className="text-xs font-semibold uppercase tracking-widest text-text-heading">
-              Tags
-            </span>
-            {tagsOpen
-              ? <ChevronUp size={12} className="text-text-body" />
-              : <ChevronDown size={12} className="text-text-body" />
-            }
-          </button>
-          {tagsOpen && (
-            <div className="flex flex-wrap gap-1.5">
-              {allTags.map(({ tag, count }) => (
-                <button
-                  key={tag}
-                  onClick={() => onTagSelect(selectedTag === tag ? null : tag)}
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs transition-colors border ${
-                    selectedTag === tag
-                      ? 'text-text-highlight border-text-highlight/40 font-medium'
-                      : 'text-text-body border-border hover:text-text-heading hover:border-text-heading/30'
-                  }`}
-                >
-                  #{tag}
-                  <span className="opacity-50">{count}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
     </nav>
   );
 }
@@ -184,17 +139,15 @@ function SidebarContent({
 export function CategorySidebar({
   categories,
   featuredPosts,
-  allTags,
+  totalCount,
   selectedCategory,
-  selectedTag,
   onCategorySelect,
-  onTagSelect,
   isOpen,
   onClose,
   drawerOnly = false,
   navLinks,
 }: CategorySidebarProps) {
-  const shared = { categories, featuredPosts, allTags, selectedCategory, selectedTag, onCategorySelect, onTagSelect, navLinks };
+  const shared = { categories, featuredPosts, totalCount, selectedCategory, onCategorySelect, navLinks };
 
   return (
     <>
@@ -203,9 +156,10 @@ export function CategorySidebar({
         <SidebarContent {...shared} />
       </aside>
 
-      {/* Mobile: drawer overlay */}
+      {/* Drawer overlay — em telas largas só quando drawerOnly (páginas de
+          post não têm sidebar fixa; sem isso o drawer nunca aparece lá) */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-0 z-40">
+        <div className={`${drawerOnly ? '' : 'lg:hidden'} fixed inset-0 z-40`}>
           <div className="absolute inset-0 bg-black/60" onClick={onClose} />
           <aside className="absolute left-0 top-0 bottom-0 w-64 bg-bg-card border-r border-border overflow-y-auto">
             <div className="flex items-center justify-between px-4 py-3 border-b border-border">

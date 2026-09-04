@@ -22,7 +22,7 @@ export async function getStaticPaths() {
       .map((name) => ({
         name,
         label: CATEGORY_LABELS[name],
-        count: allEntries.filter((e) => e.data.category === name).length,
+        count: allEntries.filter((e) => (e.data.categories as string[]).includes(name)).length,
       }))
       .filter((c) => c.count > 0);
 
@@ -30,31 +30,21 @@ export async function getStaticPaths() {
       .filter((e) => e.data.featured)
       .map((e) => ({ title: e.data.title, slug: e.data.slug }));
 
-    const tagCounts = new Map<string, number>();
-    for (const entry of allEntries) {
-      for (const tag of entry.data.tags ?? []) {
-        tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
-      }
-    }
-    const allTags = [...tagCounts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .map(([tag, count]) => ({ tag, count }));
-
     return {
       params: { slug: post.data.slug },
-      props: { post, categories, featuredPosts, allTags },
+      props: { post, categories, featuredPosts, totalCount: allEntries.length },
     };
   });
 }
 
-const { post, categories, featuredPosts, allTags } = Astro.props;
+const { post, categories, featuredPosts, totalCount } = Astro.props;
 const { Content } = await render(post);
 
 const {
   title,
   description,
   date,
-  category,
+  categories: postCategories,
   tags,
   coverImage,
   template,
@@ -69,7 +59,7 @@ const formattedDate = date.toLocaleDateString('pt-BR', {
 });
 
 const readTime = readingTime(post.body ?? '');
-const categoryLabel = CATEGORY_LABELS[category] ?? category;
+const categoryLabels = postCategories.map((c) => CATEGORY_LABELS[c] ?? c);
 const isImmersive = template === 'immersive';
 const socialImage = coverImage ?? heroImage;
 ---
@@ -79,12 +69,14 @@ const socialImage = coverImage ?? heroImage;
     {title}
     {description}
     {date}
-    {category}
     {tags}
     {heroImage}
     {readTime}
-    {categoryLabel}
+    {categoryLabels}
     {slug}
+    {categories}
+    {featuredPosts}
+    {totalCount}
   >
     <Content components={mdxComponents} />
   </ImmersivePostLayout>
@@ -97,7 +89,7 @@ const socialImage = coverImage ?? heroImage;
     publishedTime={date.toISOString()}
   >
     <BlogHeader client:load />
-    <PostSidebar client:load {categories} {featuredPosts} {allTags} />
+    <PostSidebar client:load {categories} {featuredPosts} {totalCount} />
 
     <div class="max-w-[70ch] mx-auto px-6 py-12 lg:py-16">
       <!-- Voltar -->
@@ -118,7 +110,7 @@ const socialImage = coverImage ?? heroImage;
             class="text-xs font-medium uppercase tracking-wide"
             style="color: var(--color-text-highlight);"
           >
-            {categoryLabel}
+            {categoryLabels.join(' · ')}
           </span>
           <span class="text-xs" style="color: var(--color-text-body);">
             {readTime} min de leitura

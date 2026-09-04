@@ -2,7 +2,7 @@
 title: "Pós em Engenharia de Software com IA Aplicada: o que espero dessa jornada"
 slug: "pos-unipds-engenharia-ia-aplicada"
 date: "2026-06-03"
-category: "ia"
+categories: ["ia"]
 status: "published"
 featured: false
 description: "Comecei uma pós-graduação em Engenharia de Software com IA Aplicada. Aqui está um resumo honesto do que vem pela frente — e por que faz sentido pra mim agora."

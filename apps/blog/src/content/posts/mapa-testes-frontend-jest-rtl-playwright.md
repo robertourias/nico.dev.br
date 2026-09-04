@@ -2,7 +2,7 @@
 title: "O mapa dos testes no frontend: Jest, RTL e Playwright"
 slug: "mapa-testes-frontend-jest-rtl-playwright"
 date: "2026-07-20"
-category: "prog"
+categories: ["prog"]
 status: "published"
 featured: false
 description: "Onde entra cada ferramenta de teste no fluxo do dev e no pipeline de deploy — e por que misturar as camadas custa caro em manutenção."

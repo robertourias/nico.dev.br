@@ -2,7 +2,7 @@
 title: "Documentando arquitetura com Mermaid e Claude"
 slug: "documentando-arquitetura-mermaid-claude"
 date: "2026-07-22"
-category: "tech"
+categories: ["architecture", "ia"]
 status: "published"
 featured: false
 description: "Passo a passo para gerar diagramas C4, ERD, infra e sequence com Mermaid usando Claude — inclusive de forma retroativa, escaneando um projeto que já existe."

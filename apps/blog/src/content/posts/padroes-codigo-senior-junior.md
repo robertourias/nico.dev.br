@@ -2,7 +2,7 @@
 title: "8 padrões de código que separam sênior de júnior"
 slug: "padroes-codigo-senior-junior"
 date: "2026-06-24"
-category: "tech"
+categories: ["prog"]
 status: "published"
 featured: false
 description: "Oito hábitos de código simples que fazem a diferença entre um sistema que sobrevive a mudança de requisito e um que quebra a cada deploy."

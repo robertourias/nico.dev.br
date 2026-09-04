@@ -2,7 +2,7 @@
 title: "IA no dia a dia: o que realmente funciona"
 slug: "ia-no-dia-a-dia-pratico"
 date: "2026-05-20"
-category: "ia"
+categories: ["ia"]
 status: "published"
 featured: true
 description: "Ferramentas e fluxos de trabalho com IA que uso toda semana — sem hype, só o que é prático."

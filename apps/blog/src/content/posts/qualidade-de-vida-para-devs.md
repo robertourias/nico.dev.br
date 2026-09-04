@@ -2,7 +2,7 @@
 title: "Qualidade de vida para devs: o que mudou pra mim"
 slug: "qualidade-de-vida-para-devs"
 date: "2026-04-15"
-category: "qualidade-de-vida"
+categories: ["qualidade-de-vida"]
 status: "published"
 featured: false
 description: "Pequenas mudanças de rotina que tiveram impacto real na minha energia e foco como desenvolvedor."

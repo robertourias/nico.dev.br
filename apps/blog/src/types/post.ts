@@ -1,7 +1,7 @@
 export interface PostCardProps {
   title: string;
   description: string;
-  category: string;
+  categories: string[];
   date: Date;
   slug: string;
   readingTimeMinutes: number;
@@ -18,4 +18,5 @@ export const CATEGORY_LABELS: Record<string, string> = {
   prog: 'Programação',
   infra: 'Infra',
   architecture: 'Arquitetura',
+  investimentos: 'Investimentos',
 };

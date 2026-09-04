@@ -15,7 +15,7 @@ interface PostCardWithClapsProps extends PostCardProps {
 export function PostCard({
   title,
   description,
-  category,
+  categories,
   date,
   slug,
   readingTimeMinutes,
@@ -46,7 +46,7 @@ export function PostCard({
       <a href={postUrl} className="block">
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-medium text-text-highlight uppercase tracking-wide">
-            {CATEGORY_LABELS[category] ?? category}
+            {CATEGORY_LABELS[categories[0]] ?? categories[0]}
           </span>
           <div className="flex items-center gap-3">
             {typeof clapsTotal === 'number' && (

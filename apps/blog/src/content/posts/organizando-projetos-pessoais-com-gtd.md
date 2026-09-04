@@ -2,7 +2,7 @@
 title: "Como uso GTD para não perder nenhum projeto pessoal"
 slug: "organizando-projetos-pessoais-com-gtd"
 date: "2026-04-28"
-category: "organizacao"
+categories: ["organizacao"]
 status: "published"
 featured: false
 description: "Um sistema simples inspirado no GTD que mantém meus projetos pessoais avançando sem stress."

@@ -2,7 +2,7 @@
 title: "Scaffold IA-Projetos: orquestrando specs com agentes"
 slug: "scaffold-ia-projetos-orquestrando-specs-com-agentes"
 date: "2026-07-20"
-category: "ia"
+categories: ["ia"]
 status: "published"
 featured: false
 description: "Como uso o scaffold-ia-projetos pra dar contexto persistente aos agentes e orquestrar o planejamento e a implementação de features do início ao fim."

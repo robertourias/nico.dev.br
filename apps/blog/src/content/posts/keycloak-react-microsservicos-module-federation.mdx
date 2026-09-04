@@ -1,0 +1,318 @@
+---
+title: "Keycloak na prática: SSO para React e microsserviços com Module Federation"
+slug: "keycloak-react-microsservicos-module-federation"
+date: "2026-08-31"
+categories: ["architecture", "infra"]
+status: "published"
+featured: false
+description: "Como instalar, configurar e usar o Keycloak como servidor de identidade em projetos React com Module Federation e múltiplos microsserviços de backend, sem duplicar sessão de autenticação entre os remotes."
+tags: ["keycloak", "oidc", "react", "module-federation", "microsservicos"]
+template: "immersive"
+heroImage: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=1600&q=80"
+---
+
+import Timeline from '@/components/mdx/Timeline.astro';
+import TimelineItem from '@/components/mdx/TimelineItem.astro';
+import Callout from '@/components/mdx/Callout.astro';
+
+Quando o produto ainda é um monólito com um único frontend, autenticação é simples: um login, um cookie ou token, uma sessão. O problema aparece quando isso vira múltiplos microsserviços de backend e múltiplos micro frontends compostos via Module Federation em runtime — porque agora existe mais de um lugar tentando decidir "quem é esse usuário e o que ele pode fazer".
+
+O Keycloak resolve a parte de identidade. Mas resolver Keycloak sozinho num app React é tutorial de blog. O ponto chato — e que quase ninguém documenta — é o que acontece quando esse React vira host de dois, três, cinco remotes que também precisam saber quem está logado sem cada um abrir sua própria sessão.
+
+## O que o Keycloak resolve
+
+Keycloak é um servidor de identidade e controle de acesso open source, mantido pela Red Hat, que fala os protocolos padrão do mercado: OpenID Connect, OAuth2 e SAML. Ele centraliza login, cadastro, MFA, gestão de usuários e emissão de tokens — e todo client (frontend, backend, mobile) confia nesse único emissor em vez de reimplementar autenticação.
+
+Na prática, isso significa: seu React não guarda senha, não valida credencial, não decide se o token expirou. Ele redireciona pro Keycloak, recebe um `access_token` (JWT) de volta, e usa esse token pra chamar os microsserviços — que por sua vez validam o token contra o mesmo Keycloak, sem nunca ter visto a senha do usuário.
+
+Comparado a rolar seu próprio JWT com refresh manual espalhado pelo código, ou depender só de um cookie de sessão que não escala pra múltiplos serviços, o Keycloak troca "cada time resolve auth do seu jeito" por um único emissor de identidade que todo mundo consulta.
+
+## Instalando com Docker
+
+Keycloak roda como container e precisa de um banco por trás (Postgres em produção; em dev ele sobe com um banco embutido). A imagem oficial vive no Quay, não no Docker Hub:
+
+```yaml
+# docker-compose.yml
+services:
+  keycloak-db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes:
+      - keycloak_db_data:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7.2
+    restart: unless-stopped
+    command: start-dev
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+    ports:
+      - "8080:8080"
+    depends_on:
+      - keycloak-db
+
+volumes:
+  keycloak_db_data:
+```
+
+`KC_BOOTSTRAP_ADMIN_USERNAME` e `KC_BOOTSTRAP_ADMIN_PASSWORD` substituíram as antigas `KEYCLOAK_ADMIN` / `KEYCLOAK_ADMIN_PASSWORD` nas versões recentes — se você encontrar tutorial usando o nome antigo, é conteúdo desatualizado.
+
+`start-dev` habilita HTTP puro e recarrega config automaticamente — ótimo pra desenvolver, proibido em produção. Isso volta lá na frente.
+
+Depois do `docker compose up -d`, o console admin fica em `http://localhost:8080`. É ali que o resto da configuração acontece.
+
+## Realm, client, roles: o vocabulário que importa
+
+Três conceitos carregam praticamente toda a configuração prática do Keycloak:
+
+| Conceito | O que é | Analogia |
+|---|---|---|
+| **Realm** | Espaço isolado de usuários, clients e configuração | Um "tenant" — sua empresa, ou um ambiente inteiro |
+| **Client** | Uma aplicação que confia nesse realm (SPA, backend, mobile) | Cada app ou serviço que faz login ou valida token |
+| **Role** | Permissão atribuída a usuário ou client | `admin`, `financeiro:aprovar`, `pedidos:cancelar` |
+
+Nunca use o realm `master` pra aplicações reais — ele é reservado pra administração do próprio Keycloak. Crie um realm por produto (ou por ambiente): `acme-prod`, `acme-staging`.
+
+Dentro do realm, cada aplicação vira um client. Um React que roda no navegador é um client **público** (não guarda segredo, porque o segredo ficaria exposto no bundle). Um microsserviço de backend que só valida token pode ser **bearer-only**, e um serviço que também precisa chamar outros serviços em nome de si mesmo é **confidencial**, com client secret.
+
+<Callout type="info">
+  Roles existem em dois níveis: role de realm (`admin`, visível pra qualquer client) e role de client (`checkout:cancelar`, específica de um serviço). Prefira roles de client sempre que a permissão for de domínio — isso evita um realm cheio de roles genéricas que ninguém lembra o que fazem.
+</Callout>
+
+## Configurando o client da SPA
+
+<Timeline>
+  <TimelineItem date="1" title="Criar o realm">
+    No console admin, "Create realm" → nome do produto. Tudo daqui pra frente acontece dentro dele.
+  </TimelineItem>
+  <TimelineItem date="2" title="Criar o client público">
+    "Clients → Create client" → Client type: OpenID Connect, Client authentication: **desligado** (é isso que torna o client público, sem secret).
+  </TimelineItem>
+  <TimelineItem date="3" title="Configurar redirects e origins">
+    Valid redirect URIs: `http://localhost:3000/*` (e o domínio de produção). Web origins: `http://localhost:3000` — sem isso o CORS do endpoint de token barra a SPA.
+  </TimelineItem>
+  <TimelineItem date="4" title="Forçar PKCE">
+    Em "Advanced settings", defina Proof Key for Code Exchange: `S256`. Client público sem PKCE é vulnerável a interceptação do código de autorização.
+  </TimelineItem>
+  <TimelineItem date="5" title="Criar as roles de client">
+    Em "Roles", crie as permissões do domínio: `pedidos:ler`, `pedidos:cancelar`. Depois atribua a usuários ou a grupos.
+  </TimelineItem>
+</Timeline>
+
+Com isso o client `acme-web` está pronto pra autenticar usuários via Authorization Code Flow com PKCE — o fluxo correto pra SPA desde que o Implicit Flow foi formalmente desaconselhado pelas specs OAuth2.
+
+## Autenticando o React com `keycloak-js`
+
+O adaptador oficial `keycloak-js` continua sendo a forma mais direta de integrar: ele cuida do redirect, da troca de código por token e do refresh automático.
+
+```bash
+npm install keycloak-js
+```
+
+```ts
+// src/auth/keycloak.ts
+import Keycloak from 'keycloak-js';
+
+export const keycloak = new Keycloak({
+  url: 'http://localhost:8080',
+  realm: 'acme-prod',
+  clientId: 'acme-web',
+});
+
+export async function initKeycloak() {
+  const authenticated = await keycloak.init({
+    onLoad: 'check-sso',
+    silentCheckSsoRedirectUri: `${window.location.origin}/silent-check-sso.html`,
+    pkceMethod: 'S256',
+  });
+
+  return authenticated;
+}
+```
+
+`onLoad: 'check-sso'` verifica se já existe sessão no Keycloak (via iframe silencioso) sem forçar redirect pra tela de login — importante pra não jogar todo visitante anônimo pro Keycloak antes de decidir se a rota precisa de login. `login-required` faz isso; `check-sso` só confirma.
+
+```tsx
+// src/auth/AuthProvider.tsx
+import { createContext, useContext, useEffect, useState } from 'react';
+import { keycloak, initKeycloak } from './keycloak';
+
+const AuthContext = createContext<{ ready: boolean; authenticated: boolean }>({
+  ready: false,
+  authenticated: false,
+});
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [ready, setReady] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    initKeycloak().then((auth) => {
+      setAuthenticated(auth);
+      setReady(true);
+    });
+
+    keycloak.onTokenExpired = () => {
+      keycloak.updateToken(30).catch(() => keycloak.login());
+    };
+  }, []);
+
+  if (!ready) return null;
+
+  return (
+    <AuthContext.Provider value={{ ready, authenticated }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export const useAuth = () => useContext(AuthContext);
+```
+
+`onTokenExpired` + `updateToken(30)` renova o token 30 segundos antes de expirar, sem esperar a chamada de API falhar com 401 pra só então tentar refresh. Isso mora no host da aplicação — e é exatamente aqui que Module Federation começa a complicar as coisas.
+
+## O problema muda de figura com Module Federation
+
+Num app único, existe uma instância de `Keycloak`, um `AuthProvider`, um ciclo de refresh. Com Module Federation, o host carrega remotes em runtime — cada um é, em tese, um bundle independente, buildado e deployado por outro time.
+
+O erro mais comum é cada remote importar `keycloak-js` e rodar seu próprio `keycloak.init()`. O resultado: múltiplos iframes de `silent-check-sso` disputando a mesma sessão do navegador, múltiplos ciclos de `updateToken` competindo, e — na pior versão do bug — um remote deslogando o usuário porque o refresh dele falhou, mesmo com o host ainda autenticado.
+
+<Callout type="warning">
+  Nunca chame `keycloak.init()` mais de uma vez por página. Se dois federated modules rodam `init()` cada um com sua própria instância de `Keycloak`, você tem duas sessões client-side competindo pelo mesmo `access_token` no `sessionStorage` — sintoma clássico: logout aleatório sem motivo aparente.
+</Callout>
+
+A regra prática: **autenticação é responsabilidade do host, não dos remotes**. O host inicializa o Keycloak, mantém o token atualizado, e expõe isso pros remotes — que só consomem.
+
+## Compartilhando a sessão entre host e remotes
+
+A forma mais limpa de fazer isso é tratar o módulo de autenticação como uma dependência `shared` e `singleton` no Module Federation, do mesmo jeito que `react` e `react-dom` já são compartilhados hoje.
+
+```js
+// webpack.config.js do host (shell)
+const { ModuleFederationPlugin } = require('webpack').container;
+
+module.exports = {
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'shell',
+      remotes: {
+        pedidos: 'pedidos@https://pedidos.acme.com/remoteEntry.js',
+        catalogo: 'catalogo@https://catalogo.acme.com/remoteEntry.js',
+      },
+      shared: {
+        react: { singleton: true, requiredVersion: false },
+        'react-dom': { singleton: true, requiredVersion: false },
+        '@acme/auth': { singleton: true, requiredVersion: false },
+      },
+    }),
+  ],
+};
+```
+
+```js
+// webpack.config.js do remote "pedidos"
+new ModuleFederationPlugin({
+  name: 'pedidos',
+  filename: 'remoteEntry.js',
+  exposes: {
+    './PedidosApp': './src/PedidosApp',
+  },
+  shared: {
+    react: { singleton: true, requiredVersion: false },
+    'react-dom': { singleton: true, requiredVersion: false },
+    '@acme/auth': { singleton: true, requiredVersion: false },
+  },
+});
+```
+
+`@acme/auth` aqui é um pacote interno publicado num registry privado (npm privado, Verdaccio, GitHub Packages — não importa qual) que exporta só `useAuth()` e os helpers de token. Ele **não** cria uma nova instância de `Keycloak`; ele lê a instância que o host já inicializou, via módulo compartilhado em memória.
+
+```tsx
+// dentro do remote "pedidos"
+import { useAuth } from '@acme/auth';
+
+export function PedidosApp() {
+  const { authenticated, hasRole, getToken } = useAuth();
+
+  if (!authenticated) return <p>Sessão expirada — recarregue a página.</p>;
+  if (!hasRole('pedidos:ler')) return <p>Sem permissão pra ver pedidos.</p>;
+
+  // getToken() retorna o access_token atual, sempre válido,
+  // porque quem cuida do refresh é o host — o remote só lê.
+  return <ListaDePedidos token={getToken()} />;
+}
+```
+
+Com `singleton: true`, o webpack garante que só existe **uma** cópia carregada de `@acme/auth` na página inteira, não importa quantos remotes a importem — exatamente o mesmo mecanismo que evita duas cópias do React coexistindo. Quem inicializa o `Keycloak` de verdade é só o código dentro desse pacote, chamado uma única vez pelo host.
+
+<Callout type="tip">
+  Se seus remotes são deployados e versionados de forma independente, congele a interface pública de `@acme/auth` como contrato: `useAuth()`, `getToken()`, `hasRole()`. Trocar a implementação por dentro (ex: migrar de `keycloak-js` pra outro adapter) não deveria quebrar nenhum remote que só depende dessa interface.
+</Callout>
+
+## Levando o token até os microsserviços de backend
+
+Do lado do frontend, o token some depois de ser lido. Do lado do backend, cada microsserviço recebe esse `access_token` no header `Authorization: Bearer` e precisa decidir, sozinho, se ele é válido — sem chamar o Keycloak a cada requisição.
+
+```ts
+// interceptor de requisição, dentro de @acme/auth
+export async function apiFetch(url: string, options: RequestInit = {}) {
+  await keycloak.updateToken(30);
+
+  return fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      Authorization: `Bearer ${keycloak.token}`,
+    },
+  });
+}
+```
+
+Cada microsserviço valida esse JWT localmente, usando a chave pública do realm (exposta em `/realms/acme-prod/protocol/openid-connect/certs`) — é assim que a validação escala sem transformar o Keycloak num gargalo síncrono chamado a cada request. Frameworks como Spring Security (`spring-boot-starter-oauth2-resource-server`) ou `express-jwt` + `jwks-rsa` fazem esse cache de chave automaticamente.
+
+A autorização fina usa o `resource_access` do próprio token — o Keycloak já embute ali as roles de client do usuário:
+
+```json
+{
+  "resource_access": {
+    "pedidos-service": { "roles": ["pedidos:ler", "pedidos:cancelar"] },
+    "catalogo-service": { "roles": ["catalogo:ler"] }
+  }
+}
+```
+
+O microsserviço `pedidos-service` olha só `resource_access["pedidos-service"].roles` — ele nem precisa saber que `catalogo-service` existe. Isso mantém cada serviço dono da própria política de autorização, mesmo com um único emissor de identidade centralizado.
+
+## Refresh de token sem duplicar Keycloak
+
+Voltando ao ponto do Module Federation: como só existe uma instância de `Keycloak` (no host, via `@acme/auth` compartilhado), só existe um `onTokenExpired`, um `updateToken`, uma fonte de verdade. Os remotes chamam `apiFetch` (que já garante token fresco via `updateToken(30)`) em vez de ler `keycloak.token` direto — assim nenhum remote corre risco de mandar token vencido pro backend.
+
+Isso também resolve outro problema clássico de micro frontend: logout. Como a sessão é uma só, `keycloak.logout()` chamado de qualquer lugar (host ou remote, via `@acme/auth`) invalida a sessão pra aplicação inteira — não só pro pedaço que chamou.
+
+## Indo pra produção
+
+`start-dev` não é opção fora do ambiente local: ele expõe HTTP sem TLS e desliga otimizações de cache. Em produção, o comando é `start`, com hostname e certificado configurados explicitamente:
+
+```bash
+docker run -p 8443:8443 \
+  -e KC_BOOTSTRAP_ADMIN_USERNAME=admin \
+  -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
+  -e KC_HOSTNAME=auth.acme.com \
+  -e KC_DB=postgres \
+  -e KC_DB_URL=jdbc:postgresql://db:5432/keycloak \
+  quay.io/keycloak/keycloak:26.7.2 \
+  start --optimized
+```
+
+Atrás de um reverse proxy (Traefik, Nginx) fazendo TLS termination, adicione `KC_PROXY_HEADERS=xforwarded` pra o Keycloak confiar nos headers `X-Forwarded-*` em vez de tentar detectar host e protocolo sozinho — sem isso, os redirects de login voltam com URL errada.
+
+Some a isso backup do Postgres (é ali que vive todo usuário e configuração), métricas via `/metrics` habilitado por `KC_METRICS_ENABLED=true`, e pelo menos duas réplicas do Keycloak atrás de um load balancer — se ele cair, ninguém loga em nenhum frontend nem em nenhum backend. Ele deixou de ser "só mais um serviço" no dia em que virou o único emissor de identidade do sistema inteiro.

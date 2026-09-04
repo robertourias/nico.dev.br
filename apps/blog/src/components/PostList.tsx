@@ -7,15 +7,12 @@ const BATCH_SIZE = 10;
 interface PostListProps {
   posts: PostCardProps[];
   selectedCategory: string | null;
-  selectedTag: string | null;
   clapsTotals?: Record<string, number>;
 }
 
-export function PostList({ posts, selectedCategory, selectedTag, clapsTotals }: PostListProps) {
+export function PostList({ posts, selectedCategory, clapsTotals }: PostListProps) {
   const filtered = selectedCategory
-    ? posts.filter((p) => p.category === selectedCategory)
-    : selectedTag
-    ? posts.filter((p) => p.tags.includes(selectedTag))
+    ? posts.filter((p) => p.categories.includes(selectedCategory))
     : posts;
 
   const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
@@ -47,7 +44,7 @@ export function PostList({ posts, selectedCategory, selectedTag, clapsTotals }: 
   if (filtered.length === 0) {
     return (
       <p className="text-text-body text-sm py-12 text-center">
-        Nenhum post {selectedTag ? `com a tag #${selectedTag}` : 'nesta categoria'} ainda.
+        Nenhum post nesta categoria ainda.
       </p>
     );
   }

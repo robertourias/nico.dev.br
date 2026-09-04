@@ -2,7 +2,7 @@
 title: "Arquitetura frontend em escala: micro frontends e BFF"
 slug: "arquitetura-frontend-escala-micro-frontends-bff"
 date: "2026-07-20"
-category: "architecture"
+categories: ["architecture"]
 status: "published"
 featured: false
 description: "Como estruturar frontend para múltiplos times e produtos: micro frontends, BFF como camada de integração, padrões de código, performance, acessibilidade e design system."

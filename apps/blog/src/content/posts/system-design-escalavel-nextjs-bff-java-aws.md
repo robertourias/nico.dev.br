@@ -2,7 +2,7 @@
 title: "System design escalável: Next.js, BFF e Java na AWS"
 slug: "system-design-escalavel-nextjs-bff-java-aws"
 date: "2026-07-20"
-category: "architecture"
+categories: ["architecture"]
 status: "published"
 featured: false
 description: "Passo a passo para desenhar o system design de um projeto escalável com Next.js, BFF em NestJS, API em Java, Postgres e AWS, usando como exemplo uma rede social de fotos."

@@ -2,7 +2,7 @@
 title: "GarageHQ: seu próprio S3 self-hosted com Docker"
 slug: "garagehq-s3-self-hosted-docker"
 date: "2026-07-17"
-category: "infra"
+categories: ["infra"]
 status: "published"
 featured: false
 description: "Como instalar o GarageHQ com Docker, gerenciar buckets pelo painel web e pela CLI, e usá-lo como storage S3 num projeto Next.js."
