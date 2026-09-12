@@ -114,6 +114,49 @@ Se você parar no meio — outra reunião, fim do expediente — o comando **"pa
 
 O ganho aqui não é a skill escrever o código por você — é o gate determinístico entre cada fase. Sem isso, é fácil o agente pular direto pra "implementação" com meia especificação na cabeça e você só descobrir o requisito faltando no code review.
 
+## TLC AI Dev Flow: a fábrica de software agentic
+
+A `tlc-spec-driven` resolve uma feature de cada vez. O [TLC AI Dev Flow](https://agent-skills.techleads.club/tlc-ai-dev-flow/) mira mais alto: é a proposta do Tech Leads Club pra tratar o desenvolvimento inteiro como uma **agentic software factory** — um sistema orientado a eventos, não uma conversa manual com o agente. A frase que resume a tese do documento é direta: "code got cheap, proof did not" — escrever código ficou barato, provar que ele está certo, não.
+
+Isso muda onde a pessoa desenvolvedora entra no processo. Em vez de ficar no meio, revisando linha por linha enquanto o agente escreve, ela se desloca pras pontas: define a intenção antes do código existir, e valida a direção depois que a prova já está pronta. No meio, quem executa e quem verifica nunca são o mesmo agente — "the author is never the verifier" é regra, não sugestão.
+
+O fluxo completo prevê sete estações, mas a v1 (a que já dá pra instalar) implementa quatro, cada uma com sua própria skill:
+
+- **RESEARCH** (`tlc-discover`) — transforma um problema ainda bagunçado num documento de design com decisões literais: o problema, a métrica de sucesso, a arquitetura e as assinaturas de função, tudo antes de qualquer linha de código.
+- **PLAN** (`tlc-plan`) — corta o trabalho já decidido em tarefas com critério observável de "pronto", pensadas pra qualquer agente executar sem precisar adivinhar nada.
+- **IMPLEMENT** (`tlc-implement`) — extrai o checklist do plano e constrói em fatias verticais (um fluxo fino ponta a ponta primeiro, aprofundado depois), em vez de levantar a aplicação inteira horizontalmente sem nada testável no meio.
+- **GATE** (`the-judge`) — revisão baseada em evidência antes do PR: roda teste, tipo e lint primeiro (barato), integração e segurança depois (caro), e consolida tudo num relatório no GitHub.
+
+Duas checagens de sanidade aparecem em mais de uma estação e valem a pena guardar: rodar o teste novo contra o código *anterior* ao patch (se ele passar mesmo assim, não está testando nada), e nunca aceitar que o próprio agente reescreva a suíte de testes existente pra fazer o teste passar.
+
+Trabalho entra no fluxo sempre no mesmo formato — issue, pedido de usuário, alerta de incidente ou item de backlog — com escopo, critério de aceitação e responsável definidos, o que é o que permite tratar isso como fila de eventos e não como papo solto no chat. As estações futuras (v2+) são TRIAGE, INTAKE e PRODUCTION, ainda não lançadas.
+
+Instala as quatro skills da v1 de uma vez:
+
+```bash
+npx @tech-leads-club/agent-skills install --skill tlc-discover tlc-plan tlc-implement the-judge
+```
+
+### Como fica na prática: o quadro V2
+
+![Diagrama da Fábrica de Software Agêntica V2, mostrando o fluxo Backlog → Triagem → ToDo → In Review → Done, com Research/Plan alimentando o ToDo e o par Implement/Verify dentro dele](/images/tlc-ai-dev-flow-v2.png)
+
+Esse diagrama do time do Tech Leads Club mostra a fábrica como um quadro Kanban de verdade, não só uma lista de estações. Dá pra ver três coisas que o texto sozinho não deixa tão claras:
+
+Trabalho entra por três portas, não uma só. **Backlog** é o caminho manual — CEO/Visão, Product Managers e Engenheiros enfileirando o que decidiram. **Usuários** (reclamações, pedidos de feature) e **Monitoramento** (incidentes) entram direto na **Triagem**, e essa triagem já é feita por agente, não por humano decidindo prioridade um por um.
+
+O envolvimento humano não é constante — ele varia por coluna, e o diagrama marca isso explicitamente. No Backlog, o humano faz o discovery e deixa clara a intenção antes de qualquer coisa virar Research; a saída documentada (PRD ou Design Doc) é onde humanos discutem a solução antes de implementar. No Plan, o envolvimento já cai pra mínimo — "dado um bom input", ou seja, se o Research foi bem feito, o Plan quase não precisa de babá. Dentro do ToDo, o par **Implement → Verify** roda sob um "contrato de verificação" que confirma que tudo do plano foi de fato feito, de novo com envolvimento humano mínimo — e essa etapa pode ser paralelizada com worktrees ou Cloud Agents, porque as tarefas ali são independentes. Só no **In Review** o humano volta a pesar mais: é ali que ele valida o que o agente não conseguiu resolver sozinho e garante que a direção está certa antes do Code Review. Em **Done**, envolvimento humano volta a ser mínimo.
+
+O diagrama também dá números de expectativa que o texto do site não menciona: construir (Research → ToDo) é medido em horas; a revisão em In Review é medida em minutos a horas. É uma forma concreta de perceber onde o gargalo real do time vai estar depois de automatizar o resto — normalmente não é mais escrever código, é revisar.
+
+Voltando pro cadastro de anúncio: onde a `tlc-spec-driven` te dá quatro fases dentro de uma feature, o AI Dev Flow trataria essa mesma feature como um evento único passando pela fábrica inteira — `tlc-discover` decide como o upload de imagem e a validação de preço vão funcionar, `tlc-plan` quebra isso em tarefas observáveis, `tlc-implement` sobe primeiro um fluxo fino (formulário → salvar → listar, sem foto ainda) e só depois aprofunda, e `the-judge` audita o PR final com evidência antes de você olhar. São modelos vizinhos no mesmo catálogo — dá pra usar a `tlc-spec-driven` numa mudança pontual e reservar o AI Dev Flow completo pra quando o time quer o pipeline inteiro automatizado, da issue ao PR revisado.
+
 ## Vale a pena instalar
 
 Se você já usa Claude Code ou Cursor no dia a dia e instala skills soltas da internet sem muito critério, trocar isso pelo Agent Skills não custa nada — é `npx` e pronto — e troca "confiar no README de quem publicou" por "confiar num scan de segurança e num lockfile". Pra quem lidera time e quer padronizar como os agentes trabalham (specs, commits, validação), a `tlc-spec-driven` sozinha já paga a instalação.
+
+## Referências
+
+- [tech-leads-club/agent-skills — repositório no GitHub](https://github.com/tech-leads-club/agent-skills)
+- [SKILL.md da `tlc-spec-driven`](https://github.com/tech-leads-club/agent-skills/blob/main/packages/skills-catalog/skills/(development)/tlc-spec-driven/SKILL.md)
+- [TLC AI Dev Flow — Skills for Agentic Software Factories](https://agent-skills.techleads.club/tlc-ai-dev-flow/)
