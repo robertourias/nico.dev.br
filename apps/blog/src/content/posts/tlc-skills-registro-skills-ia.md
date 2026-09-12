@@ -2,7 +2,7 @@
 title: "TLC Skills: skills validadas pro seu agente de IA"
 slug: "tlc-skills-registro-skills-ia"
 date: "2026-09-12"
-category: "tech"
+categories: ["tech", "ia"]
 status: "published"
 featured: false
 description: "Como instalar e usar o Agent Skills do Tech Leads Club, o registry que valida skills antes de deixar seu Claude Code ou Cursor rodar código de terceiros."
