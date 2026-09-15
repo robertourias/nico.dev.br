@@ -16,6 +16,7 @@ docs/commands/
   spec.md          ← planner em Modo de Planejamento Unificado (gera regras + tarefas técnicas)
   hands-on.md      ← orquestrador: executa o Plano de Implementação da Spec em ondas (paralelo)
   review.md        ← reviewer em dois estágios (suporta escopo)
+  post.md          ← blog writer/editor/professor: gera post de apps/blog a partir de tema/anotação
 ```
 
 ## Sintaxe de escopo
@@ -44,6 +45,17 @@ Os comandos `back`, `front`, `spec`, `review` e `retomar` suportam um **escopo o
 /review [cole o diff aqui]
 /retomar
 ```
+
+## Blog (`/post`)
+
+Sem sintaxe de escopo — sempre atua em `apps/blog`. Argumento é o tema, anotação ou rascunho:
+
+```
+/post como uso o Obsidian pra estudar
+/post resumo do livro X, categoria livros + architecture, formato imersivo
+```
+
+Entrega o post pronto (frontmatter + corpo) para salvar em `apps/blog/src/content/posts/[slug].md` ou `.mdx`.
 
 ## Playbook e comparativo
 

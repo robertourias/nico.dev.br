@@ -1,0 +1,80 @@
+<svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <!-- Background -->
+  <rect width="800" height="420" fill="#0a0a0f"/>
+
+  <defs>
+    <radialGradient id="glowYellow" cx="50%" cy="0%" r="80%">
+      <stop offset="0%" stop-color="#e8c547"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="glowPurple" cx="50%" cy="0%" r="80%">
+      <stop offset="0%" stop-color="#7b61ff"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="56" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Pipeline de PR automatizado</text>
+  <text x="400" y="80" text-anchor="middle" fill="#888898" font-size="12">commit → merge, camada mais barata filtra a próxima</text>
+
+  <!-- Pipeline baseline -->
+  <line x1="70" y1="230" x2="730" y2="230" stroke="#ffffff14" stroke-width="2"/>
+
+  <!-- Node 1: pre-commit -->
+  <circle cx="110" cy="230" r="8" fill="#888898"/>
+  <rect x="45" y="255" width="130" height="66" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="110" y="280" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Pre-commit</text>
+  <text x="110" y="298" text-anchor="middle" fill="#888898" font-size="10">husky</text>
+  <text x="110" y="312" text-anchor="middle" fill="#888898" font-size="10">lint-staged</text>
+
+  <!-- arrow 1 -->
+  <path d="M180 230 L235 230" stroke="#888898" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Node 2: CI -->
+  <circle cx="270" cy="230" r="8" fill="#888898"/>
+  <rect x="205" y="255" width="130" height="66" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="270" y="280" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">CI</text>
+  <text x="270" y="298" text-anchor="middle" fill="#888898" font-size="10">lint · testes</text>
+  <text x="270" y="312" text-anchor="middle" fill="#888898" font-size="10">build</text>
+
+  <!-- arrow 2 -->
+  <path d="M340 230 L395 230" stroke="#888898" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Node 3: Review IA (highlight purple) -->
+  <rect x="365" y="150" width="150" height="80" rx="16" fill="url(#glowPurple)" opacity="0.12"/>
+  <circle cx="440" cy="230" r="9" fill="#7b61ff"/>
+  <rect x="365" y="255" width="150" height="78" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="440" y="280" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="700">Review por IA</text>
+  <text x="440" y="298" text-anchor="middle" fill="#a78bfa" font-size="10">CodeRabbit</text>
+  <text x="440" y="312" text-anchor="middle" fill="#a78bfa" font-size="10">Claude Code Action</text>
+
+  <!-- arrow 3 -->
+  <path d="M520 230 L575 230" stroke="#888898" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Node 4: Review humano -->
+  <circle cx="610" cy="230" r="8" fill="#888898"/>
+  <rect x="545" y="255" width="130" height="66" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="610" y="280" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Review humano</text>
+  <text x="610" y="298" text-anchor="middle" fill="#888898" font-size="10">arquitetura</text>
+  <text x="610" y="312" text-anchor="middle" fill="#888898" font-size="10">produto</text>
+
+  <!-- arrow 4 -->
+  <path d="M680 230 L718 230" stroke="#e8c547" stroke-width="1.5" marker-end="url(#arrowYellow)"/>
+
+  <!-- Node 5: Merge (highlight yellow) -->
+  <rect x="700" y="190" width="70" height="40" rx="20" fill="url(#glowYellow)" opacity="0.18"/>
+  <circle cx="735" cy="230" r="9" fill="#e8c547"/>
+  <text x="735" y="150" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">merge ✦</text>
+
+  <!-- arrow markers -->
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#888898"/>
+  </marker>
+  <marker id="arrowYellow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#e8c547"/>
+  </marker>
+
+  <!-- Bottom caption -->
+  <rect x="215" y="365" width="370" height="30" rx="8" fill="#111118" stroke="#ffffff14"/>
+  <text x="400" y="385" text-anchor="middle" fill="#888898" font-size="12">CodeRabbit + Claude Code GitHub Action</text>
+</svg>

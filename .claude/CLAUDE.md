@@ -36,6 +36,14 @@ docs/context/conventions.md
 docs/context/decisions.md
 ```
 
+## Papel: BLOG WRITER
+```
+docs/skills/blog-writer.md
+apps/blog/docs/context/post-generator-instructions.md
+apps/blog/docs/context/conventions.md
+apps/blog/docs/context/ui-guidelines.md
+```
+
 ## Carregue sob demanda (não por padrão)
 ```
 docs/context/current-state.md    ← estado atual do projeto (use /retomar)
@@ -68,6 +76,7 @@ packages/
 /back   [tarefa]            ← agente backend
 /front  [tarefa]            ← agente frontend
 /review [diff ou contexto]  ← revisão em dois estágios
+/post   [tema | anotação]   ← writer/editor/professor do blog (apps/blog)
 ```
 Referência completa: `docs/commands/README.md`
 
