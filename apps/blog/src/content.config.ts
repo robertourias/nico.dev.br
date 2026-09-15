@@ -8,7 +8,7 @@ const posts = defineCollection({
     title: z.string(),
     slug: z.string(),
     date: z.coerce.date(),
-    categories: z.array(z.enum(['tech', 'ia', 'organizacao', 'qualidade-de-vida', 'livros', 'business', 'prog', 'infra', 'architecture', 'investimentos'])).min(1),
+    categories: z.array(z.enum(['tech', 'ia', 'organizacao', 'qualidade-de-vida', 'livros', 'business', 'dev', 'infra', 'architecture', 'investimentos', 'historia', 'filosofia', 'politica'])).min(1),
     status: z.enum(['published', 'archived']),
     featured: z.boolean().default(false),
     description: z.string(),

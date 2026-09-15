@@ -19,29 +19,45 @@ export function isPostRead(slug: string): boolean {
   return readStorage().includes(slug);
 }
 
-export function markPostAsRead(slug: string): void {
-  const current = readStorage();
-  if (current.includes(slug)) return;
-
+function writeStorage(slugs: string[]): void {
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify([...current, slug]));
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(slugs));
   } catch {
     // localStorage indisponível (modo privado/quota cheia) — falha silenciosa.
   }
+}
+
+function setPostRead(slug: string, read: boolean): void {
+  const current = readStorage();
+  const already = current.includes(slug);
+  if (read === already) return;
+
+  writeStorage(read ? [...current, slug] : current.filter((s) => s !== slug));
 
   // localStorage não re-renderiza ilhas React já montadas na mesma aba (o
   // evento nativo "storage" só dispara em OUTRAS abas) — sem isso, a flag
-  // "Lido" só apareceria depois de um reload da página atual.
-  window.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail: { slug } }));
+  // "Lido" só atualizaria depois de um reload da página atual.
+  window.dispatchEvent(new CustomEvent(CHANGE_EVENT, { detail: { slug, read } }));
 }
 
-/** Notifica quando um post é marcado como lido nesta aba (ver comentário acima). */
-export function onReadPostsChanged(callback: (slug: string) => void): () => void {
+export function markPostAsRead(slug: string): void {
+  setPostRead(slug, true);
+}
+
+/** Alterna lido/não-lido e devolve o novo estado — usado pelo botão manual. */
+export function toggleReadPost(slug: string): boolean {
+  const next = !isPostRead(slug);
+  setPostRead(slug, next);
+  return next;
+}
+
+/** Notifica quando o estado de "lido" de um post muda nesta aba (ver comentário acima). */
+export function onReadPostsChanged(callback: (slug: string, read: boolean) => void): () => void {
   if (typeof window === 'undefined') return () => {};
 
   const handler = (event: Event) => {
-    const slug = (event as CustomEvent<{ slug: string }>).detail?.slug;
-    if (slug) callback(slug);
+    const detail = (event as CustomEvent<{ slug: string; read: boolean }>).detail;
+    if (detail?.slug) callback(detail.slug, detail.read);
   };
 
   window.addEventListener(CHANGE_EVENT, handler);

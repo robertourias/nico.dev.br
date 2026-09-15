@@ -20,6 +20,13 @@ docs/context/conventions.md   ← glossário, estrutura de arquivos, frontmatter
 ../../docs/architecture/overview.md ← stack geral, bounded contexts
 ```
 
+## Criando um novo post
+
+Antes de escrever ou editar qualquer post, leia sempre:
+```
+docs/context/post-generator-instructions.md   ← voz, formatos (.md/.mdx), frontmatter, categorias, checklist didático/deep-dive
+```
+
 ## Regras críticas
 
 - Posts nunca deletados — apenas `status: archived`

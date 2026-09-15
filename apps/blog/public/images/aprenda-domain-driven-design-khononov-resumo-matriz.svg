@@ -1,0 +1,71 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="800" fill="#ffffff"/>
+  <rect x="10" y="10" width="1180" height="780" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+
+  <text x="600" y="45" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">Onde investir: subdomínio x complexidade de modelagem</text>
+  <text x="600" y="68" text-anchor="middle" font-size="13" fill="#64748b">o esforço de design tático deve ser proporcional ao valor de negócio, não uniforme</text>
+
+  <!-- Axes -->
+  <line x1="180" y1="700" x2="1060" y2="700" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="180" y1="700" x2="180" y2="130" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow2)"/>
+  <text x="620" y="740" text-anchor="middle" font-size="14" font-weight="600" fill="#334155">Complexidade do domínio (do simples ao intrincado)</text>
+  <text x="140" y="410" text-anchor="middle" font-size="14" font-weight="600" fill="#334155" transform="rotate(-90 140 410)">Diferenciação competitiva (valor de negócio)</text>
+
+  <!-- Quadrant fills -->
+  <rect x="180" y="130" width="440" height="285" fill="#f1f5f9"/>
+  <rect x="620" y="130" width="440" height="285" fill="#eef2ff"/>
+  <rect x="180" y="415" width="440" height="285" fill="#fef9c3" opacity="0.5"/>
+  <rect x="620" y="415" width="440" height="285" fill="#f1f5f9"/>
+
+  <!-- Quadrant labels -->
+  <text x="840" y="165" text-anchor="middle" font-size="16" font-weight="700" fill="#4338ca">Core Domain</text>
+  <text x="840" y="186" text-anchor="middle" font-size="12" fill="#4338ca">complexo + diferenciador → todo o esforço de DDD tático</text>
+
+  <text x="400" y="165" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">Supporting</text>
+  <text x="400" y="186" text-anchor="middle" font-size="12" fill="#475569">diferenciador mas simples → modelo direto, sem luxo</text>
+
+  <text x="400" y="450" text-anchor="middle" font-size="16" font-weight="700" fill="#92400e">Generic</text>
+  <text x="400" y="471" text-anchor="middle" font-size="12" fill="#92400e">necessário mas não diferencia → comprar/usar pronto</text>
+
+  <text x="840" y="450" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">Supporting complexo</text>
+  <text x="840" y="471" text-anchor="middle" font-size="12" fill="#475569">complicado mas não é o diferencial → conter a complexidade</text>
+
+  <!-- Example dots -->
+  <circle cx="920" cy="260" r="8" fill="#4f46e5"/>
+  <text x="935" y="264" font-size="13" fill="#312e81">Motor de precificação dinâmica</text>
+
+  <circle cx="820" cy="330" r="8" fill="#4f46e5"/>
+  <text x="835" y="334" font-size="13" fill="#312e81">Matching de pedidos (marketplace)</text>
+
+  <circle cx="330" cy="230" r="8" fill="#475569"/>
+  <text x="345" y="234" font-size="13" fill="#334155">Cálculo de frete simples</text>
+
+  <circle cx="280" cy="560" r="8" fill="#b45309"/>
+  <text x="295" y="564" font-size="13" fill="#78350f">Autenticação de usuário</text>
+
+  <circle cx="320" cy="630" r="8" fill="#b45309"/>
+  <text x="335" y="634" font-size="13" fill="#78350f">Envio de e-mail transacional</text>
+
+  <circle cx="900" cy="560" r="8" fill="#475569"/>
+  <text x="915" y="564" font-size="13" fill="#334155">Motor de impostos multi-país</text>
+
+  <!-- Legend / mapping to tactical pattern -->
+  <g transform="translate(180,745)">
+    <rect x="0" y="0" width="14" height="14" rx="3" fill="#4f46e5"/>
+    <text x="20" y="11" font-size="12" fill="#334155">Core → Domain Model rico / Event-Sourced</text>
+  </g>
+  <g transform="translate(560,745)">
+    <rect x="0" y="0" width="14" height="14" rx="3" fill="#475569"/>
+    <text x="20" y="11" font-size="12" fill="#334155">Supporting → Active Record / Transaction Script</text>
+  </g>
+  <g transform="translate(940,745)">
+    <rect x="0" y="0" width="14" height="14" rx="3" fill="#b45309"/>
+    <text x="20" y="11" font-size="12" fill="#334155">Generic → comprar (SaaS/lib pronta)</text>
+  </g>
+</svg>

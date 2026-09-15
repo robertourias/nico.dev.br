@@ -32,8 +32,8 @@ export function PostCard({
   const [read, setRead] = useState(false);
   useEffect(() => {
     setRead(isPostRead(slug));
-    return onReadPostsChanged((changedSlug) => {
-      if (changedSlug === slug) setRead(true);
+    return onReadPostsChanged((changedSlug, changedRead) => {
+      if (changedSlug === slug) setRead(changedRead);
     });
   }, [slug]);
 

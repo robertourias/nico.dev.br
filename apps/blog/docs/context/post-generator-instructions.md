@@ -14,18 +14,60 @@ Seu papel é transformar **anotações brutas, pensamentos soltos ou temas de es
 - **Parágrafos curtos.** Máximo 3–4 linhas. Respira entre ideias.
 - **Marcadores só quando a lista realmente faz sentido** — prefira prosa.
 - **Exemplos concretos** sempre que possível. Teoria sem exemplo é rascunho.
-- **Sem conclusão boilerplate.** O post termina quando o ponto foi feito — não precisa de "espero que tenha gostado".
+- **Sem conclusão boilerplate.** Nunca "espero que tenha gostado", "é isso, pessoal" ou fecho vazio. Isso não proíbe conclusão — proíbe conclusão que não diz nada (ver seção de posts didáticos abaixo).
+
+---
+
+## Post didático / deep-dive (livros, arquitetura, tutorial técnico, deep-dive de conceito)
+
+Quando o post existe para **ensinar um conceito com profundidade** — resumo de livro técnico, arquitetura, tutorial, deep-dive — além das regras de voz acima, siga também:
+
+- **Tom didático.** Explique como se o leitor não tivesse contexto prévio do conceito específico, mas é um dev experiente — não infantilize, não pule a definição de termo técnico na primeira aparição.
+- **Elementos visuais sempre que ajudam a entender.** Diagrama Mermaid (fluxo, relação entre conceitos), SVG custom (comparação, matriz, arquitetura), imagem de capa relevante. Prefira um diagrama a um parágrafo de descrição espacial/estrutural. Convenção de arquivo: `public/images/<slug-do-post>-<nome-do-diagrama>.svg`, paleta consistente com os diagramas já publicados (slate `#0f172a`/`#64748b`, indigo `#4f46e5`, teal `#0f766e`, âmbar `#b45309` — ver exemplos em posts de livros de arquitetura).
+- **Clareza antes de brevidade.** O range de 600–1500 palavras da seção "Processo de geração" é o padrão para post de opinião/nota curta — para post didático/deep-dive, **ultrapasse esse range sempre que o tema pedir profundidade real**. Não corte explicação para caber num tamanho-alvo.
+- **Tempo de leitura.** O blog calcula automaticamente (`readingTime.ts`, 200 palavras/minuto) — não escreva isso no frontmatter. Ao entregar o post pronto, informe a estimativa de tempo de leitura ao usuário como referência de tamanho.
+- **Categorias levantadas explicitamente.** Antes de fechar o frontmatter, liste as categorias candidatas e por que cada uma se aplica (ver tabela de categorias acima) — não escolha só a mais óbvia.
+- **Conclusão real, sempre que possível.** Uma seção final que sintetiza o que muda no raciocínio ou na prática do leitor — não um resumo repetido do que já foi dito. Pode se chamar "Conclusão", "O que fica" ou algo natural ao tema.
+- **Referências, sempre que possível.** Lista final com fonte primária (livro, autor, edição), artigos ou documentação oficial citados no texto. Formato simples de lista, sem necessidade de ABNT.
 
 ---
 
 ## Categorias disponíveis
 
+O frontmatter usa `categories` (array — um post pode pertencer a mais de uma). Duas fontes precisam ficar sincronizadas — esquecer uma delas quebra o build ou o filtro:
+
+- `src/content.config.ts` — enum do schema Zod. **É quem valida o frontmatter**; categoria ausente aqui quebra o build com `InvalidContentEntryDataError`.
+- `src/types/post.ts` (`CATEGORY_LABELS`) — label de exibição usada no filtro da home e nos badges.
+
 | Valor | Quando usar |
 |-------|-------------|
-| `tech` | Código, ferramentas, arquitetura, desenvolvimento |
+| `tech` | Código, ferramentas, desenvolvimento em geral |
 | `ia` | Inteligência artificial, LLMs, automação com IA |
 | `organizacao` | GTD, PKM, sistemas pessoais, gestão de tempo |
 | `qualidade-de-vida` | Saúde, rotina, ergonomia, equilíbrio dev/vida |
+| `livros` | Resumo/resenha de livro — sempre combinado com uma segunda categoria de tema |
+| `business` | Negócios, produto, estratégia |
+| `dev` | Programação — linguagem, padrão de código, técnica específica |
+| `infra` | Infraestrutura, deploy, DevOps, hosting |
+| `architecture` | Arquitetura de software, design de sistemas |
+| `investimentos` | Finanças pessoais, investimentos |
+| `historia` | História — eventos, períodos, biografia histórica |
+| `filosofia` | Filosofia — correntes de pensamento, ética, epistemologia |
+| `politica` | Política — sistemas de governo, economia política, sociedade |
+
+**Sempre levante todas as categorias plausíveis antes de fechar o frontmatter** — não pare na primeira óbvia. Um post sobre um livro de arquitetura, por exemplo, é `["livros", "architecture"]`; um post sobre produtividade com IA pode ser `["ia", "organizacao"]`. Liste as opções consideradas e a justificativa curta ao apresentar o post pronto.
+
+### Criando categoria nova
+
+Se nenhuma categoria existente cobre o tema do post com precisão, **crie uma nova** em vez de forçar um encaixe artificial — mas antes confirme que não é sinônimo/subconjunto de uma já existente (ex: não crie `dev` se `tech` já cobre o caso).
+
+1. Escolha um slug kebab-case, curto, sem acento (ex: `carreira`, `design`, `dados`).
+2. Adicione o valor no enum de `categories` em `src/content.config.ts` — **sem isso o build quebra** (`InvalidContentEntryDataError`) em todo post que usar a categoria nova.
+3. Adicione a entrada correspondente em `CATEGORY_LABELS` (`src/types/post.ts`) com o label de exibição (ex: `carreira: 'Carreira'`) — sem isso a categoria não aparece no filtro da home, só no post individual.
+4. Use a categoria nova no `categories:` do frontmatter normalmente.
+5. Avise o usuário que uma categoria nova foi criada e onde (os dois arquivos + linha), já que é mudança de código, não só de conteúdo.
+
+**Removendo categoria:** mesma dupla — tirar do enum em `content.config.ts` só depois de migrar todos os posts que a usam para outra categoria, senão quebra o build nesses posts; e remover a entrada de `CATEGORY_LABELS`.
 
 ---
 
@@ -52,12 +94,12 @@ Seu papel é transformar **anotações brutas, pensamentos soltos ou temas de es
 title: "Título do Post"
 slug: "titulo-do-post"          # kebab-case, único, sem acentos
 date: "AAAA-MM-DD"
-category: "tech"                # tech | ia | organizacao | qualidade-de-vida
+categories: ["tech"]            # array — ver tabela de categorias acima, pode ter mais de uma
 status: "published"             # sempre published (nunca draft — use archived para ocultar)
 featured: false                 # true apenas se for post de destaque excepcional
 description: "Uma frase direta que resume o valor do post para quem vai ler."
 tags: ["tag1", "tag2"]          # 2–5 tags em kebab-case
-coverImage: "/images/titulo-do-post.jpg"  # opcional (slug)
+coverImage: "/images/titulo-do-post.jpg"  # opcional (slug), ou URL do Unsplash
 ---
 ```
 
@@ -68,7 +110,7 @@ coverImage: "/images/titulo-do-post.jpg"  # opcional (slug)
 title: "Título do Post"
 slug: "titulo-do-post"
 date: "AAAA-MM-DD"
-category: "ia"
+categories: ["ia"]
 status: "published"
 featured: true
 description: "Uma frase que captura a essência do post."

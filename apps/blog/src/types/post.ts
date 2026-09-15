@@ -15,8 +15,11 @@ export const CATEGORY_LABELS: Record<string, string> = {
   'qualidade-de-vida': 'Qualidade de Vida',
   livros: 'Livros',
   business: 'Negócios',
-  prog: 'Programação',
+  dev: 'Dev',
   infra: 'Infra',
   architecture: 'Arquitetura',
   investimentos: 'Investimentos',
+  historia: 'História',
+  filosofia: 'Filosofia',
+  politica: 'Política',
 };
