@@ -7,7 +7,7 @@ status: "published"
 featured: false
 description: "Como montar um pipeline de PR do commit ao merge com CodeRabbit e Claude Code GitHub Action — o que cada camada resolve, e o que continua sendo trabalho do revisor humano."
 tags: ["code-review", "ci-cd", "claude-code", "coderabbit", "automacao"]
-coverImage: "/images/code-review-automatizado-coderabbit-claude-code-action.jpg"
+coverImage: "/images/code-review-automatizado-coderabbit-claude-code-action.svg"
 ---
 
 Review humano é o gargalo mais caro e mais lento do ciclo de PR. E boa parte do que ele pega — bug óbvio, teste faltando, import não usado, inconsistência com o padrão do resto do repo — não precisa de julgamento humano nenhum. Precisa só de alguém (ou algo) que leia o diff com atenção antes do humano chegar nele.
