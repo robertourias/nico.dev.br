@@ -1,0 +1,50 @@
+<svg viewBox="0 0 800 470" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888898"/>
+    </marker>
+    <marker id="arrPurple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#7b61ff"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="470" fill="#0a0a0f"/>
+
+  <text x="400" y="32" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Arquitetura do exemplo</text>
+
+  <!-- Browser -->
+  <rect x="300" y="52" width="200" height="44" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="400" y="79" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="600">Navegador</text>
+
+  <line x1="400" y1="96" x2="400" y2="126" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Host -->
+  <rect x="250" y="130" width="300" height="70" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="400" y="160" text-anchor="middle" fill="#e8c547" font-size="14" font-weight="700">Host :3000</text>
+  <text x="400" y="181" text-anchor="middle" fill="#888898" font-size="11">shell · layout · Suspense</text>
+
+  <!-- Host -> remotes -->
+  <line x1="330" y1="200" x2="230" y2="262" stroke="#7b61ff" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrPurple)"/>
+  <line x1="470" y1="200" x2="570" y2="262" stroke="#7b61ff" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrPurple)"/>
+  <text x="250" y="222" text-anchor="middle" fill="#a78bfa" font-size="10" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">remoteEntry.js</text>
+  <text x="550" y="222" text-anchor="middle" fill="#a78bfa" font-size="10" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">remoteEntry.js</text>
+
+  <!-- catalog -->
+  <rect x="100" y="266" width="240" height="72" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="220" y="294" text-anchor="middle" fill="#a78bfa" font-size="14" font-weight="700">catalog :3001</text>
+  <text x="220" y="316" text-anchor="middle" fill="#888898" font-size="11">expõe ./ProductList</text>
+
+  <!-- cart -->
+  <rect x="460" y="266" width="240" height="72" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="580" y="294" text-anchor="middle" fill="#a78bfa" font-size="14" font-weight="700">cart :3002</text>
+  <text x="580" y="316" text-anchor="middle" fill="#888898" font-size="11">expõe ./CartWidget</text>
+
+  <!-- Shared -->
+  <line x1="220" y1="338" x2="220" y2="376" stroke="#0f766e" stroke-width="1.5"/>
+  <line x1="580" y1="338" x2="580" y2="376" stroke="#0f766e" stroke-width="1.5"/>
+  <line x1="400" y1="200" x2="400" y2="376" stroke="#0f766e" stroke-width="1.5"/>
+
+  <rect x="100" y="376" width="600" height="56" rx="14" fill="#0f766e" fill-opacity="0.15" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="400" y="401" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="700">react + react-dom (singleton)</text>
+  <text x="400" y="420" text-anchor="middle" fill="#888898" font-size="11">uma única cópia no share scope, usada por host e remotes</text>
+</svg>
