@@ -1,0 +1,51 @@
+<svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888898"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="440" fill="#0a0a0f"/>
+
+  <text x="400" y="32" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Container: FitFlow</text>
+
+  <!-- Usuario -->
+  <rect x="30" y="170" width="130" height="70" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="95" y="194" text-anchor="middle" fill="#888898" font-size="10">[Pessoa]</text>
+  <text x="95" y="216" text-anchor="middle" fill="#f0efe8" font-size="14" font-weight="700">Usuário</text>
+
+  <!-- Boundary -->
+  <rect x="200" y="66" width="570" height="330" rx="16" fill="none" stroke="#e8c547" stroke-opacity="0.6" stroke-dasharray="6 5"/>
+  <text x="218" y="90" fill="#e8c547" font-size="12" font-weight="700">FitFlow</text>
+
+  <!-- Web -->
+  <rect x="230" y="160" width="170" height="90" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="315" y="184" text-anchor="middle" fill="#a78bfa" font-size="10">[Next.js]</text>
+  <text x="315" y="206" text-anchor="middle" fill="#f0efe8" font-size="14" font-weight="700">Web App</text>
+  <text x="315" y="228" text-anchor="middle" fill="#888898" font-size="10">interface do usuário</text>
+
+  <!-- API -->
+  <rect x="570" y="160" width="170" height="90" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="655" y="184" text-anchor="middle" fill="#a78bfa" font-size="10">[NestJS]</text>
+  <text x="655" y="206" text-anchor="middle" fill="#f0efe8" font-size="14" font-weight="700">API</text>
+  <text x="655" y="228" text-anchor="middle" fill="#888898" font-size="10">regras de negócio</text>
+
+  <!-- DB -->
+  <rect x="570" y="304" width="170" height="70" rx="14" fill="#0f766e" fill-opacity="0.15" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="655" y="326" text-anchor="middle" fill="#2dd4bf" font-size="10">[PostgreSQL]</text>
+  <text x="655" y="346" text-anchor="middle" fill="#f0efe8" font-size="14" font-weight="700">Banco de Dados</text>
+  <text x="655" y="363" text-anchor="middle" fill="#888898" font-size="10">treinos e usuários</text>
+
+  <!-- Arrows -->
+  <line x1="160" y1="205" x2="226" y2="205" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="193" y="184" text-anchor="middle" fill="#888898" font-size="10">Usa</text>
+  <text x="193" y="196" text-anchor="middle" fill="#888898" font-size="10">HTTPS</text>
+
+  <line x1="400" y1="205" x2="566" y2="205" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="483" y="194" text-anchor="middle" fill="#888898" font-size="11">Chama</text>
+  <text x="483" y="224" text-anchor="middle" fill="#888898" font-size="10">REST/JSON</text>
+
+  <line x1="655" y1="250" x2="655" y2="300" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="669" y="272" fill="#888898" font-size="11">Lê/escreve</text>
+  <text x="669" y="287" fill="#888898" font-size="10">Prisma</text>
+</svg>

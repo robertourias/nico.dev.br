@@ -1,0 +1,53 @@
+<svg viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect width="800" height="340" fill="#0a0a0f"/>
+
+  <text x="400" y="34" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">ERD: usuários, treinos e exercícios</text>
+
+  <!-- USUARIO -->
+  <rect x="30" y="80" width="180" height="138" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <path d="M30 92 a12 12 0 0 1 12 -12 h156 a12 12 0 0 1 12 12 v22 h-180 z" fill="#7b61ff" fill-opacity="0.25"/>
+  <text x="120" y="102" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="700">USUARIO</text>
+  <text x="44" y="136" fill="#e8c547" font-size="10" font-weight="700">PK</text>
+  <text x="70" y="136" fill="#f0efe8" font-size="12">id</text>
+  <text x="196" y="136" text-anchor="end" fill="#888898" font-size="11">string</text>
+  <text x="70" y="166" fill="#f0efe8" font-size="12">email</text>
+  <text x="196" y="166" text-anchor="end" fill="#888898" font-size="11">string</text>
+  <text x="70" y="196" fill="#f0efe8" font-size="12">nome</text>
+  <text x="196" y="196" text-anchor="end" fill="#888898" font-size="11">string</text>
+
+  <!-- TREINO -->
+  <rect x="310" y="80" width="180" height="168" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <path d="M310 92 a12 12 0 0 1 12 -12 h156 a12 12 0 0 1 12 12 v22 h-180 z" fill="#7b61ff" fill-opacity="0.25"/>
+  <text x="400" y="102" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="700">TREINO</text>
+  <text x="324" y="136" fill="#e8c547" font-size="10" font-weight="700">PK</text>
+  <text x="350" y="136" fill="#f0efe8" font-size="12">id</text>
+  <text x="476" y="136" text-anchor="end" fill="#888898" font-size="11">string</text>
+  <text x="324" y="166" fill="#2dd4bf" font-size="10" font-weight="700">FK</text>
+  <text x="350" y="166" fill="#f0efe8" font-size="12">usuario_id</text>
+  <text x="476" y="166" text-anchor="end" fill="#888898" font-size="11">string</text>
+  <text x="350" y="196" fill="#f0efe8" font-size="12">nome</text>
+  <text x="476" y="196" text-anchor="end" fill="#888898" font-size="11">string</text>
+  <text x="350" y="226" fill="#f0efe8" font-size="12">data</text>
+  <text x="476" y="226" text-anchor="end" fill="#888898" font-size="11">datetime</text>
+
+  <!-- EXERCICIO -->
+  <rect x="590" y="80" width="180" height="78" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <path d="M590 92 a12 12 0 0 1 12 -12 h156 a12 12 0 0 1 12 12 v22 h-180 z" fill="#7b61ff" fill-opacity="0.25"/>
+  <text x="680" y="102" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="700">EXERCICIO</text>
+  <text x="680" y="140" text-anchor="middle" fill="#888898" font-size="11" font-style="italic">atributos não detalhados</text>
+
+  <!-- Relations -->
+  <line x1="210" y1="97" x2="310" y2="97" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="260" y="88" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="600">registra</text>
+  <text x="218" y="114" fill="#888898" font-size="11">1</text>
+  <text x="302" y="114" text-anchor="end" fill="#888898" font-size="11">0..N</text>
+
+  <line x1="490" y1="97" x2="590" y2="97" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="540" y="88" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="600">contém</text>
+  <text x="498" y="114" fill="#888898" font-size="11">1</text>
+  <text x="582" y="114" text-anchor="end" fill="#888898" font-size="11">1..N</text>
+
+  <!-- Legend -->
+  <rect x="150" y="286" width="500" height="32" rx="8" fill="#111118" stroke="#ffffff14"/>
+  <text x="400" y="307" text-anchor="middle" fill="#888898" font-size="12">um usuário registra vários treinos, e cada treino contém ao menos um exercício</text>
+</svg>

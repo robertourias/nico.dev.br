@@ -1,0 +1,72 @@
+<svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888898"/>
+    </marker>
+    <marker id="arrYellow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="360" fill="#0a0a0f"/>
+  <text x="400" y="32" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Os dois fluxos do RAG</text>
+
+  <!-- Fase 1: Indexação -->
+  <text x="22" y="76" fill="#7b61ff" font-size="13" font-weight="700">1. Indexação (offline)</text>
+
+  <rect x="22" y="90" width="105" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="74.5" y="123" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Documentos</text>
+
+  <rect x="152" y="90" width="105" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="204.5" y="114" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Quebrar em</text>
+  <text x="204.5" y="130" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">chunks</text>
+
+  <rect x="282" y="90" width="105" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="334.5" y="114" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Gerar</text>
+  <text x="334.5" y="130" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">embeddings</text>
+
+  <rect x="412" y="90" width="105" height="56" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="464.5" y="114" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">Banco</text>
+  <text x="464.5" y="130" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">vetorial</text>
+
+  <line x1="127" y1="118" x2="150" y2="118" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="257" y1="118" x2="280" y2="118" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="387" y1="118" x2="410" y2="118" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Divisor -->
+  <line x1="22" y1="196" x2="778" y2="196" stroke="#ffffff14" stroke-dasharray="4 4"/>
+
+  <!-- Fase 2: Consulta -->
+  <text x="22" y="236" fill="#7b61ff" font-size="13" font-weight="700">2. Consulta (a cada pergunta)</text>
+
+  <rect x="22" y="250" width="105" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="74.5" y="283" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Pergunta</text>
+
+  <rect x="152" y="250" width="105" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="204.5" y="274" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Embedding da</text>
+  <text x="204.5" y="290" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">pergunta</text>
+
+  <rect x="282" y="250" width="105" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="334.5" y="274" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Buscar chunks</text>
+  <text x="334.5" y="290" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">similares</text>
+
+  <rect x="412" y="250" width="105" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="464.5" y="274" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Prompt com</text>
+  <text x="464.5" y="290" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">contexto</text>
+
+  <rect x="542" y="250" width="105" height="56" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="594.5" y="283" text-anchor="middle" fill="#7b61ff" font-size="12" font-weight="700">LLM</text>
+
+  <rect x="672" y="250" width="105" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="724.5" y="283" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="600">Resposta</text>
+
+  <line x1="127" y1="278" x2="150" y2="278" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="257" y1="278" x2="280" y2="278" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="387" y1="278" x2="410" y2="278" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="517" y1="278" x2="540" y2="278" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="647" y1="278" x2="670" y2="278" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Banco vetorial -> Busca -->
+  <path d="M464.5 146 V222 H334.5 V248" fill="none" stroke="#e8c547" stroke-width="1.5" marker-end="url(#arrYellow)"/>
+  <text x="400" y="216" text-anchor="middle" fill="#e8c547" font-size="11">consulta os vetores</text>
+</svg>

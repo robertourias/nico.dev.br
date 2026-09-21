@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-labelledby="t d" font-family="Inter, system-ui, sans-serif">
+  <title id="t">Context engineering: o que entra na janela de contexto</title>
+  <desc id="d">Quatro fontes de contexto — instruções, conhecimento, ferramentas e memória — passam por um filtro de curadoria antes de entrar na janela de contexto do modelo.</desc>
+  <rect width="800" height="400" fill="#ffffff"/>
+
+  <!-- fontes -->
+  <g font-size="14" font-weight="600" fill="#0f172a">
+    <rect x="30" y="40" width="200" height="62" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="130" y="67" text-anchor="middle">Instruções</text>
+    <text x="130" y="88" text-anchor="middle" font-size="12" font-weight="400" fill="#64748b">regras, papel, formato</text>
+
+    <rect x="30" y="118" width="200" height="62" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="130" y="145" text-anchor="middle">Conhecimento</text>
+    <text x="130" y="166" text-anchor="middle" font-size="12" font-weight="400" fill="#64748b">docs, código, RAG</text>
+
+    <rect x="30" y="196" width="200" height="62" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="130" y="223" text-anchor="middle">Ferramentas</text>
+    <text x="130" y="244" text-anchor="middle" font-size="12" font-weight="400" fill="#64748b">APIs, shell, MCP</text>
+
+    <rect x="30" y="274" width="200" height="62" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="130" y="301" text-anchor="middle">Memória</text>
+    <text x="130" y="322" text-anchor="middle" font-size="12" font-weight="400" fill="#64748b">histórico, estado, notas</text>
+  </g>
+
+  <!-- setas para o filtro -->
+  <g stroke="#64748b" stroke-width="1.5" fill="none">
+    <path d="M230 71 L300 160"/>
+    <path d="M230 149 L300 175"/>
+    <path d="M230 227 L300 205"/>
+    <path d="M230 305 L300 220"/>
+  </g>
+
+  <!-- filtro -->
+  <g>
+    <rect x="300" y="130" width="170" height="120" rx="12" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+    <text x="385" y="168" text-anchor="middle" font-size="15" font-weight="700" fill="#0f766e">Curadoria</text>
+    <text x="385" y="192" text-anchor="middle" font-size="12" fill="#0f172a">selecionar</text>
+    <text x="385" y="210" text-anchor="middle" font-size="12" fill="#0f172a">comprimir</text>
+    <text x="385" y="228" text-anchor="middle" font-size="12" fill="#0f172a">carregar sob demanda</text>
+  </g>
+
+  <!-- seta filtro -> janela -->
+  <path d="M470 190 L530 190" stroke="#0f766e" stroke-width="2" fill="none"/>
+  <path d="M524 183 L534 190 L524 197 Z" fill="#0f766e"/>
+
+  <!-- janela -->
+  <g>
+    <rect x="534" y="90" width="236" height="200" rx="12" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
+    <text x="652" y="120" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Janela de contexto</text>
+    <rect x="554" y="136" width="196" height="24" rx="5" fill="#e0e7ff"/>
+    <rect x="554" y="166" width="196" height="24" rx="5" fill="#e0e7ff"/>
+    <rect x="554" y="196" width="130" height="24" rx="5" fill="#ccfbf1"/>
+    <rect x="554" y="226" width="90" height="24" rx="5" fill="#fef3c7"/>
+    <text x="652" y="272" text-anchor="middle" font-size="12" fill="#64748b">espaço finito, atenção finita</text>
+  </g>
+
+  <!-- rodapé -->
+  <text x="400" y="372" text-anchor="middle" font-size="13" fill="#b45309" font-weight="600">O que decide a qualidade da resposta é o que entra aqui — não só como você pede.</text>
+</svg>

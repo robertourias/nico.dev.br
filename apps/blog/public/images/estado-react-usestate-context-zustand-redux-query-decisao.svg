@@ -1,0 +1,65 @@
+<svg viewBox="0 0 800 590" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888898"/>
+    </marker>
+    <marker id="arrYellow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="590" fill="#0a0a0f"/>
+  <text x="400" y="32" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Qual ferramenta pra qual estado</text>
+
+  <!-- Perguntas -->
+  <rect x="60" y="60" width="260" height="60" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="190" y="95" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="600">O dado vem do servidor?</text>
+
+  <rect x="60" y="170" width="260" height="60" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="190" y="195" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="600">Só um componente ou</text>
+  <text x="190" y="213" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="600">poucos vizinhos usam?</text>
+
+  <rect x="60" y="280" width="260" height="60" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="190" y="305" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="600">Muda pouco?</text>
+  <text x="190" y="323" text-anchor="middle" fill="#888898" font-size="12">(tema, idioma, usuário logado)</text>
+
+  <rect x="60" y="390" width="260" height="60" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="190" y="411" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="600">Precisa de padrão rígido,</text>
+  <text x="190" y="429" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="600">DevTools e time grande?</text>
+
+  <!-- Setas "Não" (descendo) -->
+  <line x1="190" y1="120" x2="190" y2="168" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="202" y="149" fill="#888898" font-size="12">Não</text>
+  <line x1="190" y1="230" x2="190" y2="278" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="202" y="259" fill="#888898" font-size="12">Não</text>
+  <line x1="190" y1="340" x2="190" y2="388" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="202" y="369" fill="#888898" font-size="12">Não</text>
+  <line x1="190" y1="450" x2="190" y2="498" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="202" y="479" fill="#888898" font-size="12">Não</text>
+
+  <!-- Setas "Sim" (direita) -->
+  <line x1="320" y1="90" x2="468" y2="90" stroke="#e8c547" stroke-width="1.5" marker-end="url(#arrYellow)"/>
+  <text x="394" y="82" text-anchor="middle" fill="#e8c547" font-size="12">Sim</text>
+  <line x1="320" y1="200" x2="468" y2="200" stroke="#e8c547" stroke-width="1.5" marker-end="url(#arrYellow)"/>
+  <text x="394" y="192" text-anchor="middle" fill="#e8c547" font-size="12">Sim</text>
+  <line x1="320" y1="310" x2="468" y2="310" stroke="#e8c547" stroke-width="1.5" marker-end="url(#arrYellow)"/>
+  <text x="394" y="302" text-anchor="middle" fill="#e8c547" font-size="12">Sim</text>
+  <line x1="320" y1="420" x2="468" y2="420" stroke="#e8c547" stroke-width="1.5" marker-end="url(#arrYellow)"/>
+  <text x="394" y="412" text-anchor="middle" fill="#e8c547" font-size="12">Sim</text>
+
+  <!-- Respostas -->
+  <rect x="470" y="60" width="270" height="60" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="605" y="95" text-anchor="middle" fill="#e8c547" font-size="14" font-weight="700">TanStack Query</text>
+
+  <rect x="470" y="170" width="270" height="60" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="605" y="205" text-anchor="middle" fill="#e8c547" font-size="14" font-weight="700">useState / useReducer</text>
+
+  <rect x="470" y="280" width="270" height="60" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="605" y="315" text-anchor="middle" fill="#e8c547" font-size="14" font-weight="700">Context API</text>
+
+  <rect x="470" y="390" width="270" height="60" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="605" y="425" text-anchor="middle" fill="#e8c547" font-size="14" font-weight="700">Redux Toolkit</text>
+
+  <rect x="60" y="500" width="260" height="60" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="190" y="535" text-anchor="middle" fill="#e8c547" font-size="14" font-weight="700">Zustand</text>
+</svg>

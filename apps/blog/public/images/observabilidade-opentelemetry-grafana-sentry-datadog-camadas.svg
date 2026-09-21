@@ -1,0 +1,76 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect width="800" height="500" fill="#0a0a0f"/>
+
+  <text x="400" y="34" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Quem faz o quê na observabilidade</text>
+  <text x="400" y="56" text-anchor="middle" fill="#888898" font-size="12">célula preenchida = a ferramenta atua nessa camada</text>
+
+  <!-- Column headers -->
+  <text x="252" y="100" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">OpenTelemetry</text>
+  <text x="402" y="100" text-anchor="middle" fill="#2dd4bf" font-size="13" font-weight="700">Grafana stack</text>
+  <text x="552" y="100" text-anchor="middle" fill="#e8c547" font-size="13" font-weight="700">Sentry</text>
+  <text x="702" y="100" text-anchor="middle" fill="#f0efe8" font-size="13" font-weight="700">Datadog</text>
+  <line x1="30" y1="112" x2="770" y2="112" stroke="#ffffff14"/>
+
+  <!-- Row labels -->
+  <text x="30" y="156" fill="#f0efe8" font-size="13" font-weight="700">1 · Instrumentar</text>
+  <text x="30" y="173" fill="#888898" font-size="10">gera os sinais no código</text>
+  <text x="30" y="246" fill="#f0efe8" font-size="13" font-weight="700">2 · Coletar</text>
+  <text x="30" y="263" fill="#888898" font-size="10">recebe e encaminha</text>
+  <text x="30" y="336" fill="#f0efe8" font-size="13" font-weight="700">3 · Armazenar</text>
+  <text x="30" y="353" fill="#888898" font-size="10">guarda e permite consulta</text>
+  <text x="30" y="426" fill="#f0efe8" font-size="13" font-weight="700">4 · Visualizar</text>
+  <text x="30" y="443" fill="#888898" font-size="10">dashboards, issues, alertas</text>
+
+  <!-- ROW 1 (y 126) -->
+  <rect x="182" y="126" width="140" height="76" rx="12" fill="#7b61ff" fill-opacity="0.14" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="252" y="158" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">SDKs e</text>
+  <text x="252" y="174" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">auto-instrumentação</text>
+  <rect x="332" y="126" width="140" height="76" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="402" y="160" text-anchor="middle" fill="#888898" font-size="11">usa os dados do</text>
+  <text x="402" y="176" text-anchor="middle" fill="#888898" font-size="11">OpenTelemetry</text>
+  <rect x="482" y="126" width="140" height="76" rx="12" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="552" y="158" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">SDK próprio:</text>
+  <text x="552" y="174" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">erros e traces</text>
+  <rect x="632" y="126" width="140" height="76" rx="12" fill="#f0efe8" fill-opacity="0.07" stroke="#f0efe8" stroke-opacity="0.6" stroke-width="1.5"/>
+  <text x="702" y="158" text-anchor="middle" fill="#f0efe8" font-size="11" font-weight="700">bibliotecas</text>
+  <text x="702" y="174" text-anchor="middle" fill="#f0efe8" font-size="11" font-weight="700">próprias + OTel</text>
+
+  <!-- ROW 2 (y 216) -->
+  <rect x="182" y="216" width="140" height="76" rx="12" fill="#7b61ff" fill-opacity="0.14" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="252" y="248" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">Collector e</text>
+  <text x="252" y="264" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">protocolo OTLP</text>
+  <rect x="332" y="216" width="140" height="76" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="402" y="254" text-anchor="middle" fill="#2dd4bf" font-size="12" font-weight="700">Alloy</text>
+  <rect x="482" y="216" width="140" height="76" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="552" y="250" text-anchor="middle" fill="#888898" font-size="11">envia direto do</text>
+  <text x="552" y="266" text-anchor="middle" fill="#888898" font-size="11">SDK ao Sentry</text>
+  <rect x="632" y="216" width="140" height="76" rx="12" fill="#f0efe8" fill-opacity="0.07" stroke="#f0efe8" stroke-opacity="0.6" stroke-width="1.5"/>
+  <text x="702" y="254" text-anchor="middle" fill="#f0efe8" font-size="12" font-weight="700">Datadog Agent</text>
+
+  <!-- ROW 3 (y 306) -->
+  <rect x="182" y="306" width="140" height="76" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="252" y="340" text-anchor="middle" fill="#888898" font-size="11">não armazena</text>
+  <text x="252" y="356" text-anchor="middle" fill="#888898" font-size="11">nada</text>
+  <rect x="332" y="306" width="140" height="76" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="402" y="340" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">Mimir · Loki</text>
+  <text x="402" y="356" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">Tempo</text>
+  <rect x="482" y="306" width="140" height="76" rx="12" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="552" y="340" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">backend do</text>
+  <text x="552" y="356" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">Sentry</text>
+  <rect x="632" y="306" width="140" height="76" rx="12" fill="#f0efe8" fill-opacity="0.07" stroke="#f0efe8" stroke-opacity="0.6" stroke-width="1.5"/>
+  <text x="702" y="340" text-anchor="middle" fill="#f0efe8" font-size="11" font-weight="700">plataforma</text>
+  <text x="702" y="356" text-anchor="middle" fill="#f0efe8" font-size="11" font-weight="700">SaaS</text>
+
+  <!-- ROW 4 (y 396) -->
+  <rect x="182" y="396" width="140" height="76" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="252" y="430" text-anchor="middle" fill="#888898" font-size="11">não tem</text>
+  <text x="252" y="446" text-anchor="middle" fill="#888898" font-size="11">interface</text>
+  <rect x="332" y="396" width="140" height="76" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="402" y="434" text-anchor="middle" fill="#2dd4bf" font-size="12" font-weight="700">Grafana</text>
+  <rect x="482" y="396" width="140" height="76" rx="12" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="552" y="430" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">issues, releases</text>
+  <text x="552" y="446" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">e replay</text>
+  <rect x="632" y="396" width="140" height="76" rx="12" fill="#f0efe8" fill-opacity="0.07" stroke="#f0efe8" stroke-opacity="0.6" stroke-width="1.5"/>
+  <text x="702" y="430" text-anchor="middle" fill="#f0efe8" font-size="11" font-weight="700">interface única</text>
+  <text x="702" y="446" text-anchor="middle" fill="#f0efe8" font-size="11" font-weight="700">e alertas</text>
+</svg>

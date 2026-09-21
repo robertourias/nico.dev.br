@@ -38,6 +38,8 @@ C4Context
     Rel(fitflow, auth, "Autentica usuário")
 ```
 
+![Diagrama C4 de contexto do FitFlow: o usuário registra treinos no sistema, que envia lembretes pelo WhatsApp e autentica pelo Auth Provider, ambos sistemas externos](/images/documentando-arquitetura-mermaid-claude-c4-contexto.svg)
+
 Nível de Container detalha as caixas internas — frontend, backend, banco:
 
 ```mermaid
@@ -56,6 +58,8 @@ C4Container
     Rel(web, api, "Chama", "REST/JSON")
     Rel(api, db, "Lê/escreve", "Prisma")
 ```
+
+![Diagrama C4 de container do FitFlow: o usuário acessa o Web App em Next.js, que chama a API em NestJS, que lê e escreve no PostgreSQL via Prisma](/images/documentando-arquitetura-mermaid-claude-c4-container.svg)
 
 **ERD** — modelagem de banco, direto de um `schema.prisma` se você já tiver um:
 
@@ -76,6 +80,8 @@ erDiagram
     }
 ```
 
+![Diagrama entidade-relacionamento: um usuário registra vários treinos, e cada treino contém ao menos um exercício](/images/documentando-arquitetura-mermaid-claude-erd.svg)
+
 **Arquitetura de infra** — onde as coisas rodam de verdade: VPS, Docker, Traefik, banco central:
 
 ```mermaid
@@ -93,6 +99,8 @@ flowchart TD
     end
 ```
 
+![Diagrama de infraestrutura: a Internet chega ao Traefik na VPS pela porta 443, que roteia o domínio fitflow.nico.dev.br para a aplicação em Docker, ligada ao PostgreSQL](/images/documentando-arquitetura-mermaid-claude-infra.svg)
+
 **Sequence diagram** — ordem temporal de chamadas, ideal pra auth flow ou lifecycle de request:
 
 ```mermaid
@@ -108,6 +116,8 @@ sequenceDiagram
     DB-->>API: Retorna dados
     API-->>Web: 200 { token }
 ```
+
+![Diagrama de sequência do login: o usuário preenche o login no Web App, que chama a API, que busca o usuário no banco e devolve o token](/images/documentando-arquitetura-mermaid-claude-sequencia.svg)
 
 Regra prática pra escolher: se a pergunta é "quem conversa com quem, sem ordem definida", é C4 ou infra. Se é "em que ordem as coisas acontecem", é sequence. Se é "como os dados se relacionam", é ERD.
 

@@ -1,0 +1,65 @@
+<svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888898"/>
+    </marker>
+    <marker id="arrYellow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="380" fill="#0a0a0f"/>
+
+  <text x="400" y="38" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">O ciclo do Spec-Driven Development</text>
+  <text x="400" y="60" text-anchor="middle" fill="#888898" font-size="12">a spec é a fonte da verdade; código e testes derivam dela</text>
+
+  <!-- 1 Spec -->
+  <rect x="24" y="110" width="128" height="96" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="88" y="136" text-anchor="middle" fill="#e8c547" font-size="10" font-weight="700">1 · INTENÇÃO</text>
+  <text x="88" y="160" text-anchor="middle" fill="#f0efe8" font-size="15" font-weight="700">Spec</text>
+  <text x="88" y="180" text-anchor="middle" fill="#888898" font-size="10">o quê e critérios</text>
+  <text x="88" y="194" text-anchor="middle" fill="#888898" font-size="10">de aceite</text>
+
+  <!-- 2 Plano -->
+  <rect x="178" y="110" width="128" height="96" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="242" y="136" text-anchor="middle" fill="#888898" font-size="10" font-weight="700">2 · DESIGN</text>
+  <text x="242" y="160" text-anchor="middle" fill="#f0efe8" font-size="15" font-weight="700">Plano</text>
+  <text x="242" y="180" text-anchor="middle" fill="#888898" font-size="10">como: contratos,</text>
+  <text x="242" y="194" text-anchor="middle" fill="#888898" font-size="10">estrutura, riscos</text>
+
+  <!-- 3 Tarefas -->
+  <rect x="332" y="110" width="128" height="96" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="396" y="136" text-anchor="middle" fill="#888898" font-size="10" font-weight="700">3 · QUEBRA</text>
+  <text x="396" y="160" text-anchor="middle" fill="#f0efe8" font-size="15" font-weight="700">Tarefas</text>
+  <text x="396" y="180" text-anchor="middle" fill="#888898" font-size="10">passos pequenos</text>
+  <text x="396" y="194" text-anchor="middle" fill="#888898" font-size="10">e verificáveis</text>
+
+  <!-- 4 Implementação -->
+  <rect x="486" y="110" width="128" height="96" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="550" y="136" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="700">4 · EXECUÇÃO</text>
+  <text x="550" y="160" text-anchor="middle" fill="#f0efe8" font-size="15" font-weight="700">Código</text>
+  <text x="550" y="180" text-anchor="middle" fill="#888898" font-size="10">você ou um agente</text>
+  <text x="550" y="194" text-anchor="middle" fill="#888898" font-size="10">implementa</text>
+
+  <!-- 5 Verificação -->
+  <rect x="640" y="110" width="136" height="96" rx="14" fill="#111118" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="708" y="136" text-anchor="middle" fill="#2dd4bf" font-size="10" font-weight="700">5 · PROVA</text>
+  <text x="708" y="160" text-anchor="middle" fill="#f0efe8" font-size="15" font-weight="700">Testes</text>
+  <text x="708" y="180" text-anchor="middle" fill="#888898" font-size="10">um por critério</text>
+  <text x="708" y="194" text-anchor="middle" fill="#888898" font-size="10">de aceite</text>
+
+  <!-- Forward arrows -->
+  <line x1="153" y1="158" x2="176" y2="158" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="307" y1="158" x2="330" y2="158" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="461" y1="158" x2="484" y2="158" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="615" y1="158" x2="638" y2="158" stroke="#888898" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Feedback loop -->
+  <path d="M708 206 L708 276 L88 276 L88 210" fill="none" stroke="#e8c547" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrYellow)"/>
+  <rect x="220" y="262" width="360" height="28" rx="8" fill="#0a0a0f"/>
+  <text x="400" y="281" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="600">divergiu ou faltou regra? corrija a spec primeiro, depois o código</text>
+
+  <!-- Caption -->
+  <rect x="200" y="322" width="400" height="30" rx="8" fill="#111118" stroke="#ffffff14"/>
+  <text x="400" y="342" text-anchor="middle" fill="#888898" font-size="12">o ciclo é curto: uma feature pequena por volta, não um projeto inteiro</text>
+</svg>

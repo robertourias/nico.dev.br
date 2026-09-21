@@ -27,8 +27,8 @@ Siga o "Processo de geração" de `post-generator-instructions.md`:
 
 1. **Classificar** — categoria(s) candidatas com justificativa, `.md` ou `.mdx`, opinião/nota vs. didático/deep-dive.
 2. **Gerar slug e título** — título direto (máx. 60 caracteres), slug kebab-case sem acento.
-3. **Escrever o post completo** — voz do Beto, frontmatter correto, componentes MDX (`Timeline`/`Callout`) se `.mdx`. Se for didático/deep-dive: diagrama (Mermaid ou SVG, ver `docs/skills/blog-writer.md`) sempre que ajudar a entender, não force tamanho-alvo se o tema pedir mais profundidade, conclusão real (não boilerplate), referências quando possível.
+3. **Escrever o post completo** — voz do Beto, frontmatter correto, componentes MDX (`Timeline`/`Callout`) se `.mdx`. Se for didático/deep-dive: diagrama sempre que ajudar a entender — **sempre como imagem SVG** em `apps/blog/public/images/` embutida com `![alt](/images/...)`, **nunca Mermaid** (ver "Diagramação" em `docs/skills/blog-writer.md`), não force tamanho-alvo se o tema pedir mais profundidade, conclusão real (não boilerplate), referências quando possível.
 4. **Sugerir tags e coverImage** — 2–5 tags; URL Unsplash ou indicação de imagem custom.
 5. **Apresentar o arquivo pronto** — bloco de código completo para salvar em `apps/blog/src/content/posts/[slug].md` ou `.mdx`. Liste categorias candidatas consideradas e a escolhida, e informe estimativa de tempo de leitura (200 palavras/minuto) — não escreva isso no frontmatter.
 
-Se criar categoria nova ou diagrama SVG novo, avise explicitamente onde cada arquivo foi tocado/criado (mudança de código, não só de conteúdo).
+Crie os arquivos SVG dos diagramas (Write em `apps/blog/public/images/`) junto com o post e valide o XML de cada um antes de entregar. Liste no resumo final cada SVG criado. Se criar categoria nova, avise explicitamente onde cada arquivo foi tocado (mudança de código, não só de conteúdo).

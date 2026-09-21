@@ -1,0 +1,66 @@
+<svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect width="800" height="440" fill="#0a0a0f"/>
+
+  <text x="400" y="36" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Onde e quando o HTML é gerado</text>
+  <text x="400" y="58" text-anchor="middle" fill="#888898" font-size="12">a célula em destaque é o momento em que a página vira HTML</text>
+
+  <!-- Column headers -->
+  <text x="285" y="100" text-anchor="middle" fill="#888898" font-size="11" font-weight="700">NO BUILD</text>
+  <text x="465" y="100" text-anchor="middle" fill="#888898" font-size="11" font-weight="700">NA REQUISIÇÃO</text>
+  <text x="645" y="100" text-anchor="middle" fill="#888898" font-size="11" font-weight="700">NO NAVEGADOR</text>
+  <line x1="40" y1="112" x2="760" y2="112" stroke="#ffffff14"/>
+
+  <!-- Row labels -->
+  <text x="40" y="156" fill="#f0efe8" font-size="16" font-weight="700">CSR</text>
+  <text x="40" y="174" fill="#888898" font-size="10">Client-Side Rendering</text>
+  <text x="40" y="236" fill="#f0efe8" font-size="16" font-weight="700">SSR</text>
+  <text x="40" y="254" fill="#888898" font-size="10">Server-Side Rendering</text>
+  <text x="40" y="316" fill="#f0efe8" font-size="16" font-weight="700">SSG</text>
+  <text x="40" y="334" fill="#888898" font-size="10">Static Site Generation</text>
+  <text x="40" y="396" fill="#f0efe8" font-size="16" font-weight="700">ISR</text>
+  <text x="40" y="414" fill="#888898" font-size="10">Incremental Static Regeneration</text>
+
+  <!-- ROW CSR (y 128) -->
+  <rect x="200" y="128" width="170" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="285" y="152" text-anchor="middle" fill="#888898" font-size="11">gera o bundle JS</text>
+  <rect x="380" y="128" width="170" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="465" y="152" text-anchor="middle" fill="#888898" font-size="11">entrega HTML vazio</text>
+  <text x="465" y="168" text-anchor="middle" fill="#888898" font-size="11">e o JS</text>
+  <rect x="560" y="128" width="170" height="56" rx="12" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="645" y="152" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">busca dados e</text>
+  <text x="645" y="168" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">monta o HTML</text>
+
+  <!-- ROW SSR (y 208) -->
+  <rect x="200" y="208" width="170" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="285" y="232" text-anchor="middle" fill="#888898" font-size="11">gera o código</text>
+  <text x="285" y="248" text-anchor="middle" fill="#888898" font-size="11">do servidor</text>
+  <rect x="380" y="208" width="170" height="56" rx="12" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="465" y="232" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">monta o HTML a</text>
+  <text x="465" y="248" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">cada requisição</text>
+  <rect x="560" y="208" width="170" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="645" y="232" text-anchor="middle" fill="#888898" font-size="11">exibe o HTML e</text>
+  <text x="645" y="248" text-anchor="middle" fill="#888898" font-size="11">hidrata</text>
+
+  <!-- ROW SSG (y 288) -->
+  <rect x="200" y="288" width="170" height="56" rx="12" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="285" y="312" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">gera o HTML de</text>
+  <text x="285" y="328" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">todas as páginas</text>
+  <rect x="380" y="288" width="170" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="465" y="312" text-anchor="middle" fill="#888898" font-size="11">a CDN entrega o</text>
+  <text x="465" y="328" text-anchor="middle" fill="#888898" font-size="11">arquivo pronto</text>
+  <rect x="560" y="288" width="170" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="645" y="312" text-anchor="middle" fill="#888898" font-size="11">exibe o HTML e</text>
+  <text x="645" y="328" text-anchor="middle" fill="#888898" font-size="11">hidrata</text>
+
+  <!-- ROW ISR (y 368) -->
+  <rect x="200" y="368" width="170" height="56" rx="12" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="285" y="392" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">gera o HTML</text>
+  <text x="285" y="408" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">inicial</text>
+  <rect x="380" y="368" width="170" height="56" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="465" y="388" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">entrega o cache e</text>
+  <text x="465" y="403" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">regenera em segundo</text>
+  <text x="465" y="418" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">plano se venceu</text>
+  <rect x="560" y="368" width="170" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="645" y="392" text-anchor="middle" fill="#888898" font-size="11">exibe o HTML e</text>
+  <text x="645" y="408" text-anchor="middle" fill="#888898" font-size="11">hidrata</text>
+</svg>

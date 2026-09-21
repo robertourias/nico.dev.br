@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="t d" font-family="Inter, system-ui, sans-serif">
+  <title id="t">Fluxo de login com MFA em duas etapas</title>
+  <desc id="d">Sequência entre usuário, Next.js e NestJS: login com senha retorna um mfaToken de escopo restrito; a verificação do código TOTP emite os tokens de sessão, gravados em cookies httpOnly.</desc>
+  <rect width="800" height="520" fill="#ffffff"/>
+
+  <!-- atores -->
+  <g font-size="14" font-weight="700" fill="#0f172a" text-anchor="middle">
+    <rect x="60" y="20" width="140" height="40" rx="8" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="130" y="45">Usuário</text>
+    <rect x="330" y="20" width="140" height="40" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+    <text x="400" y="45">Next.js</text>
+    <rect x="600" y="20" width="140" height="40" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+    <text x="670" y="45">NestJS</text>
+  </g>
+
+  <!-- lifelines -->
+  <g stroke="#64748b" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="130" y1="60" x2="130" y2="500"/>
+    <line x1="400" y1="60" x2="400" y2="500"/>
+    <line x1="670" y1="60" x2="670" y2="500"/>
+  </g>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#0f172a"/>
+    </marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- 1 -->
+  <line x1="130" y1="100" x2="398" y2="100" stroke="#0f172a" stroke-width="1.8" marker-end="url(#a)"/>
+  <text x="264" y="92" font-size="12" text-anchor="middle" fill="#0f172a">1. e-mail + senha</text>
+
+  <!-- 2 -->
+  <line x1="400" y1="140" x2="668" y2="140" stroke="#0f172a" stroke-width="1.8" marker-end="url(#a)"/>
+  <text x="534" y="132" font-size="12" text-anchor="middle" fill="#0f172a">2. POST /auth/login</text>
+
+  <!-- 3 -->
+  <line x1="668" y1="185" x2="402" y2="185" stroke="#64748b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#b)"/>
+  <text x="534" y="177" font-size="12" text-anchor="middle" fill="#0f172a">3. { mfaRequired, mfaToken }</text>
+  <text x="534" y="201" font-size="11" text-anchor="middle" fill="#b45309">JWT scope "mfa", 5 min</text>
+
+  <!-- 4 -->
+  <line x1="398" y1="240" x2="132" y2="240" stroke="#64748b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#b)"/>
+  <text x="264" y="232" font-size="12" text-anchor="middle" fill="#0f172a">4. pede o código de 6 dígitos</text>
+
+  <!-- 5 -->
+  <line x1="130" y1="290" x2="398" y2="290" stroke="#0f172a" stroke-width="1.8" marker-end="url(#a)"/>
+  <text x="264" y="282" font-size="12" text-anchor="middle" fill="#0f172a">5. código do app autenticador</text>
+
+  <!-- 6 -->
+  <line x1="400" y1="335" x2="668" y2="335" stroke="#0f172a" stroke-width="1.8" marker-end="url(#a)"/>
+  <text x="534" y="327" font-size="12" text-anchor="middle" fill="#0f172a">6. POST /auth/mfa/verify</text>
+  <text x="534" y="351" font-size="11" text-anchor="middle" fill="#64748b">{ mfaToken, code }</text>
+
+  <!-- validação -->
+  <rect x="590" y="368" width="160" height="44" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="670" y="387" font-size="11" text-anchor="middle" fill="#0f766e" font-weight="600">valida escopo, código,</text>
+  <text x="670" y="402" font-size="11" text-anchor="middle" fill="#0f766e" font-weight="600">rate limit e replay</text>
+
+  <!-- 7 -->
+  <line x1="668" y1="440" x2="402" y2="440" stroke="#64748b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#b)"/>
+  <text x="534" y="432" font-size="12" text-anchor="middle" fill="#0f172a">7. access + refresh tokens</text>
+
+  <!-- 8 -->
+  <path d="M400 468 h50 v22 h-50" stroke="#0f172a" stroke-width="1.8" fill="none" marker-end="url(#a)"/>
+  <text x="462" y="484" font-size="12" fill="#0f172a">8. cookies httpOnly</text>
+</svg>
