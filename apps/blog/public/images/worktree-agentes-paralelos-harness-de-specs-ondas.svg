@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 470" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="wv-arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+    <marker id="wv-arr-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/>
+    </marker>
+    <marker id="wv-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="470" fill="#0a0a0f"/>
+  <text x="450" y="40" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Harness: da spec às ondas, um worktree por tarefa</text>
+
+  <!-- Spec -->
+  <rect x="30" y="150" width="130" height="110" rx="12" fill="#111118" stroke="#e8c547"/>
+  <text x="95" y="176" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Spec</text>
+  <text x="95" y="198" text-anchor="middle" font-size="11" fill="#e8c547">Status: approved</text>
+  <text x="95" y="218" text-anchor="middle" font-size="11" fill="#888898">Depende de:</text>
+  <text x="95" y="236" text-anchor="middle" font-size="11" fill="#888898">Paralelizável com:</text>
+
+  <line x1="162" y1="205" x2="198" y2="205" stroke="#888898" stroke-width="1.5" marker-end="url(#wv-arr-g)"/>
+
+  <!-- Orquestrador -->
+  <rect x="200" y="150" width="120" height="110" rx="12" fill="#111118" stroke="#7b61ff"/>
+  <text x="260" y="176" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">Orquestrador</text>
+  <text x="260" y="198" text-anchor="middle" font-size="11" fill="#888898">resolve as ondas</text>
+  <text x="260" y="216" text-anchor="middle" font-size="11" fill="#888898">cria worktrees</text>
+  <text x="260" y="234" text-anchor="middle" font-size="11" fill="#888898">dispara agentes</text>
+
+  <line x1="322" y1="205" x2="378" y2="205" stroke="#888898" stroke-width="1.5" marker-end="url(#wv-arr-g)"/>
+
+  <!-- Onda 1 -->
+  <text x="440" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">Onda 1</text>
+  <rect x="380" y="130" width="120" height="170" rx="12" fill="none" stroke="#ffffff14" stroke-dasharray="5 4"/>
+  <rect x="390" y="180" width="100" height="52" rx="10" fill="#111118" stroke="#7b61ff"/>
+  <text x="440" y="203" text-anchor="middle" font-size="11" fill="#f0efe8">T1 · backend</text>
+  <text x="440" y="220" text-anchor="middle" font-size="10" fill="#888898">wt-t1</text>
+
+  <line x1="502" y1="205" x2="558" y2="205" stroke="#888898" stroke-width="1.5" marker-end="url(#wv-arr-g)"/>
+
+  <!-- Onda 2 -->
+  <text x="620" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">Onda 2</text>
+  <rect x="560" y="130" width="120" height="170" rx="12" fill="none" stroke="#ffffff14" stroke-dasharray="5 4"/>
+  <rect x="570" y="144" width="100" height="52" rx="10" fill="#111118" stroke="#7b61ff"/>
+  <text x="620" y="167" text-anchor="middle" font-size="11" fill="#f0efe8">T2 · backend</text>
+  <text x="620" y="184" text-anchor="middle" font-size="10" fill="#888898">wt-t2</text>
+  <rect x="570" y="230" width="100" height="52" rx="10" fill="#111118" stroke="#7b61ff"/>
+  <text x="620" y="253" text-anchor="middle" font-size="11" fill="#f0efe8">T3 · frontend</text>
+  <text x="620" y="270" text-anchor="middle" font-size="10" fill="#888898">wt-t3</text>
+
+  <line x1="682" y1="205" x2="738" y2="205" stroke="#888898" stroke-width="1.5" marker-end="url(#wv-arr-g)"/>
+
+  <!-- Onda 3 -->
+  <text x="800" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">Onda 3</text>
+  <rect x="740" y="130" width="120" height="170" rx="12" fill="none" stroke="#ffffff14" stroke-dasharray="5 4"/>
+  <rect x="750" y="180" width="100" height="52" rx="10" fill="#111118" stroke="#7b61ff"/>
+  <text x="800" y="203" text-anchor="middle" font-size="11" fill="#f0efe8">T4 · frontend</text>
+  <text x="800" y="220" text-anchor="middle" font-size="10" fill="#888898">wt-t4</text>
+
+  <!-- Merges -->
+  <line x1="440" y1="302" x2="440" y2="374" stroke="#e8c547" stroke-width="1.5" marker-end="url(#wv-arr-y)"/>
+  <line x1="620" y1="302" x2="620" y2="374" stroke="#e8c547" stroke-width="1.5" marker-end="url(#wv-arr-y)"/>
+  <line x1="800" y1="302" x2="800" y2="374" stroke="#e8c547" stroke-width="1.5" marker-end="url(#wv-arr-y)"/>
+  <text x="448" y="344" font-size="10" fill="#e8c547" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">merge + testes</text>
+  <text x="628" y="344" font-size="10" fill="#e8c547" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">merge + testes</text>
+  <text x="808" y="344" font-size="10" fill="#e8c547" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">merge + testes</text>
+
+  <rect x="380" y="378" width="480" height="40" rx="10" fill="#111118" stroke="#0f766e"/>
+  <text x="620" y="403" text-anchor="middle" font-size="12" fill="#2dd4bf">branch da feature (integração)</text>
+
+  <text x="450" y="449" text-anchor="middle" font-size="11" fill="#888898">cada onda nasce da branch já integrada; falha em qualquer tarefa para a onda</text>
+</svg>
