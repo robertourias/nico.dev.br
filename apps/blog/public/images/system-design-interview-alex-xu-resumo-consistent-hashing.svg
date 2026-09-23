@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect width="760" height="480" fill="#0a0a0f"/>
+  <text x="380" y="34" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Consistent hashing: o anel</text>
+  <text x="380" y="54" text-anchor="middle" fill="#888898" font-size="12">cada chave vai para o primeiro nó no sentido horário</text>
+
+  <circle cx="380" cy="270" r="170" fill="none" stroke="#ffffff14" stroke-width="2"/>
+
+  <!-- nodes on ring (virtual nodes) -->
+  <circle cx="380" cy="100" r="9" fill="#e8c547"/>
+  <text x="380" y="84" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">Nó A</text>
+
+  <circle cx="530" cy="180" r="9" fill="#7b61ff"/>
+  <text x="560" y="176" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">Nó B</text>
+
+  <circle cx="530" cy="360" r="9" fill="#0f766e"/>
+  <text x="565" y="378" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">Nó C</text>
+
+  <circle cx="230" cy="360" r="9" fill="#e8c547"/>
+  <text x="195" y="378" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">Nó A (virtual)</text>
+
+  <circle cx="230" cy="180" r="9" fill="#7b61ff"/>
+  <text x="195" y="176" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">Nó B (virtual)</text>
+
+  <!-- key hashed and pointing to next node clockwise -->
+  <circle cx="440" cy="130" r="6" fill="#f0efe8"/>
+  <text x="470" y="120" text-anchor="middle" fill="#f0efe8" font-size="10">chave "user:42"</text>
+  <path d="M440,130 A170,170 0 0,1 380,100" fill="none" stroke="#f0efe8" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="440" y="150" text-anchor="middle" fill="#888898" font-size="10">vai para o próximo nó</text>
+  <text x="440" y="164" text-anchor="middle" fill="#888898" font-size="10">no sentido horário: A</text>
+
+  <rect x="270" y="440" width="220" height="34" rx="10" fill="#111118" stroke="#ffffff14"/>
+  <text x="380" y="462" text-anchor="middle" fill="#888898" font-size="11">nós virtuais evitam distribuição desigual</text>
+</svg>

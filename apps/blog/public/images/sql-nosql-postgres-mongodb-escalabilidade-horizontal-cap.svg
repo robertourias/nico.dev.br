@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="cap-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e8c547"/>
+    </marker>
+    <marker id="cap-arr-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7b61ff"/>
+    </marker>
+  </defs>
+  <rect width="760" height="470" fill="#0a0a0f"/>
+  <text x="380" y="34" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Teorema CAP: a rede sempre pode particionar</text>
+  <text x="380" y="54" text-anchor="middle" fill="#888898" font-size="12">P é dado num sistema distribuído — a escolha real é entre C e A</text>
+
+  <!-- triangle -->
+  <polygon points="380,90 150,360 610,360" fill="none" stroke="#ffffff14" stroke-width="1.5"/>
+
+  <!-- vertices -->
+  <circle cx="380" cy="90" r="7" fill="#e8c547"/>
+  <text x="380" y="72" text-anchor="middle" fill="#f0efe8" font-size="14" font-weight="700">Consistência (C)</text>
+
+  <circle cx="150" cy="360" r="7" fill="#e8c547"/>
+  <text x="150" y="390" text-anchor="middle" fill="#f0efe8" font-size="14" font-weight="700">Disponibilidade (A)</text>
+
+  <circle cx="610" cy="360" r="7" fill="#e8c547"/>
+  <text x="610" y="390" text-anchor="middle" fill="#f0efe8" font-size="14" font-weight="700">Partição (P)</text>
+
+  <!-- edge labels -->
+  <text x="240" y="215" fill="#888898" font-size="12" font-weight="700" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">CA</text>
+  <text x="500" y="215" fill="#888898" font-size="12" font-weight="700" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">CP</text>
+  <text x="380" y="378" text-anchor="middle" fill="#888898" font-size="12" font-weight="700">AP</text>
+
+  <!-- Postgres note near CA edge -->
+  <rect x="20" y="150" width="200" height="66" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="120" y="172" text-anchor="middle" fill="#e8c547" font-size="12" font-weight="700">Postgres (nó único)</text>
+  <text x="120" y="190" text-anchor="middle" fill="#888898" font-size="11">CA por padrão —</text>
+  <text x="120" y="205" text-anchor="middle" fill="#888898" font-size="11">não enfrenta partição real</text>
+  <line x1="140" y1="150" x2="230" y2="120" stroke="#e8c547" stroke-width="1.5" marker-end="url(#cap-arr-y)"/>
+
+  <!-- MongoDB note near CP edge -->
+  <rect x="540" y="150" width="200" height="82" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="640" y="172" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="700">MongoDB (padrão)</text>
+  <text x="640" y="190" text-anchor="middle" fill="#888898" font-size="11">prioriza C ao particionar,</text>
+  <text x="640" y="205" text-anchor="middle" fill="#888898" font-size="11">readPreference tunável</text>
+  <text x="640" y="220" text-anchor="middle" fill="#888898" font-size="11">aproxima de A</text>
+  <line x1="560" y1="180" x2="500" y2="150" stroke="#7b61ff" stroke-width="1.5" marker-end="url(#cap-arr-p)"/>
+
+  <text x="380" y="440" text-anchor="middle" fill="#888898" font-size="11">durante um particionamento, cada nó escolhe: responder (A) ou recusar (C)</text>
+</svg>

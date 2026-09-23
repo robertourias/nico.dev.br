@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="nf-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e8c547"/>
+    </marker>
+    <marker id="nf-arr-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7b61ff"/>
+    </marker>
+  </defs>
+  <rect width="900" height="400" fill="#0a0a0f"/>
+  <text x="450" y="34" text-anchor="middle" fill="#f0efe8" font-size="20" font-weight="700">Feed de notícias: quando pré-computar, quando calcular na hora</text>
+
+  <!-- left: fanout on write -->
+  <rect x="30" y="60" width="400" height="310" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="230" y="88" text-anchor="middle" fill="#e8c547" font-size="13" font-weight="700">Fanout on write (push)</text>
+
+  <rect x="150" y="104" width="160" height="36" rx="10" fill="#0a0a0f" stroke="#e8c547"/>
+  <text x="230" y="127" text-anchor="middle" fill="#f0efe8" font-size="11">usuário posta</text>
+
+  <line x1="180" y1="140" x2="120" y2="176" stroke="#e8c547" stroke-width="1.5" marker-end="url(#nf-arr-y)"/>
+  <line x1="230" y1="140" x2="230" y2="176" stroke="#e8c547" stroke-width="1.5" marker-end="url(#nf-arr-y)"/>
+  <line x1="280" y1="140" x2="340" y2="176" stroke="#e8c547" stroke-width="1.5" marker-end="url(#nf-arr-y)"/>
+  <text x="230" y="160" text-anchor="middle" fill="#888898" font-size="10">grava no feed pré-computado de cada seguidor, na hora do post</text>
+
+  <rect x="60" y="180" width="110" height="36" rx="8" fill="#0a0a0f" stroke="#ffffff14"/>
+  <text x="115" y="203" text-anchor="middle" fill="#888898" font-size="10">feed seguidor 1</text>
+  <rect x="175" y="180" width="110" height="36" rx="8" fill="#0a0a0f" stroke="#ffffff14"/>
+  <text x="230" y="203" text-anchor="middle" fill="#888898" font-size="10">feed seguidor 2</text>
+  <rect x="290" y="180" width="110" height="36" rx="8" fill="#0a0a0f" stroke="#ffffff14"/>
+  <text x="345" y="203" text-anchor="middle" fill="#888898" font-size="10">feed seguidor N</text>
+
+  <text x="230" y="248" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">leitura instantânea:</text>
+  <text x="230" y="264" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">o feed já está pronto</text>
+
+  <text x="230" y="296" text-anchor="middle" fill="#888898" font-size="11">custa caro com celebridade:</text>
+  <text x="230" y="312" text-anchor="middle" fill="#888898" font-size="11">1 post = milhões de escritas</text>
+  <text x="230" y="328" text-anchor="middle" fill="#888898" font-size="11">("problema hotkey")</text>
+
+  <text x="230" y="354" text-anchor="middle" fill="#e8c547" font-size="11" font-weight="700">bom quando: poucos seguidores</text>
+
+  <!-- right: fanout on read -->
+  <rect x="470" y="60" width="400" height="310" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="670" y="88" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">Fanout on read (pull)</text>
+
+  <rect x="590" y="104" width="160" height="36" rx="10" fill="#0a0a0f" stroke="#7b61ff"/>
+  <text x="670" y="127" text-anchor="middle" fill="#f0efe8" font-size="11">usuário abre o feed</text>
+
+  <line x1="620" y1="140" x2="560" y2="176" stroke="#7b61ff" stroke-width="1.5" marker-end="url(#nf-arr-p)"/>
+  <line x1="670" y1="140" x2="670" y2="176" stroke="#7b61ff" stroke-width="1.5" marker-end="url(#nf-arr-p)"/>
+  <line x1="720" y1="140" x2="780" y2="176" stroke="#7b61ff" stroke-width="1.5" marker-end="url(#nf-arr-p)"/>
+  <text x="670" y="160" text-anchor="middle" fill="#888898" font-size="10">busca posts de quem ele segue e monta o feed na hora</text>
+
+  <rect x="500" y="180" width="110" height="36" rx="8" fill="#0a0a0f" stroke="#ffffff14"/>
+  <text x="555" y="203" text-anchor="middle" fill="#888898" font-size="10">posts de A</text>
+  <rect x="615" y="180" width="110" height="36" rx="8" fill="#0a0a0f" stroke="#ffffff14"/>
+  <text x="670" y="203" text-anchor="middle" fill="#888898" font-size="10">posts de B</text>
+  <rect x="730" y="180" width="110" height="36" rx="8" fill="#0a0a0f" stroke="#ffffff14"/>
+  <text x="785" y="203" text-anchor="middle" fill="#888898" font-size="10">posts de C</text>
+
+  <text x="670" y="248" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">escrita barata:</text>
+  <text x="670" y="264" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="700">post grava 1 vez só</text>
+
+  <text x="670" y="296" text-anchor="middle" fill="#888898" font-size="11">leitura cara: agrega N fontes</text>
+  <text x="670" y="312" text-anchor="middle" fill="#888898" font-size="11">toda vez que o feed abre</text>
+
+  <text x="670" y="354" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">bom quando: muitos seguidores</text>
+
+  <text x="450" y="392" text-anchor="middle" fill="#888898" font-size="11">solução real de produção: híbrida — push para a maioria, pull só para contas com muitos seguidores</text>
+</svg>
