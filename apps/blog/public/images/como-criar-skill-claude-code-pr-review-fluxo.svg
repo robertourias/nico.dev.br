@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="fl-arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+    <marker id="fl-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="330" fill="#0a0a0f"/>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Fluxo da skill pr-review</text>
+  <text x="450" y="54" text-anchor="middle" font-size="12" fill="#888898">revisão em dois estágios, com parada no primeiro bloqueio</text>
+
+  <rect x="20" y="120" width="120" height="80" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="80" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Entrada</text>
+  <text x="80" y="174" text-anchor="middle" font-size="11" fill="#888898">/pr-review 123</text>
+
+  <line x1="142" y1="160" x2="168" y2="160" stroke="#888898" stroke-width="1.5" marker-end="url(#fl-arr-g)"/>
+
+  <rect x="170" y="120" width="130" height="80" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="235" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Coletar</text>
+  <text x="235" y="166" text-anchor="middle" font-size="11" fill="#888898">gh pr view, diff</text>
+  <text x="235" y="182" text-anchor="middle" font-size="11" fill="#888898">e arquivos tocados</text>
+
+  <line x1="302" y1="160" x2="328" y2="160" stroke="#888898" stroke-width="1.5" marker-end="url(#fl-arr-g)"/>
+
+  <rect x="330" y="120" width="140" height="80" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="400" y="142" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">Estágio 1</text>
+  <text x="400" y="160" text-anchor="middle" font-size="11" fill="#888898">requisito, lógica,</text>
+  <text x="400" y="176" text-anchor="middle" font-size="11" fill="#888898">segurança, testes,</text>
+  <text x="400" y="192" text-anchor="middle" font-size="11" fill="#888898">migrations</text>
+
+  <line x1="472" y1="160" x2="498" y2="160" stroke="#888898" stroke-width="1.5" marker-end="url(#fl-arr-g)"/>
+
+  <polygon points="555,108 612,160 555,212 498,160" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="555" y="165" text-anchor="middle" font-size="11" font-weight="700" fill="#e8c547">BLOCKER?</text>
+
+  <line x1="614" y1="160" x2="638" y2="160" stroke="#888898" stroke-width="1.5" marker-end="url(#fl-arr-g)"/>
+  <text x="626" y="148" text-anchor="middle" font-size="10" fill="#888898">não</text>
+
+  <rect x="640" y="120" width="110" height="80" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="695" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">Estágio 2</text>
+  <text x="695" y="166" text-anchor="middle" font-size="11" fill="#888898">qualidade e</text>
+  <text x="695" y="182" text-anchor="middle" font-size="11" fill="#888898">convenções</text>
+
+  <line x1="752" y1="160" x2="778" y2="160" stroke="#888898" stroke-width="1.5" marker-end="url(#fl-arr-g)"/>
+
+  <rect x="780" y="120" width="100" height="80" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="830" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#2dd4bf">Veredito</text>
+  <text x="830" y="174" text-anchor="middle" font-size="11" fill="#888898">+ lista de issues</text>
+
+  <path d="M555,212 L555,262 L830,262 L830,202" fill="none" stroke="#e8c547" stroke-width="1.5" marker-end="url(#fl-arr-y)"/>
+  <text x="692" y="254" text-anchor="middle" font-size="11" fill="#e8c547" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">sim: encerra, sem Estágio 2</text>
+
+  <text x="450" y="304" text-anchor="middle" font-size="11" fill="#888898">a skill só lê e comenta no terminal; postar comentário no PR é um passo separado, com confirmação</text>
+</svg>

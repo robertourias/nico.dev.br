@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 370" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="an-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="370" fill="#0a0a0f"/>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Anatomia de uma skill e o que entra no contexto</text>
+  <text x="450" y="54" text-anchor="middle" font-size="12" fill="#888898">o custo de contexto cresce só à medida que a skill é realmente usada</text>
+
+  <!-- pasta -->
+  <rect x="30" y="80" width="340" height="250" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="50" y="112" font-size="12" font-weight="700" fill="#e8c547">.claude/skills/</text>
+  <text x="60" y="146" font-size="13" font-weight="700" fill="#f0efe8">pr-review/</text>
+  <text x="80" y="184" font-size="12" fill="#f0efe8">SKILL.md</text>
+  <text x="180" y="184" font-size="10" fill="#888898">frontmatter + passos</text>
+  <text x="80" y="222" font-size="12" fill="#f0efe8">checklist.md</text>
+  <text x="180" y="222" font-size="10" fill="#888898">critérios de revisão</text>
+  <text x="80" y="260" font-size="12" fill="#f0efe8">exemplos/</text>
+  <text x="180" y="260" font-size="10" fill="#888898">saídas de referência</text>
+  <text x="50" y="306" font-size="10" fill="#888898">uma pasta por skill; o nome da pasta vira o comando</text>
+
+  <!-- niveis -->
+  <rect x="430" y="80" width="440" height="66" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="650" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">1 · Sempre carregado</text>
+  <text x="650" y="128" text-anchor="middle" font-size="11" fill="#888898">name + description: o agente decide por aqui se a skill serve</text>
+
+  <line x1="650" y1="148" x2="650" y2="176" stroke="#888898" stroke-width="1.5" marker-end="url(#an-arr)"/>
+
+  <rect x="430" y="178" width="440" height="66" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="650" y="204" text-anchor="middle" font-size="13" font-weight="700" fill="#a78bfa">2 · Ao acionar</text>
+  <text x="650" y="226" text-anchor="middle" font-size="11" fill="#888898">o corpo do SKILL.md entra no contexto</text>
+
+  <line x1="650" y1="246" x2="650" y2="274" stroke="#888898" stroke-width="1.5" marker-end="url(#an-arr)"/>
+
+  <rect x="430" y="276" width="440" height="54" rx="12" fill="#111118" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="650" y="300" text-anchor="middle" font-size="13" font-weight="700" fill="#2dd4bf">3 · Sob demanda</text>
+  <text x="650" y="318" text-anchor="middle" font-size="11" fill="#888898">checklist.md e exemplos/ só quando um passo mandar ler</text>
+
+  <text x="450" y="356" text-anchor="middle" font-size="11" fill="#888898">description vaga = skill que nunca dispara; description que cobre tudo = skill que dispara sem parar</text>
+</svg>
