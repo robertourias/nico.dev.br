@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 340" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="et-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="940" height="340" fill="#0a0a0f"/>
+  <text x="470" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">As etapas do RAG e onde ajustar cada uma</text>
+
+  <!-- lane 1 -->
+  <text x="30" y="70" font-size="12" font-weight="700" fill="#888898">INDEXAÇÃO — roda quando os documentos mudam</text>
+
+  <rect x="30" y="82" width="190" height="64" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="125" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Carregar e limpar</text>
+  <text x="125" y="128" text-anchor="middle" font-size="11" fill="#888898">md, pdf, html → texto</text>
+  <line x1="222" y1="114" x2="258" y2="114" stroke="#888898" stroke-width="1.5" marker-end="url(#et-arr)"/>
+
+  <rect x="260" y="82" width="190" height="64" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="355" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#e8c547">Chunking</text>
+  <text x="355" y="128" text-anchor="middle" font-size="11" fill="#888898">quebrar em trechos</text>
+  <line x1="452" y1="114" x2="488" y2="114" stroke="#888898" stroke-width="1.5" marker-end="url(#et-arr)"/>
+
+  <rect x="490" y="82" width="190" height="64" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="585" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">Embeddings</text>
+  <text x="585" y="128" text-anchor="middle" font-size="11" fill="#888898">texto → vetor</text>
+  <line x1="682" y1="114" x2="718" y2="114" stroke="#888898" stroke-width="1.5" marker-end="url(#et-arr)"/>
+
+  <rect x="720" y="82" width="190" height="64" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="815" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Índice</text>
+  <text x="815" y="128" text-anchor="middle" font-size="11" fill="#888898">vetores + metadados</text>
+
+  <text x="125" y="166" text-anchor="middle" font-size="10" fill="#888898">ajuste: limpeza de ruído</text>
+  <text x="355" y="166" text-anchor="middle" font-size="10" fill="#888898">ajuste: tamanho e overlap</text>
+  <text x="585" y="166" text-anchor="middle" font-size="10" fill="#888898">ajuste: modelo e idioma</text>
+  <text x="815" y="166" text-anchor="middle" font-size="10" fill="#888898">ajuste: metadados p/ filtro</text>
+
+  <!-- lane 2 -->
+  <text x="30" y="212" font-size="12" font-weight="700" fill="#888898">CONSULTA — roda a cada pergunta</text>
+
+  <rect x="30" y="224" width="190" height="64" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="125" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Pergunta</text>
+  <text x="125" y="270" text-anchor="middle" font-size="11" fill="#888898">linguagem natural</text>
+  <line x1="222" y1="256" x2="258" y2="256" stroke="#888898" stroke-width="1.5" marker-end="url(#et-arr)"/>
+
+  <rect x="260" y="224" width="190" height="64" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="355" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">Embedding da pergunta</text>
+  <text x="355" y="270" text-anchor="middle" font-size="11" fill="#888898">mesmo modelo da indexação</text>
+  <line x1="452" y1="256" x2="488" y2="256" stroke="#888898" stroke-width="1.5" marker-end="url(#et-arr)"/>
+
+  <rect x="490" y="224" width="190" height="64" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="585" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#2dd4bf">Busca top-k</text>
+  <text x="585" y="270" text-anchor="middle" font-size="11" fill="#888898">similaridade (+ rerank)</text>
+  <line x1="682" y1="256" x2="718" y2="256" stroke="#888898" stroke-width="1.5" marker-end="url(#et-arr)"/>
+
+  <rect x="720" y="224" width="190" height="64" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="815" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">LLM</text>
+  <text x="815" y="270" text-anchor="middle" font-size="11" fill="#888898">responde com o contexto</text>
+
+  <text x="355" y="308" text-anchor="middle" font-size="10" fill="#888898">ajuste: igual à indexação</text>
+  <text x="585" y="308" text-anchor="middle" font-size="10" fill="#888898">ajuste: k, limiar, busca híbrida</text>
+  <text x="815" y="308" text-anchor="middle" font-size="10" fill="#888898">ajuste: instrução do prompt</text>
+
+  <text x="470" y="330" text-anchor="middle" font-size="11" fill="#888898">a busca lê o mesmo índice que a indexação escreve</text>
+</svg>

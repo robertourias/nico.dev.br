@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 390" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect x="0" y="0" width="900" height="390" fill="#0a0a0f"/>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Chunking: onde cortar o documento</text>
+
+  <!-- documento -->
+  <text x="40" y="68" font-size="11" fill="#888898">documento original</text>
+  <rect x="40" y="76" width="100" height="34" rx="8" fill="#111118" stroke="#ffffff14"/>
+  <text x="90" y="98" text-anchor="middle" font-size="10" fill="#f0efe8"># Título</text>
+  <rect x="144" y="76" width="200" height="34" rx="8" fill="#111118" stroke="#ffffff14"/>
+  <text x="244" y="98" text-anchor="middle" font-size="10" fill="#888898">parágrafo A</text>
+  <rect x="348" y="76" width="100" height="34" rx="8" fill="#111118" stroke="#ffffff14"/>
+  <text x="398" y="98" text-anchor="middle" font-size="10" fill="#f0efe8">## Seção</text>
+  <rect x="452" y="76" width="220" height="34" rx="8" fill="#111118" stroke="#ffffff14"/>
+  <text x="562" y="98" text-anchor="middle" font-size="10" fill="#888898">parágrafo B</text>
+  <rect x="676" y="76" width="190" height="34" rx="8" fill="#111118" stroke="#ffffff14"/>
+  <text x="771" y="98" text-anchor="middle" font-size="10" fill="#888898">parágrafo C</text>
+
+  <!-- estrategia 1 -->
+  <text x="40" y="146" font-size="13" font-weight="700" fill="#e8c547">Tamanho fixo com overlap</text>
+  <rect x="40" y="156" width="330" height="28" rx="8" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547"/>
+  <text x="205" y="175" text-anchor="middle" font-size="10" fill="#e8c547">chunk 1</text>
+  <rect x="300" y="190" width="330" height="28" rx="8" fill="#7b61ff" fill-opacity="0.12" stroke="#7b61ff"/>
+  <text x="465" y="209" text-anchor="middle" font-size="10" fill="#a78bfa">chunk 2</text>
+  <rect x="560" y="224" width="306" height="28" rx="8" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e"/>
+  <text x="713" y="243" text-anchor="middle" font-size="10" fill="#2dd4bf">chunk 3</text>
+  <text x="40" y="274" font-size="11" fill="#888898">o overlap repete o fim do trecho anterior; o corte pode cair no meio de uma ideia</text>
+
+  <!-- estrategia 2 -->
+  <text x="40" y="310" font-size="13" font-weight="700" fill="#2dd4bf">Por estrutura (cabeçalhos e parágrafos)</text>
+  <rect x="40" y="320" width="304" height="28" rx="8" fill="#e8c547" fill-opacity="0.12" stroke="#e8c547"/>
+  <text x="192" y="339" text-anchor="middle" font-size="10" fill="#e8c547">chunk 1: título + A</text>
+  <rect x="348" y="320" width="324" height="28" rx="8" fill="#7b61ff" fill-opacity="0.12" stroke="#7b61ff"/>
+  <text x="510" y="339" text-anchor="middle" font-size="10" fill="#a78bfa">chunk 2: seção + B</text>
+  <rect x="676" y="320" width="190" height="28" rx="8" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e"/>
+  <text x="771" y="339" text-anchor="middle" font-size="10" fill="#2dd4bf">chunk 3: C</text>
+  <text x="40" y="372" font-size="11" fill="#888898">respeita as ideias do texto; em troca, os chunks saem com tamanhos desiguais</text>
+</svg>

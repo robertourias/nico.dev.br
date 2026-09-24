@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect x="0" y="0" width="920" height="340" fill="#0a0a0f"/>
+  <text x="460" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Trilha de onboarding de um novo membro</text>
+  <text x="460" y="52" text-anchor="middle" font-size="12" fill="#888898">o onboarding também é o teste da documentação do time</text>
+
+  <line x1="122" y1="92" x2="797" y2="92" stroke="#ffffff14" stroke-width="2"/>
+  <circle cx="122" cy="92" r="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="122" y="97" text-anchor="middle" font-size="12" font-weight="700" fill="#e8c547">1</text>
+  <circle cx="347" cy="92" r="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="347" y="97" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">2</text>
+  <circle cx="572" cy="92" r="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="572" y="97" text-anchor="middle" font-size="12" font-weight="700" fill="#e8c547">3</text>
+  <circle cx="797" cy="92" r="14" fill="#111118" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="797" y="97" text-anchor="middle" font-size="12" font-weight="700" fill="#2dd4bf">4</text>
+
+  <rect x="20" y="126" width="205" height="180" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="122" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Antes do dia 1</text>
+  <text x="122" y="180" text-anchor="middle" font-size="11" fill="#888898">acessos e ferramentas</text>
+  <text x="122" y="196" text-anchor="middle" font-size="11" fill="#888898">de IA aprovadas</text>
+  <text x="122" y="220" text-anchor="middle" font-size="11" fill="#888898">política de uso lida</text>
+  <text x="122" y="244" text-anchor="middle" font-size="11" fill="#888898">buddy definido</text>
+
+  <rect x="245" y="126" width="205" height="180" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="347" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#a78bfa">Primeiros dias</text>
+  <text x="347" y="180" text-anchor="middle" font-size="11" fill="#888898">ler o contexto do repo</text>
+  <text x="347" y="204" text-anchor="middle" font-size="11" fill="#888898">explorar com o agente,</text>
+  <text x="347" y="220" text-anchor="middle" font-size="11" fill="#888898">conferindo no código</text>
+  <text x="347" y="244" text-anchor="middle" font-size="11" fill="#888898">levar o que sobrou</text>
+  <text x="347" y="260" text-anchor="middle" font-size="11" fill="#888898">de dúvida ao buddy</text>
+
+  <rect x="470" y="126" width="205" height="180" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="572" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">Primeiro PR</text>
+  <text x="572" y="180" text-anchor="middle" font-size="11" fill="#888898">tarefa pequena,</text>
+  <text x="572" y="196" text-anchor="middle" font-size="11" fill="#888898">com spec curta</text>
+  <text x="572" y="220" text-anchor="middle" font-size="11" fill="#888898">explica o que foi</text>
+  <text x="572" y="236" text-anchor="middle" font-size="11" fill="#888898">gerado, linha a linha</text>
+  <text x="572" y="260" text-anchor="middle" font-size="11" fill="#888898">revisão em par</text>
+
+  <rect x="695" y="126" width="205" height="180" rx="14" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="797" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#2dd4bf">Devolver</text>
+  <text x="797" y="180" text-anchor="middle" font-size="11" fill="#888898">corrige na doc o que</text>
+  <text x="797" y="196" text-anchor="middle" font-size="11" fill="#888898">faltou ou confundiu</text>
+  <text x="797" y="220" text-anchor="middle" font-size="11" fill="#888898">propõe melhoria de</text>
+  <text x="797" y="236" text-anchor="middle" font-size="11" fill="#888898">fluxo ou de prompt</text>
+  <text x="797" y="260" text-anchor="middle" font-size="11" fill="#2dd4bf">olhar novo vira padrão</text>
+</svg>
