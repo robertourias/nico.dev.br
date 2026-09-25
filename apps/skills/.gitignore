@@ -1,3 +1,8 @@
 out/
 .next/
 public/registry.json
+# Conteúdo sincronizado do repo robertourias/skills (content:sync); nunca commitado.
+content/skills/*
+content/packs/*
+!content/skills/.gitkeep
+!content/packs/.gitkeep

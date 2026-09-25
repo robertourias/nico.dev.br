@@ -124,7 +124,7 @@ Fases: 1 MVP (registry, home, `/s/[slug]`, bloco skills.sh, deploy manual) → 2
 - **skills.sh:** Diretório externo; só lista uma skill depois que ela é instalada (telemetria anônima do CLI)
 
 ### Decisões em aberto
-- [ ] Idioma da `description` (PT, EN ou bilíngue): agentes usam esse campo para acionar a skill
+- [x] Idioma da `description`: inglês (decidido em 2026-09-25, alinhado ao `article-writer` do repo)
 - [ ] Confirmar se o CLI aceita `--skill <slug>`; senão a aba "Esta skill" usa o comando do repositório
 - [ ] Confirmar formato da URL do skills.sh para repos pessoais e recursos de [personalização](https://www.skills.sh/docs/customize)
 - [ ] Pasta na VPS: `/opt/docker/skills-catalog/` ou `/opt/docker/skills/`

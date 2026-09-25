@@ -164,6 +164,7 @@ module/
 - Skills com `metadata.visibility: hidden` ficam fora do build e do `registry.json`.
 - Comandos de instalação vêm de `installCommands` no `registry.json`, nunca montados no cliente.
 - Markdown renderizado com `react-markdown` + `rehype-highlight` + `rehype-sanitize`; busca client-side com Fuse.js.
+- **Conteúdo (2026-09-25):** skills e packs vivem no repo `robertourias/skills`; o site os busca no build (`pnpm --filter @nico.dev/skills content:sync`, task Turbo `content:sync` antes de `registry`). `SKILLS_REF` fixa branch/tag/SHA (padrão `main`); `SKILLS_ROOT` usa checkout local e desliga o sync. `content/skills/*` e `content/packs/*` são gitignored. Idioma da `description`: inglês (agentes acionam a skill por esse campo). Corpo das skills pode ser PT ou EN.
 - **Deploy:** GitHub Actions → imagem `nginx:alpine` no GHCR → SSH na VPS (`docker compose pull && docker compose up -d`), Traefik com TLS Let's Encrypt. PRs rodam só validação, registry e `next build`.
 - **Frontend:** Next.js App Router estático (Server Components por padrão), Tailwind v4 com tokens Nocturne, Lucide React.
 - **Exceção ao padrão global:** sem Zustand, sem React Hook Form + Zod, sem TanStack Query. O app não tem mutações, formulários nem fetch em runtime; `registry.json` é lido no build e a busca é local (Fuse.js). Único estado persistido no cliente: aba escolhida do `<InstallCommand>` em `localStorage`.

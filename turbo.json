@@ -16,7 +16,13 @@
     "NEXT_PUBLIC_SKILLS_URL"
   ],
   "tasks": {
+    "content:sync": {
+      "cache": false,
+      "env": ["SKILLS_ROOT", "SKILLS_REF", "SKILLS_REPO_URL"],
+      "outputs": []
+    },
     "registry": {
+      "dependsOn": ["content:sync"],
       "inputs": ["content/**", "scripts/**", "catalog.config.ts"],
       "env": ["SKILLS_ROOT"],
       "outputs": ["public/registry.json"]
