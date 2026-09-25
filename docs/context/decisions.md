@@ -153,3 +153,20 @@ module/
 - Segunda landing (`/desafio-30-dias-habitos`): mesmo padrão de mock + tema escopado (`theme-habitos30`, fixo em modo claro). Captura nome + e-mail + consentimento LGPD.
 - Conteúdo fictício (depoimentos, contador de participantes) só é usado quando explicitamente solicitado pelo usuário — atribuição sempre genérica, nunca nomes/fotos inventados, para não fabricar identidades reais.
 - Spec completa: `docs/specs/2026-06-17-landing-desafio-30-dias-habitos.md`
+
+---
+
+## Skills Catalog (skills.nico.dev.br)
+
+- App estático em `apps/skills` (decisão de 2026-09-24). Next.js com `output: 'export'`; nenhum serviço em runtime.
+- **Backend:** nenhum. Sem `apps/api`, ORM, banco, auth, fila ou cache. Não segue a seção "Backend" acima (Clean Architecture/Prisma/Redis não se aplicam).
+- **Registry:** `scripts/build-registry.ts` (gray-matter + Zod) gera `registry.json` no build, como task do Turborepo (pnpm). Erro de schema interrompe o build e informa arquivo e campo; pack que cita skill inexistente também falha.
+- Skills com `metadata.visibility: hidden` ficam fora do build e do `registry.json`.
+- Comandos de instalação vêm de `installCommands` no `registry.json`, nunca montados no cliente.
+- Markdown renderizado com `react-markdown` + `rehype-highlight` + `rehype-sanitize`; busca client-side com Fuse.js.
+- **Deploy:** GitHub Actions → imagem `nginx:alpine` no GHCR → SSH na VPS (`docker compose pull && docker compose up -d`), Traefik com TLS Let's Encrypt. PRs rodam só validação, registry e `next build`.
+- **Frontend:** Next.js App Router estático (Server Components por padrão), Tailwind v4 com tokens Nocturne, Lucide React.
+- **Exceção ao padrão global:** sem Zustand, sem React Hook Form + Zod, sem TanStack Query. O app não tem mutações, formulários nem fetch em runtime; `registry.json` é lido no build e a busca é local (Fuse.js). Único estado persistido no cliente: aba escolhida do `<InstallCommand>` em `localStorage`.
+- `<InstallCommand>` (e demais peças novas de UI) entram em `packages/ui` (`@nico.dev/ui`) antes de serem usados no app, conforme a regra do design system.
+- Tema claro/escuro via `prefers-color-scheme`.
+- Produto e glossário: `docs/context/product.md`.

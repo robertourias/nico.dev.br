@@ -47,6 +47,7 @@ apps/
   challenges/   → challenges.nico.dev — portfólio de desafios técnicos
   metronome/    → metronome.nico.dev — metrônomo online audiovisual para músicos
   blog/         → blog.nico.dev.br — blog estático com Astro (Markdown, SEO, social share)
+  skills/       → skills.nico.dev.br — catálogo estático das skills de agentes (Next.js export)
   storybook/    → Storybook do design system
   [subproject]/ → Aplicações independentes com deploy em subdomínio
 packages/
@@ -64,6 +65,7 @@ packages/
 - **Subprojects**: Cada subprojeto é um contexto isolado no monorepo
 - **Metronome**: App puramente frontend — Web Audio API para som, animações CSS/React para visual. Sem backend, sem banco, sem auth.
 - **Blog**: Site estático Astro — posts como arquivos `.md` no repositório, sem auth, sem backend próprio. Deploy contínuo via Vercel integração GitHub. Checagem de conteúdo ofensivo no pipeline antes do merge. Exceção: o contador de claps consome `apps/api` via HTTP (sem cliente de banco no próprio blog) — ver `apps/blog/docs/context/decisions.md`.
+- **Skills Catalog**: Site 100% estático (Next.js `output: 'export'`). Sem backend, banco, auth, fila ou cache. `scripts/build-registry.ts` (gray-matter + Zod) lê `skills/*/SKILL.md` e `packs/*.yaml` e gera `registry.json`, consumido no build. Servido por `nginx:alpine` na VPS via Traefik (TLS Let's Encrypt). Busca client-side com Fuse.js. Comandos de instalação vêm do `registry.json`, nunca montados no cliente.
 - **API**: Primeira implementação real do backend NestJS do monorepo — primeiro consumidor é o contador de claps do blog. Hospedado na VPS própria (Hostinger) via Docker, não Railway — ver seção "Decisões registradas" e `docs/context/decisions.md`.
 
 ## Modelo de domínio (site principal)
@@ -97,10 +99,12 @@ BlogPost ──── Tag
 | Docs | Migração .ai-core/ → docs/ | 2026-05-23 | Novo padrão com skills separadas, changelog por data, commands agnósticos |
 | Docs | Modelo distribuído de docs | 2026-05-28 | Cada app/package tem docs/ próprio; root docs/ mantém apenas contexto global |
 | API (1ª implementação) | NestJS em `apps/api`, hosting VPS própria (Hostinger, Docker) | 2026-06-25 | Primeiro consumidor: claps do blog. Postgres+Redis também self-hosted na mesma VPS, só na rede Docker interna — nunca expostos publicamente. Diverge do hosting Railway documentado em `infra.md` (exceção registrada explicitamente, não substituição). Ver `docs/specs/2026-06-25-api-claps-backend.md` |
+| Skills Catalog | App estático em `apps/skills` (Next.js export + registry.json) | 2026-09-24 | Vitrine curada de `robertourias/skills`; sem runtime. Neste monorepo para reaproveitar `@nico.dev/ui` e Nocturne. Deploy: GitHub Actions → imagem nginx no GHCR → SSH + `docker compose` na VPS, Traefik/TLS. Sem ORM/banco/auth/fila/cache. Detalhes em `docs/context/product.md` |
 
 ## Constraints conhecidos
 
 - Subprojetos são independentes: compartilham packages mas têm deploys e ciclos de vida separados
 - Dois ORMs no monorepo exigem atenção para não misturar padrões entre projetos
 - `apps/web` ainda não migrado para `@nico.dev/ui` (pendente)
+- `apps/skills` depende de conteúdo (`skills/`, `packs/`) e `catalog.config.ts`; onde essas skills vivem em relação ao monorepo (pasta local vs. repo `robertourias/skills` sincronizado) precisa ser fechado na spec de implementação, pois o CLI `npx skills add robertourias/skills` instala do repo GitHub
 - `apps/api` é hospedado na VPS própria do Beto, não em Railway — único backend do monorepo nessa situação hoje; se outro subprojeto precisar de backend e não tiver motivo para usar a mesma VPS, o destino padrão continua sendo Railway (ver `docs/architecture/infra.md`)

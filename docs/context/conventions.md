@@ -52,6 +52,16 @@ Antes de encerrar a sessão de trabalho ou ao concluir marcos importantes:
 
 Não pule este protocolo para manter a IA sempre sintonizada com o estado real do projeto.
 
+## Glossário — Skills Catalog (`apps/skills`)
+
+- **Skill**: pasta em `skills/<slug>/` com `SKILL.md` (frontmatter `name` + `description`; campos do catálogo dentro de `metadata`)
+- **Slug**: `name` da skill, kebab-case, igual ao nome da pasta
+- **Pack**: YAML em `packs/` que agrupa skills para instalar juntas
+- **Registry**: `registry.json` gerado no build; fonte única de dados do site (inclui `installCommands`)
+- **Tópico**: página `/topic/[tag]` com skills filtradas por tag
+- **`visibility: hidden`**: skill fora do build, do site e do `registry.json`
+- **skills.sh**: diretório externo; só lista uma skill depois que ela é instalada (telemetria anônima do CLI)
+
 ## Comentários
 
 - Comente o **POR QUÊ**, não o QUÊ — o código mostra o quê; comentários explicam restrições ocultas e regras de negócio não-óbvias.

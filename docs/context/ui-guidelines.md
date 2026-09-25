@@ -45,6 +45,14 @@
 - Playwright para E2E
 - Cobertura mínima: componentes 70%, hooks/utils 90%, fluxos P0 (E2E) 100%
 
+## Skills Catalog (`apps/skills`)
+
+- Exceção ao padrão global: sem Zustand, React Hook Form e TanStack Query (app estático, sem mutações nem fetch em runtime). Ver `docs/context/decisions.md`.
+- `<InstallCommand>` vive em `packages/ui`: caixa monoespaçada com prefixo `$`, `button` acessível (`aria-label` "Copiar comando de instalação", foco visível), "Copiado!" por 2 s anunciado via `aria-live`, texto com rolagem horizontal no mobile, fallback de seleção se `navigator.clipboard` falhar.
+- Abas (Repositório / Esta skill / Manual) via Radix Tabs; escolha persistida em `localStorage`.
+- Tema claro/escuro via `prefers-color-scheme` com tokens Nocturne. Layout funcional a partir de 360 px, WCAG 2.1 AA.
+- Interface em pt-BR; nomes de skills e comandos ficam como estão.
+
 ## Design Tokens
 
 <!-- a definir — paleta de cores e tipografia formal ainda não documentadas -->

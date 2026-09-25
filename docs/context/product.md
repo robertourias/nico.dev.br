@@ -31,6 +31,7 @@ Site pessoal e portfólio profissional de Roberto Nicoletti. Organizado como um 
 | Currículo | Página de CV com experiência, habilidades e histórico profissional | Em andamento |
 | Formulário de contato | Canal direto de contato para oportunidades e colaborações | Em andamento |
 | Subprojetos no monorepo | Aplicações independentes com deploy em subdomínios (ex: projeto.nico.dev) | Planejado |
+| skills.nico.dev.br | Catálogo estático das skills pessoais de agentes — busca, detalhe por skill e comando de instalação com um clique | Planejado |
 | tools.nico.dev | Coleção de ferramentas web para devs (clima, debugger IA, OCR, busca semântica, mercado financeiro, CLT vs PJ…) | Em andamento |
 | challenges.nico.dev | Portfólio visual de desafios técnicos por empresa — cards com preview, descrição, link de deploy e repositório. Dados carregados automaticamente do GitHub via API. | Planejado |
 | metronome.nico.dev | Metrônomo online com marcação de tempo audiovisual para músicos — controle de BPM, beats, timer, stress no primeiro tempo e subdivisões | Planejado |
@@ -79,12 +80,64 @@ Site pessoal e portfólio profissional de Roberto Nicoletti. Organizado como um 
 
 ---
 
+## Subproject: Skills Catalog (skills.nico.dev.br)
+
+> Spec original: catálogo estático das skills pessoais de agentes. Vive em `apps/skills` neste monorepo (decisão de 2026-09-24), reaproveitando `@nico.dev/ui` e o design system Nocturne.
+
+**Nome:** Nico Skills
+**Tagline:** Catálogo curado das minhas skills de agentes, instalável com um comando.
+**Estágio:** Ideia
+
+O CLI `skills` já instala a partir de qualquer repositório público do GitHub (`npx skills add <owner/repo>`). O site não reimplementa instalação: é só a vitrine curada do repositório `robertourias/skills`, gerada a partir do frontmatter de cada `SKILL.md`, para que a página nunca divirja da skill.
+
+### Usuário primário
+- **Quem:** Desenvolvedor que usa agentes (Claude Code, Cursor, Codex) e quer descobrir e instalar as skills do Roberto
+- **Objetivo:** Buscar uma skill, entender o que ela faz e copiar o comando de instalação
+- **Problema:** Skills espalhadas, sem página própria com descrição, versão e comando pronto; listagem no skills.sh depende de instalações e pode demorar
+
+### Features
+
+| Feature | Descrição | Status |
+|---------|-----------|--------|
+| Registry | `build-registry.ts` lê `skills/*/SKILL.md` (gray-matter), valida com Zod e gera `registry.json` | Planejado |
+| Home | Hero com banner ASCII, comando geral, contadores, busca (atalho `/`), filtros por categoria/tag/status e lista | Planejado |
+| Página da skill (`/s/[slug]`) | Badges, descrição, `<InstallCommand>` em abas, SKILL.md renderizado, árvore de arquivos, links GitHub e skills.sh | Planejado |
+| Guia skills.sh | Bloco "Encontre no skills.sh" na home e rota `/skills-sh` com o guia completo | Planejado |
+| Packs e tópicos | `/packs`, `/p/[id]`, `/topic/[tag]`, `sitemap.xml` (Fase 2) | Planejado |
+| Deploy automático | GitHub Actions → imagem nginx no GHCR → SSH na VPS, Traefik com TLS (Fase 2) | Planejado |
+
+Fases: 1 MVP (registry, home, `/s/[slug]`, bloco skills.sh, deploy manual) → 2 Automação e descoberta → 3 Acabamento (changelog, OG images, filtro por agente, Uptime Kuma).
+
+### Regras de negócio
+- Skill com `metadata.visibility: hidden` não aparece no site nem no `registry.json`.
+- Comandos de instalação vêm de `installCommands` no `registry.json`; nunca são montados no cliente.
+- Markdown das skills é sanitizado (`rehype-sanitize`); site 100% estático, sem backend, banco ou segredos no cliente.
+- SKILL.md inválido (sem `description`, `category` fora de `catalog.config.ts`, `name` diferente da pasta) faz o build/CI falhar indicando arquivo e campo.
+
+### Glossário do domínio
+- **Skill:** Pasta em `skills/<slug>/` com `SKILL.md` (frontmatter `name` + `description`; campos do catálogo dentro de `metadata`)
+- **Slug:** `name` da skill, kebab-case, igual ao nome da pasta
+- **Pack:** YAML em `packs/` que agrupa skills para instalar juntas
+- **Registry:** `registry.json` gerado no build; fonte única de dados do site (inclui `installCommands`)
+- **Tópico:** Página `/topic/[tag]` com skills filtradas por tag
+- **`visibility: hidden`:** Skill fora do build, do site e do `registry.json`
+- **skills.sh:** Diretório externo; só lista uma skill depois que ela é instalada (telemetria anônima do CLI)
+
+### Decisões em aberto
+- [ ] Idioma da `description` (PT, EN ou bilíngue): agentes usam esse campo para acionar a skill
+- [ ] Confirmar se o CLI aceita `--skill <slug>`; senão a aba "Esta skill" usa o comando do repositório
+- [ ] Confirmar formato da URL do skills.sh para repos pessoais e recursos de [personalização](https://www.skills.sh/docs/customize)
+- [ ] Pasta na VPS: `/opt/docker/skills-catalog/` ou `/opt/docker/skills/`
+
+---
+
 ## Business Rules
 
 > Critical business logic that AI agents must never violate. These are non-negotiable constraints.
 
 - **Design system obrigatório:** Todo app frontend criado em `apps/` deve usar `packages/ui` como biblioteca de componentes. Nunca instale uma biblioteca de componentes alternativa (MUI, Chakra, shadcn standalone, etc.) dentro de um app — a extensão do design system deve acontecer em `packages/ui`, não nos apps.
 - **Sem regras de negócio críticas adicionais definidas neste momento.**
+- **Skills Catalog:** ver regras críticas na seção "Subproject: Skills Catalog".
 
 ## Domain Glossary
 
