@@ -12,14 +12,16 @@
     "NEXT_PUBLIC_METRONOME_URL",
     "NEXT_PUBLIC_METRONOME_LABEL",
     "NEXT_PUBLIC_CRIATIVO_URL",
-    "NEXT_PUBLIC_CRIATIVO_LABEL"
+    "NEXT_PUBLIC_CRIATIVO_LABEL",
+    "NEXT_PUBLIC_SKILLS_URL"
   ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "out/**"]
     },
     "lint": {},
+    "typecheck": {},
     "dev": {
       "cache": false,
       "persistent": true
