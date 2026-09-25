@@ -6,15 +6,19 @@
     "dev": "next dev --port 3006",
     "build": "next build",
     "lint": "eslint",
+    "registry": "tsx scripts/build-registry.ts",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test catalog.config.test.ts"
+    "test": "node --import tsx --test catalog.config.test.ts scripts/registry/schema.test.ts scripts/build-registry.test.ts scripts/registry/cli.test.ts"
   },
   "dependencies": {
     "@nico.dev/ui": "workspace:*",
+    "gray-matter": "4.0.3",
     "lucide-react": "^0.511.0",
     "next": "16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "yaml": "2.9.1",
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@nico.dev/config": "workspace:*",

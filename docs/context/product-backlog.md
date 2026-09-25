@@ -20,7 +20,7 @@
 | ID | Título | Descrição | Status | Dependências | Spec |
 |----|--------|-----------|--------|--------------|------|
 | TASK01 | Scaffold `apps/skills` + `catalog.config.ts` | App Next.js (export estático) no Turborepo com pnpm, Tailwind v4 e `@nico.dev/ui`; categorias, agentes e URLs base em `catalog.config.ts` | done | — | `docs/specs/2026-09-24-skills-scaffold.md` |
-| TASK02 | Registry: `build-registry.ts` | Parse com gray-matter, schema Zod, `visibility: hidden`, `installCommands`, `githubUrl`, `files[]`; erro indica arquivo e campo; task do Turbo | backlog | TASK01 | — |
+| TASK02 | Registry: `build-registry.ts` | Parse com gray-matter, schema Zod, `visibility: hidden`, `installCommands`, `githubUrl`, `files[]`; erro indica arquivo e campo; task do Turbo | done | TASK01 | `docs/specs/2026-09-24-skills-registry.md` |
 | TASK03 | Conteúdo: 4 skills no novo schema | Migrar mermaid-diagrams, article-writer, product-ideation e pencil-design-system para o frontmatter novo (define onde `skills/` vive) | backlog | TASK02 | — |
 
 ## Fase 2 — Core (MVP)

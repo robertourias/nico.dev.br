@@ -16,8 +16,13 @@
     "NEXT_PUBLIC_SKILLS_URL"
   ],
   "tasks": {
+    "registry": {
+      "inputs": ["content/**", "scripts/**", "catalog.config.ts"],
+      "env": ["SKILLS_ROOT"],
+      "outputs": ["public/registry.json"]
+    },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "registry"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "out/**"]
     },
     "lint": {},
