@@ -120,7 +120,7 @@ module/
 
 ### Testes frontend
 
-- React Testing Library + Jest — sem Enzyme
+- React Testing Library + Vitest — sem Enzyme (ver "Testes de componentes em `packages/ui`" abaixo)
 - MSW para mock de rede — sem mocks manuais de fetch
 - Playwright para E2E
 - Cobertura mínima: componentes 70%, hooks e utils 90%, fluxos P0 (E2E) 100%
@@ -171,3 +171,9 @@ module/
 - `<InstallCommand>` (e demais peças novas de UI) entram em `packages/ui` (`@nico.dev/ui`) antes de serem usados no app, conforme a regra do design system.
 - Tema claro/escuro via `prefers-color-scheme`.
 - Produto e glossário: `docs/context/product.md`.
+
+### Testes de componentes em `packages/ui` (2026-09-25)
+
+- Vitest + Testing Library (jsdom), configurados na TASK04. Desvio do "Jest" citado em "Testes frontend": Jest nunca foi configurado no monorepo para o frontend.
+- Versões fixadas: `vitest` 4.1.11, `@testing-library/react` 16.3.3, `@testing-library/user-event` 14.6.7, `@testing-library/jest-dom` 7.0.1, `jsdom` 30.1.1.
+- Testes ficam ao lado do código (`*.test.tsx`), fora dos exports públicos; task `test` no `turbo.json`.

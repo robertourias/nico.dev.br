@@ -35,8 +35,13 @@ export * from "./components/heatmap";
 // Components — State
 export * from "./components/skeleton";
 
+// Components — Developer
+export * from "./components/install-command";
+export * from "./components/install-command-tabs";
+
 // Hooks
 export * from "./hooks/use-wake-lock";
+export * from "./hooks/use-stored-value";
 
 // Utilities
 export * from "./lib/utils";

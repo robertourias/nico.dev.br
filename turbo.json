@@ -33,6 +33,10 @@
     },
     "lint": {},
     "typecheck": {},
+    "test": {
+      "dependsOn": [],
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true

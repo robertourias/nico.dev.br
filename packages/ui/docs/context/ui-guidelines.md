@@ -21,6 +21,7 @@
 | Identidade | `Avatar`, `AvatarImage`, `AvatarFallback`, `AvatarWithStatus`, `AvatarGroup` |
 | Dados | `Calendar`, `DatePicker`, `Heatmap` |
 | Estado | `Skeleton` (line/line-short/circle/card) |
+| Desenvolvedor | `InstallCommand` (caixa clicável com o mouse; `<code>` focável para rolar por teclado; `button` é o acionador de teclado), `InstallCommandTabs`, `useStoredValue` (hook) |
 
 ## Tokens de Design (fonte: Pencil)
 
