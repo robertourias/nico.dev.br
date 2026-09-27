@@ -32,6 +32,14 @@ describe('buildRegistry: valid/', () => {
     assert.equal(registry.skills.length, 5);
   });
 
+  it('raiz tem installCommands.repository igual ao template da config', async () => {
+    const registry = await buildOk('valid');
+    assert.deepEqual(registry.installCommands, {
+      repository: installCommandTemplates.repository,
+    });
+    assert.equal(registry.installCommands.repository, 'npx skills add robertourias/skills');
+  });
+
   it('omite a skill hidden de skills, files e lastUpdated', async () => {
     const registry = await buildOk('valid');
     assert.ok(!registry.skills.some((s) => s.slug === 'draft-note'));
@@ -214,6 +222,7 @@ describe('buildRegistry: raiz', () => {
       schemaVersion: 1,
       counts: { skills: 0, packs: 0 },
       lastUpdated: null,
+      installCommands: { repository: installCommandTemplates.repository },
       skills: [],
       packs: [],
     });

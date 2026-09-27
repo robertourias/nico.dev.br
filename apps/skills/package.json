@@ -9,7 +9,7 @@
     "content:sync": "tsx scripts/sync-content.ts",
     "registry": "tsx scripts/build-registry.ts",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test catalog.config.test.ts scripts/registry/schema.test.ts scripts/build-registry.test.ts scripts/registry/cli.test.ts scripts/sync-content.test.ts"
+    "test": "node --import tsx --test catalog.config.test.ts scripts/registry/schema.test.ts scripts/build-registry.test.ts scripts/registry/cli.test.ts scripts/sync-content.test.ts src/lib/skills.test.ts src/lib/registry.test.ts"
   },
   "dependencies": {
     "@nico.dev/ui": "workspace:*",

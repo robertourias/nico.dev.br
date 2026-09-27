@@ -2,10 +2,8 @@
 
 import * as React from "react";
 import { Check, Copy } from "lucide-react";
+import { useCopyToClipboard } from "../hooks/use-copy-to-clipboard";
 import { cn } from "../lib/utils";
-
-/** Tempo, em ms, em que o rótulo de confirmação fica visível. */
-const FEEDBACK_DURATION_MS = 2000;
 
 export type InstallCommandProps = Omit<React.HTMLAttributes<HTMLDivElement>, "children" | "onCopy"> & {
   /** Comando exibido e copiado, exatamente como recebido (sem trim). */
@@ -53,60 +51,20 @@ const InstallCommand = React.forwardRef<HTMLDivElement, InstallCommandProps>(
     const codeId = React.useId();
     const codeRef = React.useRef<HTMLElement>(null);
     const buttonRef = React.useRef<HTMLButtonElement>(null);
-    const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-    const mountedRef = React.useRef(true);
-    const [status, setStatus] = React.useState<"copied" | "fallback" | null>(null);
-
-    const clearTimer = () => {
-      if (timerRef.current !== null) {
-        clearTimeout(timerRef.current);
-        timerRef.current = null;
-      }
-    };
-
-    React.useEffect(() => {
-      mountedRef.current = true;
-      return () => {
-        mountedRef.current = false;
-        clearTimer();
-      };
-    }, []);
-
-    const show = (next: "copied" | "fallback") => {
-      if (!mountedRef.current) return;
-      clearTimer();
-      setStatus(next);
-      timerRef.current = setTimeout(() => {
-        timerRef.current = null;
-        setStatus(null);
-      }, FEEDBACK_DURATION_MS);
-    };
+    const { status, copy: copyText } = useCopyToClipboard({
+      onFallback: () => {
+        try {
+          const selection = window.getSelection();
+          if (selection && codeRef.current) selection.selectAllChildren(codeRef.current);
+        } catch {
+          // Seleção indisponível: o rótulo de fallback ainda é exibido.
+        }
+      },
+    });
 
     const copy = async () => {
-      let copied = false;
-      try {
-        if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
-          await navigator.clipboard.writeText(command);
-          copied = true;
-        }
-      } catch {
-        copied = false;
-      }
-
-      if (copied) {
-        show("copied");
-        onCopy?.("copied");
-        return;
-      }
-
-      try {
-        const selection = window.getSelection();
-        if (selection && codeRef.current) selection.selectAllChildren(codeRef.current);
-      } catch {
-        // Seleção indisponível: o rótulo de fallback ainda é exibido.
-      }
-      show("fallback");
-      onCopy?.("fallback");
+      const result = await copyText(command);
+      onCopy?.(result);
     };
 
     // Único handler de cópia: o clique no botão borbulha até aqui, então não há cópia dupla.

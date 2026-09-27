@@ -40,6 +40,9 @@
   --color-badge-destructive-bg: #FFE4E4;
   --color-badge-success-bg: #DCFCE7;
   --color-badge-warning-bg: #FEF3C7;
+  /* Texto sobre o fundo tingido de Badge/Alert: --color-warning/destructive não chegam a 4.5:1 sobre esses fundos no claro. */
+  --color-badge-destructive-fg: #B42323;
+  --color-badge-warning-fg: #9A5200;
 
   --radius-sm: 4px;
   --radius-md: 6px;
@@ -90,6 +93,8 @@
   --color-badge-destructive-bg: #2D1215;
   --color-badge-success-bg: #0E2418;
   --color-badge-warning-bg: #261A00;
+  --color-badge-destructive-fg: #FF4444;
+  --color-badge-warning-fg: #FFAA20;
 }
 
 /* ─── Base Styles ────────────────────────────────────────────────── */

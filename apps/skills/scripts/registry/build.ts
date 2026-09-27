@@ -292,6 +292,7 @@ export async function buildRegistry(root: string): Promise<BuildResult> {
       counts: { skills: publicSkills.length, packs: packs.length },
       // ISO YYYY-MM-DD ordena lexicograficamente; após o sort desc o primeiro é o maior.
       lastUpdated: publicSkills[0]?.updated ?? null,
+      installCommands: { repository: installCommandTemplates.repository },
       skills: publicSkills,
       packs,
     },

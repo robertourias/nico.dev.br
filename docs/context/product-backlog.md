@@ -28,7 +28,7 @@
 | ID | Título | Descrição | Status | Dependências | Spec |
 |----|--------|-----------|--------|--------------|------|
 | TASK04 | `<InstallCommand>` em `packages/ui` | Caixa com `$`, copiar, "Copiado!", aria-live, abas, `localStorage`, nota `DISABLE_TELEMETRY`; Storybook | done | TASK01 | `docs/specs/2026-09-25-install-command.md` |
-| TASK05 | Home | Hero ASCII "NICO SKILLS", contadores, lista (posição, tags, status, data), ordenação | backlog | TASK02, TASK04 | — |
+| TASK05 | Home | Hero ASCII "NICO SKILLS", contadores, lista (posição, tags, status, data), ordenação | done | TASK02, TASK04 | `docs/specs/2026-09-25-skills-home.md` |
 | TASK06 | Busca e filtros | Fuse.js, atalho `/`, filtros por categoria/tag/status | backlog | TASK05 | — |
 | TASK07 | Página `/s/[slug]` | Badges, SKILL.md com sanitize + highlight, árvore de arquivos, links GitHub e skills.sh | backlog | TASK02, TASK04 | — |
 | TASK08 | Bloco "Encontre no skills.sh" | Três caminhos, aviso de demora, card com 3 capturas na home | backlog | TASK05 | — |

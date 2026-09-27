@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { after, describe, it } from 'node:test';
 
+import { installCommandTemplates } from '../../catalog.config';
 import {
   APP_DIR,
   DEFAULT_ROOT,
@@ -82,6 +83,7 @@ describe('serializeRegistry', () => {
       schemaVersion: 1,
       counts: { skills: 0, packs: 0 },
       lastUpdated: null,
+      installCommands: { repository: 'npx skills add robertourias/skills' },
       skills: [],
       packs: [],
     });
@@ -98,6 +100,7 @@ describe('run', () => {
     const written = JSON.parse(await readFile(outFile, 'utf8'));
     assert.equal(written.schemaVersion, 1);
     assert.ok(written.counts.skills >= 2);
+    assert.equal(written.installCommands.repository, installCommandTemplates.repository);
   });
 
   it('raiz vazia gera counts 0', async () => {

@@ -13,9 +13,9 @@ const badgeVariants = cva(
         /** Fundo verde suave. Para estados positivos, aprovados ou ativos. */
         success: "bg-badge-success-bg text-success",
         /** Fundo vermelho suave. Para erros, falhas ou itens críticos. */
-        destructive: "bg-badge-destructive-bg text-destructive",
+        destructive: "bg-badge-destructive-bg text-badge-destructive-fg",
         /** Fundo amarelo suave. Para avisos ou atenção requerida. */
-        warning: "bg-badge-warning-bg text-warning",
+        warning: "bg-badge-warning-bg text-badge-warning-fg",
       },
     },
     defaultVariants: {

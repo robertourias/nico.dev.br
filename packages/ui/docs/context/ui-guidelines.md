@@ -21,7 +21,7 @@
 | Identidade | `Avatar`, `AvatarImage`, `AvatarFallback`, `AvatarWithStatus`, `AvatarGroup` |
 | Dados | `Calendar`, `DatePicker`, `Heatmap` |
 | Estado | `Skeleton` (line/line-short/circle/card) |
-| Desenvolvedor | `InstallCommand` (caixa clicável com o mouse; `<code>` focável para rolar por teclado; `button` é o acionador de teclado), `InstallCommandTabs`, `useStoredValue` (hook) |
+| Desenvolvedor | `InstallCommand` (caixa clicável com o mouse; `<code>` focável para rolar por teclado; `button` é o acionador de teclado), `InstallCommandTabs`, `CopyButton` (botão só ícone; `aria-label` = `label`, anuncia `copiedLabel` em `role=status`; falha silenciosa), `useStoredValue` e `useCopyToClipboard` (hooks; este com estado `idle`/`copied`/`fallback`, reset 2000 ms, `onFallback`) |
 
 ## Tokens de Design (fonte: Pencil)
 
@@ -49,6 +49,7 @@ bg-success / text-success-foreground
 bg-warning / text-warning-foreground
 border-border / border-input / ring-ring
 bg-badge-destructive-bg / bg-badge-success-bg / bg-badge-warning-bg
+text-badge-warning-fg / text-badge-destructive-fg   (texto sobre o fundo tingido de Badge/Alert; o claro é mais escuro que warning/destructive para passar 4.5:1)
 ```
 
 Dark mode: suportado via classe `.dark` no elemento raiz — todas as variáveis têm valor no modo escuro.

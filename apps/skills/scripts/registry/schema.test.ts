@@ -3,11 +3,12 @@ import { describe, it } from 'node:test';
 
 import matter from 'gray-matter';
 
-import { AGENTS, CATEGORIES, STATUSES } from '../../catalog.config';
+import { AGENTS, CATEGORIES, STATUSES, installCommandTemplates } from '../../catalog.config';
 import {
   formatFieldPath,
   normalizeDate,
   packSchema,
+  registrySchema,
   skillFrontmatterSchema,
   toTitleCase,
 } from './schema';
@@ -269,6 +270,39 @@ describe('packSchema', () => {
     assert.deepEqual(
       result.error?.issues.map((i) => formatFieldPath(i.path)).sort(),
       ['description', 'id', 'title'],
+    );
+  });
+});
+
+describe('registrySchema: installCommands na raiz', () => {
+  const base = {
+    schemaVersion: 1,
+    counts: { skills: 0, packs: 0 },
+    lastUpdated: null,
+    skills: [],
+    packs: [],
+  };
+
+  it('aceita registry vazio com installCommands.repository', () => {
+    const result = registrySchema.safeParse({
+      ...base,
+      installCommands: { repository: installCommandTemplates.repository },
+    });
+    assert.equal(result.success, true);
+    assert.equal(result.data?.installCommands.repository, installCommandTemplates.repository);
+  });
+
+  it('rejeita registry sem installCommands', () => {
+    const result = registrySchema.safeParse(base);
+    assert.equal(result.success, false);
+    assert.deepEqual(result.error?.issues.map((i) => formatFieldPath(i.path)), ['installCommands']);
+  });
+
+  it('rejeita installCommands.repository ausente ou não string', () => {
+    assert.equal(registrySchema.safeParse({ ...base, installCommands: {} }).success, false);
+    assert.equal(
+      registrySchema.safeParse({ ...base, installCommands: { repository: 1 } }).success,
+      false,
     );
   });
 });

@@ -83,6 +83,7 @@ Não há HTTP. Contrato de dados publicado em `/registry.json`:
   "schemaVersion": 1,
   "counts": { "skills": 4, "packs": 1 },
   "lastUpdated": "2026-09-20",
+  "installCommands": { "repository": "npx skills add robertourias/skills" },
   "skills": [
     {
       "slug": "mermaid-diagrams",

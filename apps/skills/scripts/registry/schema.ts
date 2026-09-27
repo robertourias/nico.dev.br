@@ -132,6 +132,8 @@ export const registrySchema = z.object({
   schemaVersion: z.literal(1),
   counts: z.object({ skills: z.number().int(), packs: z.number().int() }),
   lastUpdated: z.string().nullable(),
+  // Comando do hero (não pertence a nenhuma skill); o cliente nunca o monta.
+  installCommands: z.object({ repository: z.string() }),
   skills: z.array(registrySkillSchema),
   packs: z.array(registryPackSchema),
 });

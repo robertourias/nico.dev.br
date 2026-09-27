@@ -36,6 +36,8 @@ export const light = {
   "badge-destructive-bg": "#FFE4E4",
   "badge-success-bg": "#DCFCE7",
   "badge-warning-bg": "#FEF3C7",
+  "badge-destructive-fg": "#B42323",
+  "badge-warning-fg": "#9A5200",
 } as const;
 
 // Semantic tokens — dark mode (source of truth: docs/nico.dev.br.pen)
@@ -76,6 +78,8 @@ export const dark = {
   "badge-destructive-bg": "#2D1215",
   "badge-success-bg": "#0E2418",
   "badge-warning-bg": "#261A00",
+  "badge-destructive-fg": "#FF4444",
+  "badge-warning-fg": "#FFAA20",
 } as const;
 
 export type ColorToken = keyof typeof light;

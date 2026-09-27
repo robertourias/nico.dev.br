@@ -38,10 +38,12 @@ export * from "./components/skeleton";
 // Components — Developer
 export * from "./components/install-command";
 export * from "./components/install-command-tabs";
+export * from "./components/copy-button";
 
 // Hooks
 export * from "./hooks/use-wake-lock";
 export * from "./hooks/use-stored-value";
+export * from "./hooks/use-copy-to-clipboard";
 
 // Utilities
 export * from "./lib/utils";
