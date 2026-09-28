@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="r53-fluxo-seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+    <marker id="r53-fluxo-seta-ouro" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="400" fill="#0a0a0f"/>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Quem faz o quê quando alguém abre https://meusite.com.br</text>
+
+  <!-- Navegador -->
+  <rect x="30" y="90" width="170" height="110" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="115" y="124" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Navegador</text>
+  <text x="115" y="148" text-anchor="middle" font-size="11" fill="#888898">1. pergunta o IP</text>
+  <text x="115" y="164" text-anchor="middle" font-size="11" fill="#888898">3. abre conexão TLS</text>
+  <text x="115" y="180" text-anchor="middle" font-size="11" fill="#888898">e valida o certificado</text>
+
+  <!-- Route 53 -->
+  <rect x="270" y="70" width="230" height="150" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="385" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#a78bfa">Route 53 (DNS)</text>
+  <text x="385" y="124" text-anchor="middle" font-size="11" fill="#f0efe8">hosted zone meusite.com.br</text>
+  <text x="385" y="148" text-anchor="middle" font-size="11" fill="#888898">registro A do tipo alias</text>
+  <text x="385" y="164" text-anchor="middle" font-size="11" fill="#888898">aponta para a distribution</text>
+  <text x="385" y="196" text-anchor="middle" font-size="11" fill="#f0efe8">2. responde com IPs</text>
+  <text x="385" y="210" text-anchor="middle" font-size="11" fill="#f0efe8">da edge mais próxima</text>
+
+  <!-- CloudFront -->
+  <rect x="570" y="70" width="300" height="150" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="720" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">CloudFront (edge)</text>
+  <text x="720" y="124" text-anchor="middle" font-size="11" fill="#f0efe8">nome alternativo: meusite.com.br</text>
+  <text x="720" y="148" text-anchor="middle" font-size="11" fill="#888898">apresenta o certificado ACM</text>
+  <text x="720" y="164" text-anchor="middle" font-size="11" fill="#888898">e termina o TLS aqui</text>
+  <text x="720" y="196" text-anchor="middle" font-size="11" fill="#f0efe8">4. entrega do cache ou</text>
+  <text x="720" y="210" text-anchor="middle" font-size="11" fill="#f0efe8">busca na origem</text>
+
+  <!-- ACM -->
+  <rect x="570" y="280" width="300" height="80" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="720" y="310" text-anchor="middle" font-size="13" font-weight="700" fill="#2dd4bf">ACM, região us-east-1</text>
+  <text x="720" y="332" text-anchor="middle" font-size="11" fill="#f0efe8">emite, guarda a chave privada</text>
+  <text x="720" y="348" text-anchor="middle" font-size="11" fill="#f0efe8">e renova sozinho</text>
+
+  <!-- Origem -->
+  <rect x="270" y="280" width="230" height="80" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="385" y="312" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Origem</text>
+  <text x="385" y="334" text-anchor="middle" font-size="11" fill="#888898">bucket S3 privado, ALB, API</text>
+
+  <!-- arrows -->
+  <line x1="200" y1="130" x2="266" y2="130" stroke="#888898" stroke-width="1.5" marker-end="url(#r53-fluxo-seta)"/>
+  <path d="M115,90 L115,56 L720,56 L720,66" fill="none" stroke="#e8c547" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#r53-fluxo-seta-ouro)"/>
+  <text x="535" y="60" text-anchor="middle" font-size="10" fill="#e8c547" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">conexão HTTPS (tracejado)</text>
+  <line x1="720" y1="276" x2="720" y2="224" stroke="#0f766e" stroke-width="1.5" marker-end="url(#r53-fluxo-seta)"/>
+  <text x="792" y="256" text-anchor="middle" font-size="10" fill="#2dd4bf" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">certificado associado</text>
+  <line x1="600" y1="220" x2="504" y2="300" stroke="#888898" stroke-width="1.5" marker-end="url(#r53-fluxo-seta)"/>
+
+  <text x="450" y="388" text-anchor="middle" font-size="11" fill="#888898">Route 53 só resolve o nome; o certificado mora no CloudFront, não no DNS</text>
+</svg>
