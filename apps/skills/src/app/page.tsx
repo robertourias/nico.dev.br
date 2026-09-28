@@ -2,6 +2,7 @@ import { InstallCommandTabs } from "@nico.dev/ui";
 import { siteConfig } from "../../catalog.config";
 import { AsciiBanner } from "../components/ascii-banner";
 import { SkillList } from "../components/skill-list";
+import { SkillsShBlock } from "../components/skills-sh-block";
 import { Stats } from "../components/stats";
 import { getRegistry } from "../lib/registry";
 import { formatUpdated } from "../lib/skills";
@@ -37,7 +38,10 @@ export default function Home() {
       <section aria-label="Skills">
         <SkillList items={items} />
       </section>
-      {/* TASK08 insere "Encontre no skills.sh" após a lista. */}
+
+      <section aria-label="Encontre no skills.sh">
+        <SkillsShBlock />
+      </section>
     </main>
   );
 }

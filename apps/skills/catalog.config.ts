@@ -24,6 +24,8 @@ export const repoConfig = {
 
 export const skillsShConfig = {
   baseUrl: 'https://www.skills.sh',
+  // Página do repositório no skills.sh (TASK08): caminho "navegar pelo repositório".
+  repoUrl: `https://www.skills.sh/${repoConfig.slug}`,
   skillUrl: (slug: string) => `https://www.skills.sh/${repoConfig.slug}/${slug}`,
 } as const;
 
