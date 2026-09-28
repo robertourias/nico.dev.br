@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 300" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="k6-arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+    <marker id="k6-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="940" height="300" fill="#0a0a0f"/>
+  <text x="470" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Do script ao gate de CI</text>
+
+  <rect x="20" y="90" width="170" height="110" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="105" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">1 · Escrever</text>
+  <text x="105" y="142" text-anchor="middle" font-size="11" fill="#888898">script.js com</text>
+  <text x="105" y="158" text-anchor="middle" font-size="11" fill="#888898">http.get + check</text>
+  <line x1="192" y1="145" x2="213" y2="145" stroke="#888898" stroke-width="1.5" marker-end="url(#k6-arr-g)"/>
+
+  <rect x="215" y="90" width="170" height="110" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="300" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">2 · Rodar</text>
+  <text x="300" y="142" text-anchor="middle" font-size="11" fill="#888898">k6 run com vus</text>
+  <text x="300" y="158" text-anchor="middle" font-size="11" fill="#888898">e duration, ou stages</text>
+  <line x1="387" y1="145" x2="408" y2="145" stroke="#888898" stroke-width="1.5" marker-end="url(#k6-arr-g)"/>
+
+  <rect x="410" y="90" width="170" height="110" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="495" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">3 · Ler o resumo</text>
+  <text x="495" y="142" text-anchor="middle" font-size="11" fill="#888898">http_req_duration,</text>
+  <text x="495" y="158" text-anchor="middle" font-size="11" fill="#888898">http_req_failed, checks</text>
+  <line x1="582" y1="145" x2="603" y2="145" stroke="#888898" stroke-width="1.5" marker-end="url(#k6-arr-g)"/>
+
+  <rect x="605" y="90" width="170" height="110" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="690" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#e8c547">4 · Thresholds</text>
+  <text x="690" y="142" text-anchor="middle" font-size="11" fill="#888898">p(95)&lt;500ms,</text>
+  <text x="690" y="158" text-anchor="middle" font-size="11" fill="#888898">rate&lt;1% de falha</text>
+  <line x1="777" y1="145" x2="798" y2="145" stroke="#e8c547" stroke-width="1.5" marker-end="url(#k6-arr-y)"/>
+
+  <rect x="800" y="90" width="120" height="110" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="860" y="126" text-anchor="middle" font-size="12" font-weight="700" fill="#2dd4bf">CI/CD</text>
+  <text x="860" y="150" text-anchor="middle" font-size="11" fill="#888898">exit code</text>
+  <text x="860" y="166" text-anchor="middle" font-size="11" fill="#888898">bloqueia deploy</text>
+
+  <text x="470" y="250" text-anchor="middle" font-size="11" fill="#888898">sem threshold, você lê o resumo à mão; com threshold, o pipeline decide sozinho</text>
+</svg>

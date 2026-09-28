@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 460" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect x="0" y="0" width="940" height="460" fill="#0a0a0f"/>
+  <text x="470" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Seis formatos de teste de carga, pelo número de VUs no tempo</text>
+  <text x="470" y="52" text-anchor="middle" font-size="12" fill="#888898">eixo horizontal: tempo · eixo vertical: usuários virtuais (VUs)</text>
+
+  <!-- helper grid cells: 3 cols x 2 rows, each 280x160 -->
+  <!-- Cell 1: Smoke -->
+  <rect x="30" y="76" width="280" height="160" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="170" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Smoke</text>
+  <polyline points="55,205 285,205" fill="none" stroke="#888898" stroke-width="2"/>
+  <text x="170" y="222" text-anchor="middle" font-size="10" fill="#888898">1-2 VUs, minutos — o script funciona?</text>
+
+  <!-- Cell 2: Load (average) -->
+  <rect x="330" y="76" width="280" height="160" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="470" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">Load (average)</text>
+  <polyline points="355,205 400,140 520,140 565,205" fill="none" stroke="#e8c547" stroke-width="2"/>
+  <text x="470" y="222" text-anchor="middle" font-size="10" fill="#888898">rampa, platô, rampa — carga típica de produção</text>
+
+  <!-- Cell 3: Stress -->
+  <rect x="630" y="76" width="280" height="160" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="770" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Stress</text>
+  <polyline points="655,205 700,120 820,120 865,205" fill="none" stroke="#888898" stroke-width="2"/>
+  <text x="770" y="222" text-anchor="middle" font-size="10" fill="#888898">platô acima do esperado — onde o sistema quebra</text>
+
+  <!-- Cell 4: Spike -->
+  <rect x="30" y="256" width="280" height="160" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="170" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="#a78bfa">Spike</text>
+  <polyline points="55,385 150,385 175,110 200,385 285,385" fill="none" stroke="#a78bfa" stroke-width="2"/>
+  <text x="170" y="402" text-anchor="middle" font-size="10" fill="#888898">pico curto e brutal — sobrevive e se recupera?</text>
+
+  <!-- Cell 5: Soak -->
+  <rect x="330" y="256" width="280" height="160" rx="14" fill="#111118" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="470" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="#2dd4bf">Soak</text>
+  <polyline points="355,385 400,340 540,340 565,385" fill="none" stroke="#2dd4bf" stroke-width="2"/>
+  <text x="470" y="402" text-anchor="middle" font-size="10" fill="#888898">carga média, horas — vaza memória ou conexão?</text>
+
+  <!-- Cell 6: Breakpoint -->
+  <rect x="630" y="256" width="280" height="160" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="770" y="280" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Breakpoint</text>
+  <polyline points="655,385 700,370 730,330 760,270 790,190 820,120" fill="none" stroke="#888898" stroke-width="2"/>
+  <text x="770" y="402" text-anchor="middle" font-size="10" fill="#888898">rampa sem teto — até onde o sistema aguenta</text>
+
+  <text x="470" y="442" text-anchor="middle" font-size="11" fill="#888898">todos usam o mesmo script — só o bloco de options muda</text>
+</svg>
