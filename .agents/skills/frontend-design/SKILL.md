@@ -1,7 +1,17 @@
 ---
 name: frontend-design
-description: Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.
+description: Guides distinctive, intentional visual design for new or existing web UI. Covers aesthetic direction, typography, palette, layout, motion and UI copy, with a plan-review-build-critique process that avoids generic AI-looking defaults. Use this skill whenever the user asks to build, design, redesign or restyle a page, landing page, component, dashboard or app screen, or says it looks generic, templated or bland, even if "design" is never mentioned.
 license: Complete terms in LICENSE.txt
+metadata:
+  title: Frontend Design
+  category: design
+  tags: [ui, frontend, typography, layout, css, copywriting]
+  agents: [claude-code, cursor, codex]
+  version: 1.0.0
+  status: beta
+  language: en
+  visibility: public
+  updated: 2026-09-25
 ---
 
 # Frontend Design
@@ -69,3 +79,7 @@ Use active voice as default. A CTA says exactly what happens when it is used: "S
 Treat failure and emptiness as moments for direction, not mood. Explain what went wrong and how to fix it, in the interface's voice rather than a person's. Errors don't apologize, and they are never vague about what happened. An empty screen is an invitation to act.
 
 Keep the tone conversational: plain verbs, sentence case, no filler, with tone matched to the brand and the audience. Let each written element do exactly one job.
+
+## Credits
+
+Adapted from the `frontend-design` skill by Anthropic. See LICENSE.txt.
