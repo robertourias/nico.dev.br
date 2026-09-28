@@ -19,19 +19,19 @@
 
 | ID | Título | Descrição | Status | Dependências | Spec |
 |----|--------|-----------|--------|--------------|------|
-| TASK01 | Scaffold `apps/skills` + `catalog.config.ts` | App Next.js (export estático) no Turborepo com pnpm, Tailwind v4 e `@nico.dev/ui`; categorias, agentes e URLs base em `catalog.config.ts` | done | — | `docs/specs/2026-09-24-skills-scaffold.md` |
-| TASK02 | Registry: `build-registry.ts` | Parse com gray-matter, schema Zod, `visibility: hidden`, `installCommands`, `githubUrl`, `files[]`; erro indica arquivo e campo; task do Turbo | done | TASK01 | `docs/specs/2026-09-24-skills-registry.md` |
-| TASK03 | Conteúdo: 4 skills no novo schema | Conteúdo vive no repo `robertourias/skills`; sync para `content/` no build; migrar mermaid-diagrams e pencil-design-system (article-writer, product-ideation e excalidraw já estão no repo); atualizar o pack | done | TASK02 | `docs/specs/2026-09-25-skills-content.md` |
+| TASK01 | Scaffold `apps/skills` + `catalog.config.ts` | App Next.js (export estático) no Turborepo com pnpm, Tailwind v4 e `@nico.dev/ui`; categorias, agentes e URLs base em `catalog.config.ts` | done | — | `docs/archive/2026-09-24-skills-scaffold.md` |
+| TASK02 | Registry: `build-registry.ts` | Parse com gray-matter, schema Zod, `visibility: hidden`, `installCommands`, `githubUrl`, `files[]`; erro indica arquivo e campo; task do Turbo | done | TASK01 | `docs/archive/2026-09-24-skills-registry.md` |
+| TASK03 | Conteúdo: 4 skills no novo schema | Conteúdo vive no repo `robertourias/skills`; sync para `content/` no build; migrar mermaid-diagrams e pencil-design-system (article-writer, product-ideation e excalidraw já estão no repo); atualizar o pack | done | TASK02 | `docs/archive/2026-09-25-skills-content.md` |
 
 ## Fase 2 — Core (MVP)
 
 | ID | Título | Descrição | Status | Dependências | Spec |
 |----|--------|-----------|--------|--------------|------|
-| TASK04 | `<InstallCommand>` em `packages/ui` | Caixa com `$`, copiar, "Copiado!", aria-live, abas, `localStorage`, nota `DISABLE_TELEMETRY`; Storybook | done | TASK01 | `docs/specs/2026-09-25-install-command.md` |
-| TASK05 | Home | Hero ASCII "NICO SKILLS", contadores, lista (posição, tags, status, data), ordenação | done | TASK02, TASK04 | `docs/specs/2026-09-25-skills-home.md` |
-| TASK06 | Busca e filtros | Fuse.js, atalho `/`, filtros por categoria/tag/status | done | TASK05 | `docs/specs/2026-09-27-skills-search-filters.md` |
-| TASK07 | Página `/s/[slug]` | Badges, SKILL.md com sanitize + highlight, árvore de arquivos, links GitHub e skills.sh | done | TASK02, TASK04 | `docs/specs/2026-09-27-skills-detail-page.md` |
-| TASK08 | Bloco "Encontre no skills.sh" | Três caminhos, aviso de demora, card com 3 capturas na home | done | TASK05 | `docs/specs/2026-09-28-skills-sh-block.md` |
+| TASK04 | `<InstallCommand>` em `packages/ui` | Caixa com `$`, copiar, "Copiado!", aria-live, abas, `localStorage`, nota `DISABLE_TELEMETRY`; Storybook | done | TASK01 | `docs/archive/2026-09-25-install-command.md` |
+| TASK05 | Home | Hero ASCII "NICO SKILLS", contadores, lista (posição, tags, status, data), ordenação | done | TASK02, TASK04 | `docs/archive/2026-09-25-skills-home.md` |
+| TASK06 | Busca e filtros | Fuse.js, atalho `/`, filtros por categoria/tag/status | done | TASK05 | `docs/archive/2026-09-27-skills-search-filters.md` |
+| TASK07 | Página `/s/[slug]` | Badges, SKILL.md com sanitize + highlight, árvore de arquivos, links GitHub e skills.sh | done | TASK02, TASK04 | `docs/archive/2026-09-27-skills-detail-page.md` |
+| TASK08 | Bloco "Encontre no skills.sh" | Três caminhos, aviso de demora, card com 3 capturas na home | done | TASK05 | `docs/archive/2026-09-28-skills-sh-block.md` |
 | TASK09 | Deploy manual na VPS | Dockerfile nginx, compose com labels Traefik, primeiro deploy | backlog | TASK05, TASK07 | — |
 
 ## Fase 3 — Complementar

@@ -32,15 +32,11 @@
 
 ## Decisões desta sessão
 
-- Markdown de `/s/[slug]` (TASK07): pipeline `unified` direto pra HTML sanitizado (`src/lib/markdown.ts`), não `<ReactMarkdown>` — Server Component 100% estático, testável com `node --test`, zero parser no bundle do cliente; já em `docs/context/decisions.md`
-- Tema de syntax highlight (`highlight.js` `github.css`/`github-dark.css`, TASK07) isolado por `@media (prefers-color-scheme)`, exceção documentada à regra "nunca hex direto"
-- `skillsShConfig.repoUrl` (TASK08) adicionado a `catalog.config.ts` como fonte única da URL do repositório no skills.sh
-- Skills Catalog vive em `apps/skills` neste monorepo (não repo isolado), reaproveitando `@nico.dev/ui`; conteúdo (`skills/`, `packs/`) mora no repo público `robertourias/skills` e é sincronizado no build (`content:sync`, `SKILLS_REF`/`SKILLS_ROOT`) — já em `docs/architecture/overview.md` e `docs/context/decisions.md`
-- Idioma da `description` das skills: inglês — já em `docs/context/product.md`
-- Runner de testes de componentes: Vitest + Testing Library em `packages/ui` (Jest nunca foi configurado) — já em `docs/context/ui-guidelines.md` e `docs/context/decisions.md`
-- `apps/skills` usa `node --import tsx --test` para lógica pura (sem harness de componente); verificação de UI é manual no navegador (axe-core + teclado), documentada em cada spec arquivada
-- Achado (não corrigido): `ToggleFilterGroup mode="multiple"` em `packages/ui` é código morto, sem consumidor — registrado em `docs/archive/2026-09-27-skills-search-filters.md`, sugerida tarefa própria de correção/remoção
-- Tokens de contraste novos em `packages/ui` (`badge-warning-fg`, `badge-destructive-fg`) para badges `warning`/`destructive` passarem AA no tema claro — já em `tokens.css`/`colors.ts`; `.pen` do Pencil pendente de atualização manual (ver Próximos passos)
+- Markdown de `/s/[slug]` (TASK07): pipeline `unified` direto pra HTML sanitizado, não `<ReactMarkdown>` — detalhe completo em `docs/context/decisions.md` (Skills Catalog)
+- Tema de syntax highlight isolado por `@media (prefers-color-scheme)` — exceção à regra "nunca hex direto", documentada em `decisions.md`
+- `skillsShConfig.repoUrl` (TASK08) adicionado a `catalog.config.ts`
+
+> Decisões estruturais de sessões anteriores (stack, testes, tokens de contraste) já promovidas para `docs/context/decisions.md` e `docs/context/ui-guidelines.md` — não repetidas aqui.
 
 ---
 
