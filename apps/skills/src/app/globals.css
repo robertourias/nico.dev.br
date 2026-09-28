@@ -1,1 +1,173 @@
 @import "@nico.dev/ui/globals.css";
+
+/*
+ * Estilos de `.skill-markdown` (README renderizado na página de detalhe, FR-007/FR-012-015).
+ * Sem plugin de tipografia (ex.: @tailwindcss/typography) e sem CSS Modules — só seletores
+ * descendentes de `.skill-markdown` com tokens semânticos do design system (mesmos tokens
+ * documentados no bloco de comentário do agente orquestrador: `border`, `surface-raised`,
+ * `primary`, `muted-foreground`, etc.), para casar com o restante do app.
+ */
+.skill-markdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--color-foreground);
+}
+
+.skill-markdown > *:first-child {
+  margin-top: 0;
+}
+
+.skill-markdown h1,
+.skill-markdown h2,
+.skill-markdown h3,
+.skill-markdown h4,
+.skill-markdown h5,
+.skill-markdown h6 {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.skill-markdown h1 {
+  font-size: 1.5rem;
+}
+
+.skill-markdown h2 {
+  font-size: 1.25rem;
+}
+
+.skill-markdown h3 {
+  font-size: 1.125rem;
+}
+
+.skill-markdown p {
+  line-height: 1.7;
+}
+
+.skill-markdown ul,
+.skill-markdown ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding-left: 1.5rem;
+}
+
+.skill-markdown ul {
+  list-style-type: disc;
+}
+
+.skill-markdown ol {
+  list-style-type: decimal;
+}
+
+.skill-markdown li > ul,
+.skill-markdown li > ol {
+  margin-top: 0.375rem;
+}
+
+.skill-markdown blockquote {
+  border-left: 2px solid var(--color-border);
+  padding-left: 1rem;
+  color: var(--color-muted-foreground);
+  font-style: italic;
+}
+
+.skill-markdown a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.skill-markdown a:hover {
+  color: var(--color-primary-hover);
+}
+
+.skill-markdown table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.skill-markdown thead {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.skill-markdown th,
+.skill-markdown td {
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+/* Tabelas largas (muitas colunas) rolam dentro do próprio elemento em vez de estourar a página
+   em telas de 360px (FR-015) — igual ao tratamento do bloco de código logo abaixo. */
+.skill-markdown :is(table) {
+  display: block;
+  overflow-x: auto;
+}
+
+.skill-markdown hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+.skill-markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.375rem;
+}
+
+/* Código inline (fora de bloco `pre`): fundo sutil, sem borda — só `pre code` (bloco) leva borda
+   e scroll, tratado abaixo. */
+.skill-markdown :not(pre) > code {
+  background-color: var(--color-surface-raised);
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875em;
+}
+
+/* Bloco de código: fundo/borda de tokens semânticos (FR-007) + `overflow-x-auto` para não
+   quebrar o layout em 360px com linhas longas (FR-015). A cor de sintaxe em si vem do tema
+   `.hljs` isolado por `prefers-color-scheme` logo abaixo — este bloco só cuida do container. */
+.skill-markdown pre {
+  background-color: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.skill-markdown pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.875em;
+}
+
+/*
+ * EXCEÇÃO DOCUMENTADA à regra "nunca hex direto" (FR-007): tema de syntax highlight do
+ * `highlight.js` (pacote `highlight.js@11.12.0`, ver package.json). É folha de estilo de
+ * terceiros para sintaxe de código-fonte, não uma escolha de cor decorativa do design system —
+ * não existe token semântico equivalente às ~20 cores de um tema de highlight, e portar cada
+ * tema para tokens quebraria a fidelidade visual com o highlight.js upstream.
+ *
+ * Usamos `@media (prefers-color-scheme: ...)` DIRETO (não a classe `.dark` do app, que só é
+ * aplicada via JS em `layout.tsx` depois da hidratação) para casar o tema de código com a
+ * preferência do sistema operacional desde o primeiro paint, sem depender de JS/hidratação —
+ * exceção isolada explicitamente pedida pela spec (docs/specs/2026-09-27-skills-detail-page.md).
+ *
+ * `@import` aninhado dentro de `@media` é tecnicamente inválido pela spec CSS (`@import` deveria
+ * ser a primeira regra do arquivo, fora de blocos), mas testamos e o pipeline deste projeto
+ * (Tailwind v4 via `@tailwindcss/postcss`, que usa Lightning CSS internamente) resolve e inlina
+ * corretamente os dois arquivos de tema dentro de cada bloco `@media` no CSS final (confirmado
+ * inspecionando `out/_next/static/chunks/*.css` após `next build`: as regras `.hljs*` aparecem
+ * dentro do `@media (prefers-color-scheme:light)`/`:dark` correspondente). Por isso não foi
+ * necessário copiar o conteúdo dos temas manualmente.
+ */
+@media (prefers-color-scheme: light) {
+  @import "highlight.js/styles/github.css";
+}
+
+@media (prefers-color-scheme: dark) {
+  @import "highlight.js/styles/github-dark.css";
+}

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { formatUpdated, sortSkills, type SkillListItem } from './skills';
+import { buildFileTree, formatUpdated, sortSkills, type SkillListItem } from './skills';
 
 function item(title: string, updated: string): SkillListItem {
   return {
@@ -46,5 +46,35 @@ describe('formatUpdated', () => {
   it('não desloca o dia', () => {
     assert.equal(formatUpdated('2026-09-20'), '20 de set. de 2026');
     assert.equal(formatUpdated('2026-01-01'), '1 de jan. de 2026');
+  });
+});
+
+describe('buildFileTree', () => {
+  it('agrupa por pasta preservando a ordem de entrada', () => {
+    const tree = buildFileTree(['SKILL.md', 'references/c4.md', 'references/notes.md']);
+    assert.deepEqual(tree, [
+      { name: 'SKILL.md', path: 'SKILL.md', type: 'file' },
+      {
+        name: 'references',
+        path: 'references',
+        type: 'folder',
+        children: [
+          { name: 'c4.md', path: 'references/c4.md', type: 'file' },
+          { name: 'notes.md', path: 'references/notes.md', type: 'file' },
+        ],
+      },
+    ]);
+  });
+
+  it('um único arquivo produz um único nó', () => {
+    assert.deepEqual(buildFileTree(['SKILL.md']), [{ name: 'SKILL.md', path: 'SKILL.md', type: 'file' }]);
+  });
+
+  it('não reordena: a ordem de primeira aparição das pastas é preservada', () => {
+    const tree = buildFileTree(['z/a.md', 'a/b.md', 'z/c.md']);
+    assert.deepEqual(
+      tree.map((node) => node.name),
+      ['z', 'a'],
+    );
   });
 });

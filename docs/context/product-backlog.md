@@ -30,7 +30,7 @@
 | TASK04 | `<InstallCommand>` em `packages/ui` | Caixa com `$`, copiar, "Copiado!", aria-live, abas, `localStorage`, nota `DISABLE_TELEMETRY`; Storybook | done | TASK01 | `docs/specs/2026-09-25-install-command.md` |
 | TASK05 | Home | Hero ASCII "NICO SKILLS", contadores, lista (posição, tags, status, data), ordenação | done | TASK02, TASK04 | `docs/specs/2026-09-25-skills-home.md` |
 | TASK06 | Busca e filtros | Fuse.js, atalho `/`, filtros por categoria/tag/status | done | TASK05 | `docs/specs/2026-09-27-skills-search-filters.md` |
-| TASK07 | Página `/s/[slug]` | Badges, SKILL.md com sanitize + highlight, árvore de arquivos, links GitHub e skills.sh | backlog | TASK02, TASK04 | — |
+| TASK07 | Página `/s/[slug]` | Badges, SKILL.md com sanitize + highlight, árvore de arquivos, links GitHub e skills.sh | done | TASK02, TASK04 | `docs/specs/2026-09-27-skills-detail-page.md` |
 | TASK08 | Bloco "Encontre no skills.sh" | Três caminhos, aviso de demora, card com 3 capturas na home | backlog | TASK05 | — |
 | TASK09 | Deploy manual na VPS | Dockerfile nginx, compose com labels Traefik, primeiro deploy | backlog | TASK05, TASK07 | — |
 
