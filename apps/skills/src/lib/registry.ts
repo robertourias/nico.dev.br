@@ -32,6 +32,7 @@ export function loadRegistry(path: string): RegistryData {
       slug: skill.slug,
       title: skill.title,
       description: skill.description,
+      category: skill.category,
       tags: skill.tags,
       status: skill.status,
       updated: skill.updated,

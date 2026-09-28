@@ -34,10 +34,10 @@ export default function Home() {
         />
       </section>
 
-      {/* TASK06 insere busca e filtros aqui; TASK08 insere "Encontre no skills.sh" após a lista. */}
       <section aria-label="Skills">
         <SkillList items={items} />
       </section>
+      {/* TASK08 insere "Encontre no skills.sh" após a lista. */}
     </main>
   );
 }

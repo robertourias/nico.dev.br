@@ -54,6 +54,7 @@ describe('loadRegistry', () => {
         slug: 'alpha-skill',
         title: 'Alpha Skill',
         description: 'Descrição da skill de teste.',
+        category: 'documentation',
         tags: ['a', 'b'],
         status: 'beta',
         updated: '2026-09-20',

@@ -4,7 +4,16 @@ import { describe, it } from 'node:test';
 import { formatUpdated, sortSkills, type SkillListItem } from './skills';
 
 function item(title: string, updated: string): SkillListItem {
-  return { slug: title.toLowerCase(), title, description: 'd', tags: [], status: 'stable', updated, command: 'c' };
+  return {
+    slug: title.toLowerCase(),
+    title,
+    description: 'd',
+    category: 'documentation',
+    tags: [],
+    status: 'stable',
+    updated,
+    command: 'c',
+  };
 }
 
 describe('sortSkills', () => {
