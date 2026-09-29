@@ -123,9 +123,9 @@ labels:
   Atualizar `docs/context/current-state.md`: mover TASK09 de "próximos passos" para registrar que Dockerfile/compose estão prontos e o próximo passo é o runbook abaixo (Pendência Manual do humano).
 
 - **Critérios de Aceite:**
-  - [ ] Dado `docker-compose.yml`, quando `docker compose -f apps/skills/docker-compose.yml config` roda, então valida sem erro e mostra os 5 labels Traefik esperados (`enable`, `rule` com `skills.nico.dev.br`, `entrypoints=websecure`, `certresolver=letsencrypt`, `loadbalancer.server.port=80`). — cobre FR-003, verificado por `docker compose -f apps/skills/docker-compose.yml config`
-  - [ ] Dado o arquivo, quando revisado, então nenhuma variável de ambiente sensível é exigida (sem `DATABASE_URL`/secret nenhum — site estático). — cobre FR-003, verificado por leitura manual do arquivo (não há `.env` a validar)
-  - [ ] Runbook do primeiro deploy documentado abaixo (Notas) e `docs/context/current-state.md` atualizado. — cobre FR-004, verificado por leitura do arquivo atualizado
+  - [x] Dado `docker-compose.yml`, quando `docker compose -f apps/skills/docker-compose.yml config` roda, então valida sem erro e mostra os 5 labels Traefik esperados (`enable`, `rule` com `skills.nico.dev.br`, `entrypoints=websecure`, `certresolver=letsencrypt`, `loadbalancer.server.port=80`). — cobre FR-003, verificado por `docker compose -f apps/skills/docker-compose.yml config`
+  - [x] Dado o arquivo, quando revisado, então nenhuma variável de ambiente sensível é exigida (sem `DATABASE_URL`/secret nenhum — site estático). — cobre FR-003, verificado por leitura manual do arquivo (não há `.env` a validar)
+  - [x] Runbook do primeiro deploy documentado abaixo (Notas) e `docs/context/current-state.md` atualizado. — cobre FR-004, verificado por leitura do arquivo atualizado
 - **Notas — Runbook do primeiro deploy (Pendência Manual, exige SSH na VPS):**
   1. Confirmar DNS: `skills.nico.dev.br` → IP da VPS (mesmo IP de `api.nico.dev.br`).
   2. Na VPS: `git clone`/`git pull` deste repo (ou `rsync` do working tree) para um diretório próprio, ex. `~/apps/nico-dev`.

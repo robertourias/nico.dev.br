@@ -21,7 +21,7 @@
 - (nenhuma — entre tarefas do backlog)
 
 ### ⏭ Próximos passos imediatos
-1. `/spec TASK09` — deploy manual na VPS (Dockerfile nginx, compose com labels Traefik, primeiro deploy); já desbloqueada (TASK05 e TASK07 concluídas)
+1. **TASK09 (deploy manual na VPS): Spec aprovada e implementada no código** — `apps/skills/Dockerfile`, `apps/skills/nginx.conf` (T1) e `apps/skills/docker-compose.yml` (T2, labels Traefik) prontos e verificados localmente (build, smoke test HTTP, `docker compose config`). TASK09 ainda **não** está `done`: falta o runbook do primeiro deploy real na VPS via SSH — Pendência Manual do humano (Beto), passo a passo completo em `docs/specs/2026-09-29-skills-deploy-vps.md`, Tarefa 2, campo Notas (DNS → `git pull`/`rsync` na VPS → `docker compose up -d --build` → confirmar rede real do `traefik.docker.network` via `docker inspect` → aguardar TLS → smoke test → marcar TASK09 `done` no backlog).
 2. Capturar as 3 telas reais do skills.sh pro bloco "Encontre no skills.sh" (TASK08, `src/components/skills-sh-block.tsx`) — só possível depois que uma skill deste catálogo estiver indexada lá (precisa de instalação real pós-deploy); comentários no código apontam o enquadramento exato de cada captura
 3. Verificar tema **claro** do highlight.js (`/s/[slug]`, TASK07) e do bloco skills.sh (TASK08) ao vivo — máquina de dev está em `prefers-color-scheme: dark`, sem forma de emular nas ferramentas de navegador desta sessão
 4. Mergear o PR #1 em `robertourias/skills` (migração de mermaid-diagrams e pencil-design-system) — sem isso o build sem `SKILLS_REF` fixo só enxerga 3 skills
