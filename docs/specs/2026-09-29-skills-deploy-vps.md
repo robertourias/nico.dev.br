@@ -104,9 +104,9 @@ labels:
   Atualizar `.dockerignore` (raiz, já existe — usado também por `apps/api`) acrescentando `**/out` e `**/content` (dirs gitignored que não devem vazar pro contexto do build; `content:sync` deve rodar limpo dentro da imagem).
 
 - **Critérios de Aceite:**
-  - [ ] Dado o `Dockerfile`, quando `docker build -f apps/skills/Dockerfile -t nico-skills:test .` roda na raiz do repo, então builda sem erro e a stage final contém `/usr/share/nginx/html/index.html`. — cobre FR-001, verificado por `docker build -f apps/skills/Dockerfile -t nico-skills:test .`
-  - [ ] Dado a imagem construída, quando `docker run --rm -d -p 8080:80 --name nico-skills-smoke nico-skills:test` sobe, então `curl -sf http://localhost:8080/` retorna HTML 200 (home do catálogo). — cobre FR-001, FR-002, verificado por `docker run --rm -d -p 8080:80 --name nico-skills-smoke nico-skills:test && curl -sf http://localhost:8080/ && docker stop nico-skills-smoke`
-  - [ ] Dado uma rota inexistente, quando `curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/rota-inexistente/` roda contra o container do passo anterior, então retorna `404`. — cobre FR-002, verificado por curl (mesmo comando acima antes do `docker stop`)
+  - [x] Dado o `Dockerfile`, quando `docker build -f apps/skills/Dockerfile -t nico-skills:test .` roda na raiz do repo, então builda sem erro e a stage final contém `/usr/share/nginx/html/index.html`. — cobre FR-001, verificado por `docker build -f apps/skills/Dockerfile -t nico-skills:test .`
+  - [x] Dado a imagem construída, quando `docker run --rm -d -p 8080:80 --name nico-skills-smoke nico-skills:test` sobe, então `curl -sf http://localhost:8080/` retorna HTML 200 (home do catálogo). — cobre FR-001, FR-002, verificado por `docker run --rm -d -p 8080:80 --name nico-skills-smoke nico-skills:test && curl -sf http://localhost:8080/ && docker stop nico-skills-smoke`
+  - [x] Dado uma rota inexistente, quando `curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/rota-inexistente/` roda contra o container do passo anterior, então retorna `404`. — cobre FR-002, verificado por curl (mesmo comando acima antes do `docker stop`)
 - **Notas:** o pin de `SKILLS_REF` é o motivo do build funcionar hoje (ver seção 1); ao corrigir a categoria de `playwright-review` no repo `robertourias/skills`, atualizar o `ARG` default no Dockerfile.
 
 ### Tarefa 2: docker-compose.yml (Traefik) + runbook do primeiro deploy
