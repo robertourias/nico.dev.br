@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 340" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="iam-role-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+  </defs>
+  <rect width="940" height="340" fill="#0a0a0f"/>
+  <text x="30" y="46" font-size="20" font-weight="700" fill="#f0efe8">Como uma role entrega credenciais temporárias</text>
+
+  <rect x="30" y="100" width="175" height="96" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="117" y="130" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">1. Quem chama</text>
+  <text x="117" y="154" text-anchor="middle" font-size="12" fill="#888898">Lambda, EC2, ou</text>
+  <text x="117" y="172" text-anchor="middle" font-size="12" fill="#888898">uma pessoa</text>
+
+  <rect x="265" y="100" width="175" height="96" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="2"/>
+  <text x="352" y="130" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">2. Role</text>
+  <text x="352" y="154" text-anchor="middle" font-size="12" fill="#a78bfa">trust policy confere</text>
+  <text x="352" y="172" text-anchor="middle" font-size="12" fill="#a78bfa">quem pode assumir</text>
+
+  <rect x="500" y="100" width="175" height="96" rx="12" fill="#111118" stroke="#0f766e" stroke-width="2"/>
+  <text x="587" y="130" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">3. STS</text>
+  <text x="587" y="154" text-anchor="middle" font-size="12" fill="#2dd4bf">emite credenciais</text>
+  <text x="587" y="172" text-anchor="middle" font-size="12" fill="#2dd4bf">temporárias</text>
+
+  <rect x="735" y="100" width="175" height="96" rx="12" fill="#111118" stroke="#e8c547" stroke-width="2"/>
+  <text x="822" y="130" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">4. Chamada à API</text>
+  <text x="822" y="154" text-anchor="middle" font-size="12" fill="#e8c547">a permissions policy</text>
+  <text x="822" y="172" text-anchor="middle" font-size="12" fill="#e8c547">define o que pode</text>
+
+  <line x1="205" y1="148" x2="263" y2="148" stroke="#888898" stroke-width="2" marker-end="url(#iam-role-arrow)"/>
+  <line x1="440" y1="148" x2="498" y2="148" stroke="#888898" stroke-width="2" marker-end="url(#iam-role-arrow)"/>
+  <line x1="675" y1="148" x2="733" y2="148" stroke="#888898" stroke-width="2" marker-end="url(#iam-role-arrow)"/>
+
+  <rect x="30" y="236" width="880" height="64" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="470" y="264" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Trust policy decide quem entra. Permissions policy decide o que faz lá dentro.</text>
+  <text x="470" y="284" text-anchor="middle" font-size="12" fill="#888898">Nenhuma chave fixa para vazar: as credenciais expiram sozinhas.</text>
+</svg>
