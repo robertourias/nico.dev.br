@@ -126,6 +126,9 @@ labels:
   - [x] Dado `docker-compose.yml`, quando `docker compose -f apps/skills/docker-compose.yml config` roda, então valida sem erro e mostra os 5 labels Traefik esperados (`enable`, `rule` com `skills.nico.dev.br`, `entrypoints=websecure`, `certresolver=letsencrypt`, `loadbalancer.server.port=80`). — cobre FR-003, verificado por `docker compose -f apps/skills/docker-compose.yml config`
   - [x] Dado o arquivo, quando revisado, então nenhuma variável de ambiente sensível é exigida (sem `DATABASE_URL`/secret nenhum — site estático). — cobre FR-003, verificado por leitura manual do arquivo (não há `.env` a validar)
   - [x] Runbook do primeiro deploy documentado abaixo (Notas) e `docs/context/current-state.md` atualizado. — cobre FR-004, verificado por leitura do arquivo atualizado
+  - [ ] Runbook executado na VPS e `https://skills.nico.dev.br` responde 200 com TLS válido. — cobre FR-004
+    > 🟡 Pendência Manual: execução real do runbook exige acesso SSH à VPS, que o agente não tem.
+    > Instrução: seguir os 7 passos do runbook abaixo (Notas desta tarefa) — DNS → git pull/rsync na VPS → `docker compose -f apps/skills/docker-compose.yml up -d --build` → confirmar rede real via `docker inspect skills-web` (ajustar `traefik.docker.network` se divergir) → aguardar TLS Let's Encrypt → smoke test manual no navegador (`https://skills.nico.dev.br`, busca, `/s/<slug>`) → marcar TASK09 `done` no backlog. Depois de concluído, rode `/recheck docs/specs/2026-09-29-skills-deploy-vps.md <o que foi feito>`.
 - **Notas — Runbook do primeiro deploy (Pendência Manual, exige SSH na VPS):**
   1. Confirmar DNS: `skills.nico.dev.br` → IP da VPS (mesmo IP de `api.nico.dev.br`).
   2. Na VPS: `git clone`/`git pull` deste repo (ou `rsync` do working tree) para um diretório próprio, ex. `~/apps/nico-dev`.
