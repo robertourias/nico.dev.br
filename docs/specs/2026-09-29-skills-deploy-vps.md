@@ -174,6 +174,12 @@ labels:
 <!-- Preenchido pelo /hands-on: achados 🟢/💡 da review por onda e da final,
 no formato `- [onda N] arquivo:linha — texto`. Não é normativo. -->
 
+- [onda 1] `apps/skills/nginx.conf` — sem `server_tokens off;`/`charset utf-8;`; hardening/cosmético opcional, fora do escopo dos critérios de aceite de T1.
+- [onda 1] Spec, Tarefa 1 (descrição) — texto menciona "usa as env vars já declaradas em `turbo.json`" para content:sync/registry/build, mas o Dockerfile invoca via `pnpm --filter @nico.dev/skills <script>` direto (não `turbo run`); quem propaga `SKILLS_REF` é o `ENV` do Dockerfile lido por `process.env`, não a config `env` do `turbo.json`. Funciona (evidenciado pelo build); imprecisão de raciocínio na Spec, não no código.
+- [onda 2] `docs/context/guardrails.md` / `docs/context/constitution.md` — todos os campos `GR-XXX`/`CN-XXX` seguem `TODO`, nunca preenchidos pelo `/init-project`. Pré-existente, sem relação com esta Spec.
+- [final] `docs/context/decisions.md:170` e `docs/context/product-backlog.md` — editados fora do campo `Arquivos:` declarado nas tarefas (bookkeeping padrão: registro de decisão técnica + status de backlog); corretos e coerentes com o resto do diff.
+- [final] `docs/context/decisions.md:171` (linha pré-existente) — descreve o deploy futuro da TASK13 com `nginx:alpine` (tag flutuante); este Dockerfile usa `nginx:1.27-alpine` (pin explícito). Não é contradição; vale considerar manter o pin de versão também no pipeline automatizado ao planejar a TASK13.
+
 ---
 
 ## Emendas
