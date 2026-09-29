@@ -11,7 +11,7 @@
 
 ## Feature em andamento
 
-**Spec ativo:** `docs/specs/2026-09-29-skills-deploy-vps.md` (TASK09, Status: review — aguardando `/approve`)
+**Spec ativo:** `docs/specs/2026-09-29-skills-deploy-vps.md` (TASK09, Status: approved — pronta para `/hands-on`)
 
 ---
 

@@ -1,6 +1,7 @@
 # Spec & Plan: Deploy manual na VPS (TASK09)
 
-**Status:** review
+**Status:** approved
+**Aprovado por:** Roberto Nicoletti em 2026-09-29
 **Data:** 2026-09-29
 **Autor:** PLANNER (Claude)
 **Backlog:** TASK09 em `docs/context/product-backlog.md`
