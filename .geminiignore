@@ -1,0 +1,24 @@
+# Dependências
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Build de produção
+build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+
+# Cobertura de testes
+coverage/
+
+# Ferramentas e Deploy
+.turbo/
+.vercel/
