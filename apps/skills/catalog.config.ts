@@ -30,7 +30,7 @@ export const skillsShConfig = {
 } as const;
 
 // Tuplas `as const` para servirem direto em z.enum (TASK02) sem duplicar valores.
-export const CATEGORIES = ['documentation', 'design', 'writing', 'product', 'engineering'] as const;
+export const CATEGORIES = ['documentation', 'design', 'writing', 'product', 'engineering', 'testing'] as const;
 export const AGENTS = ['claude-code', 'cursor', 'codex'] as const;
 export const STATUSES = ['stable', 'beta', 'draft'] as const;
 

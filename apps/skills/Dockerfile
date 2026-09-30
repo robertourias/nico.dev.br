@@ -20,7 +20,7 @@ RUN pnpm install --frozen-lockfile --filter @nico.dev/skills...
 FROM deps AS build
 # Pin no último commit bom de robertourias/skills antes de `playwright-review` ganhar
 # `metadata.category: testing` — valor fora da tupla CATEGORIES de
-# apps/skills/catalog.config.ts (documentation, design, writing, product, engineering).
+# apps/skills/catalog.config.ts (documentation, design, writing, product, engineering, testing).
 # Com SKILLS_REF=main esse commit quebra build-registry.ts (categoria inválida).
 # Ao corrigir a categoria no repo robertourias/skills, atualizar este default.
 ARG SKILLS_REF=e137566fc94a63c3708cc720cfa62cadc73ab5ff
