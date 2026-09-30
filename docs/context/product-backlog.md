@@ -32,7 +32,7 @@
 | TASK06 | Busca e filtros | Fuse.js, atalho `/`, filtros por categoria/tag/status | done | TASK05 | `docs/archive/2026-09-27-skills-search-filters.md` |
 | TASK07 | Página `/s/[slug]` | Badges, SKILL.md com sanitize + highlight, árvore de arquivos, links GitHub e skills.sh | done | TASK02, TASK04 | `docs/archive/2026-09-27-skills-detail-page.md` |
 | TASK08 | Bloco "Encontre no skills.sh" | Três caminhos, aviso de demora, card com 3 capturas na home | done | TASK05 | `docs/archive/2026-09-28-skills-sh-block.md` |
-| TASK09 | Deploy manual na VPS | Dockerfile nginx, compose com labels Traefik, primeiro deploy | in-progress | TASK05, TASK07 | `docs/specs/2026-09-29-skills-deploy-vps.md` |
+| TASK09 | Deploy manual na VPS | Dockerfile nginx, compose com labels Traefik, primeiro deploy | done | TASK05, TASK07 | `docs/specs/2026-09-29-skills-deploy-vps.md` |
 
 ## Fase 3 — Complementar
 
