@@ -11,7 +11,7 @@
 
 ## Feature em andamento
 
-**Spec ativo:** (nenhum — TASK08 fechada; próxima spec ainda não gerada)
+**Spec ativo:** `docs/specs/2026-09-30-clt-pj-comparison-selection.md` (Status: review — pendente aprovação humana)
 
 ---
 
