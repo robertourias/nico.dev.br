@@ -1,6 +1,6 @@
 # Spec & Plan: Seleção de Comparação na Calculadora CLT vs PJ
 
-**Status:** approved
+**Status:** done
 **Data:** 2026-09-30
 **Autor:** Planner Agent
 **Aprovado por:** Roberto Nicoletti
@@ -65,8 +65,8 @@ Atualmente, a página da ferramenta "Calculadora CLT vs PJ" em `apps/tools/src/a
   - Cada opção deve ser um `Link` do Next.js (ou atualizar o router de forma suave) que adiciona o parâmetro `?mode=clt-pj`, `?mode=pj-pj`, ou `?mode=clt-clt` à URL.
   - Atualizar `apps/tools/src/app/clt-pj/page.tsx` para ler o `searchParams.mode`. Se não houver `mode` válido, renderizar o `ComparisonSelector`. Se houver, preparar para renderizar o form adequado.
 - **Critérios de Aceite:**
-  - [ ] Dado que não há query param `mode`, quando o usuário acessa `/clt-pj`, então o componente de seleção com as 3 opções é exibido em vez do formulário. — verificado visualmente.
-  - [ ] Dado um clique no card "CLT vs PJ", quando acionado, a URL muda para `/clt-pj?mode=clt-pj`. — verificado visualmente no browser.
+  - [x] Dado que não há query param `mode`, quando o usuário acessa `/clt-pj`, então o componente de seleção com as 3 opções é exibido em vez do formulário. — verificado visualmente.
+  - [x] Dado um clique no card "CLT vs PJ", quando acionado, a URL muda para `/clt-pj?mode=clt-pj`. — verificado visualmente no browser.
 
 ### Tarefa 2: Conectar Scaffolds das Diferentes Calculadoras
 - **Tipo:** feature
@@ -80,9 +80,9 @@ Atualmente, a página da ferramenta "Calculadora CLT vs PJ" em `apps/tools/src/a
   - Atualizar `page.tsx` para que, dependendo do `mode`, renderize o formulário adequado (`CalculatorForm` atual para `clt-pj`, os novos para os respectivos).
   - Incluir um botão/link "Voltar para seleção" (ou "Trocar tipo de comparação") no topo ou junto ao cabeçalho (ou ajustar o `ToolPageHeader` para permitir um action de voltar).
 - **Critérios de Aceite:**
-  - [ ] Dado a URL `/clt-pj?mode=clt-pj`, quando a página carrega, então o formulário original `CalculatorForm` é exibido. — verificado via dev server.
-  - [ ] Dado a URL `/clt-pj?mode=pj-pj`, quando a página carrega, então o novo scaffold `CalculatorPjPj` é exibido. — verificado via dev server.
-  - [ ] Dado um botão "Trocar comparação", quando clicado, o `mode` é removido da URL e o seletor reaparece. — verificado visualmente.
+  - [x] Dado a URL `/clt-pj?mode=clt-pj`, quando a página carrega, então o formulário original `CalculatorForm` é exibido. — verificado via dev server.
+  - [x] Dado a URL `/clt-pj?mode=pj-pj`, quando a página carrega, então o novo scaffold `CalculatorPjPj` é exibido. — verificado via dev server.
+  - [x] Dado um botão "Trocar comparação", quando clicado, o `mode` é removido da URL e o seletor reaparece. — verificado visualmente.
 
 ---
 
