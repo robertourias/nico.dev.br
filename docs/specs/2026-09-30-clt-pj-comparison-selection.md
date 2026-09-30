@@ -1,8 +1,9 @@
 # Spec & Plan: Seleção de Comparação na Calculadora CLT vs PJ
 
-**Status:** review
+**Status:** approved
 **Data:** 2026-09-30
 **Autor:** Planner Agent
+**Aprovado por:** Roberto Nicoletti
 
 ---
 
