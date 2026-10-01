@@ -1,6 +1,7 @@
 # Spec & Plan: Formulários de Comparação PJ vs PJ e CLT vs CLT
 
-**Status:** review
+**Status:** approved
+**Aprovado por:** Roberto Nicoletti em 2026-10-01
 **Data:** 2026-10-01
 **Autor:** Antigravity
 
