@@ -1,6 +1,7 @@
 # Spec & Plan: Formulários de Comparação PJ vs PJ e CLT vs CLT
 
-**Status:** approved
+**Status:** done
+**Concluído em:** 2026-10-01
 **Aprovado por:** Roberto Nicoletti em 2026-10-01
 **Data:** 2026-10-01
 **Autor:** Antigravity
@@ -62,8 +63,8 @@ Não se aplica. O processamento é client-side em `apps/tools`.
 - **Cobre:** FR-001, FR-002, FR-005
 - **Descrição:** Atualizar o arquivo para implementar a interface do formulário e o gerenciamento de estado para duas propostas PJ. Realizar o cálculo do valor líquido de cada proposta considerando custos básicos de PJ e tributação média, e exibir a diferença entre elas, seguindo o padrão de UI do `calculator-form.tsx`.
 - **Critérios de Aceite:**
-  - [ ] Dado o formulário PJ vs PJ preenchido, quando o usuário altera o valor da Proposta A, então a diferença exibida entre as propostas deve ser recalculada em tempo real. — cobre FR-001, FR-002, verificado por `pnpm --filter @nico.dev/tools lint`
-  - [ ] Dado o carregamento da página, quando em aba PJ vs PJ, então nenhum erro de lint ou tipagem deve acontecer. — cobre FR-005, verificado por `pnpm --filter @nico.dev/tools exec tsc --noEmit`
+  - [x] Dado o formulário PJ vs PJ preenchido, quando o usuário altera o valor da Proposta A, então a diferença exibida entre as propostas deve ser recalculada em tempo real. — cobre FR-001, FR-002, verificado por `pnpm --filter @nico.dev/tools lint`
+  - [x] Dado o carregamento da página, quando em aba PJ vs PJ, então nenhum erro de lint ou tipagem deve acontecer. — cobre FR-005, verificado por `pnpm --filter @nico.dev/tools exec tsc --noEmit`
 
 ### Tarefa 2: Implementar Formulário CLT vs CLT
 - **Tipo:** feature
@@ -74,8 +75,8 @@ Não se aplica. O processamento é client-side em `apps/tools`.
 - **Cobre:** FR-003, FR-004, FR-005
 - **Descrição:** Atualizar o arquivo para implementar o formulário e cálculo para duas propostas CLT. Deve considerar salários brutos, benefícios (VA, VR, plano de saúde) e deduções padrão (IRRF, INSS) de cada proposta para chegar no líquido real, exibindo a diferença.
 - **Critérios de Aceite:**
-  - [ ] Dado o formulário CLT vs CLT preenchido com dois salários diferentes, quando exibido o resultado, então o cálculo do líquido + benefícios de ambas as propostas é sumarizado e a diferença é exibida. — cobre FR-003, FR-004, verificado por `pnpm --filter @nico.dev/tools lint`
-  - [ ] Dado o carregamento da página, quando em aba CLT vs CLT, então nenhum erro de lint ou tipagem deve acontecer. — cobre FR-005, verificado por `pnpm --filter @nico.dev/tools exec tsc --noEmit`
+  - [x] Dado o formulário CLT vs CLT preenchido com dois salários diferentes, quando exibido o resultado, então o cálculo do líquido + benefícios de ambas as propostas é sumarizado e a diferença é exibida. — cobre FR-003, FR-004, verificado por `pnpm --filter @nico.dev/tools lint`
+  - [x] Dado o carregamento da página, quando em aba CLT vs CLT, então nenhum erro de lint ou tipagem deve acontecer. — cobre FR-005, verificado por `pnpm --filter @nico.dev/tools exec tsc --noEmit`
 
 ---
 

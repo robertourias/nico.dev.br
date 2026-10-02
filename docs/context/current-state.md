@@ -11,7 +11,7 @@
 
 ## Feature em andamento
 
-**Spec ativo:** docs/apps/tools/specs/2026-10-01-clt-pj-forms.md
+**Spec ativo:** —
 
 ---
 
