@@ -1,5 +1,5 @@
 import { Badge } from "@ui"
-import { formatBRL, type CLTResult, type PJResult, type TaxRegime, TAX_REGIME_LABELS } from "@/lib/salary-calculator"
+import { cltMonthlyEffectiveIncome, formatBRL, type CLTResult, type PJResult, type TaxRegime, TAX_REGIME_LABELS } from "@/lib/salary-calculator"
 
 interface ResultTablesProps {
   clt: CLTResult
@@ -109,7 +109,8 @@ export default function ResultTables({
           benefitRows={cltBenefitRows}
           netValue={clt.netSalary}
           total={clt.effectiveIncome}
-          totalLabel="Renda Efetiva CLT"
+          totalLabel="Renda Efetiva Completa"
+          monthlyTotal={cltMonthlyEffectiveIncome(clt)}
         />
 
         <ResultCard
@@ -121,7 +122,7 @@ export default function ResultTables({
           benefitRows={pjBenefitRows}
           netValue={pj.netValue}
           total={pj.effectiveIncome}
-          totalLabel="Renda Efetiva PJ"
+          totalLabel="Renda Efetiva Completa"
         />
       </div>
 
@@ -170,6 +171,7 @@ export interface ResultCardProps {
   netValue: number
   total: number
   totalLabel: string
+  monthlyTotal?: number
 }
 
 export function ResultCard({
@@ -182,6 +184,7 @@ export function ResultCard({
   netValue,
   total,
   totalLabel,
+  monthlyTotal,
 }: ResultCardProps) {
   const hasBenefits = benefitRows.length > 0
 
@@ -240,6 +243,14 @@ export function ResultCard({
             )}
           </tbody>
           <tfoot>
+            {monthlyTotal !== undefined && monthlyTotal !== total && (
+              <tr className="bg-surface-raised">
+                <td className="px-5 pt-3 pb-1 text-xs font-medium text-muted-foreground">Renda Efetiva Mensal</td>
+                <td className="px-5 pt-3 pb-1 text-right font-mono tabular-nums text-sm font-medium text-foreground">
+                  {formatBRL(monthlyTotal)}
+                </td>
+              </tr>
+            )}
             <tr className="bg-surface-raised">
               <td className="px-5 py-3 font-semibold text-foreground">{totalLabel}</td>
               <td className="px-5 py-3 text-right font-mono tabular-nums font-bold text-primary text-base">

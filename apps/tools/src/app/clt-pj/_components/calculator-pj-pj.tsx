@@ -247,7 +247,7 @@ export default function CalculatorPjPj() {
               benefitRows={buildBenefitRows(result.a)}
               netValue={result.a.netValue}
               total={result.a.effectiveIncome}
-              totalLabel="Renda Efetiva"
+              totalLabel="Renda Efetiva Completa"
             />
             <ResultCard
               title="Proposta B (PJ)"
@@ -256,7 +256,7 @@ export default function CalculatorPjPj() {
               benefitRows={buildBenefitRows(result.b)}
               netValue={result.b.netValue}
               total={result.b.effectiveIncome}
-              totalLabel="Renda Efetiva"
+              totalLabel="Renda Efetiva Completa"
             />
           </div>
 

@@ -1,3 +1,0 @@
-# Sem frontmatter
-
-Apenas markdown.

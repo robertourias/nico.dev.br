@@ -15,6 +15,7 @@ import {
 } from "@ui"
 import {
   calculateCLT,
+  cltMonthlyEffectiveIncome,
   formatBRL,
   type CLTResult,
 } from "@/lib/salary-calculator"
@@ -213,7 +214,8 @@ export default function CalculatorCltClt() {
               benefitRows={buildBenefitRows(result.a)}
               netValue={result.a.netSalary}
               total={result.a.effectiveIncome}
-              totalLabel="Renda Efetiva"
+              totalLabel="Renda Efetiva Completa"
+              monthlyTotal={cltMonthlyEffectiveIncome(result.a)}
             />
             <ResultCard
               title="Proposta B (CLT)"
@@ -221,7 +223,8 @@ export default function CalculatorCltClt() {
               benefitRows={buildBenefitRows(result.b)}
               netValue={result.b.netSalary}
               total={result.b.effectiveIncome}
-              totalLabel="Renda Efetiva"
+              totalLabel="Renda Efetiva Completa"
+              monthlyTotal={cltMonthlyEffectiveIncome(result.b)}
             />
           </div>
 
