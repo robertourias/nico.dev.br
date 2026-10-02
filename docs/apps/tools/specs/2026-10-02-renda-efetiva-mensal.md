@@ -73,10 +73,14 @@ interface ResultCardProps { /* existentes */ monthlyTotal?: number }
 - **Cobre:** FR-001, FR-002, FR-003, FR-004, FR-005, FR-006
 - **Descrição:** Adicionar `cltMonthlyEffectiveIncome`. Em `ResultCard`, nova prop `monthlyTotal?` e linha "Renda Efetiva Mensal" antes do total (só se definida e `!== total`). Em `ResultTables`: `totalLabel="Renda Efetiva Completa"` nos dois cartões; cartão CLT passa `monthlyTotal`; cartão PJ não passa.
 - **Critérios de Aceite:**
-  - [ ] Dado CLT com bruto, VA, VT e outros benefícios, quando se avalia `cltMonthlyEffectiveIncome`, então retorna `netSalary + va + vt + otherBenefits` (sem FGTS/13º/abono) e `effectiveIncome` segue igual ao atual. — cobre FR-001, verificado por conferência manual com valores conhecidos (sem runner de teste no app)
+  - [x] Dado CLT com bruto, VA, VT e outros benefícios, quando se avalia `cltMonthlyEffectiveIncome`, então retorna `netSalary + va + vt + otherBenefits` (sem FGTS/13º/abono) e `effectiveIncome` segue igual ao atual. — cobre FR-001, verificado por conferência manual com valores conhecidos (sem runner de teste no app)
   - [ ] Dado resultado CLT vs PJ calculado, quando a página renderiza, então o cartão CLT mostra "Renda Efetiva Mensal" acima de "Renda Efetiva Completa" e o cartão PJ mostra só "Renda Efetiva Completa". — cobre FR-002, FR-003, FR-004, FR-005, verificado por conferência manual no navegador
+    > 🟡 Pendência Manual: sem navegador disponível ao agente para conferir a renderização.
+    > Instrução: abrir /clt-pj, calcular, e confirmar "Renda Efetiva Mensal" (menor, acima) + "Renda Efetiva Completa" no cartão CLT; só "Renda Efetiva Completa" no cartão PJ.
   - [ ] Dado resultado calculado, quando exibido, então "mais vantajoso" e painel de equivalência mantêm os mesmos valores de antes. — cobre FR-006, verificado por conferência manual antes/depois
-  - [ ] `pnpm --filter @nico.dev/tools lint` e `pnpm --filter @nico.dev/tools build` passam sem erros novos. — cobre FR-001 a FR-003, verificado pelos próprios comandos
+    > 🟡 Pendência Manual: comparação visual antes/depois exige navegador (código de diff/equivalência não foi alterado).
+    > Instrução: comparar "mais vantajoso" e painel de equivalência com a versão da master para os mesmos inputs.
+  - [x] `pnpm --filter @nico.dev/tools lint` e `pnpm --filter @nico.dev/tools build` passam sem erros novos. — cobre FR-001 a FR-003, verificado pelos próprios comandos
 
 ### Tarefa 2: Aba CLT vs CLT
 - **Tipo:** feature

@@ -156,6 +156,11 @@ export function calculateCLT(input: CLTInput): CLTResult {
   return { grossSalary, inss, irrf, otherDeductions, netSalary, va, vt, otherBenefits, fgts, decimoTerceiro, abonoFerias, effectiveIncome }
 }
 
+// Renda efetiva mensal: o que entra todo mês (sem FGTS, 13º e abono de férias).
+export function cltMonthlyEffectiveIncome(clt: CLTResult): number {
+  return round(clt.netSalary + clt.va + clt.vt + clt.otherBenefits)
+}
+
 export function calculatePJ(input: PJInput): PJResult {
   const { revenue, regime, prolabore, fixedExpenses, healthInsurance, otherBenefits = 0 } = input
 
