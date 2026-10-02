@@ -154,17 +154,17 @@ export default function ResultTables({
   )
 }
 
-interface TableRow {
+export interface TableRow {
   label: string
   value: number
   variant?: "deduction" | "benefit"
 }
 
-interface ResultCardProps {
+export interface ResultCardProps {
   title: string
   subtitle?: string
-  isEstimate: boolean
-  estimateNote: string
+  isEstimate?: boolean
+  estimateNote?: string
   deductionRows: TableRow[]
   benefitRows: TableRow[]
   netValue: number
@@ -172,7 +172,7 @@ interface ResultCardProps {
   totalLabel: string
 }
 
-function ResultCard({
+export function ResultCard({
   title,
   subtitle,
   isEstimate,
