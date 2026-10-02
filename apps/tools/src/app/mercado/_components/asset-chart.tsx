@@ -23,19 +23,21 @@ interface AssetChartProps {
 const BRL = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" })
 
 export function AssetChart({ asset, onClose }: AssetChartProps) {
-  const [history, setHistory] = useState<HistoricalPoint[]>([])
-  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState<{ asset: AssetQuote; points: HistoricalPoint[] } | null>(null)
 
   useEffect(() => {
-    if (!asset) {
-      setHistory([])
-      return
-    }
-    setLoading(true)
+    if (!asset) return
+    let cancelled = false
     fetchAssetHistory(asset.id, asset.source)
-      .then(setHistory)
-      .finally(() => setLoading(false))
+      .catch(() => [] as HistoricalPoint[])
+      .then(points => {
+        if (!cancelled) setResult({ asset, points })
+      })
+    return () => { cancelled = true }
   }, [asset])
+
+  const loading = asset !== null && result?.asset !== asset
+  const history = result?.asset === asset ? result.points : []
 
   if (!asset) return null
 

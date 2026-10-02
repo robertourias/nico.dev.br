@@ -30,34 +30,38 @@ export function useCurrencyConverter(): ConverterState & ConverterActions {
   const [from, setFromState] = useState('USD')
   const [to, setToState] = useState('BRL')
   const [amount, setAmount] = useState('1')
-  const [rate, setRate] = useState<number | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [fetchedRate, setFetchedRate] = useState<number | null>(null)
+  const [settledKey, setSettledKey] = useState<string | null>(null)
+  const [fetchError, setFetchError] = useState<string | null>(null)
 
-  const fetchRate = useCallback(async (fromCode: string, toCode: string) => {
-    if (fromCode === toCode) {
-      setRate(1)
-      setError(null)
-      return
-    }
-    setLoading(true)
-    setError(null)
-    try {
-      const res = await fetch(`/api/exchange-rate?from=${fromCode}&to=${toCode}`)
-      if (!res.ok) throw new Error('Erro ao buscar cotação')
-      const data: ExchangeRateResponse = await res.json()
-      setRate(data.rate)
-    } catch {
-      setError('Não foi possível buscar a cotação. Tente novamente.')
-      setRate(null)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+  const sameCurrency = from === to
+  const requestKey = `${from}|${to}`
+  const rate = sameCurrency ? 1 : fetchedRate
+  const loading = !sameCurrency && settledKey !== requestKey
+  const error = sameCurrency || loading ? null : fetchError
 
   useEffect(() => {
-    fetchRate(from, to)
-  }, [from, to, fetchRate])
+    if (from === to) return
+    let cancelled = false
+    fetch(`/api/exchange-rate?from=${from}&to=${to}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Erro ao buscar cotação')
+        return res.json() as Promise<ExchangeRateResponse>
+      })
+      .then(data => {
+        if (cancelled) return
+        setFetchedRate(data.rate)
+        setFetchError(null)
+        setSettledKey(requestKey)
+      })
+      .catch(() => {
+        if (cancelled) return
+        setFetchedRate(null)
+        setFetchError('Não foi possível buscar a cotação. Tente novamente.')
+        setSettledKey(requestKey)
+      })
+    return () => { cancelled = true }
+  }, [from, to, requestKey])
 
   const result = rate !== null && amount !== '' ? parseFloat(amount) * rate : null
 

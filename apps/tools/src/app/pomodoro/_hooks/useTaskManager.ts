@@ -25,6 +25,7 @@ export function useTaskManager(): UseTaskManagerReturn {
   // Load tasks on mount
   useEffect(() => {
     const loadedTasks = storage.loadTasks();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hidratação de localStorage pós-mount; ler no inicializador causaria mismatch de hidratação SSR
     setTasks(loadedTasks);
     setIsLoaded(true);
   }, []);

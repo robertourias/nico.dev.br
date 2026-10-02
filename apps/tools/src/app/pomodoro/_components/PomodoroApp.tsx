@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Timer } from '@/domain/pomodoro';
 import { useTimerConfig, usePomodoroSession, useTaskManager, useHistory, useLiveStats, usePictureInPicture } from '../_hooks';
@@ -28,7 +28,7 @@ export function PomodoroApp() {
   const [showFloatingWidget, setShowFloatingWidget] = useState(false);
   const [tasksOpen, setTasksOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
-  const [lastPhase, setLastPhase] = useState<string | null>(null);
+  const lastPhaseRef = useRef<string | null>(null);
 
   const timer = useMemo(() => config ? new Timer({
     workDurationMinutes: config.workDuration,
@@ -47,13 +47,14 @@ export function PomodoroApp() {
   const { isSupported: isPipSupported, isOpen: isPipOpen, pipWindow, toggle: togglePip } = usePictureInPicture();
 
   // Phase change: sound + browser notification
+  const currentPhase = session?.currentPhase;
   useEffect(() => {
-    if (session && session.currentPhase !== lastPhase) {
+    if (currentPhase && currentPhase !== lastPhaseRef.current) {
       playNotificationSound();
-      sendPhaseNotification(session.currentPhase);
-      setLastPhase(session.currentPhase);
+      sendPhaseNotification(currentPhase);
+      lastPhaseRef.current = currentPhase;
     }
-  }, [session?.currentPhase, lastPhase]);
+  }, [currentPhase]);
 
   // Tab visibility: show floating widget when tab hidden and running
   useEffect(() => {

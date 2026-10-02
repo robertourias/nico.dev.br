@@ -32,6 +32,7 @@ export function useHistory(): UseHistoryReturn {
   // Load history on mount
   useEffect(() => {
     const loadedHistory = storage.loadHistory();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hidratação de localStorage pós-mount; ler no inicializador causaria mismatch de hidratação SSR
     setHistory(loadedHistory);
     setRecords(loadedHistory.getRecords());
     setIsLoaded(true);
