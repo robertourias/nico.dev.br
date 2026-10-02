@@ -142,6 +142,7 @@ interface ResultCardProps { /* existentes */ monthlyTotal?: number }
 
 <!-- Preenchido pelo /hands-on: achados 🟢/💡 da review por onda e da final. -->
 - [onda 2] docs/apps/tools/specs/2026-10-02-renda-efetiva-mensal.md:109 — indentação da Pendência Manual da T3 alinhada com T1/T2 (corrigido). - [onda 2] lint do app sai 1 por 34 problemas pré-existentes em outros arquivos; arquivos alterados limpos (dívida, não regressão).
+- [final] apps/tools/src/app/clt-pj/_components/result-tables.tsx:249 — `pt-3 pb-1` na linha Mensal + `py-3` no total pode gerar espaçamento assimétrico; avaliar no navegador junto da Pendência Manual.
 
 ---
 
