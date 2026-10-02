@@ -1,6 +1,7 @@
 # Spec & Plan: Renda Efetiva Mensal x Completa nos resultados de clt-pj
 
-**Status:** review
+**Status:** approved
+**Aprovado por:** Roberto Nicoletti em 2026-10-02
 **Data:** 2026-10-02
 **Autor:** Claude (planner)
 
