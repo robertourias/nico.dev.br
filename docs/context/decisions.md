@@ -156,24 +156,12 @@ module/
 
 ---
 
-## Skills Catalog (skills.nico.dev.br)
+## Skills Catalog (skills.nico.dev.br) — removido
 
-- App estático em `apps/skills` (decisão de 2026-09-24). Next.js com `output: 'export'`; nenhum serviço em runtime.
-- **Backend:** nenhum. Sem `apps/api`, ORM, banco, auth, fila ou cache. Não segue a seção "Backend" acima (Clean Architecture/Prisma/Redis não se aplicam).
-- **Registry:** `scripts/build-registry.ts` (gray-matter + Zod) gera `registry.json` no build, como task do Turborepo (pnpm). Erro de schema interrompe o build e informa arquivo e campo; pack que cita skill inexistente também falha.
-- Skills com `metadata.visibility: hidden` ficam fora do build e do `registry.json`.
-- Comandos de instalação vêm de `installCommands` no `registry.json`, nunca montados no cliente.
-- **Markdown (TASK07, 2026-09-27):** `SKILL.md` → HTML sanitizado via pipeline `unified` direto (`remark-parse` + `remark-gfm` + `remark-rehype` + `rehype-highlight` + `rehype-sanitize` + `rehype-stringify`), **não** o componente `<ReactMarkdown>`: a página de detalhe (`/s/[slug]`) é um Server Component 100% estático, então gerar a string HTML no build (`src/lib/markdown.ts`, função pura `renderSkillMarkdown`) é testável com `node --test` (sem harness de componente no app) e não envia parser de Markdown para o bundle do cliente. Schema de sanitização estendido para preservar `className` de `rehype-highlight` (`language-*`/`hljs`/`hljs-*`) e `aria-label` de checkboxes de lista de tarefa GFM (ver abaixo). Busca client-side com Fuse.js.
-- **Checkbox de lista de tarefa GFM (TASK07):** `remark-gfm` gera `<input type="checkbox" disabled>` como irmão solto do texto do item, sem `<label>` — achado real do axe-core (regra `label`, crítico) na verificação em navegador. Plugin próprio `rehypeLabelTaskListCheckboxes` (`src/lib/markdown.ts`) roda antes do `rehype-sanitize` e copia o texto do `<li>` para `aria-label` do `<input>`.
-- **Exceção "nunca hex direto" (TASK07):** tema de syntax highlight do `highlight.js` (`github.css`/`github-dark.css`, oficiais, um por `@media (prefers-color-scheme: ...)` em `globals.css`) usa cores fixas de terceiros — não há token semântico equivalente às ~20 cores de um tema de highlight. Isolado por media query real (não a classe `.dark`, que só existe após hidratação) para casar com o SO desde o primeiro paint. Verificado sem violação de contraste no tema real (escuro) da máquina de desenvolvimento; tema claro não verificado ao vivo (sem forma de emular `prefers-color-scheme` nas ferramentas de navegador desta sessão — ambos os temas usam paletas oficiais do highlight.js, alto contraste por padrão).
-- **Conteúdo (2026-09-25):** skills e packs vivem no repo `robertourias/skills`; o site os busca no build (`pnpm --filter @nico.dev/skills content:sync`, task Turbo `content:sync` antes de `registry`). `SKILLS_REF` fixa branch/tag/SHA (padrão `main`); `SKILLS_ROOT` usa checkout local e desliga o sync. `content/skills/*` e `content/packs/*` são gitignored. Idioma da `description`: inglês (agentes acionam a skill por esse campo). Corpo das skills pode ser PT ou EN.
-- **Pin temporário de produção (TASK09, 2026-09-29):** o build de produção (`apps/skills/Dockerfile`) fixa `SKILLS_REF=e137566fc94a63c3708cc720cfa62cadc73ab5ff` (não `main`) porque o `main` atual de `robertourias/skills` tem a skill `playwright-review` com `metadata.category: testing`, fora da tupla `CATEGORIES` — quebra `build-registry.ts`. Reverter para `main` só depois da correção upstream. Ver `docs/specs/2026-09-29-skills-deploy-vps.md`.
-- **Deploy:** GitHub Actions → imagem `nginx:alpine` no GHCR → SSH na VPS (`docker compose pull && docker compose up -d`), Traefik com TLS Let's Encrypt. PRs rodam só validação, registry e `next build`.
-- **Frontend:** Next.js App Router estático (Server Components por padrão), Tailwind v4 com tokens Nocturne, Lucide React.
-- **Exceção ao padrão global:** sem Zustand, sem React Hook Form + Zod, sem TanStack Query. O app não tem mutações, formulários nem fetch em runtime; `registry.json` é lido no build e a busca é local (Fuse.js). Único estado persistido no cliente: aba escolhida do `<InstallCommand>` em `localStorage`.
-- `<InstallCommand>` (e demais peças novas de UI) entram em `packages/ui` (`@nico.dev/ui`) antes de serem usados no app, conforme a regra do design system.
-- Tema claro/escuro via `prefers-color-scheme`.
-- Produto e glossário: `docs/context/product.md`.
+- `apps/skills` foi removido do monorepo em 2026-10-02 (decisão do usuário: não será mais utilizado). Código, Dockerfile, compose e conteúdo sincronizado saíram juntos; o histórico segue no git e as specs em `docs/archive/*skills*`.
+- `@nico.dev/ui` (`InstallCommand`, `InstallCommandTabs`, `CopyButton`, `useStoredValue`) permanece em `packages/ui`; hoje o consumidor é o Storybook.
+- Fonte de conteúdo `robertourias/skills` é independente do monorepo e não foi afetada.
+- Infra fora do repo (container/Traefik em `/opt/docker/skills-catalog/` na VPS, DNS e projeto Vercel de `skills.nico.dev.br`) não é gerida por este repo: desativar manualmente.
 
 ### Testes de componentes em `packages/ui` (2026-09-25)
 

@@ -4,7 +4,7 @@
 > Não edite manualmente durante uma sessão ativa — use `/checkpoint` antes de fechar.
 
 **Última atualização:** 2026-09-30
-**Resumo de progresso global:** Skills Catalog (skills.nico.dev.br, `apps/skills`) com Fases 1 e 2 completas: scaffold, registry Zod, home, busca/filtros, `/s/[slug]`, bloco skills.sh e deploy manual na VPS (TASK09 `done`, site no ar). Próximas fases no backlog: packs, tópicos, SEO, CI/CD (TASK13).
+**Resumo de progresso global:** `apps/skills` (Skills Catalog) removido do monorepo em 2026-10-02 — não será mais utilizado.
 **Resumo da última sessão:** Corrigido build da Vercel (categoria `testing` adicionada a `CATEGORIES`), TASK09 fechada via `/recheck`, specs concluídas arquivadas.
 
 ---
@@ -18,12 +18,10 @@
 ## Tasks (Foco no Presente)
 
 ### 🔄 Em progresso
-- apps/skills - remover pin de `SKILLS_REF` (Dockerfile:24-27, docker-compose.yml:23) — 0% — próximo passo: `/back apps/skills remover pin de SKILLS_REF (default main)`
+- (nenhuma)
 
 ### ⏭ Próximos passos imediatos
-1. Capturar as 3 telas reais do skills.sh pro bloco "Encontre no skills.sh" (`src/components/skills-sh-block.tsx`) — agora possível: site no ar, precisa de skill indexada no skills.sh
-2. Verificar tema **claro** do highlight.js (`/s/[slug]`) e do bloco skills.sh ao vivo (dev estava em `prefers-color-scheme: dark`)
-3. Planejar TASK13 (CI/CD: GitHub Actions → GHCR → deploy via SSH), desbloqueada pela TASK09
+1. (nenhum)
 
 ---
 

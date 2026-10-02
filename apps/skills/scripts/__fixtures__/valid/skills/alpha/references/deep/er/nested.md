@@ -1,3 +1,0 @@
-# Nested
-
-Arquivo aninhado.

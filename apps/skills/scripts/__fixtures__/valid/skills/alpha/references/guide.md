@@ -1,3 +1,0 @@
-# Guide
-
-Guia de teste.
