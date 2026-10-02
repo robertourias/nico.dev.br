@@ -38,7 +38,7 @@ export default function Contact() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
-    resolver: zodResolver(schema as any),
+    resolver: zodResolver(schema),
     defaultValues: { name: "", email: "", phone: "", message: "" },
   });
 

@@ -44,6 +44,8 @@ export default function ChatWidget() {
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
+    // Hidratação do localStorage pós-mount: ler no render causaria mismatch de SSR.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage só existe no cliente
     setMessages(loadHistory())
     setMounted(true)
 
