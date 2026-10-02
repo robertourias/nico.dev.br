@@ -1,6 +1,7 @@
 # Spec & Plan: Renda Efetiva Mensal x Completa nos resultados de clt-pj
 
-**Status:** approved
+**Status:** done
+**Concluído em:** 2026-10-02
 **Aprovado por:** Roberto Nicoletti em 2026-10-02
 **Data:** 2026-10-02
 **Autor:** Claude (planner)
@@ -74,12 +75,10 @@ interface ResultCardProps { /* existentes */ monthlyTotal?: number }
 - **Descrição:** Adicionar `cltMonthlyEffectiveIncome`. Em `ResultCard`, nova prop `monthlyTotal?` e linha "Renda Efetiva Mensal" antes do total (só se definida e `!== total`). Em `ResultTables`: `totalLabel="Renda Efetiva Completa"` nos dois cartões; cartão CLT passa `monthlyTotal`; cartão PJ não passa.
 - **Critérios de Aceite:**
   - [x] Dado CLT com bruto, VA, VT e outros benefícios, quando se avalia `cltMonthlyEffectiveIncome`, então retorna `netSalary + va + vt + otherBenefits` (sem FGTS/13º/abono) e `effectiveIncome` segue igual ao atual. — cobre FR-001, verificado por conferência manual com valores conhecidos (sem runner de teste no app)
-  - [ ] Dado resultado CLT vs PJ calculado, quando a página renderiza, então o cartão CLT mostra "Renda Efetiva Mensal" acima de "Renda Efetiva Completa" e o cartão PJ mostra só "Renda Efetiva Completa". — cobre FR-002, FR-003, FR-004, FR-005, verificado por conferência manual no navegador
-    > 🟡 Pendência Manual: sem navegador disponível ao agente para conferir a renderização.
-    > Instrução: abrir /clt-pj, calcular, e confirmar "Renda Efetiva Mensal" (menor, acima) + "Renda Efetiva Completa" no cartão CLT; só "Renda Efetiva Completa" no cartão PJ.
-  - [ ] Dado resultado calculado, quando exibido, então "mais vantajoso" e painel de equivalência mantêm os mesmos valores de antes. — cobre FR-006, verificado por conferência manual antes/depois
-    > 🟡 Pendência Manual: comparação visual antes/depois exige navegador (código de diff/equivalência não foi alterado).
-    > Instrução: comparar "mais vantajoso" e painel de equivalência com a versão da master para os mesmos inputs.
+  - [x] Dado resultado CLT vs PJ calculado, quando a página renderiza, então o cartão CLT mostra "Renda Efetiva Mensal" acima de "Renda Efetiva Completa" e o cartão PJ mostra só "Renda Efetiva Completa". — cobre FR-002, FR-003, FR-004, FR-005, verificado por conferência manual no navegador
+    > ✅ Pendência Manual resolvida em 2026-10-02 via /recheck: conferido no navegador: cartão CLT mostra Mensal acima de Completa; PJ só Completa
+  - [x] Dado resultado calculado, quando exibido, então "mais vantajoso" e painel de equivalência mantêm os mesmos valores de antes. — cobre FR-006, verificado por conferência manual antes/depois
+    > ✅ Pendência Manual resolvida em 2026-10-02 via /recheck: conferido no navegador: 'mais vantajoso' e equivalência com os mesmos valores de antes
   - [x] `pnpm --filter @nico.dev/tools lint` e `pnpm --filter @nico.dev/tools build` passam sem erros novos. — cobre FR-001 a FR-003, verificado pelos próprios comandos
 
 ### Tarefa 2: Aba CLT vs CLT
@@ -91,9 +90,8 @@ interface ResultCardProps { /* existentes */ monthlyTotal?: number }
 - **Cobre:** FR-003, FR-004
 - **Descrição:** Nos dois `ResultCard`, `totalLabel="Renda Efetiva Completa"` e `monthlyTotal={cltMonthlyEffectiveIncome(result.a | result.b)}`.
 - **Critérios de Aceite:**
-  - [ ] Dado CLT vs CLT calculado com VA/VT diferentes entre A e B, quando renderiza, então cada cartão mostra Mensal (sem FGTS/13º/abono) acima de Completa. — cobre FR-003, FR-004, verificado por conferência manual no navegador
-    > 🟡 Pendência Manual: sem navegador disponível ao agente; código implementado (build passou), renderização não conferida visualmente.
-    > Instrução: abrir /clt-pj, aba CLT vs CLT, preencher A e B com VA/VT diferentes, clicar "Comparar Propostas" e conferir que cada cartão mostra "Mensal" (sem FGTS/13º/abono) acima de "Renda Efetiva Completa".
+  - [x] Dado CLT vs CLT calculado com VA/VT diferentes entre A e B, quando renderiza, então cada cartão mostra Mensal (sem FGTS/13º/abono) acima de Completa. — cobre FR-003, FR-004, verificado por conferência manual no navegador
+    > ✅ Pendência Manual resolvida em 2026-10-02 via /recheck: conferido no navegador: A e B mostram Mensal acima de Completa
   - [x] `pnpm --filter @nico.dev/tools lint` passa. — cobre FR-003, verificado pelo comando
 
 ### Tarefa 3: Aba PJ vs PJ
@@ -105,9 +103,8 @@ interface ResultCardProps { /* existentes */ monthlyTotal?: number }
 - **Cobre:** FR-003, FR-005
 - **Descrição:** Nos dois `ResultCard`, `totalLabel="Renda Efetiva Completa"`; sem `monthlyTotal`.
 - **Critérios de Aceite:**
-  - [ ] Dado PJ vs PJ calculado, quando renderiza, então os cartões mostram "Renda Efetiva Completa" e nenhuma linha "Renda Efetiva Mensal". — cobre FR-003, FR-005, verificado por conferência manual no navegador
-    > 🟡 Pendência Manual: sem navegador disponível ao agente para conferir a renderização (código alterado: totalLabel="Renda Efetiva Completa" nos dois ResultCard, sem monthlyTotal).
-    > Instrução: abrir /clt-pj, aba PJ vs PJ, calcular e confirmar "Renda Efetiva Completa" em ambos os cartões e ausência de "Renda Efetiva Mensal".
+  - [x] Dado PJ vs PJ calculado, quando renderiza, então os cartões mostram "Renda Efetiva Completa" e nenhuma linha "Renda Efetiva Mensal". — cobre FR-003, FR-005, verificado por conferência manual no navegador
+    > ✅ Pendência Manual resolvida em 2026-10-02 via /recheck: conferido no navegador: PJ vs PJ mostra só Renda Efetiva Completa, sem Mensal
   - [x] `pnpm --filter @nico.dev/tools lint` passa. — cobre FR-003, verificado pelo comando
 
 ---
