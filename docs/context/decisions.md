@@ -163,6 +163,15 @@ module/
 - Fonte de conteúdo `robertourias/skills` é independente do monorepo e não foi afetada.
 - Infra fora do repo (container/Traefik em `/opt/docker/skills-catalog/` na VPS, DNS e projeto Vercel de `skills.nico.dev.br`) não é gerida por este repo: desativar manualmente.
 
+## CI/CD e lint (2026-10-02)
+
+- **Node ≥ 22.13** em todo o repo (`engines` e `setup-node` do workflow): o `pnpm@11.7.0` usa `node:sqlite`; com Node 20 os jobs morriam em ~12s no `setup-node`.
+- **Actions = só verificação** (`.github/workflows/ci.yml`: jobs `ci-*` "Lint & Build", por app, filtrados por `paths-filter`). **Deploy de produção é da integração Git da Vercel**; os passos `vercel deploy --prod` do Actions foram removidos por duplicarem o deploy (e o do blog usava um secret inexistente).
+- **`turbo` pinado** (`2.11.4`) em vez de `latest`: o `latest` fazia o `pnpm-lock.yaml` derivar a cada `pnpm add`.
+- **Todo app com script `lint` precisa de `eslint.config`** (challenges e storybook não tinham). Next: base `@nico.dev/config` + `eslint-config-next`; storybook: base + `typescript-eslint`. O blog não tem script de lint.
+- **`react-hooks/set-state-in-effect` (React 19):** preferir estado derivado, inicializador lazy ou handler. `eslint-disable-next-line ... -- <causa>` só para hidratação de `localStorage` (cliente-only, evita mismatch de SSR) e Web Worker só no browser; nunca disable genérico.
+- `gh` / Vercel: GitHub Pages do repo foi desligado (publicava o repo inteiro via Jekyll e falhava a cada push). Projetos Vercel `nico-dev-br-skills` e `nico-dev-skills` removidos junto com `apps/skills`.
+
 ### Testes de componentes em `packages/ui` (2026-09-25)
 
 - Vitest + Testing Library (jsdom), configurados na TASK04. Desvio do "Jest" citado em "Testes frontend": Jest nunca foi configurado no monorepo para o frontend.

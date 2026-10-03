@@ -8,4 +8,4 @@
 
 | ID | Título | Descrição | Status | Dependências | Spec |
 |----|--------|-----------|--------|--------------|------|
-| TOOLS-TASK01 | Formulários de preenchimento em clt-pj | Ao clicar nas opções CLT, CLT & PJ e PJ, adicionar os respectivos formulários e apresentar a diferença calculada (conforme existe hoje em "clt e pj"). | done | — | docs/apps/tools/specs/2026-10-01-clt-pj-forms.md |
+| TOOLS-TASK01 | Formulários de preenchimento em clt-pj | Ao clicar nas opções CLT, CLT & PJ e PJ, adicionar os respectivos formulários e apresentar a diferença calculada (conforme existe hoje em "clt e pj"). | done | — | docs/apps/tools/archive/2026-10-01-clt-pj-forms.md |

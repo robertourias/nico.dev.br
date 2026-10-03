@@ -25,8 +25,8 @@
 | Cache | Redis | |
 | Fila | Nenhuma por enquanto | |
 | Hosting | Vercel + Railway | Frontend: Vercel, Backend+DB: Railway |
-| CI/CD | GitHub Actions | |
-| Node.js | >=20 | |
+| CI/CD | GitHub Actions (só lint + build) + deploy pela integração Git da Vercel | 2026-10-02 |
+| Node.js | >=22.13 (exigência do pnpm 11) | 2026-10-02 |
 
 ## Fluxo de dados
 
