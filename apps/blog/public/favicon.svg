@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Blog Nicoletti</title>
+  <rect width="64" height="64" rx="14" fill="#0a0a0f"/>
+  <path fill="#e8c547" d="M20 10h24a12 12 0 0 1 12 12v12a12 12 0 0 1-12 12H32L18 58l2-12a12 12 0 0 1-12-12V22a12 12 0 0 1 12-12z"/>
+  <path fill="none" stroke="#0a0a0f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M23 38V19l18 19V19"/>
+  <path fill="#7b61ff" stroke="#0a0a0f" stroke-width="2" stroke-linejoin="round" d="M52 4l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
+</svg>
