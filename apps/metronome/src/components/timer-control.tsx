@@ -1,7 +1,7 @@
 "use client";
 
 import { Input, Label, Switch } from "@nico.dev/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface TimerControlProps {
   enabled: boolean;
@@ -40,19 +40,16 @@ export function TimerControl({
   remainingSeconds,
   isPlaying,
 }: TimerControlProps) {
-  const [draft, setDraft] = useState(formatTime(totalSeconds));
-
-  useEffect(() => {
-    setDraft(formatTime(totalSeconds));
-  }, [totalSeconds]);
+  // null = not editing; the input mirrors totalSeconds
+  const [editDraft, setEditDraft] = useState<string | null>(null);
+  const draft = editDraft ?? formatTime(totalSeconds);
 
   const commitDraft = () => {
     const parsed = parseTime(draft);
     if (parsed !== null && parsed > 0) {
       onTotalSecondsChange(parsed);
-    } else {
-      setDraft(formatTime(totalSeconds));
     }
+    setEditDraft(null);
   };
 
   return (
@@ -79,7 +76,7 @@ export function TimerControl({
                 <Input
                   className="w-20 h-7 text-center text-sm px-2"
                   value={draft}
-                  onChange={(e) => setDraft(e.target.value)}
+                  onChange={(e) => setEditDraft(e.target.value)}
                   onBlur={commitDraft}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") (e.target as HTMLInputElement).blur();

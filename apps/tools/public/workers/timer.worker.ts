@@ -15,7 +15,7 @@ interface TimerState {
   lastSyncTime: number;
 }
 
-let state: TimerState = {
+const state: TimerState = {
   isRunning: false,
   isPaused: false,
   durationSeconds: 0,

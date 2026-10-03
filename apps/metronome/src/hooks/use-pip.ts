@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 
 export interface UsePictureInPictureReturn {
   isSupported: boolean;
@@ -30,14 +30,16 @@ function copyStylesheets(win: Window) {
   win.document.documentElement.className = document.documentElement.className;
 }
 
+const subscribeNoop = () => () => {};
+
 export function usePictureInPicture(): UsePictureInPictureReturn {
   const [pipWindow, setPipWindow] = useState<Window | null>(null);
-  const [isSupported, setIsSupported] = useState(false);
+  const isSupported = useSyncExternalStore(
+    subscribeNoop,
+    () => "documentPictureInPicture" in window,
+    () => false
+  );
   const pipWindowRef = useRef<Window | null>(null);
-
-  useEffect(() => {
-    setIsSupported("documentPictureInPicture" in window);
-  }, []);
 
   const close = useCallback(() => {
     pipWindowRef.current?.close();

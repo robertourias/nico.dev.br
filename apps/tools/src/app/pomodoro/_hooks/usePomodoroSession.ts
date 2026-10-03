@@ -27,6 +27,7 @@ export function usePomodoroSession(config: Timer | null): UsePomodoroSessionRetu
   // Initialize worker and restore session from storage
   useEffect(() => {
     const manager = new TimerWorkerManager();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Web Worker só existe no browser e a sessão vem do localStorage; criar no render/inicializador quebraria SSR (mismatch de hidratação)
     setWorkerManager(manager);
 
     const savedSession = storage.loadSession();

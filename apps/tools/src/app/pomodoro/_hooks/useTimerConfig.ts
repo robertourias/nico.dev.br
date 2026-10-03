@@ -14,6 +14,7 @@ export function useTimerConfig() {
     const storage = new PomodoroStorage(adapter);
     const savedConfig = storage.loadConfig();
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hidratação de localStorage pós-mount; ler no inicializador causaria mismatch de hidratação SSR
     setConfig(savedConfig);
     setIsLoaded(true);
   }, []);

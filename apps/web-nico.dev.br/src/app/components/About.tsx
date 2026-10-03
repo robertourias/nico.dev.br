@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import ChatCTAButton from "./ChatCTAButton";
 
@@ -42,12 +43,12 @@ export default function About() {
             >
               {t("ctaProjects")}
             </a>
-            <a
+            <Link
               href="/curriculo"
               className="inline-flex items-center gap-2 px-6 py-3 border border-outline-variant text-on-surface rounded-full text-sm font-semibold hover:bg-surface-container transition-all"
             >
               {t("ctaResume")}
-            </a>
+            </Link>
             <ChatCTAButton className="inline-flex items-center gap-2 px-6 py-3 border border-outline-variant text-on-surface rounded-full text-sm font-semibold hover:bg-surface-container transition-all" />
           </div>
         </article>

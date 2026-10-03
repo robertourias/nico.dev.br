@@ -37,16 +37,41 @@ const PERIODS = [
   { label: '5A',  days: 1825 },
 ] as const
 
+// Y-axis tick formatter: adapts precision to the actual data range
+function makeYTickFormatter(data: ChartPoint[] | null): (value: number) => string {
+  if (!data || data.length === 0) return (v: number) => String(v)
+  const values = data.map(d => d.value)
+  const min = Math.min(...values)
+  const max = Math.max(...values)
+  const range = max - min
+
+  return (value: number): string => {
+    if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`
+    if (value >= 100_000)   return `${(value / 1_000).toFixed(0)}k`
+    if (value >= 10_000)    return `${(value / 1_000).toFixed(1)}k`
+    if (value >= 1_000)     return `${(value / 1_000).toFixed(2)}k`
+    // sub-1000: precision based on the data range, not the absolute value
+    if (range >= 100)  return value.toFixed(0)
+    if (range >= 10)   return value.toFixed(1)
+    if (range >= 1)    return value.toFixed(2)
+    if (range >= 0.1)  return value.toFixed(3)
+    if (range >= 0.01) return value.toFixed(4)
+    if (range >= 0.001) return value.toFixed(5)
+    return value.toFixed(6)
+  }
+}
+
 export function ExchangeChart({ from, to }: ExchangeChartProps) {
   const [days, setDays] = useState(365)
   const [data, setData] = useState<ChartPoint[] | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [settledKey, setSettledKey] = useState<string | null>(null)
+  const [errorState, setErrorState] = useState<string | null>(null)
+  const requestKey = `${from}|${to}|${days}`
+  const loading = settledKey !== requestKey
+  const error = loading ? null : errorState
 
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
-    setError(null)
 
     fetch(`/api/exchange-history?from=${from}&to=${to}&days=${days}`)
       .then(res => {
@@ -56,16 +81,17 @@ export function ExchangeChart({ from, to }: ExchangeChartProps) {
       .then(({ labels, values }) => {
         if (cancelled) return
         setData(labels.map((date, i) => ({ date, value: values[i] })))
-        setLoading(false)
+        setErrorState(null)
+        setSettledKey(requestKey)
       })
       .catch(() => {
         if (cancelled) return
-        setError('Não foi possível carregar o histórico para este período.')
-        setLoading(false)
+        setErrorState('Não foi possível carregar o histórico para este período.')
+        setSettledKey(requestKey)
       })
 
     return () => { cancelled = true }
-  }, [from, to, days])
+  }, [from, to, days, requestKey])
 
   // Y-axis domain: tight around data range + 3% padding
   const yDomain = useMemo(() => {
@@ -78,29 +104,7 @@ export function ExchangeChart({ from, to }: ExchangeChartProps) {
     return [min - pad, max + pad] as [number, number]
   }, [data])
 
-  // Y-axis tick formatter: adapts precision to the actual data range
-  const yTickFormatter = useMemo(() => {
-    if (!data || data.length === 0) return (v: number) => String(v)
-    const values = data.map(d => d.value)
-    const min = Math.min(...values)
-    const max = Math.max(...values)
-    const range = max - min
-
-    return (value: number): string => {
-      if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`
-      if (value >= 100_000)   return `${(value / 1_000).toFixed(0)}k`
-      if (value >= 10_000)    return `${(value / 1_000).toFixed(1)}k`
-      if (value >= 1_000)     return `${(value / 1_000).toFixed(2)}k`
-      // sub-1000: precision based on the data range, not the absolute value
-      if (range >= 100)  return value.toFixed(0)
-      if (range >= 10)   return value.toFixed(1)
-      if (range >= 1)    return value.toFixed(2)
-      if (range >= 0.1)  return value.toFixed(3)
-      if (range >= 0.01) return value.toFixed(4)
-      if (range >= 0.001) return value.toFixed(5)
-      return value.toFixed(6)
-    }
-  }, [data])
+  const yTickFormatter = makeYTickFormatter(data)
 
   // X-axis tick interval and formatter based on period and data density
   const xConfig = useMemo(() => {

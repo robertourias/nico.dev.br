@@ -84,7 +84,7 @@ export function useMetronome(): MetronomeState & MetronomeActions {
   }, []);
 
   // ── Scheduler loop: runs every 25ms, looks 100ms ahead ──────────────────
-  const scheduler = useCallback(() => {
+  const scheduler = useCallback(function tick() {
     const ctx = audioCtxRef.current;
     if (!ctx) return;
 
@@ -98,11 +98,11 @@ export function useMetronome(): MetronomeState & MetronomeActions {
         (currentBeatRef.current + 1) % beatsRef.current;
     }
 
-    schedulerTimerRef.current = setTimeout(scheduler, 25);
+    schedulerTimerRef.current = setTimeout(tick, 25);
   }, [scheduleNote]);
 
   // ── rAF loop: syncs visual beat to audio time ────────────────────────────
-  const draw = useCallback(() => {
+  const draw = useCallback(function frame() {
     const ctx = audioCtxRef.current;
     if (ctx) {
       while (
@@ -113,7 +113,7 @@ export function useMetronome(): MetronomeState & MetronomeActions {
         notesInQueue.current.shift();
       }
     }
-    rafRef.current = requestAnimationFrame(draw);
+    rafRef.current = requestAnimationFrame(frame);
   }, []);
 
   // ── Internal stop (no timer reset — caller decides) ──────────────────────
@@ -166,18 +166,12 @@ export function useMetronome(): MetronomeState & MetronomeActions {
   // ── Timer countdown ──────────────────────────────────────────────────────
   useEffect(() => {
     if (!isPlaying || !timerEnabled || timerRemaining <= 0) return;
-    const id = setTimeout(
-      () => setTimerRemaining((prev) => prev - 1),
-      1000
-    );
+    const id = setTimeout(() => {
+      setTimerRemaining(timerRemaining - 1);
+      // Auto-stop when the timer reaches 0
+      if (timerRemaining - 1 <= 0) stopEngine();
+    }, 1000);
     return () => clearTimeout(id);
-  }, [isPlaying, timerEnabled, timerRemaining]);
-
-  // ── Auto-stop when timer reaches 0 ──────────────────────────────────────
-  useEffect(() => {
-    if (isPlaying && timerEnabled && timerRemaining === 0) {
-      stopEngine();
-    }
   }, [isPlaying, timerEnabled, timerRemaining, stopEngine]);
 
   // ── Cleanup on unmount ───────────────────────────────────────────────────

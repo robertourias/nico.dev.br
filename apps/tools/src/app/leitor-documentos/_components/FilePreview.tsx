@@ -24,9 +24,10 @@ export function FilePreview({ file, onRemove, isAnalyzing }: FilePreviewProps) {
 
   useEffect(() => {
     if (!isImage) return
-    const url = URL.createObjectURL(file)
-    setThumbnailUrl(url)
-    return () => URL.revokeObjectURL(url)
+    const reader = new FileReader()
+    reader.onload = () => setThumbnailUrl(reader.result as string)
+    reader.readAsDataURL(file)
+    return () => reader.abort()
   }, [file, isImage])
 
   return (

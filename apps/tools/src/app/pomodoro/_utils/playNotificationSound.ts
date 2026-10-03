@@ -7,7 +7,7 @@ function initializeAudioContext(): void {
 
   if (typeof window !== 'undefined' && !audioContext) {
     try {
-      const context = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const context = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
       audioContext = context;
       hasUserInteraction = true;
     } catch (error) {

@@ -17,11 +17,13 @@ export function BpmDisplay({ bpm, tempoName, onChange }: BpmDisplayProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (editing) {
-      setDraft(String(bpm));
-      inputRef.current?.select();
-    }
-  }, [editing, bpm]);
+    if (editing) inputRef.current?.select();
+  }, [editing]);
+
+  const startEditing = () => {
+    setDraft(String(bpm));
+    setEditing(true);
+  };
 
   const commit = () => {
     const parsed = parseInt(draft, 10);
@@ -51,7 +53,7 @@ export function BpmDisplay({ bpm, tempoName, onChange }: BpmDisplayProps) {
         />
       ) : (
         <button
-          onClick={() => setEditing(true)}
+          onClick={startEditing}
           aria-label={`BPM: ${bpm}. Clique para editar`}
           className="text-8xl font-bold tracking-tight leading-none text-foreground hover:text-primary transition-colors cursor-text select-none"
         >
