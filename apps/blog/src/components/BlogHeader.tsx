@@ -23,7 +23,10 @@ export function BlogHeader() {
           empurra Actions pro fim, já que não há mais Header.Nav no meio. */}
       <div className="mr-auto">
         <Header.Logo href="/" label="Blog Nicoletti">
-          Blog <span className="text-text-highlight">Nicoletti</span>
+          <img src="/logo.svg" alt="" width={28} height={28} className="h-7 w-7 shrink-0" />
+          <span>
+            Blog <span className="text-text-highlight">Nicoletti</span>
+          </span>
         </Header.Logo>
       </div>
 
