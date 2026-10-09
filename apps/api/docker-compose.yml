@@ -44,7 +44,7 @@ services:
       PORT: 3001
       NODE_ENV: development
     ports:
-      - '3001:3001'
+      - '3201:3001'
     depends_on:
       postgres:
         condition: service_healthy

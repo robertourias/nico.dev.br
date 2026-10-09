@@ -49,7 +49,7 @@ A partir da **raiz do monorepo** (o build da imagem usa a raiz como contexto):
 docker compose -f apps/api/docker-compose.yml up -d
 ```
 
-Isso sobe `postgres` (`5432`), `redis` (`6379`) e `api` (`3001`) na mesma rede
+Isso sobe `postgres` (`5432`), `redis` (`6379`) e `api` (`3201` no host → `3001` no container) na mesma rede
 Docker, com portas publicadas no host só por conveniência de dev (psql/redis-cli
 direto da máquina). Credenciais e `DATABASE_URL`/`REDIS_URL` já vêm hardcoded no
 próprio `docker-compose.yml` para esse cenário — não precisa de `.env` pra isso.
@@ -65,8 +65,8 @@ pnpm --filter @nico.dev/api prisma:migrate   # aplica/cria migrations em dev
 pnpm --filter @nico.dev/api dev              # tsx --watch src/main.ts
 ```
 
-API em `http://localhost:3001/api/v1`, Swagger em
-`http://localhost:3001/api/v1/docs` (autenticar no Swagger com o mesmo valor de
+API em `http://localhost:3201/api/v1`, Swagger em
+`http://localhost:3201/api/v1/docs` (autenticar no Swagger com o mesmo valor de
 `CLAPS_API_SECRET` do `.env`, no header `X-Internal-Secret`).
 
 ### Scripts úteis (`pnpm --filter @nico.dev/api <script>`)
