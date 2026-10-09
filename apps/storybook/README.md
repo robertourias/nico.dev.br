@@ -8,7 +8,7 @@ Catálogo visual de todos os componentes de `@nico.dev/ui`. É a referência viv
 pnpm dev --filter @nico.dev/storybook
 ```
 
-Abre em **http://localhost:6006**
+Abre em **http://localhost:6106**
 
 Para rodar a partir da raiz do monorepo com os outros apps:
 

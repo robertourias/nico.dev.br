@@ -114,5 +114,5 @@ Para visualizar as stories:
 
 ```bash
 pnpm dev --filter @nico.dev/storybook
-# Abre em http://localhost:6006
+# Abre em http://localhost:6106
 ```

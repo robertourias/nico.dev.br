@@ -14,7 +14,7 @@ npm install
 npm run dev
 ```
 
-3. Acesse no navegador: http://localhost:3000
+3. Acesse no navegador: http://localhost:3100
 
 ## Tecnologias
 

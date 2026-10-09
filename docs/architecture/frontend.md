@@ -9,11 +9,11 @@ Todos na versão `next@16.2.6`, `react@19.2.4`, `tailwindcss@^4`, `@nico.dev/ui`
 
 | App | Porta dev | Stack extra observada |
 |-----|-----------|------------------------|
-| `apps/web-nico.dev.br` | 3000 | `next-intl` (i18n pt/en/es), `react-hook-form` + `zod` + `@hookform/resolvers`, `embla-carousel`, `resend` (contato), `@anthropic-ai/sdk` (chat IA), `@vercel/analytics` + `@vercel/speed-insights` |
-| `apps/tools` | 3001 | `@anthropic-ai/sdk`, `@google/genai`, `recharts`, `react-syntax-highlighter` — ferramentas com IA/dados |
-| `apps/challenges` | 3002 | Sem libs extras além de `lucide-react` |
-| `apps/metronome` | 3003 | Sem libs extras — puro Next + Web Audio API (nativo do browser) |
-| `apps/criativo` | 3005 | `react-hook-form` + `zod`, `lucide-react` |
+| `apps/web-nico.dev.br` | 3100 | `next-intl` (i18n pt/en/es), `react-hook-form` + `zod` + `@hookform/resolvers`, `embla-carousel`, `resend` (contato), `@anthropic-ai/sdk` (chat IA), `@vercel/analytics` + `@vercel/speed-insights` |
+| `apps/tools` | 3101 | `@anthropic-ai/sdk`, `@google/genai`, `recharts`, `react-syntax-highlighter` — ferramentas com IA/dados |
+| `apps/challenges` | 3102 | Sem libs extras além de `lucide-react` |
+| `apps/metronome` | 3103 | Sem libs extras — puro Next + Web Audio API (nativo do browser) |
+| `apps/criativo` | 3105 | `react-hook-form` + `zod`, `lucide-react` |
 
 `apps/blog` roda Astro, não Next.js — documentado separadamente em `apps/blog/docs/`.
 

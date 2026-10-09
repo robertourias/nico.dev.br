@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Pomodoro Timer E2E', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3001/pomodoro');
+    await page.goto('http://localhost:3101/pomodoro');
     // Wait for app to load
     await page.waitForSelector('input[placeholder="Título da tarefa"]', { timeout: 5000 });
   });

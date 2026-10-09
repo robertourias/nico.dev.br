@@ -64,7 +64,7 @@ Para ver variantes e props de cada componente, rode o Storybook:
 
 ```bash
 pnpm dev --filter @nico.dev/storybook
-# http://localhost:6006
+# http://localhost:6106
 ```
 
 ---

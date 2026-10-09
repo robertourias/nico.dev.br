@@ -19,10 +19,10 @@ Monorepo do portfólio e ferramentas de **nico.dev.br**, gerenciado com **pnpm w
 
 ```
 ├── apps/
-│   ├── web-nico.dev.br   # Site principal (Next.js)         :3000
-│   ├── tools             # Ferramentas internas (Next.js)   :3001
-│   ├── challenges        # Desafios de frontend (Next.js)   :3002
-│   └── storybook         # Catálogo de componentes          :6006
+│   ├── web-nico.dev.br   # Site principal (Next.js)         :3100
+│   ├── tools             # Ferramentas internas (Next.js)   :3101
+│   ├── challenges        # Desafios de frontend (Next.js)   :3102
+│   └── storybook         # Catálogo de componentes          :6106
 │
 ├── packages/
 │   ├── ui                # Design system (@nico.dev/ui)
