@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 340" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="gtm-arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+    <marker id="gtm-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="940" height="340" fill="#0a0a0f"/>
+  <text x="470" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Do evento no site ao relatório</text>
+
+  <rect x="20" y="90" width="185" height="120" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="112" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Seu site</text>
+  <text x="112" y="142" text-anchor="middle" font-size="11" fill="#888898">carrega o snippet do GTM</text>
+  <text x="112" y="160" text-anchor="middle" font-size="11" fill="#888898">e envia eventos com</text>
+  <text x="112" y="176" text-anchor="middle" font-size="11" fill="#a78bfa">dataLayer.push(...)</text>
+  <line x1="207" y1="150" x2="238" y2="150" stroke="#888898" stroke-width="1.5" marker-end="url(#gtm-arr-g)"/>
+
+  <rect x="240" y="60" width="440" height="200" rx="14" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="260" y="85" font-size="12" font-weight="700" fill="#e8c547">Contêiner do GTM</text>
+
+  <rect x="255" y="110" width="120" height="90" rx="12" fill="#0a0a0f" stroke="#ffffff14"/>
+  <text x="315" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Gatilho</text>
+  <text x="315" y="162" text-anchor="middle" font-size="11" fill="#888898">quando disparar</text>
+  <line x1="377" y1="155" x2="398" y2="155" stroke="#e8c547" stroke-width="1.5" marker-end="url(#gtm-arr-y)"/>
+
+  <rect x="400" y="110" width="120" height="90" rx="12" fill="#0a0a0f" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="460" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#e8c547">Tag</text>
+  <text x="460" y="162" text-anchor="middle" font-size="11" fill="#888898">o que enviar</text>
+
+  <rect x="545" y="110" width="120" height="90" rx="12" fill="#0a0a0f" stroke="#ffffff14"/>
+  <text x="605" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Variável</text>
+  <text x="605" y="162" text-anchor="middle" font-size="11" fill="#888898">dados usados</text>
+  <line x1="543" y1="155" x2="522" y2="155" stroke="#888898" stroke-width="1.5" marker-end="url(#gtm-arr-g)"/>
+
+  <line x1="682" y1="120" x2="718" y2="120" stroke="#0f766e" stroke-width="1.5" marker-end="url(#gtm-arr-g)"/>
+  <line x1="682" y1="200" x2="718" y2="200" stroke="#888898" stroke-width="1.5" marker-end="url(#gtm-arr-g)"/>
+
+  <rect x="720" y="92" width="200" height="56" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="820" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#2dd4bf">Google Analytics 4</text>
+  <text x="820" y="134" text-anchor="middle" font-size="11" fill="#888898">relatórios e eventos</text>
+
+  <rect x="720" y="172" width="200" height="56" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="820" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">Outras ferramentas</text>
+  <text x="820" y="214" text-anchor="middle" font-size="11" fill="#888898">anúncios, pixels, etc.</text>
+
+  <text x="470" y="302" text-anchor="middle" font-size="11" fill="#888898">o código do site muda uma vez; o resto se configura na interface do GTM</text>
+</svg>

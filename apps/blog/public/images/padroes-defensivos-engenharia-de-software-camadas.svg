@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 390" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect x="0" y="0" width="940" height="390" fill="#0a0a0f"/>
+  <text x="470" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Camadas de defesa em volta de uma chamada externa</text>
+
+  <rect x="20" y="60" width="520" height="290" rx="14" fill="#111118" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="40" y="84" font-size="12" font-weight="700" fill="#2dd4bf">4 · Fallback</text>
+
+  <rect x="45" y="95" width="470" height="240" rx="14" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="65" y="119" font-size="12" font-weight="700" fill="#a78bfa">3 · Circuit breaker</text>
+
+  <rect x="70" y="130" width="420" height="190" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="90" y="154" font-size="12" font-weight="700" fill="#f0efe8">2 · Retry com backoff e jitter</text>
+
+  <rect x="95" y="165" width="370" height="135" rx="14" fill="#111118" stroke="#ffffff14"/>
+  <text x="115" y="189" font-size="12" font-weight="700" fill="#f0efe8">1 · Timeout</text>
+
+  <rect x="120" y="205" width="320" height="75" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="280" y="248" text-anchor="middle" font-size="12" font-weight="700" fill="#e8c547">Chamada ao serviço externo</text>
+
+  <text x="575" y="95" font-size="12" font-weight="700" fill="#f0efe8">1 · Timeout</text>
+  <text x="575" y="113" font-size="11" fill="#888898">limita quanto tempo você espera;</text>
+  <text x="575" y="128" font-size="11" fill="#888898">chamada lenta não prende recursos</text>
+
+  <text x="575" y="168" font-size="12" font-weight="700" fill="#f0efe8">2 · Retry</text>
+  <text x="575" y="186" font-size="11" fill="#888898">tenta de novo com espera crescente,</text>
+  <text x="575" y="201" font-size="11" fill="#888898">só em falha transitória e idempotente</text>
+
+  <text x="575" y="241" font-size="12" font-weight="700" fill="#a78bfa">3 · Circuit breaker</text>
+  <text x="575" y="259" font-size="11" fill="#888898">para de chamar quem está falhando,</text>
+  <text x="575" y="274" font-size="11" fill="#888898">dando tempo de recuperação ao serviço</text>
+
+  <text x="575" y="314" font-size="12" font-weight="700" fill="#2dd4bf">4 · Fallback</text>
+  <text x="575" y="332" font-size="11" fill="#888898">devolve algo útil quando tudo falhou:</text>
+  <text x="575" y="347" font-size="11" fill="#888898">cache, valor padrão ou modo reduzido</text>
+
+  <text x="470" y="378" text-anchor="middle" font-size="11" fill="#888898">uma ordem comum de composição; ajuste ao seu caso</text>
+</svg>

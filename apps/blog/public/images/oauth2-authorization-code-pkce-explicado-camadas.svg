@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" role="img" aria-labelledby="t d" font-family="'Inter', 'Segoe UI', sans-serif">
+  <title id="t">OIDC, OAuth 2.0 e RBAC em camadas</title>
+  <desc id="d">Três camadas respondem a três perguntas diferentes. OpenID Connect responde quem é o usuário, por meio do id_token. OAuth 2.0 responde o que o aplicativo pode fazer em nome do usuário, por meio do access_token e dos scopes. RBAC na API responde o que o usuário pode fazer, por meio de papéis e permissões. O acesso efetivo exige as duas últimas camadas ao mesmo tempo.</desc>
+  <rect width="800" height="340" fill="#0a0a0f"/>
+  <text x="400" y="38" font-size="20" font-weight="700" text-anchor="middle" fill="#f0efe8">Três perguntas, três camadas</text>
+
+  <rect x="40" y="62" width="720" height="68" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <rect x="40" y="62" width="8" height="68" rx="4" fill="#888898"/>
+  <text x="68" y="90" font-size="13" font-weight="700" fill="#f0efe8">OpenID Connect (OIDC)</text>
+  <text x="68" y="113" font-size="12" fill="#888898">Quem é o usuário?  →  id_token (identidade)</text>
+
+  <rect x="40" y="146" width="720" height="68" rx="12" fill="#111118" stroke="#e8c547"/>
+  <rect x="40" y="146" width="8" height="68" rx="4" fill="#e8c547"/>
+  <text x="68" y="174" font-size="13" font-weight="700" fill="#e8c547">OAuth 2.0</text>
+  <text x="68" y="197" font-size="12" fill="#888898">O que o app pode fazer em nome dele?  →  access_token + scopes</text>
+
+  <rect x="40" y="230" width="720" height="68" rx="12" fill="#111118" stroke="#7b61ff"/>
+  <rect x="40" y="230" width="8" height="68" rx="4" fill="#7b61ff"/>
+  <text x="68" y="258" font-size="13" font-weight="700" fill="#a78bfa">RBAC na API</text>
+  <text x="68" y="281" font-size="12" fill="#888898">O que o usuário pode fazer?  →  papéis e permissões</text>
+
+  <text x="400" y="326" font-size="12" text-anchor="middle" fill="#f0efe8">Acesso efetivo = scope do token E permissão do usuário</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" font-family="'Inter', 'Segoe UI', sans-serif">
+  <rect x="0" y="0" width="780" height="300" fill="#0a0a0f"/>
+  <text x="390" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Quem faz o quê, e quem não faz</text>
+
+  <rect x="20" y="58" width="230" height="220" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="135" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#2dd4bf">Model</text>
+  <text x="135" y="108" text-anchor="middle" font-size="11" fill="#888898">TasksService</text>
+  <text x="135" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#f0efe8">Faz</text>
+  <text x="135" y="158" text-anchor="middle" font-size="11" fill="#888898">valida o título</text>
+  <text x="135" y="174" text-anchor="middle" font-size="11" fill="#888898">guarda e altera as tarefas</text>
+  <text x="135" y="206" text-anchor="middle" font-size="11" font-weight="700" fill="#f0efe8">Não faz</text>
+  <text x="135" y="224" text-anchor="middle" font-size="11" fill="#888898">saber que existe HTTP,</text>
+  <text x="135" y="240" text-anchor="middle" font-size="11" fill="#888898">formulário ou template</text>
+
+  <rect x="275" y="58" width="230" height="220" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="390" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">Controller</text>
+  <text x="390" y="108" text-anchor="middle" font-size="11" fill="#888898">TasksController</text>
+  <text x="390" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#f0efe8">Faz</text>
+  <text x="390" y="158" text-anchor="middle" font-size="11" fill="#888898">traduz a rota em chamadas</text>
+  <text x="390" y="174" text-anchor="middle" font-size="11" fill="#888898">escolhe view ou redirect</text>
+  <text x="390" y="206" text-anchor="middle" font-size="11" font-weight="700" fill="#f0efe8">Não faz</text>
+  <text x="390" y="224" text-anchor="middle" font-size="11" fill="#888898">regra de negócio</text>
+  <text x="390" y="240" text-anchor="middle" font-size="11" fill="#888898">nem montar HTML</text>
+
+  <rect x="530" y="58" width="230" height="220" rx="12" fill="#7b61ff" fill-opacity="0.18" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="645" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#a78bfa">View</text>
+  <text x="645" y="108" text-anchor="middle" font-size="11" fill="#888898">tasks/index.hbs</text>
+  <text x="645" y="140" text-anchor="middle" font-size="11" font-weight="700" fill="#f0efe8">Faz</text>
+  <text x="645" y="158" text-anchor="middle" font-size="11" fill="#888898">transforma dados em HTML</text>
+  <text x="645" y="174" text-anchor="middle" font-size="11" fill="#888898">escapa o conteúdo do usuário</text>
+  <text x="645" y="206" text-anchor="middle" font-size="11" font-weight="700" fill="#f0efe8">Não faz</text>
+  <text x="645" y="224" text-anchor="middle" font-size="11" fill="#888898">regra de negócio</text>
+  <text x="645" y="240" text-anchor="middle" font-size="11" fill="#888898">nem acessar o service</text>
+</svg>

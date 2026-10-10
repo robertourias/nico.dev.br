@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" role="img" aria-labelledby="t d" font-family="'Inter', 'Segoe UI', sans-serif">
+  <title id="t">Caminho de uma requisição protegida por RBAC</title>
+  <desc id="d">A requisição passa primeiro pelo guard de autenticação, que valida o token e descobre quem é o usuário. Depois passa pelo guard de permissões, que compara as permissões exigidas pela rota com as do usuário. Se faltar alguma, responde 403; se tiver todas, executa o handler.</desc>
+  <defs>
+    <marker id="rbac-f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#888898"/>
+    </marker>
+    <marker id="rbac-f2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#e8c547"/>
+    </marker>
+  </defs>
+  <rect width="800" height="300" fill="#0a0a0f"/>
+  <text x="400" y="38" font-size="20" font-weight="700" text-anchor="middle" fill="#f0efe8">Autenticar, autorizar, executar</text>
+
+  <rect x="30" y="90" width="130" height="70" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="95" y="120" font-size="13" font-weight="700" text-anchor="middle" fill="#f0efe8">Requisição</text>
+  <text x="95" y="140" font-size="11" text-anchor="middle" fill="#888898">DELETE /posts/42</text>
+
+  <rect x="210" y="90" width="150" height="70" rx="12" fill="#111118" stroke="#7b61ff"/>
+  <text x="285" y="118" font-size="13" font-weight="700" text-anchor="middle" fill="#a78bfa">AuthGuard</text>
+  <text x="285" y="138" font-size="11" text-anchor="middle" fill="#888898">quem é você?</text>
+
+  <rect x="410" y="90" width="170" height="70" rx="12" fill="#111118" stroke="#e8c547"/>
+  <text x="495" y="118" font-size="13" font-weight="700" text-anchor="middle" fill="#e8c547">PermissionsGuard</text>
+  <text x="495" y="138" font-size="11" text-anchor="middle" fill="#888898">pode fazer isto?</text>
+
+  <rect x="630" y="90" width="140" height="70" rx="12" fill="#111118" stroke="#0f766e"/>
+  <text x="700" y="118" font-size="13" font-weight="700" text-anchor="middle" fill="#2dd4bf">Handler</text>
+  <text x="700" y="138" font-size="11" text-anchor="middle" fill="#888898">executa a ação</text>
+
+  <line x1="162" y1="125" x2="208" y2="125" stroke="#888898" stroke-width="1.8" marker-end="url(#rbac-f1)"/>
+  <line x1="362" y1="125" x2="408" y2="125" stroke="#888898" stroke-width="1.8" marker-end="url(#rbac-f1)"/>
+  <line x1="582" y1="125" x2="628" y2="125" stroke="#e8c547" stroke-width="1.8" marker-end="url(#rbac-f2)"/>
+  <text x="605" y="112" font-size="11" text-anchor="middle" fill="#e8c547" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">tem</text>
+
+  <!-- saídas de erro -->
+  <line x1="285" y1="162" x2="285" y2="228" stroke="#888898" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#rbac-f1)"/>
+  <rect x="215" y="230" width="140" height="42" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="285" y="256" font-size="12" text-anchor="middle" fill="#f0efe8">401 Unauthorized</text>
+  <text x="297" y="200" font-size="11" fill="#888898" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">sem token válido</text>
+
+  <line x1="495" y1="162" x2="495" y2="228" stroke="#888898" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#rbac-f1)"/>
+  <rect x="425" y="230" width="140" height="42" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="495" y="256" font-size="12" text-anchor="middle" fill="#f0efe8">403 Forbidden</text>
+  <text x="507" y="200" font-size="11" fill="#888898" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">falta permissão</text>
+</svg>

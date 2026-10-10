@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="mvc-fluxo-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#888898"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="800" height="350" fill="#0a0a0f"/>
+  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Caminho de uma requisição no MVC</text>
+
+  <rect x="20" y="80" width="150" height="90" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="95" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#f0efe8">Navegador</text>
+  <text x="95" y="136" text-anchor="middle" font-size="11" fill="#888898">formulário HTML</text>
+
+  <rect x="325" y="80" width="150" height="90" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="400" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#e8c547">Controller</text>
+  <text x="400" y="128" text-anchor="middle" font-size="11" fill="#888898">TasksController</text>
+  <text x="400" y="146" text-anchor="middle" font-size="11" fill="#888898">recebe e coordena</text>
+
+  <rect x="630" y="80" width="150" height="90" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="705" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#2dd4bf">Model</text>
+  <text x="705" y="128" text-anchor="middle" font-size="11" fill="#888898">TasksService</text>
+  <text x="705" y="146" text-anchor="middle" font-size="11" fill="#888898">regras e dados</text>
+
+  <rect x="325" y="240" width="150" height="90" rx="12" fill="#7b61ff" fill-opacity="0.18" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="400" y="266" text-anchor="middle" font-size="13" font-weight="700" fill="#a78bfa">View</text>
+  <text x="400" y="288" text-anchor="middle" font-size="11" fill="#888898">tasks/index.hbs</text>
+  <text x="400" y="306" text-anchor="middle" font-size="11" fill="#888898">monta o HTML</text>
+
+  <line x1="170" y1="110" x2="323" y2="110" stroke="#888898" stroke-width="1.5" marker-end="url(#mvc-fluxo-arrow)"/>
+  <text x="247" y="100" text-anchor="middle" font-size="11" fill="#f0efe8">1 · POST /tasks</text>
+
+  <line x1="475" y1="110" x2="628" y2="110" stroke="#888898" stroke-width="1.5" marker-end="url(#mvc-fluxo-arrow)"/>
+  <text x="552" y="100" text-anchor="middle" font-size="11" fill="#f0efe8">2 · create(title)</text>
+
+  <line x1="628" y1="145" x2="475" y2="145" stroke="#888898" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#mvc-fluxo-arrow)"/>
+  <text x="552" y="163" text-anchor="middle" font-size="11" fill="#f0efe8">3 · tarefa ou erro</text>
+
+  <line x1="400" y1="170" x2="400" y2="238" stroke="#888898" stroke-width="1.5" marker-end="url(#mvc-fluxo-arrow)"/>
+  <text x="412" y="208" font-size="11" fill="#f0efe8">4 · render(view, dados)</text>
+
+  <path d="M325 285 H95 V172" fill="none" stroke="#888898" stroke-width="1.5" marker-end="url(#mvc-fluxo-arrow)"/>
+  <text x="210" y="275" text-anchor="middle" font-size="11" fill="#f0efe8">5 · HTML na resposta</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" role="img" aria-labelledby="t d" font-family="'Inter', 'Segoe UI', sans-serif">
+  <title id="t">Modelo de dados do RBAC</title>
+  <desc id="d">Usuário recebe papéis por uma tabela de ligação; papel recebe permissões por outra tabela de ligação. Exemplo: Ana tem o papel admin, que concede post:delete; Cris tem o papel leitor, que concede apenas post:read.</desc>
+  <defs>
+    <marker id="rbac-m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#888898"/>
+    </marker>
+    <marker id="rbac-m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#e8c547"/>
+    </marker>
+  </defs>
+  <rect width="800" height="380" fill="#0a0a0f"/>
+  <text x="400" y="38" font-size="20" font-weight="700" text-anchor="middle" fill="#f0efe8">Usuário → Papel → Permissão</text>
+
+  <!-- caixas -->
+  <rect x="40" y="70" width="190" height="90" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="135" y="100" font-size="13" font-weight="700" text-anchor="middle" fill="#f0efe8">Usuário</text>
+  <text x="135" y="126" font-size="12" text-anchor="middle" fill="#888898">id, email, senha_hash</text>
+
+  <rect x="305" y="70" width="190" height="90" rx="12" fill="#111118" stroke="#7b61ff"/>
+  <text x="400" y="100" font-size="13" font-weight="700" text-anchor="middle" fill="#a78bfa">Papel (role)</text>
+  <text x="400" y="126" font-size="12" text-anchor="middle" fill="#888898">id, nome (admin, editor…)</text>
+
+  <rect x="570" y="70" width="190" height="90" rx="12" fill="#111118" stroke="#e8c547"/>
+  <text x="665" y="100" font-size="13" font-weight="700" text-anchor="middle" fill="#e8c547">Permissão</text>
+  <text x="665" y="126" font-size="12" text-anchor="middle" fill="#888898">id, chave (post:delete)</text>
+
+  <!-- setas -->
+  <line x1="232" y1="115" x2="303" y2="115" stroke="#888898" stroke-width="1.8" marker-end="url(#rbac-m1)"/>
+  <line x1="497" y1="115" x2="568" y2="115" stroke="#888898" stroke-width="1.8" marker-end="url(#rbac-m1)"/>
+  <text x="268" y="104" font-size="11" text-anchor="middle" fill="#888898" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">N : N</text>
+  <text x="533" y="104" font-size="11" text-anchor="middle" fill="#888898" paint-order="stroke" stroke="#0a0a0f" stroke-width="4">N : N</text>
+
+  <!-- tabelas de ligação -->
+  <text x="268" y="146" font-size="11" text-anchor="middle" fill="#888898">user_roles</text>
+  <text x="533" y="146" font-size="11" text-anchor="middle" fill="#888898">role_permissions</text>
+
+  <!-- exemplo -->
+  <text x="40" y="214" font-size="13" font-weight="700" fill="#f0efe8">Exemplo</text>
+
+  <rect x="40" y="232" width="190" height="52" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="135" y="263" font-size="12" text-anchor="middle" fill="#f0efe8">Ana</text>
+  <rect x="305" y="232" width="190" height="52" rx="12" fill="#111118" stroke="#7b61ff"/>
+  <text x="400" y="263" font-size="12" text-anchor="middle" fill="#a78bfa">admin</text>
+  <rect x="570" y="232" width="190" height="52" rx="12" fill="#111118" stroke="#e8c547"/>
+  <text x="665" y="263" font-size="12" text-anchor="middle" fill="#e8c547">post:delete</text>
+  <line x1="232" y1="258" x2="303" y2="258" stroke="#e8c547" stroke-width="1.8" marker-end="url(#rbac-m2)"/>
+  <line x1="497" y1="258" x2="568" y2="258" stroke="#e8c547" stroke-width="1.8" marker-end="url(#rbac-m2)"/>
+
+  <rect x="40" y="300" width="190" height="52" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="135" y="331" font-size="12" text-anchor="middle" fill="#f0efe8">Cris</text>
+  <rect x="305" y="300" width="190" height="52" rx="12" fill="#111118" stroke="#7b61ff"/>
+  <text x="400" y="331" font-size="12" text-anchor="middle" fill="#a78bfa">leitor</text>
+  <rect x="570" y="300" width="190" height="52" rx="12" fill="#111118" stroke="#e8c547"/>
+  <text x="665" y="331" font-size="12" text-anchor="middle" fill="#e8c547">post:read</text>
+  <line x1="232" y1="326" x2="303" y2="326" stroke="#888898" stroke-width="1.8" marker-end="url(#rbac-m1)"/>
+  <line x1="497" y1="326" x2="568" y2="326" stroke="#888898" stroke-width="1.8" marker-end="url(#rbac-m1)"/>
+</svg>

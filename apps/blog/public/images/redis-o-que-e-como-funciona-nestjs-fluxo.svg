@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" font-family="'Inter', 'Segoe UI', sans-serif">
+  <defs>
+    <marker id="rdsj-arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888898"/>
+    </marker>
+    <marker id="rdsj-arr-y" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e8c547"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="740" height="340" fill="#0a0a0f"/>
+  <text x="370" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#f0efe8">Rate limit dos claps: o caminho de uma requisição</text>
+
+  <rect x="20" y="70" width="200" height="100" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="120" y="98" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">1 · Blog (Astro)</text>
+  <text x="120" y="122" text-anchor="middle" font-size="11" fill="#888898">POST /api/v1/claps/:slug</text>
+  <text x="120" y="138" text-anchor="middle" font-size="11" fill="#888898">com header X-Internal-Secret</text>
+  <line x1="222" y1="120" x2="258" y2="120" stroke="#888898" stroke-width="1.5" marker-end="url(#rdsj-arr-g)"/>
+
+  <rect x="260" y="70" width="200" height="100" rx="12" fill="#111118" stroke="#ffffff14"/>
+  <text x="360" y="98" text-anchor="middle" font-size="12" font-weight="700" fill="#f0efe8">2 · API NestJS</text>
+  <text x="360" y="122" text-anchor="middle" font-size="11" fill="#888898">guards rodam antes do</text>
+  <text x="360" y="138" text-anchor="middle" font-size="11" fill="#888898">controller: segredo, depois limite</text>
+  <line x1="462" y1="120" x2="498" y2="120" stroke="#e8c547" stroke-width="1.5" marker-end="url(#rdsj-arr-y)"/>
+
+  <rect x="500" y="70" width="220" height="100" rx="12" fill="#111118" stroke="#e8c547" stroke-width="1.5"/>
+  <text x="610" y="98" text-anchor="middle" font-size="12" font-weight="700" fill="#e8c547">3 · Redis</text>
+  <text x="610" y="122" text-anchor="middle" font-size="11" fill="#888898">INCR ratelimit:claps:IP</text>
+  <text x="610" y="138" text-anchor="middle" font-size="11" fill="#888898">EXPIRE de 10 s no 1º hit</text>
+
+  <line x1="330" y1="172" x2="260" y2="208" stroke="#888898" stroke-width="1.5" marker-end="url(#rdsj-arr-g)"/>
+  <line x1="390" y1="172" x2="470" y2="208" stroke="#888898" stroke-width="1.5" marker-end="url(#rdsj-arr-g)"/>
+
+  <rect x="90" y="210" width="260" height="80" rx="12" fill="#0f766e" fill-opacity="0.18" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="220" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#2dd4bf">Contador até 20: passa</text>
+  <text x="220" y="260" text-anchor="middle" font-size="11" fill="#888898">o controller segue e o</text>
+  <text x="220" y="276" text-anchor="middle" font-size="11" fill="#888898">Postgres grava o clap</text>
+
+  <rect x="400" y="210" width="260" height="80" rx="12" fill="#111118" stroke="#7b61ff" stroke-width="1.5"/>
+  <text x="530" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">Contador acima de 20: bloqueia</text>
+  <text x="530" y="260" text-anchor="middle" font-size="11" fill="#888898">resposta 429 Too many requests</text>
+  <text x="530" y="276" text-anchor="middle" font-size="11" fill="#888898">e nada é gravado</text>
+
+  <text x="370" y="321" text-anchor="middle" font-size="11" fill="#888898">a chave some sozinha após 10 s e a contagem recomeça do zero</text>
+</svg>
